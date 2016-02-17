@@ -3,3 +3,5 @@ node_modules
 .idea
 dist
 .publish
+.sass-cache
+src/bower_components

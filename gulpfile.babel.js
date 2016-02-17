@@ -29,15 +29,18 @@ const paths = {
   srcCss: 'src/**/*.scss',
   srcImg: 'src/images/**',
   srcLint: ['src/**/*.js', 'test/**/*.js'],
+  srcBower: 'src/bower_components/**/*.js',
   dist: 'dist',
   distJs: 'dist/js',
   distImg: 'dist/images',
+  distBower: 'dist/bower_components',
   distDeploy: './dist/**/*'
 };
 
 const customOpts = {
   entries: [paths.srcJsx],
-  debug: true
+  debug: true,
+  notify: false
 };
 
 const opts = Object.assign({}, watchify.args, customOpts);
@@ -49,7 +52,7 @@ gulp.task('clean', cb => {
 gulp.task('browserSync', () => {
   browserSync({
     server: {
-      baseDir: './'
+      baseDir: ["src", "dist"]
     }
   });
 });
@@ -90,10 +93,16 @@ gulp.task('styles', () => {
   .pipe(rename({extname: ".css"}))
   .pipe(sourcemaps.init())
   .pipe(postcss([vars, extend, nested, autoprefixer, cssnano]))
+  .on('error', notify.onError())
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(paths.dist))
   .pipe(reload({stream: true}));
 });
+
+// function handleError(err) {
+//   console.log(err.toString());
+//   this.emit('end');
+// }
 
 gulp.task('htmlReplace', () => {
   gulp.src('index.html')
@@ -110,6 +119,15 @@ gulp.task('images', () => {
     }))
     .pipe(gulp.dest(paths.distImg));
 });
+
+gulp.task('bower', () => {
+  gulp.src(paths.srcBower,
+    {
+      base: 'src/bower_components'
+    })
+    .pipe(gulp.dest(paths.distBower));
+});
+
 
 gulp.task('lint', () => {
   gulp.src(paths.srcLint)
@@ -128,7 +146,7 @@ gulp.task('deploy', function() {
 });
 
 gulp.task('watch', cb => {
-  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'lint', 'images'], cb);
+  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'images', 'lint'], cb);
 });
 
 gulp.task('build', cb => {
