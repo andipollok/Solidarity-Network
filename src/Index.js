@@ -4,14 +4,15 @@ import { Router, Route } from 'react-router';
 import App from './components/App';
 import PoweredBy from './components/Powered-by';
 import About from './components/About';
+import Nav from './components/Nav';
 
 window.React = React;
 
 render(
   (<Router>
-    <Route path="/" component={App}>
-      <Route path="/about" component={About}/>
-      <Route path="/poweredby" component={PoweredBy}/>
+    <Route name="home" path="/" component={App}>
+      <Route name="about" path="/about" component={About}/>
+      <Route name="pow" path="/poweredby" component={PoweredBy}/>
     </Route>
   </Router>), document.getElementById('content')
 );
