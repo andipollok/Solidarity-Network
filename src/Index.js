@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route } from 'react-router';
 import App from './components/App';
-import PoweredBy from './components/Powered-by';
+import Settings from './components/Settings';
 import About from './components/About';
 import Nav from './components/Nav';
 
@@ -12,7 +12,7 @@ render(
   (<Router>
     <Route name="home" path="/" component={App}>
       <Route name="about" path="/about" component={About}/>
-      <Route name="pow" path="/poweredby" component={PoweredBy}/>
+      <Route name="settings" path="/settings" component={Settings}/>
     </Route>
   </Router>), document.getElementById('content')
 );

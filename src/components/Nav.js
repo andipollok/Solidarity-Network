@@ -7,7 +7,7 @@ import {RouteHandler} from 'react-router';
 class Nav extends React.Component {
   componentDidMount() {
    // var routeName = RouteHandler.getRoutes()[this.getRoutes().length-1].name;
-   console.log(this.props);
+   // console.log(this.props);
 
   }
   constructor(props,context) {
@@ -30,10 +30,7 @@ class Nav extends React.Component {
             </div>
             <div id="navbar" className="navbar-collapse collapse">
               <ul className="nav navbar-nav">
-         
-                <li className="active"><Link  to="#">Home</Link></li>
-                <li><Link activeClassName="active" to="/about">About</Link></li>
-                <li><Link activeClassName="active" to="/contact">Contact</Link></li>
+                <li><Link activeClassName="active" to="/settings">Settings</Link></li>
               </ul>
             </div>
           </div>

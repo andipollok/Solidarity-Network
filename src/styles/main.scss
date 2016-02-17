@@ -1,5 +1,6 @@
 $color_dark: #282828;
 $color_light: #FFF;
+$color_grey: #EAEAEA;
 
 #__bs_notify__ {
   display:none !important;
@@ -9,19 +10,25 @@ body {
   padding-top: 50px;
   padding-bottom: 20px;
   color:$color_dark;
-  background-color:$color_light;
+  background-color:$color_grey;
 }
 
 #content {
-  a {
-    text-decoration:underline;
+  .jumbotron {
+    background-color:$color_grey;
+    text-align:center;
   }
-  a:hover {
-    background-color: red;
-  }
+  #navbar {
+    a {
+      text-decoration:underline;
+    }
+    a:hover {
+      background-color: red;
+    }
 
-  a.navbar-brand {
-    color:$color_light;
+    a.navbar-brand {
+      color:$color_light;
+    }
   }
 
   h1 {

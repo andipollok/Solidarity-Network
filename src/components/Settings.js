@@ -5,8 +5,8 @@ export default React.createClass({
     return (
       <div className="jumbotron">
         <div className="container">
-          <h2>About</h2>
-          <p>This is a prototype for Solidarity Network.</p>
+          <h1>Settings</h1>
+          <p>Here you can change your personal settings for the application.</p>
         </div>
       </div> 
     );

@@ -3,17 +3,18 @@ import {Link}  from 'react-router';
 
 class Start extends React.Component {
   componentDidMount() {
+    console.log("inside start, get communities:", this.props.data.getCommunities());
   }
   constructor(props) {
     super(props);
+    console.log("inside start, get communities:", props.data.getCommunities());
   }
   render() {
     return (
         <div className="jumbotron">
           <div className="container">
-            <h1>Choose your community</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+            <h1>Hello! Where do you live?</h1>
+            <p>Choose your community. You can always change these settings later.</p>
           </div>
         </div>
     );
