@@ -26,6 +26,16 @@ body {
   }
   .top-buffer { margin-top:20px; }
 
+  a:hover .box h2 {
+    color:red;
+    text-decoration: none !important;
+    &:hover {
+      color:green;
+     text-decoration: none !important;
+
+    }
+  }
+
   .box {
     padding:20px;
     height: 300px;
@@ -71,22 +81,38 @@ body {
       }
     }
   }
+  .navbar {
 
-  #navbar {
+    .navbar-toggle {
+      border:none;
+      background-color: $color_highlight;
+      cursor:pointer;
+      color:white;
+      &:hover {
+//        background-color: white;
+      }
+
+    }
     a {
-      text-decoration:underline;
+      font-size:20px;
+//      text-decoration:underline;
     }
     a:hover {
-      background-color: red;
+      background-color: $color_highlight;
     }
 
     a.navbar-brand {
-      color:$color_light;
+      color:white;
     }
-  }
-
-  h1 {
-    font-size:4vw;
+    a.active {
+      color:white;
+    }
+    .navbar-collapse {
+      text-align: center;
+      border:none;
+      box-shadow:none;
+      -webkit-box-shadow:none;
+    }
   }
 
 }

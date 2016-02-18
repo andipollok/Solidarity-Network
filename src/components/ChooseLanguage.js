@@ -2,13 +2,11 @@ import React from 'react';
 import {Link}  from 'react-router';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
-
-import Community from './Community';
-
+import classNames from 'classnames';
 
 Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
 var base = new Airtable().base('appTOXg7AH1lJqSrT');
-var cookieName = 'community';
+var cookieName = 'language';
 
 
 export default class extends React.Component {
@@ -20,7 +18,7 @@ export default class extends React.Component {
 
   componentDidMount() {
     var that = this;
-    base('Communities').select({
+    base('Languages').select({
         maxRecords: 20,
         view: "Main View"
     }).eachPage(function page(records, fetchNextPage) {
@@ -30,14 +28,12 @@ export default class extends React.Component {
               results.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                owner: record.get('Owner'),
-                groups: record.get('Groups'),
-                countMembers: record.get('CountMembers')
+                short: record.get('Short')
               });
 
             }
         });
-        that.setState({communities: results});
+        that.setState({languages: results});
 
     }, function done(error) {
         if (error) {
@@ -48,19 +44,27 @@ export default class extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { communities: [], selected: cookie.load(cookieName) };
+    this.state = { languages: [], selected: cookie.load(cookieName) };
   }
 
   render() {
     var that=this;
-    var communityItem = function(d) {
-      return ( <Community key={d.id} data={d} selected={this.state.selected} onClickHandler={this.onClick.bind(this)}></Community> );
+    var item = function(d, i) {
+      var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
+        {
+          'selected': this.state.selected == d.id
+        }
+      );
+      return (
+        <div key={d.id} className={divClass} onClick={that.onClick.bind(this, d.id)}>
+          <h2>{d.name}</h2>
+        </div> );
     };
 
     return (
       <div className="container">
         <div className="row">
-          {this.state.communities.map(communityItem, this)}
+          {this.state.languages.map(item, this)}
         </div>
       </div>
     );

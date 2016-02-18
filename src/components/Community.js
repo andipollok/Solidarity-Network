@@ -1,7 +1,7 @@
 import React from 'react';
-
 import cookie from 'react-cookie';
-var classNames = require('classnames');
+import classNames from 'classnames';
+
 
 export default class extends React.Component {
 onClickHandlerMine() {
