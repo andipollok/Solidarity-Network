@@ -29,7 +29,7 @@ const paths = {
   srcCss: 'src/**/*.scss',
   srcImg: 'src/images/**',
   srcLint: ['src/**/*.js', 'test/**/*.js'],
-  srcBower: 'src/bower_components/**/*.js',
+  srcBower: ['src/bower_components/**/*.min.js', 'src/bower_components/**/*.min.css'],
   dist: 'dist',
   distJs: 'dist/js',
   distImg: 'dist/images',
@@ -105,7 +105,7 @@ gulp.task('styles', () => {
 // }
 
 gulp.task('htmlReplace', () => {
-  gulp.src('index.html')
+  gulp.src('src/index.html')
   .pipe(htmlReplace({css: 'styles/main.css', js: 'js/app.js'}))
   .pipe(gulp.dest(paths.dist));
 });
@@ -151,5 +151,5 @@ gulp.task('watch', cb => {
 
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
-  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'images'], cb);
+  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'bower', 'images'], cb);
 });
