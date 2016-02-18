@@ -6,7 +6,13 @@ import {RouteHandler} from 'react-router';
 import cookie from 'react-cookie';
 import classNames from 'classnames';
 
-export default class Nav extends React.Component {
+import Reflux from 'reflux';
+import LanguageActions from '../stores/LanguageActions';
+import LanguageStore from '../stores/LanguageStore';
+
+export default React.createClass({
+
+  mixins: [Reflux.connect(LanguageStore, 'language')],
 
   componentDidMount() {
     $('.nav a').click(function(){
@@ -28,12 +34,11 @@ export default class Nav extends React.Component {
       }
     })
 
-  }
+  },
 
-  constructor(props) {
-    super(props);
+  getInitialState(props) {
     this.state = { joined: cookie.load('joined') || false };
-  }
+  },
 
   render() {
     return (
@@ -48,7 +53,7 @@ export default class Nav extends React.Component {
             </div>
             <div id="navbar" className="navbar-collapse collapse">
               <ul className="nav navbar-nav ">
-                <li><Link activeClassName="active" to="/whatsnew">What's new?</Link></li>
+                <li><Link activeClassName="active" to="/whatsnew">What's new? {this.state.language}</Link></li>
                 <li><Link activeClassName="active" to="/photos">Photos</Link></li>
                 <li><Link activeClassName="active" to="/join">Join</Link></li>
                 <li><Link activeClassName="active" to="/settings">Settings</Link></li>
@@ -59,8 +64,5 @@ export default class Nav extends React.Component {
       </div>
     );
   }
-}
+});
 
-Nav.contextTypes = {
-    history: React.PropTypes.object
-};
