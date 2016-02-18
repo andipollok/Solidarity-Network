@@ -1,6 +1,7 @@
 $color_dark: #282828;
 $color_light: #FFF;
 $color_grey: #EAEAEA;
+$color_highlight: #8500FF;
 
 #__bs_notify__ {
   display:none !important;
@@ -16,8 +17,61 @@ body {
 #content {
   .jumbotron {
     background-color:$color_grey;
+  }
+  .centered {
     text-align:center;
   }
+  .white {
+    background-color:white;
+  }
+  .top-buffer { margin-top:20px; }
+
+  .box {
+    padding:20px;
+    height: 300px;
+    &.half {
+      height:120px;
+    }
+
+    &.linked {
+      cursor: pointer;
+    }
+    &.linked:hover {
+      background-color: white;
+      box-sizing: border-box;
+      box-shadow:inset 0px 0px 0px 10px $color_highlight;
+    }
+    &.selected {
+      color:white;
+      background-color: $color_highlight;
+    }
+    &.selected:hover {
+      background-color: $color_highlight;
+    }
+    &.padded[class*="col-"] {
+      background-clip: padding-box;
+      border: 4px solid transparent;
+    }
+
+  }
+
+  .row {
+    &.linked {
+      cursor: pointer;
+      box-sizing: border-box;
+      border: 10px solid transparent;
+    }
+    &.linked:hover {
+      // box-shadow:inset 0px 0px 0px 10px $color_highlight;
+      border: 10px solid $color_highlight;
+      
+      .box {
+        // background-clip: padding-box;
+        // border: 10px solid transparent;
+      }
+    }
+  }
+
   #navbar {
     a {
       text-decoration:underline;

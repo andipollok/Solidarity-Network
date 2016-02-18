@@ -1,28 +1,18 @@
 import React from 'react';
+import Airtable from 'airtable';
+
+Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
+var base = new Airtable().base('appTOXg7AH1lJqSrT');
 
 import { Link }  from 'react-router';
-
 
 import Nav from './Nav';
 import Footer from './Footer';
 import Start from './Start';
 
-import Data from './Data';
 
-var appData = new Data();
+var App = React.createClass({
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    console.log(appData);
-    this.state = {data: appData };
-  }
-  componentWillMount() {
-    appData.callback = (data) => {
-      this.setState({x: "asdf"});
-      console.log("CALLBACK");  
-    };
-  }
   render() {
 
     return (
@@ -30,13 +20,13 @@ class App extends React.Component {
 
         <Nav />
 
-        {this.props.children || <Start data={this.state.data}/>}
+        {this.props.children || <Start />}
 
         <Footer />
 
       </div>
     )
   }
-};
+});
 
 export default App;

@@ -29,7 +29,11 @@ class Nav extends React.Component {
               <Link className="navbar-brand" to="#">Solidarity Network</Link>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
-              <ul className="nav navbar-nav">
+              <ul className="nav navbar-nav ">
+                <li><Link activeClassName="active" to="/whatsnew">What's new?</Link></li>
+                <li><Link activeClassName="active" to="/nearme">Happening near me</Link></li>
+                <li><Link activeClassName="active" to="/photos">Photos</Link></li>
+                <li><Link activeClassName="active" to="/join">Join Service</Link></li>
                 <li><Link activeClassName="active" to="/settings">Settings</Link></li>
               </ul>
             </div>
