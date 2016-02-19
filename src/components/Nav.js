@@ -51,6 +51,7 @@ export default React.createClass({
         menuItems =  
           <ul className="nav navbar-nav ">
             <li><Link activeClassName="active" to="/whatsnew">What's new?</Link></li>
+            <li><Link activeClassName="active" to="/agenda">Agenda</Link></li>
             <li><Link activeClassName="active" to="/photos">Photos</Link></li>
             <li><Link activeClassName="active" to="/settings">Settings</Link></li>
           </ul> 

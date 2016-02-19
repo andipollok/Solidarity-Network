@@ -34,11 +34,11 @@ export default React.createClass({
       );
       var selectJoin =
         <div>
-          <div className={divClassJoinedYes} onClick={this.onClickJoined.bind(this, true)}>
+          <div className={divClassJoinedNo} onClick={this.onClickJoined.bind(this, false)}>
             <h2>New member</h2>
             <p>I have not signed up yet.</p>
           </div>
-          <div className={divClassJoinedNo} onClick={this.onClickJoined.bind(this, false)}>
+          <div className={divClassJoinedYes} onClick={this.onClickJoined.bind(this, true)}>
             <h2>Existing member</h2>
             <p>I have signed up already.</p>
           </div>
