@@ -1,72 +1,56 @@
 import React from 'react';
 import {Link}  from 'react-router';
 import cookie from 'react-cookie';
-import Airtable from 'airtable';
 import classNames from 'classnames';
 
-Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
-var base = new Airtable().base('appTOXg7AH1lJqSrT');
-var cookieName = 'language';
+import Reflux from 'reflux';
+import LanguageActions from '../stores/LanguageActions';
+import LanguageStore from '../stores/LanguageStore';
 
+export default React.createClass({
 
-export default class extends React.Component {
+  mixins: [Reflux.connect(LanguageStore, 'language')],
 
   onClick(id) {
-    cookie.save(cookieName, id, { path: '/' });
-    this.setState({selected: id});
-  }
+    LanguageActions.setLanguage(id);
+  },
 
   componentDidMount() {
-    var that = this;
-    base('Languages').select({
-        maxRecords: 20,
-        view: "Main View"
-    }).eachPage(function page(records, fetchNextPage) {
-        var results = [];
-        records.forEach(function(record) {
-            if (record.get('Name')) {
-              results.push({
-                id: record.getId(),
-                name: record.get('Name'),
-                short: record.get('Short')
-              });
+ 
+  },
 
-            }
-        });
-        that.setState({languages: results});
-
-    }, function done(error) {
-        if (error) {
-            console.log(error);
-        }
-    });
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = { languages: [], selected: cookie.load(cookieName) };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { languages: [], selected: cookie.load(cookieName) };
+  // },
 
   render() {
     var that=this;
-    var item = function(d, i) {
+    var item = function(id, i) {
+      var d = this.state.language.languages[id];
       var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
         {
-          'selected': this.state.selected == d.id
+          'selected': this.state.language.selected === id
         }
       );
       return (
-        <div key={d.id} className={divClass} onClick={that.onClick.bind(this, d.id)}>
+        <div key={id} className={divClass} onClick={that.onClick.bind(this, id)}>
           <h2>{d.name}</h2>
         </div> );
     };
 
+    var selectLanguage = <span>loading…</span>;
+    if (this.state.language && this.state.language.languages) {
+      selectLanguage = <span>{Object.keys(this.state.language.languages).map(item, this)}</span>;
+    }
+
     return (
       <div className="container">
         <div className="row">
-          {this.state.languages.map(item, this)}
+          {selectLanguage}        
         </div>
       </div>
     );
   }
-}
+});
+// 

@@ -16,12 +16,8 @@ export default React.createClass({
 
   componentDidMount() {
     $('.nav a').click(function(){
-       if(!$('#navbar-collapse-button').hasClass('collapsed')) {
-        //(.click();
+      if(!$('#navbar-collapse-button').hasClass('collapsed')) {
         $('#navbar-collapse-button').click();
-        console.log("is collapsed");
-        //this.state.navOpened = true;
-        
       }
     });
     $('#navbar-collapse-button').click(function() {
@@ -30,10 +26,8 @@ export default React.createClass({
       }
       else {
         $('#navbar-collapse-button').html("Close Menu");
-
       }
     })
-
   },
 
   getInitialState(props) {
@@ -41,6 +35,10 @@ export default React.createClass({
   },
 
   render() {
+    var selectedLanguage = <span>none</span>;
+    if (this.state.language && this.state.language.selected) {
+      selectedLanguage = <span>{this.state.language.selected}</span>;
+    }
     return (
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -53,7 +51,7 @@ export default React.createClass({
             </div>
             <div id="navbar" className="navbar-collapse collapse">
               <ul className="nav navbar-nav ">
-                <li><Link activeClassName="active" to="/whatsnew">What's new? {this.state.language}</Link></li>
+                <li><Link activeClassName="active" to="/whatsnew">What's new? {selectedLanguage}</Link></li>
                 <li><Link activeClassName="active" to="/photos">Photos</Link></li>
                 <li><Link activeClassName="active" to="/join">Join</Link></li>
                 <li><Link activeClassName="active" to="/settings">Settings</Link></li>
