@@ -33,8 +33,8 @@ export default React.createClass({
     })
   },
 
-  getInitialState(props) {
-//    this.state = { joined: cookie.load('joined') || false };
+  getInitialState() {
+    return {};
   },
 
   render() {
