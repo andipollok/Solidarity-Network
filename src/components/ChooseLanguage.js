@@ -16,7 +16,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-     LanguageActions.forceTrigger();
+    LanguageActions.forceTrigger();
   },
 
   // constructor(props) {
@@ -27,7 +27,7 @@ export default React.createClass({
   render() {
 
     var that=this;
-    var item = function(id, i) {
+    var languageItem = function(id) {
       var d = this.state.language.languages[id];
       var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
         {
@@ -42,7 +42,7 @@ export default React.createClass({
 
     var selectLanguage = <span>loading…</span>;
     if (this.state.language && this.state.language.languages) {
-      selectLanguage = <span>{Object.keys(this.state.language.languages).map(item, this)}</span>;
+      selectLanguage = <span>{Object.keys(this.state.language.languages).map(languageItem, this)}</span>;
     }
 
     return (

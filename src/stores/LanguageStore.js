@@ -45,6 +45,7 @@ export default Reflux.createStore({
           }
 
           that.setLanguage(data.selected);
+          that.forceTrigger();
 
       }, function done(error) {
           if (error) {

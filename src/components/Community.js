@@ -6,7 +6,10 @@ export default class extends React.Component {
 
   render() {
     var groupText;
-    var countGroups = this.props.data.groups.length;
+    var countGroups = 0;
+    if (this.props.data && this.props.data.groups) {
+      countGroups = this.props.data.groups.length;
+    }
     if (countGroups == 0) {
       groupText = "No groups yet.";
     } else if (countGroups == 1) {

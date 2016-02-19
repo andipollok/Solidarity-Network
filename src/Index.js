@@ -14,6 +14,7 @@ import Whatsnew from './components/Whatsnew';
 import Nearby from './components/Nearby';
 import Photos from './components/Photos';
 import Join from './components/Join';
+import Agenda from './components/Agenda';
 
 window.React = React;
 
@@ -24,6 +25,7 @@ render(
       <Route name="about" path="/about" component={About}/>
       <Route name="settings" path="/settings" component={Settings}/>
       <Route name="nearby" path="/nearby" component={Nearby}/>
+      <Route name="agenda" path="/agenda" component={Agenda}/>
       <Route name="whatsnew" path="/whatsnew" component={Whatsnew}/>
       <Route name="photos" path="/photos" component={Photos}/>
       <Route name="join" path="/join" component={Join}/>
