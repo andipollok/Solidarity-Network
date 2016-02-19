@@ -1,5 +1,4 @@
 import React from 'react';
-import cookie from 'react-cookie';
 import classNames from 'classnames';
 
 
@@ -35,7 +34,7 @@ export default class extends React.Component {
     );
 
     return (
-      <div className={divClass} onClick={this.props.onClickHandler.bind(this, this.props.data.id)}>
+      <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
           <h2>{this.props.data.name}</h2>
           <p>Organised by {this.props.data.owner}</p>
           <p>{membersText}</p>

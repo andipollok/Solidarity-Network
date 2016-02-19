@@ -3,20 +3,28 @@ import {Link}  from 'react-router';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
 
-import Community from './Community';
+import Reflux from 'reflux';
+import StatusActions from '../stores/StatusActions';
+import StatusStore from '../stores/StatusStore';
 
+import Community from './Community';
 
 Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
 var base = new Airtable().base('appTOXg7AH1lJqSrT');
-var cookieName = 'community';
 
 
-export default class extends React.Component {
+export default React.createClass({
 
-  onClick(id) {
-    cookie.save(cookieName, id, { path: '/' });
-    this.setState({selected: id});
-  }
+  mixins: [Reflux.connect(StatusStore, 'status')],
+
+  onClickSelectCommunity(id) {
+    console.log("onClickSelectCommunity", id);
+    StatusActions.setCommunity(id);
+  },
+
+  componentDidMount() {
+     StatusActions.forceTrigger();
+  },
 
   componentDidMount() {
     var that = this;
@@ -49,25 +57,30 @@ export default class extends React.Component {
         }
     });
 
-  }
+  },
 
-  constructor(props) {
-    super(props);
-    this.state = { communities: [], selected: cookie.load(cookieName) };
-  }
+  getInitialState() {
+    return {
+      communities: []
+    }
+  },
 
   render() {
-    var that=this;
-    var communityItem = function(d) {
-      return ( <Community key={d.id} data={d} selected={this.state.selected} onClickHandler={this.onClick.bind(this)}></Community> );
-    };
+    var selectCommunity = <span>loading…</span>;
+    if (this.state.status) {
+      var communityItem = function(d) {
+        // console.log(d.id, that.state.status.community);
+        return ( <Community key={d.id} data={d} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></Community> );
+      }.bind(this);
+      selectCommunity = <span>{this.state.communities.map(communityItem, this)}</span>
+    }
 
     return (
       <div className="container">
         <div className="row">
-          {this.state.communities.map(communityItem, this)}
+          {selectCommunity}
         </div>
       </div>
     );
   }
-}
+});

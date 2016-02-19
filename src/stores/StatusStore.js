@@ -3,11 +3,9 @@ import Actions from './StatusActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
 
-Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
-var base = new Airtable().base('appTOXg7AH1lJqSrT');
-
 var data = {};
-var cookieNameJoin = "joinStatus";
+var cookieNameJoin = "join";
+var cookieNameCommunity = "community";
 
 export default Reflux.createStore({
 
@@ -15,8 +13,10 @@ export default Reflux.createStore({
 
     init: function() {
       var cookieValueJoin = cookie.load(cookieNameJoin) || false;
+      var cookieValueCommunity = cookie.load(cookieNameCommunity) || "";
       data = {
-        join: cookieValueJoin
+        join: cookieValueJoin,
+        community: cookieValueCommunity
       };
       // this.trigger(data);
     },
@@ -24,6 +24,12 @@ export default Reflux.createStore({
     setJoin: function(state) {
       cookie.save(cookieNameJoin, state, { path: '/' });
       data.join = state;
+      this.trigger(data);
+    },
+
+    setCommunity: function(state) {
+      cookie.save(cookieNameCommunity, state, { path: '/' });
+      data.community = state;
       this.trigger(data);
     },
 
