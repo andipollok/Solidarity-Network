@@ -38,9 +38,9 @@ body {
 
   .box {
     padding:20px;
-    height: 300px;
+    min-height: 300px;
     &.half {
-      height:120px;
+      min-height:120px;
     }
 
     &.linked {

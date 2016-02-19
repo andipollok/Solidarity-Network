@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import ChooseCommunity from './ChooseCommunity';
 import ChooseLanguage from './ChooseLanguage';
-import Join from './Join';
+import ChooseJoin from './ChooseJoin';
 
 export default class extends React.Component {
 
@@ -19,7 +19,13 @@ export default class extends React.Component {
         <h2>Where do you live?</h2>
 
         <ChooseCommunity />
-        <Join />
+
+        <h2>Status</h2>
+
+        <p>This setting changes your status from new member to existing member.</p>
+
+        <ChooseJoin />
+
       </div>
 
     );
