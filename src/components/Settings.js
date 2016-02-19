@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import ChooseCommunity from './ChooseCommunity';
 import ChooseLanguage from './ChooseLanguage';
+import Join from './Join';
 
 export default class extends React.Component {
 
@@ -18,7 +19,7 @@ export default class extends React.Component {
         <h2>Where do you live?</h2>
 
         <ChooseCommunity />
-        
+        <Join />
       </div>
 
     );

@@ -60,8 +60,8 @@ export default Reflux.createStore({
       this.trigger(data);
     },
 
-    test: function() {
-      return "hello";
+    forceTrigger: function() {
+      this.trigger(data);
     }
 
 });

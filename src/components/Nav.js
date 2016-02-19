@@ -9,12 +9,15 @@ import classNames from 'classnames';
 import Reflux from 'reflux';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
+import StatusActions from '../stores/StatusActions';
+import StatusStore from '../stores/StatusStore';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(LanguageStore, 'language')],
+  mixins: [Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status')],
 
   componentDidMount() {
+    StatusActions.forceTrigger();
     $('.nav a').click(function(){
       if(!$('#navbar-collapse-button').hasClass('collapsed')) {
         $('#navbar-collapse-button').click();
@@ -31,13 +34,40 @@ export default React.createClass({
   },
 
   getInitialState(props) {
-    this.state = { joined: cookie.load('joined') || false };
+//    this.state = { joined: cookie.load('joined') || false };
   },
 
   render() {
+    
     var selectedLanguage = <span>none</span>;
     if (this.state.language && this.state.language.selected) {
       selectedLanguage = <span>{this.state.language.selected}</span>;
+    }
+
+    var menuItems;
+    if (this.state.status) {
+      if (this.state.status.join === true) {
+        // joined users
+        menuItems =  
+          <ul className="nav navbar-nav ">
+            <li><Link activeClassName="active" to="/whatsnew">What's new?</Link></li>
+            <li><Link activeClassName="active" to="/photos">Photos</Link></li>
+            <li><Link activeClassName="active" to="/settings">Settings</Link></li>
+          </ul> 
+      }
+      else if (this.state.status.join === false) {
+        // new users
+        menuItems =  
+          <ul className="nav navbar-nav ">
+            <li><Link activeClassName="active" to="/whatsnew">What's new?</Link></li>
+            <li><Link activeClassName="active" to="/photos">Photos</Link></li>
+            <li><Link activeClassName="active" to="/join">Join</Link></li>
+            <li><Link activeClassName="active" to="/settings">Settings</Link></li>
+          </ul>
+      }
+    }
+    else {
+      menuItems =  <ul className="nav navbar-nav ">xxxx</ul>
     }
     return (
       <div>
@@ -50,12 +80,7 @@ export default React.createClass({
               <Link className="navbar-brand" to="#">Solidarity Network</Link>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
-              <ul className="nav navbar-nav ">
-                <li><Link activeClassName="active" to="/whatsnew">What's new? {selectedLanguage}</Link></li>
-                <li><Link activeClassName="active" to="/photos">Photos</Link></li>
-                <li><Link activeClassName="active" to="/join">Join</Link></li>
-                <li><Link activeClassName="active" to="/settings">Settings</Link></li>
-              </ul>
+                {menuItems}
             </div>
           </div>
         </nav>

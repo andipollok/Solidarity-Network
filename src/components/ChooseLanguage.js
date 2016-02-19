@@ -16,7 +16,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
- 
+     LanguageActions.forceTrigger();
   },
 
   // constructor(props) {
@@ -25,6 +25,7 @@ export default React.createClass({
   // },
 
   render() {
+
     var that=this;
     var item = function(id, i) {
       var d = this.state.language.languages[id];
