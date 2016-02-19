@@ -27,23 +27,28 @@ export default class extends React.Component {
         var results = [];
         records.forEach(function(record) {
             if (record.get('Name')) {
-              results.push({
-                id: record.getId(),
-                name: record.get('Name'),
-                owner: record.get('Owner'),
-                groups: record.get('Groups'),
-                countMembers: record.get('CountMembers')
-              });
 
+              // get name from owner from table People
+              base('People').find(record.get('Owner'), function(err, recordPerson) {
+                if (err) { console.log(err); return; }
+                results.push({
+                  id: record.getId(),
+                  name: record.get('Name'),
+                  owner: recordPerson.get('Name'),
+                  groups: record.get('Groups'),
+                  countMembers: record.get('CountMembers')
+                });
+                that.setState({communities: results});
+              });
             }
         });
-        that.setState({communities: results});
 
     }, function done(error) {
         if (error) {
             console.log(error);
         }
     });
+
   }
 
   constructor(props) {

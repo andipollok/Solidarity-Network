@@ -4,9 +4,7 @@ import classNames from 'classnames';
 
 
 export default class extends React.Component {
-onClickHandlerMine() {
-  console.log("clicked in child");
-}
+
   render() {
     var groupText;
     var countGroups = this.props.data.groups.length;
