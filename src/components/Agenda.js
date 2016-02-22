@@ -9,6 +9,7 @@ import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
+import ListActivity from './ListActivity';
 
 export default React.createClass({
 
@@ -20,52 +21,63 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
-  onClick(id) {
+  onClickSelectActivity(id) {
     console.log("Clicked on activity " + id);
   },
 
   render() {
+    var communityName = "",
+        communityComponent = "";
+
     if (this.state.status && this.state.status.community) {
-      // var comm = <span>in {this.state.status.community}</span>
-      if (this.state.data && this.state.data.communities && this.state.data.communities[this.state.status.community]) {
-        var communityName = this.state.data.communities[this.state.status.community].name;
-        var comm = <span>in {communityName}</span>
+      if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
+        communityName = this.state.data.communities[this.state.status.community].name;
+        communityComponent = <span>in {communityName}</span>;
       }
     }
-    var that=this;
+
     var activityItem = function(id) {
       var d = this.state.data.activities[id];
-      var divClass = classNames( 'col-md-4', 'box', 'half', 'white', 'linked', 'padded', 'centered',
-        {
-          'selected': false
-        }
-      ); // selected may be needed later
-      return (
-        <div key={id} className={divClass} onClick={that.onClick.bind(this, id)}>
-          <h2>{d.name}</h2>
-          <p>{d.date}</p>
-        </div> );
-    };
-    var listActivities = <span>loading…</span>;
-    if (this.state.data && this.state.data.activities && this.state.status && this.state.status.community) {
-      // todo: filter activities to community
-      var listActivities =  <span>
-        {Object.keys(this.state.data.activities).filter(
-        function(key) {
-          // here we need to look if that activity is in a group that is in this community
-          // console.log(that.state.data.activities[key], that.state.status.community);
-          // return that.state.data.activities[key].community == that.state.status.community;
-          return true;
-        }).map(activityItem, this)}
-      </span>;   
+      return ( <ListActivity key={id} data={d} onClickHandler={this.onClickSelectActivity}></ListActivity> );
+    }.bind(this);
+
+    var myActivities = [],
+        foundActivities = false,
+        loadedData = false;
+
+    if (this.state.data && this.state.data.loaded.activities && this.state.data.groups && this.state.data.loaded.groups && this.state.status && this.state.status.community) {
+      loadedData = true;
+      myActivities = Object.keys(this.state.data.activities).filter(
+        function(activityID) {
+          // check if this activity is in a group that is in this community
+          var activity = this.state.data.activities[activityID];
+          var groupID = activity.group;
+          if (this.state.data.groups[groupID]) {
+            var communityID = this.state.data.groups[groupID].community;
+            return communityID === this.state.status.community;
+          }
+          else {
+            return false;
+          }
+        }.bind(this));
+      if (myActivities.length > 0) { foundActivities = true; }
+    }
+
+    var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
+    if (!foundActivities && loadedData) {
+      listActivities = <div className="container centered box white half"><h2>Sorry, there are no activities planned in {communityName}.</h2></div>;
+    }
+    if (!loadedData) {
+      listActivities = <div className="container centered box white half"><h2>Loading…</h2></div>;
     }
 
     return (
-      <div className="jumbotron">
-        <div className="container centered">
-          <h1>Agenda {comm}</h1>
+      <div>
+        <div className="jumbotron container centered">
+          <h1>Agenda {communityComponent}</h1>
+        </div>{loadedData} {foundActivities}
           {listActivities}
-        </div>
+      
       </div>
     );
   }

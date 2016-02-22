@@ -18,7 +18,7 @@ export default Reflux.createStore({
         join: cookieValueJoin,
         community: cookieValueCommunity
       };
-      // this.trigger(data);
+      this.trigger(data);
     },
  
     setJoin: function(state) {

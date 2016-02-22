@@ -9,7 +9,7 @@ import DataStore from '../stores/DataStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
-import Community from './Community';
+import ListCommunity from './ListCommunity';
 
 
 export default React.createClass({
@@ -30,10 +30,10 @@ export default React.createClass({
 
   render() {
     var selectCommunity = <span>loading…</span>;
-    if (this.state.data && this.state.data.communities && this.state.status) {
+    if (this.state.data && this.state.data.loaded.communities && this.state.status) {
       var communityItem = function(id) {
         var d = this.state.data.communities[id];
-        return ( <Community key={d.id} data={d} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></Community> );
+        return ( <ListCommunity key={d.id} data={d} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></ListCommunity> );
       }.bind(this);
       selectCommunity = <span>{Object.keys(this.state.data.communities).map(communityItem, this)}</span>
     }

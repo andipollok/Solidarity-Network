@@ -4,24 +4,36 @@ import Airtable from 'airtable';
 
 import ChooseCommunity from './ChooseCommunity';
 
-Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
-var base = new Airtable().base('appTOXg7AH1lJqSrT');
+import Reflux from 'reflux';
+import DataActions from '../stores/DataActions';
+import DataStore from '../stores/DataStore';
+import LanguageActions from '../stores/LanguageActions';
+import LanguageStore from '../stores/LanguageStore';
+import StatusActions from '../stores/StatusActions';
+import StatusStore from '../stores/StatusStore';
 
+export default React.createClass({
 
-export default class Start extends React.Component {
+  mixins: [Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data')],
 
   componentDidMount() {
+    DataActions.forceTrigger();
+    LanguageActions.forceTrigger();
+    StatusActions.forceTrigger();
+  },
 
-  }
-  constructor(props) {
-    super(props);
-    // console.log("inside start, get communities:", props.data.getCommunities());
-  }
   clickHandler(p) {
     window.location.assign("/#/" + p);
-  }
+  },
 
   render() {
+    var communityName = "";
+    if (this.state.status && this.state.status.community) {
+      if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
+        communityName = this.state.data.communities[this.state.status.community].name;
+      }
+    }
+
     return (
       <div>
         <div className="jumbotron">
@@ -40,9 +52,9 @@ export default class Start extends React.Component {
               <p>See what changed since you were last here.</p>
             </div> 
         
-            <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "nearby")}>
-              <h2>Happening nearby</h2>
-              <p>Do you want to see activities near you?</p>
+            <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "agenda")}>
+              <h2>Agenda</h2>
+              <p>See all activities in {communityName}</p>
             </div> 
 
             <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "photos")}>
@@ -56,4 +68,4 @@ export default class Start extends React.Component {
       </div>
     );
   }
-}
+});

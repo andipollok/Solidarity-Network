@@ -11,18 +11,13 @@ export default React.createClass({
 
   mixins: [Reflux.connect(LanguageStore, 'language')],
 
-  onClick(id) {
+  onClickSetLanguage(id) {
     LanguageActions.setLanguage(id);
   },
 
   componentDidMount() {
     LanguageActions.forceTrigger();
   },
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { languages: [], selected: cookie.load(cookieName) };
-  // },
 
   render() {
 
@@ -31,11 +26,11 @@ export default React.createClass({
       var d = this.state.language.languages[id];
       var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
         {
-          'selected': this.state.language.selected === id
+          'selected': this.state.language.selectedID === id
         }
       );
       return (
-        <div key={id} className={divClass} onClick={that.onClick.bind(this, id)}>
+        <div key={id} className={divClass} onClick={that.onClickSetLanguage.bind(this, id)}>
           <h2>{d.name}</h2>
         </div> );
     };

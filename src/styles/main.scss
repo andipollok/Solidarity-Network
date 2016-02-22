@@ -82,6 +82,8 @@ body {
     }
   }
   .navbar {
+    
+    border:none;
 
     .navbar-toggle {
       border:none;
@@ -91,7 +93,6 @@ body {
       &:hover {
 //        background-color: white;
       }
-
     }
     a {
       font-size:20px;

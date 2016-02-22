@@ -1,8 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import Reflux from 'reflux';
+import DataActions from '../stores/DataActions';
+import DataStore from '../stores/DataStore';
 
-export default class extends React.Component {
+
+export default React.createClass({
+
+  mixins: [Reflux.connect(DataStore, 'data')],
 
   render() {
     var groupText;
@@ -30,6 +36,11 @@ export default class extends React.Component {
       membersText = countMembers + " members";
     }
 
+    var owner = "";
+    if (this.state.data && this.state.data.loaded.people) {
+      owner = this.state.data.people[this.props.data.owner].name;
+    }
+
     var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'centered',
       {
         'selected': this.props.data.id == this.props.selected
@@ -39,10 +50,10 @@ export default class extends React.Component {
     return (
       <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
           <h2>{this.props.data.name}</h2>
-          <p>Organised by {this.props.data.owner}</p>
+          <p>Organised by {owner}</p>
           <p>{membersText}</p>
           <p>{groupText}</p>
       </div> 
     );
   }
-};
+});

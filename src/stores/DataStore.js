@@ -15,11 +15,19 @@ export default Reflux.createStore({
     init: function() {
       
       data = {
-        communities: {},
-        groups: {},
-        activities: {},
-        photos: {},
-        people: {}
+        communities:  { },
+        groups:       { },
+        activities:   { },
+        photos:       { },
+        people:       { },
+
+        loaded: {
+          communities: false,
+          groups:      false,
+          activities:  false,
+          photos:      false,
+          people:      false
+        }
       };
 
       this.loadCommunities();
@@ -27,9 +35,6 @@ export default Reflux.createStore({
       this.loadGroups();
       this.loadPhotos();
       this.loadPeople();
-
-      console.log("Data from DataStore: ",data);
-
 
     },
 
@@ -41,16 +46,17 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
 
         records.forEach(function(record) {
-            if (record.get('Name')) {
-              data.communities[record.getId()] = {
-                id: record.getId(),
-                name: record.get('Name'),
-                owner: "",
-                groups: record.get('Groups'),
-                countMembers: record.get('CountMembers')
-              };
-            }
+          if (record.get('Name')) {
+            data.communities[record.getId()] = {
+              id: record.getId(),
+              name: record.get('Name'),
+              owner: record.get('Owner'),
+              groups: record.get('Groups'),
+              countMembers: record.get('CountMembers')
+            };
+          }
         });
+        data.loaded.communities = true;
         that.forceTrigger();
 
       }, function done(error) {
@@ -73,7 +79,7 @@ export default Reflux.createStore({
                 id: record.getId(),
                 name: record.get('Name'),
                 community: record.get('Community')[0],
-                owner: record.get('Community'),
+                owner: record.get('Owner'),
                 description: record.get('Description'),
                 headerimage: record.get('Header Image'),
                 activities: record.get('Activities'),
@@ -81,6 +87,7 @@ export default Reflux.createStore({
               };
             }
         });
+        data.loaded.groups = true;
         // console.log("found the following " + Object.keys(data.groups).length + " groups", data.groups);
         that.forceTrigger();
 
@@ -112,6 +119,7 @@ export default Reflux.createStore({
               };
             }
         });
+        data.loaded.activities = true;
         // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
         that.forceTrigger();
 
@@ -141,6 +149,7 @@ export default Reflux.createStore({
               };
             }
         });
+        data.loaded.photos = true;
         // console.log("found the following " + Object.keys(data.photos).length + " photos", data.photos);
         that.forceTrigger();
 
@@ -168,6 +177,7 @@ export default Reflux.createStore({
               };
             }
         });
+        data.loaded.people = true;
         // console.log("found the following " + Object.keys(data.people).length + " people", data.people);
         that.forceTrigger();
 
