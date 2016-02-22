@@ -47,7 +47,7 @@ export default React.createClass({
         </div> );
     };
     var listActivities = <span>loading…</span>;
-    if (this.state.data && this.state.data.activities && this.state.status.community) {
+    if (this.state.data && this.state.data.activities && this.state.status && this.state.status.community) {
       // todo: filter activities to community
       var listActivities =  <span>
         {Object.keys(this.state.data.activities).filter(
