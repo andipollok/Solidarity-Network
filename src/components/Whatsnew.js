@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -21,17 +22,15 @@ export default React.createClass({
 
   render() {
     if (this.state.status && this.state.status.community) {
-      // var comm = <span>in {this.state.status.community}</span>
       if (this.state.data && this.state.data.communities && this.state.data.communities[this.state.status.community]) {
         var communityName = this.state.data.communities[this.state.status.community].name;
-        var comm = <span> in {communityName}</span>
       }
     }
 
     return (
       <div className="jumbotron">
         <div className="container centered">
-          <h1>What's new{comm}?</h1>
+          <h1><FormattedMessage id='whatsnew_in' values={{communityName: communityName}}/></h1>
         </div>
       </div>
     );

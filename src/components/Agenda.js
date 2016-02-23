@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -26,13 +27,11 @@ export default React.createClass({
   },
 
   render() {
-    var communityName = "",
-        communityComponent = "";
+    var communityName = "";
 
     if (this.state.status && this.state.status.community) {
       if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
         communityName = this.state.data.communities[this.state.status.community].name;
-        communityComponent = <span>in {communityName}</span>;
       }
     }
 
@@ -49,8 +48,14 @@ export default React.createClass({
       loadedData = true;
       myActivities = Object.keys(this.state.data.activities).filter(
         function(activityID) {
-          // check if this activity is in a group that is in this community
           var activity = this.state.data.activities[activityID];
+          var now = new Date();
+          var date = new Date(activity.date);
+          // check if this activity is in the future
+          if(date < now) {
+            return false;
+          }
+          // check if this activity is in a group that is in this community
           var groupID = activity.group;
           if (this.state.data.groups[groupID]) {
             var communityID = this.state.data.groups[groupID].community;
@@ -65,19 +70,18 @@ export default React.createClass({
 
     var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
     if (!foundActivities && loadedData) {
-      listActivities = <div className="container centered box white half"><h2>Sorry, there are no activities planned in {communityName}.</h2></div>;
+      listActivities = <div className="container centered box white half"><h2><FormattedMessage id='noactivities' values={{communityName: communityName}}/></h2></div>;
     }
     if (!loadedData) {
-      listActivities = <div className="container centered box white half"><h2>Loading…</h2></div>;
+      listActivities = <div className="container centered box white half"><h2><FormattedMessage id='loading'/></h2></div>;
     }
 
     return (
       <div>
         <div className="jumbotron container centered">
-          <h1>Agenda {communityComponent}</h1>
-        </div>{loadedData} {foundActivities}
+          <h1><FormattedMessage id='agenda_in' values={{communityName: communityName}}/></h1>
+        </div>
           {listActivities}
-      
       </div>
     );
   }

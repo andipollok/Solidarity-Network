@@ -1,0 +1,32 @@
+{
+  "loading": "Just a moment please…",
+  "nav_whatsnew": "What's new?",
+  "nav_agenda": "Agenda",
+  "nav_photos": "Photos",
+  "nav_settings": "Settings",
+  "nav_openmenu": "Open menu",
+  "nav_closemenu": "Close menu",
+
+  "welcome": "Welcome",
+  "welcome_in": "Welcome in {communityName}",
+  "whatsnew_in": "What's new in {communityName}",
+  "agenda_in": "Agenda in {communityName}",
+  "photos_in": "Photos from {communityName}",
+
+  "wheredoyoulive": "Where do you live?",
+  "whichlanguagedoyouspeak": "Which language do you speak?",
+
+  "seewhatsnew": "Find out what's new since you were here last time",
+  "seeagenda": "See all activities in {communityName}",
+  "seephotos": "Browse photos of past activitis in {communityName}",
+
+  "organisedby": "Organised by {name}",
+
+  "noactivities": "Sorry, there are no activities planned in {communityName}.",
+  "nophotos": "Sorry, there are no photos from past events in {communityName}.",
+
+  "numberofgroups": "{numGroups, plural, =0 {No groups yet} =1 {One group} other {# groups}}",
+  "numberofmembers": "{numMembers, plural, =0 {No one yet} =1 {One person} other {# people}}",
+  "numberofphotos": "{numPhotos, plural, =0 {No photos yet} =1 {One photo} other {# photos}}",
+
+}

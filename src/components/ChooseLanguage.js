@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link}  from 'react-router';
-import cookie from 'react-cookie';
+import { Link }  from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
@@ -35,7 +35,7 @@ export default React.createClass({
         </div> );
     };
 
-    var selectLanguage = <span>loading…</span>;
+    var selectLanguage = <FormattedMessage id='loading'/>;
     if (this.state.language && this.state.language.languages) {
       selectLanguage = <span>{Object.keys(this.state.language.languages).map(languageItem, this)}</span>;
     }

@@ -7,6 +7,7 @@ Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
 var base = new Airtable().base('appTOXg7AH1lJqSrT');
 
 var data = {};
+var cookieNameCommunity = "community";
 
 export default Reflux.createStore({
 
@@ -40,6 +41,8 @@ export default Reflux.createStore({
 
     loadCommunities() {
       var that = this;
+      var cookieValueCommunity = cookie.load(cookieNameCommunity) || ""; // -todo- this value should be taken from StatusStore!
+
       base('Communities').select({
         maxRecords: 200,
         view: "Main View"
@@ -56,6 +59,10 @@ export default Reflux.createStore({
             };
           }
         });
+        if (!cookieValueCommunity && Object.keys(data.communities).length > 0) {
+          cookie.save(cookieNameCommunity, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
+        }
+
         data.loaded.communities = true;
         that.forceTrigger();
 
@@ -103,6 +110,7 @@ export default Reflux.createStore({
       base('Activities').select({
         maxRecords: 200,
         view: "Main View"
+//        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
       }).eachPage(function page(records, fetchNextPage) {
 
         records.forEach(function(record) {

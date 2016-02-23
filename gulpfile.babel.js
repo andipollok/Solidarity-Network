@@ -128,11 +128,10 @@ gulp.task('bower', () => {
     .pipe(gulp.dest(paths.distBower));
 });
 
-
 gulp.task('lint', () => {
   gulp.src(paths.srcLint)
-  .pipe(eslint())
-  .pipe(eslint.format());
+    .pipe(eslint())
+    .pipe(eslint.format());
 });
 
 gulp.task('watchTask', () => {

@@ -12,6 +12,21 @@ import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
+import { FormattedNumber, FormattedMessage } from 'react-intl';
+
+
+if (process.env.NODE_ENV !== 'production') {
+  const originalConsoleError = console.error
+  if (console.error === originalConsoleError) {
+    console.error = (...args) => {
+      if (args[0].indexOf('[React Intl] Missing message:') === 0 || args[0].indexOf('[React Intl] Cannot format message:') === 0) {
+        return
+      }
+      originalConsoleError.call(console, ...args)
+    }
+  }
+}
+
 export default React.createClass({
 
   mixins: [Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data')],
@@ -23,10 +38,11 @@ export default React.createClass({
   },
 
   clickHandler(p) {
-    window.location.assign("/#/" + p);
+    window.location.assign("#/" + p);
   },
 
   render() {
+
     var communityName = "";
     if (this.state.status && this.state.status.community) {
       if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
@@ -35,31 +51,30 @@ export default React.createClass({
     }
 
     return (
+
       <div>
         <div className="jumbotron">
           <div className="container centered">
-            <h1>Welcome!</h1>
-            <p></p>
+            <h1><FormattedMessage id='welcome_in' values={{communityName: communityName}}/></h1>
           </div>
         </div>
         <div className="container">
 
           <div className="row">
 
-        
             <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "whatsnew")}>
-              <h2>What's new?</h2>
-              <p>See what changed since you were last here.</p>
+              <h2><FormattedMessage id='nav_whatsnew'/></h2>
+              <p><FormattedMessage id='seewhatsnew'/></p>
             </div> 
         
             <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "agenda")}>
-              <h2>Agenda</h2>
-              <p>See all activities in {communityName}</p>
+              <h2><FormattedMessage id='nav_agenda'/></h2>
+              <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
             </div> 
 
             <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "photos")}>
-              <h2>Photos</h2>
-              <p>Recent photos</p>
+              <h2><FormattedMessage id='nav_photos'/></h2>
+              <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
             </div> 
 
           </div>

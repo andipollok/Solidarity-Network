@@ -2,7 +2,21 @@ import Reflux from 'reflux';
 import Actions from './LanguageActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
-import i18next from 'i18next';
+
+import messages_en from '../languages/en.json';
+import messages_fr from '../languages/fr.json';
+
+var messages = {
+  en: messages_en,
+  fr: messages_fr
+}
+
+// maybe reformat messages object to include empty default message, so it doesn't show up before loading json
+// Object.keys(messages).forEach(function(language) { 
+//   Object.keys(messages[language]).forEach(function(messageId) {
+//     messages[language][messageId]
+//   })
+//  });
 
 Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
 var base = new Airtable().base('appTOXg7AH1lJqSrT');
@@ -16,7 +30,6 @@ export default Reflux.createStore({
     listenables: [Actions],
 
     init: function() {
-      this.loadInternational();
       var cookieValue = cookie.load(cookieName);
       var that = this;
       data = {
@@ -34,7 +47,8 @@ export default Reflux.createStore({
               if (record.get('Name')) {
                 data.languages[record.getId()] = {
                   name: record.get('Name'),
-                  short: record.get('Short')
+                  short: record.get('Short'),
+                  messages: messages[record.get('Short')]
                 };
                 if (record.getId() === cookieValue) {
                   data.selectedID = record.getId();
@@ -67,22 +81,6 @@ export default Reflux.createStore({
         data.selected = "";
       }
       this.trigger(data);
-    },
-
-    loadInternational: function() {
-      i18next.init({
-        lng: 'en',
-        resources: {
-          en: {
-            translation: {
-              "key": "hello world"
-            }
-          }
-        }
-      }, (err, t) => {
-        // initialized and ready to go!
-        const hw = i18next.t('key'); // hw = 'hello world'
-      });
     },
 
     forceTrigger: function() {

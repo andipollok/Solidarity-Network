@@ -1,7 +1,6 @@
 import React from 'react';
-import {Link}  from 'react-router';
-import cookie from 'react-cookie';
-import Airtable from 'airtable';
+import { Link }  from 'react-router';
+import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -29,7 +28,7 @@ export default React.createClass({
   },
 
   render() {
-    var selectCommunity = <span>loading…</span>;
+    var selectCommunity = <FormattedMessage id='loading'/>;
     if (this.state.data && this.state.data.loaded.communities && this.state.status) {
       var communityItem = function(id) {
         var d = this.state.data.communities[id];

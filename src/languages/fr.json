@@ -1,0 +1,32 @@
+{
+  "loading": "Un instant s'il vous plaît…",
+  "nav_whatsnew": "Quoi de neuf?",
+  "nav_agenda": "Agenda",
+  "nav_photos": "Photos",
+  "nav_settings": "Paramètres",
+  "nav_openmenu": "Ouvrir le menu",
+  "nav_closemenu": "Fermer menu",
+
+  "welcome": "Bienvenue!",
+  "welcome_in": "Bienvenue à {communityName}!",
+  "whatsnew_in": "Ce qui est nouveau à {communityName}",
+  "agenda_in": "Agenda à {communityName}",
+  "photos_in": "Photos de {communityName}",
+
+  "wheredoyoulive": "Où habites-tu?",
+  "whichlanguagedoyouspeak": "Quelle langue parlez vous?",
+
+  "seewhatsnew": "Découvrez ce qui est nouveau depuis que vous étiez ici la dernière fois",
+  "seeagenda": "Voir toutes les activités à {communityName}",
+  "seephotos": "Parcourir les photos d'activités passées à {communityName}",
+
+  "organisedby": "Organisé par {name}",
+
+  "noactivities": "Désolé, il n'y a pas d'activités prévues à {communityName}.",
+  "nophotos": "Désolé, il n'y a pas de photos d'événements passés à {communityName}.",
+
+  "numberofgroups": "{numGroups, plural, =0 {Pas encore les groupes} =1 {Un groupe} other {# groupes}}",
+  "numberofmembers": "{numMembers, plural, =0 {Pas encore de personnes} =1 {Une personne} other {# personnes}}",
+  "numberofphotos": "{numPhotos, plural, =0 {Pas encore de photo} =1 {Une photo} other {# photos}}",
+
+}

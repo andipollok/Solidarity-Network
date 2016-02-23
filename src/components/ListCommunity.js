@@ -5,35 +5,26 @@ import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
 import DataStore from '../stores/DataStore';
 
+import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
 
   mixins: [Reflux.connect(DataStore, 'data')],
 
+  componentDidMount() {
+    DataActions.forceTrigger();
+  },
+
   render() {
-    var groupText;
+
     var countGroups = 0;
     if (this.props.data && this.props.data.groups) {
       countGroups = this.props.data.groups.length;
     }
-    if (countGroups == 0) {
-      groupText = "No groups yet.";
-    } else if (countGroups == 1) {
-      groupText = countGroups + " group";
-    }
-    else {
-      groupText = countGroups + " groups";
-    }
 
-    var membersText;
-    var countMembers = this.props.data.countMembers;
-    if (countMembers == 0) {
-      membersText = "No members yet.";
-    } else if (countMembers == 1) {
-      membersText = countMembers + " member";
-    }
-    else {
-      membersText = countMembers + " members";
+    var countMembers = 0;
+    if (this.props.data && this.props.data.countMembers) {
+      countMembers = this.props.data.countMembers;
     }
 
     var owner = "";
@@ -50,9 +41,9 @@ export default React.createClass({
     return (
       <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
           <h2>{this.props.data.name}</h2>
-          <p>Organised by {owner}</p>
-          <p>{membersText}</p>
-          <p>{groupText}</p>
+          <p><FormattedMessage id='organisedby' values={{name: owner}}/></p>
+          <p><FormattedMessage id='numberofmembers' values={{numMembers: countMembers}}/></p>
+          <p><FormattedMessage id='numberofgroups' values={{numGroups: countGroups}}/></p>
       </div> 
     );
   }
