@@ -14,9 +14,16 @@ import Photos from './components/Photos';
 import Join from './components/Join';
 import Agenda from './components/Agenda';
 
+// polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
+// -todo- this should be loaded conditionally, but require.ensure didn't work
+if (!global.Intl) {
+  require('intl');
+  require('intl/locale-data/jsonp/en.js');
+  require('intl/locale-data/jsonp/fr.js');
+  require('intl/locale-data/jsonp/de.js');
+}
 
 window.React = React;
-window.Intl = require('react-intl'); // polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
 
 render(
   (

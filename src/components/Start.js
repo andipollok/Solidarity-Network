@@ -14,7 +14,7 @@ import StatusStore from '../stores/StatusStore';
 
 import { FormattedNumber, FormattedMessage } from 'react-intl';
 
-
+// surpress console calls from React Intl when message is not found
 if (process.env.NODE_ENV !== 'production') {
   const originalConsoleError = console.error
   if (console.error === originalConsoleError) {
