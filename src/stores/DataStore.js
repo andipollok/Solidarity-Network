@@ -9,6 +9,7 @@ var base = new Airtable().base('appTOXg7AH1lJqSrT');
 var data = {};
 var cookieNameCommunity = "community";
 
+
 export default Reflux.createStore({
 
     listenables: [Actions],
@@ -28,7 +29,8 @@ export default Reflux.createStore({
           activities:  false,
           photos:      false,
           people:      false
-        }
+        },
+        errors: []
       };
 
       this.loadCommunities();
@@ -37,6 +39,11 @@ export default Reflux.createStore({
       this.loadPhotos();
       this.loadPeople();
 
+    },
+
+    throwError: function(error) {
+      data.errors.push(error);
+      this.forceTrigger();
     },
 
     loadCommunities() {
@@ -69,7 +76,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         if (error) {
-          console.log(error);
+          that.throwError(error);
         }
       });
     },
@@ -101,7 +108,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         if (error) {
-          console.log(error);
+          that.throwError(error);
         }
       });
     },
@@ -134,7 +141,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         if (error) {
-          console.log(error);
+          that.throwError(error);
         }
       });
     },
@@ -164,7 +171,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         if (error) {
-          console.log(error);
+          that.throwError(error);
         }
       });
     },
@@ -192,7 +199,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         if (error) {
-          console.log(error);
+          that.throwError(error);
         }
       });
     },

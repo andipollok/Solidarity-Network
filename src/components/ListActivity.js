@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import dateFormat from 'dateformat';
 
 import Reflux from 'reflux';
 import LanguageActions from '../stores/LanguageActions';
@@ -20,12 +19,7 @@ export default React.createClass({
       }
     ); // selected may be needed later
 
-    if (this.status && this.status.language.loaded) {
-      if (this.status.language.selected === "fr") {      
-      }
-    }
     // var dataFormatted = dateFormat(this.props.data.date, "dddd, mmmm dS, yyyy, h:MM:ss TT");
-    var time = dateFormat(this.props.data.date, "h:MM TT");
 
     return (
 
@@ -35,7 +29,11 @@ export default React.createClass({
 
           <p><FormattedRelative value={this.props.data.date} /></p>
 
-          {time}
+          <p><FormattedDate
+                    value={new Date()}
+                    day="numeric"
+                    month="long"
+                    year="numeric" /></p>
           
         </div>
 
