@@ -1,0 +1,45 @@
+{
+  "recWemW63vvGJGlxJ": {
+    "id": "recWemW63vvGJGlxJ",
+    "name": "Community Meeting",
+    "group": "recAOmI0aes03l4Us",
+    "date": "2016-02-19T16:00:00.000Z",
+    "photos": [],
+    "interested": [
+      "rectVv2tvjGcJ7Nij",
+      "recoAlDRTk3UsKP2t",
+      "recIgXBE0wgYO4vBw"
+    ],
+    "attended": [
+      "recoZxzC1FyR6ikUe",
+      "recznAPX2OS5SmcK8",
+      "recycgQI78eO5QE4T"
+    ]
+  },
+  "recx1XYJNyh2ykNVt": {
+    "id": "recx1XYJNyh2ykNVt",
+    "name": "Hiking Trip",
+    "group": "recAopyM7H4WTVPZW",
+    "date": "2016-02-25T07:30:00.000Z",
+    "photos": [],
+    "attended": [
+      "recVkTlzE7Jk7IkmT"
+    ]
+  },
+  "recXUWJXA1V4vOqvG": {
+    "id": "recXUWJXA1V4vOqvG",
+    "name": "Cycling",
+    "group": "recAOmI0aes03l4Us",
+    "date": "2016-02-29T06:00:00.000Z",
+    "description": "We are making a trip to Montreux!",
+    "photos": []
+  },
+  "recasvG8Bb3zDS2rs": {
+    "id": "recasvG8Bb3zDS2rs",
+    "name": "Community Meeting",
+    "group": "recAOmI0aes03l4Us",
+    "date": "2016-02-02T03:30:00.000Z",
+    "description": "Event in the past to see photos\n\n",
+    "photos": []
+  }
+}

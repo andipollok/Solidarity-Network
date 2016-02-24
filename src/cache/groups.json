@@ -1,0 +1,100 @@
+{
+  "recAOmI0aes03l4Us": {
+    "id": "recAOmI0aes03l4Us",
+    "name": "Quartier Solidaire",
+    "community": "reckyIsF1Np63HlRc",
+    "owner": [
+      "recycgQI78eO5QE4T"
+    ],
+    "headerimage": [
+      {
+        "id": "att2PwAhXhpgVhxW6",
+        "url": "https://dl.airtable.com/xqab64X5QkCWhX61zodH_5fc3acf30a4cea6db40363839e52c9ca.png",
+        "filename": "5fc3acf30a4cea6db40363839e52c9ca.png",
+        "size": 175325,
+        "type": "image/png",
+        "thumbnails": {
+          "small": {
+            "url": "https://dl.airtable.com/bRXKtpmLSUWxQ8ZoeOPr_5fc3acf30a4cea6db40363839e52c9ca.png",
+            "width": 58,
+            "height": 36
+          },
+          "large": {
+            "url": "https://dl.airtable.com/Zx1NmLbWQL23Av89V7Dh_5fc3acf30a4cea6db40363839e52c9ca.png",
+            "width": 256,
+            "height": 160
+          }
+        }
+      }
+    ],
+    "activities": [
+      "recWemW63vvGJGlxJ",
+      "recXUWJXA1V4vOqvG",
+      "recasvG8Bb3zDS2rs"
+    ],
+    "official": true
+  },
+  "rec4xHoG3m5MgMREd": {
+    "id": "rec4xHoG3m5MgMREd",
+    "name": "Quartier Solidaire",
+    "community": "recGlKnzjzZTFT0h3",
+    "owner": [
+      "recIgXBE0wgYO4vBw"
+    ],
+    "official": true
+  },
+  "recgWhnaLpO53QUH1": {
+    "id": "recgWhnaLpO53QUH1",
+    "name": "Quartier Solidaire",
+    "community": "recasWurnCfW2HAep",
+    "owner": [
+      "recEL3MGZukD6LRqw"
+    ],
+    "official": true
+  },
+  "recoLBp4v3HDXQOy7": {
+    "id": "recoLBp4v3HDXQOy7",
+    "name": "Quartier Solidaire",
+    "community": "recCE1vswCDEnHnCU",
+    "owner": [
+      "rec0JiQsLe0DqFT00"
+    ],
+    "official": true
+  },
+  "recQODCFrCEjCUW1j": {
+    "id": "recQODCFrCEjCUW1j",
+    "name": "Quartier Solidaire",
+    "community": "recGgJpMm9YxJ8V3X",
+    "owner": [
+      "rec5agfDzsJATaLPz"
+    ],
+    "official": true
+  },
+  "recMq3SusHFdEVIkG": {
+    "id": "recMq3SusHFdEVIkG",
+    "name": "Badminton",
+    "community": "reckyIsF1Np63HlRc",
+    "owner": [
+      "recoZxzC1FyR6ikUe"
+    ]
+  },
+  "recAopyM7H4WTVPZW": {
+    "id": "recAopyM7H4WTVPZW",
+    "name": "Hiking Friends",
+    "community": "reckyIsF1Np63HlRc",
+    "owner": [
+      "rectVv2tvjGcJ7Nij"
+    ],
+    "activities": [
+      "recx1XYJNyh2ykNVt"
+    ]
+  },
+  "recbFX2h4xUQUUqag": {
+    "id": "recbFX2h4xUQUUqag",
+    "name": "Table Tennis",
+    "community": "reckyIsF1Np63HlRc",
+    "owner": [
+      "recoZxzC1FyR6ikUe"
+    ]
+  }
+}
