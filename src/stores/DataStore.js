@@ -34,6 +34,7 @@ export default Reflux.createStore({
       };
 
       this.loadCommunities();
+
       this.loadActivities();
       this.loadGroups();
       this.loadPhotos();
@@ -129,14 +130,14 @@ export default Reflux.createStore({
                 group: record.get('Group')[0],
                 date: record.get('Date'),
                 description: record.get('Description'),
-                photos: [],
+                photos: record.get('Photos'),
                 interested: record.get('Interested'),
                 attended: record.get('Attended')
               };
             }
         });
         data.loaded.activities = true;
-        // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
+        console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
         that.forceTrigger();
 
       }, function done(error) {
@@ -194,6 +195,7 @@ export default Reflux.createStore({
             }
         });
         data.loaded.people = true;
+        // console.log(JSON.stringify(data.people, null, 2));
         // console.log("found the following " + Object.keys(data.people).length + " people", data.people);
         that.forceTrigger();
 

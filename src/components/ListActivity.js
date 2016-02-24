@@ -2,14 +2,19 @@ import React from 'react';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
+import DataActions from '../stores/DataActions';
+import DataStore from '../stores/DataStore';
 
-import { FormattedRelative, FormattedDate, FormattedMessage } from 'react-intl';
+
+import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(LanguageStore, 'language')],
+  mixins: [Reflux.connect(DataStore, 'data')],
+
+  componentDidMount() {
+    DataActions.forceTrigger();
+  },
 
   render() {
 
@@ -19,7 +24,13 @@ export default React.createClass({
       }
     ); // selected may be needed later
 
-    // var dataFormatted = dateFormat(this.props.data.date, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+    if (this.state.data && this.state.data.loaded.groups) {
+      var groupName = this.state.data.groups[this.props.data.group].name;
+      var ownerId = this.state.data.groups[this.props.data.group].owner;
+      if (this.state.data.loaded.people) {
+        var ownerName = this.state.data.people[ownerId].name;
+      }
+    }
 
     return (
 
@@ -27,13 +38,23 @@ export default React.createClass({
 
           <h2>{this.props.data.name}</h2>
 
-          <p><FormattedRelative value={this.props.data.date} /></p>
-
-          <p><FormattedDate
-                    value={new Date()}
+          <p><FormattedMessage id="on" defaultMessage=" "/>
+              &nbsp;<FormattedDate
+                    value={this.props.data.date}
+                    weekday="long"
                     day="numeric"
                     month="long"
-                    year="numeric" /></p>
+                    year="numeric" /> 
+              &nbsp;<span className="grey">(<FormattedRelative value={this.props.data.date} />)</span>
+          </p>
+
+          <p><FormattedMessage id="startingat" defaultMessage=" "/>
+              &nbsp;<FormattedTime
+                    value={this.props.data.date}
+                    minute="numeric"
+                    hour="numeric" /></p>
+
+          <p>Group {groupName} by {ownerName}</p>
           
         </div>
 
