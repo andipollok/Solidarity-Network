@@ -13,11 +13,13 @@ export default Reflux.createStore({
 
     init: function() {
       var cookieValueJoin = cookie.load(cookieNameJoin) || false;
-      var cookieValueCommunity = cookie.load(cookieNameCommunity) || "";
+      var cookieValueCommunity = cookie.load(cookieNameCommunity) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
       data = {
         join: cookieValueJoin,
         community: cookieValueCommunity
       };
+      this.setJoin(cookieValueJoin); // -todo- this only has to be done if default value for cookie has been set
+      this.setCommunity(cookieValueCommunity); // -todo- this only has to be done if default value for cookie has been set
       this.trigger(data);
     },
  

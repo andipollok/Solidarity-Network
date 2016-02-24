@@ -60,7 +60,8 @@ export default Reflux.createStore({
           }
         });
         if (!cookieValueCommunity && Object.keys(data.communities).length > 0) {
-          cookie.save(cookieNameCommunity, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
+          // -todo- set cookie of default community via StatusStore
+//          cookie.save(cookieNameCommunity, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
         }
 
         data.loaded.communities = true;
