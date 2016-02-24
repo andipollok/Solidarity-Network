@@ -137,7 +137,7 @@ export default Reflux.createStore({
             }
         });
         data.loaded.activities = true;
-        console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
+        // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
         that.forceTrigger();
 
       }, function done(error) {
