@@ -29,7 +29,7 @@ const paths = {
   srcCss: 'src/**/*.scss',
   srcImg: 'src/images/**',
   srcLint: ['src/**/*.js', 'test/**/*.js'],
-  srcBower: ['src/bower_components/**/*.min.js', 'src/bower_components/**/*.min.css'],
+  srcBower: ['src/bower_components/**/*.min.js', 'src/bower_components/**/*.min.css', 'src/bower_components/**/*-min.js', 'src/bower_components/**/*.map'],
   dist: 'dist',
   distJs: 'dist/js',
   distImg: 'dist/images',
