@@ -1,6 +1,7 @@
 $color_dark: #282828;
 $color_light: #FFF;
 $color_grey: #EAEAEA;
+$color_darkgrey: #666666;
 $color_highlight: #8500FF;
 
 #__bs_notify__ {
@@ -21,8 +22,8 @@ body {
   .centered {
     text-align:center;
   }
-  .white {
-    background-color:white;
+  .grey {
+    color: $color_darkgrey;
   }
   .top-buffer { margin-top:20px; }
 
@@ -39,6 +40,9 @@ body {
   .box {
     padding:20px;
     min-height: 300px;
+    &.white {
+      background-color:white;
+    }
     &.half {
       min-height:120px;
     }
