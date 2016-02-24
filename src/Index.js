@@ -16,6 +16,7 @@ import Agenda from './components/Agenda';
 
 
 window.React = React;
+window.Intl = require('react-intl'); // polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
 
 render(
   (
