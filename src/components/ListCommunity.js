@@ -32,7 +32,7 @@ export default React.createClass({
       owner = this.state.data.people[this.props.data.owner].name;
     }
 
-    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'centered',
+    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center',
       {
         'selected': this.props.data.id == this.props.selected
       }

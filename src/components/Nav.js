@@ -1,5 +1,4 @@
 import React from 'react';
-import {Component} from 'react';
 import {Router} from 'react-router';
 import {Link}  from 'react-router';
 import {RouteHandler} from 'react-router';
@@ -62,23 +61,21 @@ export default React.createClass({
     return (
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div className="container">
+
             <div className="navbar-header">
               <div id="navbar-collapse-button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span id="navbar-openmenu"><FormattedMessage id='nav_openmenu'/></span>
                 <span id="navbar-closemenu"><FormattedMessage id='nav_closemenu'/></span>
               </div>
-              <Link className="navbar-brand" to="#">{communityName}</Link>
             </div>
             <div id="navbar" className="navbar-collapse collapse">
-              <ul className="nav navbar-nav ">
-                <li><Link activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
-                <li><Link activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
-                <li><Link activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>
-                <li><Link activeClassName="active" to="/settings"><FormattedMessage id='nav_settings'/></Link></li>
+              <ul className="nav navbar-nav">
+                <li><Link className="nav1" activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
+                <li><Link className="nav2" activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
+                <li><Link className="nav3" activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>
               </ul>
             </div>
-          </div>
+   
         </nav>
       </div>
     );

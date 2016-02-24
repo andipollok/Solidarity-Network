@@ -22,12 +22,12 @@ export default React.createClass({
     var selectJoin = <span></span>;
 
     if (this.state.status) {
-      var divClassJoinedYes = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
+      var divClassJoinedYes = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'text-center',
         {
           'selected': this.state.status.join == true
         }
       );
-      var divClassJoinedNo = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
+      var divClassJoinedNo = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'text-center',
         {
           'selected': this.state.status.join == false
         }

@@ -29,7 +29,7 @@ export default React.createClass({
 
     return (
       <div className="jumbotron">
-        <div className="container centered">
+        <div className="container text-center">
           <h1><FormattedMessage id='whatsnew_in' values={{communityName: communityName}}/></h1>
         </div>
       </div>

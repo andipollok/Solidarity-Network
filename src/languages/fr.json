@@ -29,4 +29,7 @@
   "numberofmembers": "{numMembers, plural, =0 {Pas encore de personnes} =1 {Une personne} other {# personnes}}",
   "numberofphotos": "{numPhotos, plural, =0 {Pas encore de photo} =1 {Une photo} other {# photos}}",
 
+  "on": "Le",
+  "startingat": "À partir de",
+
 }

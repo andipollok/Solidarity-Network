@@ -1,16 +1,14 @@
 import React from 'react';
-import {Component} from 'react';
+import {Link}  from 'react-router';
 
-class Footer extends React.Component {
+export default React.createClass({
   render() {
     return (
       <div className="container">
         <footer>
-          <p></p>
+          <p><Link to="/settings">Settings</Link></p>
         </footer>
       </div>
     );
   }
-}
-
-export default Footer;
+});

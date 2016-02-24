@@ -13,6 +13,7 @@ import Nearby from './components/Nearby';
 import Photos from './components/Photos';
 import Join from './components/Join';
 import Agenda from './components/Agenda';
+import Activity from './components/Activity';
 
 // polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
 // -todo- this should be loaded conditionally, but require.ensure didn't work
@@ -34,6 +35,9 @@ render(
         <Route name="settings" path="/settings" component={Settings}/>
         <Route name="nearby" path="/nearby" component={Nearby}/>
         <Route name="agenda" path="/agenda" component={Agenda}/>
+
+        <Route name="activity" path="/activity/:id" component={Activity}/>
+
         <Route name="whatsnew" path="/whatsnew" component={Whatsnew}/>
         <Route name="photos" path="/photos" component={Photos}/>
         <Route name="join" path="/join" component={Join}/>

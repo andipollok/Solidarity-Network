@@ -24,7 +24,7 @@ export default React.createClass({
     var that=this;
     var languageItem = function(id) {
       var d = this.state.language.languages[id];
-      var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'centered',
+      var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'text-center',
         {
           'selected': this.state.language.selectedID === id
         }

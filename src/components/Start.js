@@ -5,12 +5,12 @@ import Airtable from 'airtable';
 import ChooseCommunity from './ChooseCommunity';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
+import DataActions from '../stores/DataActions';
+import DataStore from '../stores/DataStore';
 
 import { FormattedNumber, FormattedMessage } from 'react-intl';
 
@@ -54,7 +54,7 @@ export default React.createClass({
 
       <div>
         <div className="jumbotron">
-          <div className="container centered">
+          <div className="container text-center">
             <h1><FormattedMessage id='welcome_in' values={{communityName: communityName}}/></h1>
           </div>
         </div>
@@ -62,17 +62,17 @@ export default React.createClass({
 
           <div className="row">
 
-            <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "whatsnew")}>
+            <div className="col-md-4 box white linked text-center padded" onClick={this.clickHandler.bind(this, "whatsnew")}>
               <h2><FormattedMessage id='nav_whatsnew'/></h2>
               <p><FormattedMessage id='seewhatsnew'/></p>
             </div> 
         
-            <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "agenda")}>
+            <div className="col-md-4 box white linked text-center padded" onClick={this.clickHandler.bind(this, "agenda")}>
               <h2><FormattedMessage id='nav_agenda'/></h2>
               <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
             </div> 
 
-            <div className="col-md-4 box white linked centered padded" onClick={this.clickHandler.bind(this, "photos")}>
+            <div className="col-md-4 box white linked text-center padded" onClick={this.clickHandler.bind(this, "photos")}>
               <h2><FormattedMessage id='nav_photos'/></h2>
               <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
             </div> 

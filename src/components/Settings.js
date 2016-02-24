@@ -10,7 +10,7 @@ export default class extends React.Component {
   render() {
 
     return (
-      <div className="container">
+      <div className="container text-center">
       
         <h2><FormattedMessage id='wheredoyoulive'/></h2>
         <ChooseCommunity />

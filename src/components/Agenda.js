@@ -23,7 +23,8 @@ export default React.createClass({
   },
 
   onClickSelectActivity(id) {
-    console.log("Clicked on activity " + id);
+    //console.log("Clicked on activity " + id);
+    window.location.assign("#/activity/" + id);
   },
 
   render() {
@@ -70,15 +71,15 @@ export default React.createClass({
 
     var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
     if (!foundActivities && loadedData) {
-      listActivities = <div className="container centered box white half"><h2><FormattedMessage id='noactivities' values={{communityName: communityName}}/></h2></div>;
+      listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: communityName}}/></h2></div>;
     }
     if (!loadedData) {
-      listActivities = <div className="container centered box white half"><h2><FormattedMessage id='loading'/></h2></div>;
+      listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='loading'/></h2></div>;
     }
 
     return (
       <div>
-        <div className="jumbotron container centered">
+        <div className="jumbotron container text-center">
           <h1><FormattedMessage id='agenda_in' values={{communityName: communityName}}/></h1>
         </div>
           {listActivities}
