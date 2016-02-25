@@ -123,12 +123,13 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
 
         records.forEach(function(record) {
-            if (record.get('Name')) {
+            if (record.get('Name') && record.get('Date')) {
               data.activities[record.getId()] = {
                 id: record.getId(),
                 name: record.get('Name'),
                 group: record.get('Group')[0],
                 date: record.get('Date'),
+                type: record.get('Type'),
                 description: record.get('Description'),
                 photos: record.get('Photos'),
                 interested: record.get('Interested'),
