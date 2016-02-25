@@ -10,7 +10,7 @@ import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
-import ListActivity from './ListActivity';
+import ListPhotos from './ListPhotos';
 
 export default React.createClass({
 
@@ -37,7 +37,7 @@ export default React.createClass({
 
     var activityItem = function(id) {
       var d = this.state.data.activities[id];
-      return ( <ListActivity key={id} data={d} onClickHandler={this.onClickSelectActivity}></ListActivity> );
+      return ( <ListPhotos key={id} data={d} onClickHandler={this.onClickSelectActivity}></ListPhotos> );
     }.bind(this);
 
     var myActivities = [],

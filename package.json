@@ -36,6 +36,9 @@
     "react-router": "^1.0.3",
     "reflux": "^0.3.0"
   },
+  "react-svg-icons": {
+    "assetPath": "src/images"
+  },
   "devDependencies": {
     "autoprefixer": "^6.0.0",
     "ava": "^0.9.1",
@@ -70,7 +73,9 @@
     "postcss-simple-extend": "^1.0.0",
     "postcss-simple-vars": "^1.0.0",
     "react-addons-test-utils": "^0.14.3",
+    "react-inlinesvg": "^0.4.2",
     "react-intl": "^2.0.0-beta-2",
+    "react-svg-icons": "^0.2.0",
     "rimraf": "^2.4.3",
     "run-sequence": "^1.1.2",
     "tap-nyan": "0.0.2",

@@ -37,7 +37,7 @@ export default React.createClass({
 
         <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
-          <Icon type={this.props.data.type} area='agenda' shape='hexagon'/>
+          <Icon type={this.props.data.type} area='photos' shape='hexagon'/>
 
           <h2>{this.props.data.name}</h2>
 
@@ -51,7 +51,7 @@ export default React.createClass({
               &nbsp;<span className="grey">(<FormattedRelative value={this.props.data.date} />)</span>
           </p>
 
-          <p><FormattedMessage id="startingat" defaultMessage=" "/>
+          <p><FormattedMessage id="at" defaultMessage=" "/>
               &nbsp;<FormattedTime
                     value={this.props.data.date}
                     minute="numeric"

@@ -9,6 +9,7 @@ import StatusStore from '../stores/StatusStore';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
+import Icon from './Icon';
 
 export default React.createClass({
 
@@ -43,6 +44,9 @@ export default React.createClass({
 
       activityComponent = 
         <div className="box white container text-center">
+
+          <Icon type={activity.type} area='agenda' shape='hexagon'/>
+
           <h1>{activity.name}</h1>
 
           <h3><FormattedMessage id="on" defaultMessage=" "/>
