@@ -1,9 +1,5 @@
 import React from 'react';
-import {Router} from 'react-router';
 import {Link}  from 'react-router';
-import {RouteHandler} from 'react-router';
-import cookie from 'react-cookie';
-import classNames from 'classnames';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
