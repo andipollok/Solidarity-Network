@@ -30,6 +30,12 @@
   "numberofphotos": "{numPhotos, plural, =0 {No photos yet} =1 {One photo} other {# photos}}",
 
   "on": "On",
+  "at": "At",
   "startingat": "Starting at",
+
+  "group": "Group",
+  "groups": "Groups",
+  "photo": "Photo",
+  "photos": "Photos",
 
 }
