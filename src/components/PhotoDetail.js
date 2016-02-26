@@ -18,6 +18,14 @@ export default React.createClass({
     DataActions.forceTrigger();
     StatusActions.forceTrigger();
     $('#navbar .photos').addClass('active');
+    
+  },
+
+  makeZoomable() {
+    $('.zoom').panzoom({
+      minScale: 0.6,
+      maxScale: 4,
+    });
   },
 
   componentWillUnmount() {
@@ -38,14 +46,15 @@ export default React.createClass({
           }
         });
       });
+      this.makeZoomable();
       var photoComponent = 
         <div>
-          <img className="photo" src={photo.url} />
+          <img className="photo zoom" src={photo.url} />
           {photo.description}
         </div>
     }
     return (
-      <div className="container">
+      <div class="photo full">
         {photoComponent}
       </div>
     );
