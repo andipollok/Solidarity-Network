@@ -19,18 +19,38 @@ export default React.createClass({
 
   render() {
 
-    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center',
+    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center', 'photos',
       {
         'selected': false
       }
     ); // selected may be needed later
 
     if (this.state.data && this.state.data.loaded.groups) {
+      // load group name of this activity
       var groupName = this.state.data.groups[this.props.data.group].name;
+      // load owner name of this group
       var ownerId = this.state.data.groups[this.props.data.group].owner;
       if (this.state.data.loaded.people) {
         var ownerName = this.state.data.people[ownerId].name;
       }
+    }
+
+    // load photos of this activity
+    var photoList = [];
+    if (this.state.data && this.state.data.loaded.photos && this.props.data.photos.length > 0) {
+      this.props.data.photos.map(function(photoId) {
+        var photos = this.state.data.photos[photoId];
+        // each photo contains an image array, as there can also be more than one attachment in Airtable.
+        photos.image.map(function(image) {
+          photoList = photoList.concat({
+            description: photos.description, // store the description for each photo
+            owner: photos.owner, // store the owner for each photo
+            url: image.url,
+            id: image.id
+          });
+
+        }.bind(this))
+      }.bind(this));
     }
 
     return (
@@ -54,10 +74,12 @@ export default React.createClass({
           <p><FormattedMessage id="at" defaultMessage=" "/>
               &nbsp;<FormattedTime
                     value={this.props.data.date}
-                    minute="numeric"
+                    minute="2-digit"
                     hour="numeric" /></p>
 
           <p><FormattedMessage id="group" defaultMessage="Group"/> {groupName} by {ownerName}</p>
+
+          <p><FormattedMessage id="numberofphotos" values={{numPhotos: photoList.length}}/></p>
           
         </div>
 

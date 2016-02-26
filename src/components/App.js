@@ -38,6 +38,10 @@ export default React.createClass({
     LanguageActions.setLanguage(lang);
   },
 
+  componentDidMount() {
+
+  },
+
   render: function() {
 
     if (this.state.language && this.state.language.selected) {
@@ -55,11 +59,11 @@ export default React.createClass({
 
         <div>
 
-          {error}
-
           <Nav />
 
-            {this.props.children}
+          {error}  
+
+          {this.props.children}
 
           <Footer />
 

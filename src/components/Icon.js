@@ -3,20 +3,20 @@ import SvgIcon from 'react-svg-icons';
 
 var colors = {
   whatsnew: {
-    backgroundColor: '#ED695A',
-    iconColor: '#FFF'
+    backgroundColor: '#F6F6F6',
+    iconColor: '#ED695A'
   },
   agenda: {
-    backgroundColor: '#77529D',
-    iconColor: '#FFF'
+    backgroundColor: '#F6F6F6',
+    iconColor: '#77529D'
   },
   photos: {
-    backgroundColor: '#62BA6B',
-    iconColor: '#FFF'
+    backgroundColor: '#F6F6F6',
+    iconColor: '#62BA6B'
   },
   default: {
-    backgroundColor: '#CCC',
-    iconColor: '#FFF'
+    backgroundColor: '#F6F6F6',
+    iconColor: '#999'
   }
 }
 

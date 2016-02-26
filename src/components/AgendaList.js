@@ -19,7 +19,7 @@ export default React.createClass({
 
   render() {
 
-    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center',
+    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center', 'agenda',
       {
         'selected': false
       }
@@ -33,7 +33,19 @@ export default React.createClass({
       }
     }
 
+    var intlData = {
+    "formats": {
+        "time": {
+            "hhmm": {
+                "hour": "numeric",
+                "minute": "numeric"
+            }
+        }
+    }
+};
+
     return (
+      <span>
 
         <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
@@ -41,7 +53,7 @@ export default React.createClass({
 
           <h2>{this.props.data.name}</h2>
 
-          <p><FormattedMessage id="on" defaultMessage=" "/>
+          <p><FormattedMessage id="on" defaultMessage="on"/>
               &nbsp;<FormattedDate
                     value={this.props.data.date}
                     weekday="long"
@@ -51,16 +63,17 @@ export default React.createClass({
               &nbsp;<span className="grey">(<FormattedRelative value={this.props.data.date} />)</span>
           </p>
 
-          <p><FormattedMessage id="startingat" defaultMessage=" "/>
+          <p><FormattedMessage id="startingat" defaultMessage="Starting at"/>
               &nbsp;<FormattedTime
                     value={this.props.data.date}
-                    minute="numeric"
+                    minute="2-digit"
                     hour="numeric" /></p>
 
-          <p><FormattedMessage id="group" defaultMessage="Group"/> {groupName} by {ownerName}</p>
+          <p><FormattedMessage id="group" defaultMessage="Group"/> {groupName}
+             &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {ownerName}</p>
           
         </div>
-
+      </span>
     );
   }
 });

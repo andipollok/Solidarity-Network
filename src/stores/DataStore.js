@@ -129,11 +129,11 @@ export default Reflux.createStore({
                 name: record.get('Name'),
                 group: record.get('Group')[0],
                 date: record.get('Date'),
-                type: record.get('Type'),
+                type: record.get('Type') || 'default',
                 description: record.get('Description'),
-                photos: record.get('Photos'),
-                interested: record.get('Interested'),
-                attended: record.get('Attended')
+                photos: record.get('Photos') || [],
+                interested: record.get('Interested') || 0,
+                attended: record.get('Attended') || 0
               };
             }
         });
@@ -156,12 +156,12 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
 
         records.forEach(function(record) {
-            if (record.get('Nr')) {
+            if (record.get('Nr') && record.get('Image') && record.get('Image').length > 0) {
               data.photos[record.getId()] = {
                 id: record.getId(),
                 nr: record.get('Nr'),
-                image: record.get('Image'),
-                description: record.get('Description'),
+                image: record.get('Image') || [],
+                description: record.get('Description') || '',
                 owner: record.get('Owner'),
                 activities: record.get('Activities')
               };

@@ -10,7 +10,7 @@ import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
-import ListPhotos from './ListPhotos';
+import PhotoList from './PhotoList';
 
 export default React.createClass({
 
@@ -23,7 +23,7 @@ export default React.createClass({
   },
 
   onClickSelectActivity(id) {
-    console.log("Clicked on activity " + id);
+    window.location.assign("#/photos/" + id);
   },
 
   render() {
@@ -37,7 +37,7 @@ export default React.createClass({
 
     var activityItem = function(id) {
       var d = this.state.data.activities[id];
-      return ( <ListPhotos key={id} data={d} onClickHandler={this.onClickSelectActivity}></ListPhotos> );
+      return ( <PhotoList key={id} data={d} onClickHandler={this.onClickSelectActivity}></PhotoList> );
     }.bind(this);
 
     var myActivities = [],
@@ -76,12 +76,14 @@ export default React.createClass({
       listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='loading'/></h2></div>;
     }
 
+    var header =
+      <div className="jumbotron container text-center">
+        <h1><FormattedMessage id='photos_in' values={{communityName: communityName}}/></h1>
+      </div>
+
     return (
       <div>
-        <div className="jumbotron container text-center">
-          <h1><FormattedMessage id='photos_in' values={{communityName: communityName}}/></h1>
-        </div>
-          {listActivities}
+        {listActivities}
       </div>
     );
   }

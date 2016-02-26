@@ -35,6 +35,14 @@ export default React.createClass({
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
+    $('.navbar .navbar-nav').addClass('collapsed');
+    $('body').addClass('collapsed-nav');
+  },
+
+  componentWillUnmount() {
+    $('.navbar .navbar-nav').removeClass('collapsed');
+    $('body').removeClass('collapsed-nav');
+    $('#headertext').html('Back to start');
   },
 
   clickHandler(p) {
@@ -42,6 +50,13 @@ export default React.createClass({
   },
 
   render() {
+
+    var welcomeHeader = 
+        <div className="jumbotron">
+          <div className="container text-center">
+            <h1><FormattedMessage id='welcome_in' values={{communityName: communityName}}/></h1>
+          </div>
+        </div>
 
     var communityName = "";
     if (this.state.status && this.state.status.community) {
@@ -52,35 +67,29 @@ export default React.createClass({
 
     return (
 
-      <div>
-        <div className="jumbotron">
-          <div className="container text-center">
-            <h1><FormattedMessage id='welcome_in' values={{communityName: communityName}}/></h1>
-          </div>
-        </div>
-        <div className="container">
+      <div className="container start">
+        <div className="row">
+          <Link to="/whatsnew">
+          <div className="col-md-4 box solid linked text-center padded whatsnew">
+            <h1><FormattedMessage id='nav_whatsnew'/></h1>
+            <p><FormattedMessage id='seewhatsnew'/></p>
+          </div> 
+          </Link>
+      
+          <div className="col-md-4 box solid linked text-center padded agenda" onClick={this.clickHandler.bind(this, "agenda")}>
+            <h1><FormattedMessage id='nav_agenda'/></h1>
+            <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
+          </div> 
 
-          <div className="row">
-
-            <div className="col-md-4 box white linked text-center padded" onClick={this.clickHandler.bind(this, "whatsnew")}>
-              <h2><FormattedMessage id='nav_whatsnew'/></h2>
-              <p><FormattedMessage id='seewhatsnew'/></p>
-            </div> 
-        
-            <div className="col-md-4 box white linked text-center padded" onClick={this.clickHandler.bind(this, "agenda")}>
-              <h2><FormattedMessage id='nav_agenda'/></h2>
-              <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
-            </div> 
-
-            <div className="col-md-4 box white linked text-center padded" onClick={this.clickHandler.bind(this, "photos")}>
-              <h2><FormattedMessage id='nav_photos'/></h2>
-              <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
-            </div> 
-
-          </div>
+          <div className="col-md-4 box solid linked text-center padded photos" onClick={this.clickHandler.bind(this, "photos")}>
+            <h1><FormattedMessage id='nav_photos'/></h1>
+            <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
+          </div> 
 
         </div>
+
       </div>
+
     );
   }
 });

@@ -8,7 +8,7 @@ import DataStore from '../stores/DataStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
-import ListCommunity from './ListCommunity';
+import CommunityList from './CommunityList';
 
 
 export default React.createClass({
@@ -32,7 +32,7 @@ export default React.createClass({
     if (this.state.data && this.state.data.loaded.communities && this.state.status) {
       var communityItem = function(id) {
         var d = this.state.data.communities[id];
-        return ( <ListCommunity key={d.id} data={d} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></ListCommunity> );
+        return ( <CommunityList key={d.id} data={d} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></CommunityList> );
       }.bind(this);
       selectCommunity = <span>{Object.keys(this.state.data.communities).map(communityItem, this)}</span>
     }

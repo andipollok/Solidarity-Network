@@ -54,23 +54,40 @@ export default React.createClass({
       selectedLanguage = <span>{this.state.language.selected}</span>;
     }
 
+    var navCollapseable = 
+      <span>
+      <div className="navbar-header">
+        <div id="navbar-collapse-button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span id="navbar-openmenu"><FormattedMessage id='nav_openmenu'/></span>
+          <span id="navbar-closemenu"><FormattedMessage id='nav_closemenu'/></span>
+        </div>
+      </div>
+      <div id="navbar" className="navbar-collapse">
+        <ul className="nav navbar-nav">
+          <li><Link className="whatsnew" activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
+          <li><Link className="agenda" activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
+          <li><Link className="photos" activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>
+        </ul>
+      </div>
+      </span>
+
+    var nav = 
+      <div className="container">
+        <div className="nav header">
+          <Link to="/"><h1 id="headertext">Solidarity Network {communityName}</h1></Link>
+        </div>
+        <ul id="navbar" className="nav navbar-nav">
+          <li><Link className="whatsnew" activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
+          <li><Link className="agenda" activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
+          <li><Link className="photos" activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>
+        </ul>
+      </div>
+
     return (
       <div>
         <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
 
-            <div className="navbar-header">
-              <div id="navbar-collapse-button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span id="navbar-openmenu"><FormattedMessage id='nav_openmenu'/></span>
-                <span id="navbar-closemenu"><FormattedMessage id='nav_closemenu'/></span>
-              </div>
-            </div>
-            <div id="navbar" className="navbar-collapse collapse">
-              <ul className="nav navbar-nav">
-                <li><Link className="nav1" activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
-                <li><Link className="nav2" activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
-                <li><Link className="nav3" activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>
-              </ul>
-            </div>
+          {nav}
    
         </nav>
       </div>

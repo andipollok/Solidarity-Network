@@ -10,7 +10,7 @@ import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
-import ListActivity from './ListActivity';
+import AgendaList from './AgendaList';
 
 export default React.createClass({
 
@@ -23,7 +23,6 @@ export default React.createClass({
   },
 
   onClickSelectActivity(id) {
-    //console.log("Clicked on activity " + id);
     window.location.assign("#/activity/" + id);
   },
 
@@ -38,7 +37,7 @@ export default React.createClass({
 
     var activityItem = function(id) {
       var d = this.state.data.activities[id];
-      return ( <ListActivity key={id} data={d} onClickHandler={this.onClickSelectActivity}></ListActivity> );
+      return ( <AgendaList key={id} data={d} onClickHandler={this.onClickSelectActivity}></AgendaList> );
     }.bind(this);
 
     var myActivities = [],
@@ -76,13 +75,14 @@ export default React.createClass({
     if (!loadedData) {
       listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='loading'/></h2></div>;
     }
+    var header =  
+      <div className="jumbotron container text-center">
+        <h1><FormattedMessage id='agenda_in' values={{communityName: communityName}}/></h1>
+      </div>
 
     return (
       <div>
-        <div className="jumbotron container text-center">
-          <h1><FormattedMessage id='agenda_in' values={{communityName: communityName}}/></h1>
-        </div>
-          {listActivities}
+        {listActivities}
       </div>
     );
   }
