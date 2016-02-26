@@ -38,5 +38,9 @@
   "photo": "Photo",
   "photos": "Photos",
 
+  "photos_from": "Photos de {activityName}",
+  "photo_from": "Photo de {activityName}",
+  "photos_by": "Photos par {personName}",
+  "photo_by": "Photo par {personName}",
 
 }

@@ -18,7 +18,7 @@
 
   "seewhatsnew": "Find out what's new since you were here last time",
   "seeagenda": "See all activities in {communityName}",
-  "seephotos": "Browse photos of past activitis in {communityName}",
+  "seephotos": "Browse photos of past activities in {communityName}",
 
   "organisedby": "Organised by {name}",
 
@@ -31,11 +31,17 @@
 
   "on": "On",
   "at": "At",
+  "by": "by",
   "startingat": "Starting at",
 
   "group": "Group",
   "groups": "Groups",
   "photo": "Photo",
   "photos": "Photos",
+
+  "photos_from": "Photos from {activityName}",
+  "photo_from": "Photo from {activityName}",
+  "photos_by": "Photos by {personName}",
+  "photo_by": "Photo by {personName}",
 
 }
