@@ -60,7 +60,7 @@ export default React.createClass({
 
     var communityName = "";
     if (this.state.status && this.state.status.community) {
-      if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
+      if (this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
         communityName = this.state.data.communities[this.state.status.community].name;
       }
     }
