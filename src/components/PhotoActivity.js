@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link}  from 'react-router';
-import classNames from 'classnames';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -84,7 +83,7 @@ export default React.createClass({
       activityComponent = 
         <div className="box white container text-center">
 
-          <Icon type={activity.type} area='photos' shape='hexagon'/>
+          <Icon type={'activity-' + activity.type} area='photos' shape='hexagon'/>
 
           <h1><FormattedMessage id='photos_from' values={{activityName: activity.name}}/></h1>
 

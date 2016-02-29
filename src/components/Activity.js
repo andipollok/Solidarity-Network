@@ -51,7 +51,7 @@ export default React.createClass({
         
         <div className="box white container text-center">
 
-          <Icon type={activity.type} area='agenda' shape='hexagon'/>
+          <Icon type={'activity-' + activity.type} area='agenda' shape='hexagon'/>
 
           <h1>{activity.name}</h1>
 
@@ -68,7 +68,7 @@ export default React.createClass({
           <h3><FormattedMessage id="startingat" defaultMessage=" "/>
               &nbsp;<FormattedTime
                     value={activity.date}
-                    minute="numeric"
+                    minute="2-digit"
                     hour="numeric" /></h3>
 
           <p><FormattedMessage id="group" defaultMessage="Group"/> {groupName}

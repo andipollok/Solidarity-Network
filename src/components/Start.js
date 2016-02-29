@@ -12,6 +12,8 @@ import StatusStore from '../stores/StatusStore';
 import DataActions from '../stores/DataActions';
 import DataStore from '../stores/DataStore';
 
+import Icon from './Icon';
+
 import { FormattedNumber, FormattedMessage } from 'react-intl';
 
 // surpress console calls from React Intl when message is not found
@@ -51,6 +53,10 @@ export default React.createClass({
 
   render() {
 
+    if (!this.state.language || (this.state.language && !this.state.language.loaded)) {
+      return <div></div>;
+    }
+
     var welcomeHeader = 
         <div className="jumbotron">
           <div className="container text-center">
@@ -60,7 +66,7 @@ export default React.createClass({
 
     var communityName = "";
     if (this.state.status && this.state.status.community) {
-      if (this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
+      if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
         communityName = this.state.data.communities[this.state.status.community].name;
       }
     }
@@ -69,19 +75,22 @@ export default React.createClass({
 
       <div className="container start">
         <div className="row">
-          <Link to="/whatsnew">
-          <div className="col-md-4 box solid linked text-center padded whatsnew">
+          <div className="col-md-4 box solid linked text-center padded white whatsnew" onClick={this.clickHandler.bind(this, "whatsnew")}>
+
+            <Icon type='whatsnew' area='whatsnew' shape='empty'/>
+
             <h1><FormattedMessage id='nav_whatsnew'/></h1>
             <p><FormattedMessage id='seewhatsnew'/></p>
-          </div> 
-          </Link>
+          </div>
       
-          <div className="col-md-4 box solid linked text-center padded agenda" onClick={this.clickHandler.bind(this, "agenda")}>
+          <div className="col-md-4 box solid linked text-center padded white agenda" onClick={this.clickHandler.bind(this, "agenda")}>
+            <Icon type='agenda' area='agenda' shape='empty'/>
             <h1><FormattedMessage id='nav_agenda'/></h1>
             <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
-          </div> 
+          </div>
 
-          <div className="col-md-4 box solid linked text-center padded photos" onClick={this.clickHandler.bind(this, "photos")}>
+          <div className="col-md-4 box solid linked text-center padded white photos" onClick={this.clickHandler.bind(this, "photos")}>
+            <Icon type='photos' area='photos' shape='empty'/>
             <h1><FormattedMessage id='nav_photos'/></h1>
             <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
           </div> 

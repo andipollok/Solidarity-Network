@@ -10,7 +10,7 @@ import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 
-import AgendaList from './AgendaList';
+import Listitem from './AgendaListitem';
 
 export default React.createClass({
 
@@ -27,6 +27,11 @@ export default React.createClass({
   },
 
   render() {
+
+    if (!this.state.language || (this.state.language && !this.state.language.loaded)) {
+      return <div></div>;
+    }
+
     var communityName = "";
 
     if (this.state.status && this.state.status.community) {
@@ -37,7 +42,7 @@ export default React.createClass({
 
     var activityItem = function(id) {
       var d = this.state.data.activities[id];
-      return ( <AgendaList key={id} data={d} onClickHandler={this.onClickSelectActivity}></AgendaList> );
+      return ( <Listitem key={id} data={d} onClickHandler={this.onClickSelectActivity}></Listitem> );
     }.bind(this);
 
     var myActivities = [],

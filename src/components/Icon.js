@@ -30,13 +30,13 @@ export default React.createClass({
       iconColor = colors[this.props.area].iconColor;
     }
     var backgroundShape = this.props.shape || 'circle';
-    var iconType = this.props.type || 'hiking';
+    var iconType = this.props.type || 'activity-hiking';
 
     return (
       <div className="icon">
         <span className="inner">
           <SvgIcon name={'background-' + backgroundShape} color={backgroundColor}/>
-          <SvgIcon name={'activity-' + iconType} color={iconColor}/>
+          <SvgIcon name={iconType} color={iconColor}/>
         </span>
       </div>
     );

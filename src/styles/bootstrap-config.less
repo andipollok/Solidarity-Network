@@ -366,7 +366,7 @@
 @navbar-padding-vertical:          ((@navbar-height - @line-height-computed) / 2);
 @navbar-collapse-max-height:       340px;
 
-@navbar-default-color:             #777;
+@navbar-default-color:             red;
 @navbar-default-bg:                #f8f8f8;
 @navbar-default-border:            darken(@navbar-default-bg, 6.5%);
 
@@ -392,12 +392,12 @@
 
 //=== Inverted navbar
 // Reset inverted navbar basics
-@navbar-inverse-color:                      lighten(@gray-light, 15%);
-@navbar-inverse-bg:                         #222;
+@navbar-inverse-color:                      #FFF; // default: lighten(@gray-light, 15%)
+@navbar-inverse-bg:                         #000;
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
-@navbar-inverse-link-color:                 lighten(@gray-light, 15%);
+@navbar-inverse-link-color:                 white; // lighten(@gray-light, 15%)
 @navbar-inverse-link-hover-color:           #fff;
 @navbar-inverse-link-hover-bg:              transparent;
 @navbar-inverse-link-active-color:          @navbar-inverse-link-hover-color;
@@ -422,9 +422,9 @@
 
 //=== Shared nav styles
 @nav-link-padding:                          0px;
-@nav-link-hover-bg:                         @gray-lighter;
+@nav-link-hover-bg:                         white;
 
-@nav-disabled-link-color:                   @gray-light;
+@nav-disabled-link-color:                   white; // default: @gray-light
 @nav-disabled-link-hover-color:             @gray-light;
 
 //== Tabs

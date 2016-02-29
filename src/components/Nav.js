@@ -17,6 +17,7 @@ export default React.createClass({
 
   componentDidMount() {
     StatusActions.forceTrigger();
+
     $('.nav a').click(function(){
       if(!$('#navbar-collapse-button').hasClass('collapsed')) {
         $('#navbar-collapse-button').click();
@@ -41,6 +42,10 @@ export default React.createClass({
   },
 
   render() {
+
+    if (!this.state.language || (this.state.language && !this.state.language.loaded)) {
+      return <div></div>;
+    }
 
     var communityName = "";
     if (this.state.status && this.state.status.community) {
@@ -76,7 +81,7 @@ export default React.createClass({
         <div className="nav header">
           <Link to="/"><h1 id="headertext">Solidarity Network {communityName}</h1></Link>
         </div>
-        <ul id="navbar" className="nav navbar-nav">
+        <ul id="navbar" className="nav navbar-nav collapsed">
           <li><Link className="whatsnew" activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
           <li><Link className="agenda" activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
           <li><Link className="photos" activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>

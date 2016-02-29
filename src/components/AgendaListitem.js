@@ -33,23 +33,12 @@ export default React.createClass({
       }
     }
 
-    var intlData = {
-    "formats": {
-        "time": {
-            "hhmm": {
-                "hour": "numeric",
-                "minute": "numeric"
-            }
-        }
-    }
-};
-
     return (
       <span>
 
         <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
-          <Icon type={this.props.data.type} area='agenda' shape='hexagon'/>
+          <Icon type={'activity-' + this.props.data.type} area='agenda' shape='hexagon'/>
 
           <h2>{this.props.data.name}</h2>
 

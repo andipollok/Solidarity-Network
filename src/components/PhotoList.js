@@ -57,7 +57,7 @@ export default React.createClass({
 
         <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
-          <Icon type={this.props.data.type} area='photos' shape='hexagon'/>
+          <Icon type={'activity-' + this.props.data.type} area='photos' shape='hexagon'/>
 
           <h2>{this.props.data.name}</h2>
 

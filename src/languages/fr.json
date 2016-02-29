@@ -43,4 +43,11 @@
   "photos_by": "Photos par {personName}",
   "photo_by": "Photo par {personName}",
 
+  "whatsnew-uploadedphoto": "{personName} partagé 8 photos de l'activité {activityName}!",
+  "whatsnew-changedtime": "Attention, {personName} changer l'heure de départ de {activityName}!",
+  "whatsnew-createdgroup": "{personName} a créé un nouveau groupe {groupName}!",
+  "whatsnew-cancelled": "Quel dommage! {personName} annulé l'activité {activityName}.",
+  "whatsnew-joinedgroup": "Ouais! {personName} a rejoint le groupe {groupName}.",
+  "whatsnew-createdactivity": "Grande! {personName} a créé l'activité {activityName}.",
+
 }

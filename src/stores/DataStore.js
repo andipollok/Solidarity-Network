@@ -17,6 +17,7 @@ export default Reflux.createStore({
     init: function() {
       
       data = {
+        whatsnew:     { },  
         communities:  { },
         groups:       { },
         activities:   { },
@@ -24,6 +25,7 @@ export default Reflux.createStore({
         people:       { },
 
         loaded: {
+          whatsnew:    false,
           communities: false,
           groups:      false,
           activities:  false,
@@ -34,11 +36,11 @@ export default Reflux.createStore({
       };
 
       this.loadCommunities();
-
       this.loadActivities();
       this.loadGroups();
       this.loadPhotos();
       this.loadPeople();
+      this.loadWhatsnew();
 
     },
 
@@ -73,6 +75,37 @@ export default Reflux.createStore({
         }
 
         data.loaded.communities = true;
+        that.forceTrigger();
+
+      }, function done(error) {
+        if (error) {
+          that.throwError(error);
+        }
+      });
+    },
+
+    loadWhatsnew() {
+      var that = this;
+      base('Whatsnew').select({
+        maxRecords: 200,
+        view: "Main View"
+      }).eachPage(function page(records, fetchNextPage) {
+
+        records.forEach(function(record) {
+            if (record.get('Date') && record.get('Type') && record.get('Person')) {
+              data.whatsnew[record.getId()] = {
+                id: record.getId(),
+                date: record.get('Date'),
+                type: record.get('Type'),
+                params: record.get('Params'),
+                activityId: record.get('Activity') ? record.get('Activity')[0] : undefined,
+                groupId: record.get('Group') ? record.get('Group')[0] : undefined,
+                personId: record.get('Person')
+              };
+            }
+        });
+        data.loaded.whatsnew = true;
+        // console.log("found the following " + Object.keys(data.whatsnew).length + " whatsnew entries", data.whatsnew);
         that.forceTrigger();
 
       }, function done(error) {
@@ -133,7 +166,8 @@ export default Reflux.createStore({
                 description: record.get('Description'),
                 photos: record.get('Photos') || [],
                 interested: record.get('Interested') || 0,
-                attended: record.get('Attended') || 0
+                attended: record.get('Attended') || 0,
+                cancelled: record.get('cancelled')
               };
             }
         });
