@@ -3,7 +3,7 @@ import Actions from './DataActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
 import AirtableConfig from './AirtableConfig';
-console.log(AirtableConfig);
+
 Airtable.configure({ apiKey: AirtableConfig.apiKey });
 var base = new Airtable().base(AirtableConfig.base);
 
