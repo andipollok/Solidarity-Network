@@ -2,6 +2,7 @@ import Reflux from 'reflux';
 import Actions from './LanguageActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
+import AirtableConfig from './AirtableConfig';
 
 import messages_en from '../languages/en.json';
 import messages_fr from '../languages/fr.json';
@@ -11,15 +12,8 @@ var messages = {
   fr: messages_fr
 }
 
-// maybe reformat messages object to include empty default message, so it doesn't show up before loading json
-// Object.keys(messages).forEach(function(language) { 
-//   Object.keys(messages[language]).forEach(function(messageId) {
-//     messages[language][messageId]
-//   })
-//  });
-
-Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
-var base = new Airtable().base('appTOXg7AH1lJqSrT');
+Airtable.configure({ apiKey: AirtableConfig.apiKey });
+var base = new Airtable().base(AirtableConfig.base);
 
 var data = {};
 var cookieName = "language";

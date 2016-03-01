@@ -2,9 +2,10 @@ import Reflux from 'reflux';
 import Actions from './DataActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
-
-Airtable.configure({ apiKey: 'keyI22v2hdm84ezJv' });
-var base = new Airtable().base('appTOXg7AH1lJqSrT');
+import AirtableConfig from './AirtableConfig';
+console.log(AirtableConfig);
+Airtable.configure({ apiKey: AirtableConfig.apiKey });
+var base = new Airtable().base(AirtableConfig.base);
 
 var data = {};
 var cookieNameCommunity = "community";
