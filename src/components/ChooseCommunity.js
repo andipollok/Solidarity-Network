@@ -28,13 +28,13 @@ export default React.createClass({
   },
 
   render() {
+
     var selectCommunity = <FormattedMessage id='loading'/>;
     if (this.state.data && this.state.data.loaded.communities && this.state.status) {
-      var communityItem = function(id) {
-        var d = this.state.data.communities[id];
-        return ( <CommunityList key={d.id} data={d} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></CommunityList> );
+      var communityItem = function(community) {
+        return ( <CommunityList key={community.id} data={community} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></CommunityList> );
       }.bind(this);
-      selectCommunity = <span>{Object.keys(this.state.data.communities).map(communityItem, this)}</span>
+      selectCommunity = <span>{this.state.data.communities.map(communityItem, this)}</span>
     }
 
     return (

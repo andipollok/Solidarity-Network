@@ -1,11 +1,12 @@
 import React from 'react';
-import cookie from 'react-cookie';
 import { Link }  from 'react-router';
-import { defineMessages } from 'react-intl';
+import classNames from'classnames';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
 import DataStore from '../stores/DataStore';
+import StatusActions from '../stores/StatusActions';
+import StatusStore from '../stores/StatusStore';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
 
@@ -32,7 +33,7 @@ import Start from './Start';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language')],
+  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
 
   setLanguage: function(lang) {
     LanguageActions.setLanguage(lang);
@@ -53,15 +54,21 @@ export default React.createClass({
       var error = <ErrorMessage {...this.state.data.errors[0]}/>;
     }
 
+    if (this.state.status) {
+      var mainContainerClasses = classNames( ['mainContainer'], {
+        'collapsed': this.state.status.currentPage === 'start'
+      });
+    }
+
     return (
 
       <IntlProvider {...intldata}>
 
-        <div>
+        <div className={mainContainerClasses}>
 
           <Nav />
 
-          {error}  
+          {error}
 
           {this.props.children}
 

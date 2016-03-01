@@ -17,14 +17,7 @@ $color_primary3_font: #FFF;
   display:none !important;
 }
 
-html, body {
-  height:100%;
-}
-
 body {
-  height:100%;
-  padding-top: 155px;
-  padding-bottom: 60px;
   overflow-y: scroll;
   &.collapsed-nav {
     padding-top:90px;
@@ -35,6 +28,13 @@ body {
 }
 
 #content {
+  .mainContainer {
+    padding-top: 155px;
+    &.collapsed {
+      padding-top: 85px;
+    }
+    padding-bottom: 60px;
+  }
   .grey {
     color: $color_darkgrey;
   }
@@ -58,9 +58,6 @@ body {
       cursor: pointer;
     }
     &.linked:hover {
-      &.white {
-        background-color: white;
-      }
       box-sizing: border-box;
       box-shadow:inset 0px 0px 0px 10px $color_primary1;
       &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color_primary1; }
@@ -76,7 +73,7 @@ body {
     }
     &.padded[class*="col-"] {
       background-clip: padding-box;
-      border: 4px solid transparent;
+      border: 6px solid transparent;
     }
   }
 
@@ -166,6 +163,7 @@ body {
       height:70px;
       transition-property: height;
       transition-duration: 0.25s;
+      transition-delay:0.1s;
       transition-timing-function: ease-out;
       overflow:hidden;
       &.collapsed {

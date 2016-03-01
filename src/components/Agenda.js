@@ -9,17 +9,20 @@ import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
 import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
+import Helpers from '../stores/Helpers.js';
 
 import Listitem from './AgendaListitem';
 
+
 export default React.createClass({
 
-  mixins: [Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status')],
+  mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   componentDidMount() {
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
+    StatusActions.setCurrentPage('agenda');
   },
 
   onClickSelectActivity(id) {
@@ -28,21 +31,14 @@ export default React.createClass({
 
   render() {
 
-    if (!this.state.language || (this.state.language && !this.state.language.loaded)) {
+    if (!Helpers.checkLanguageLoaded(this)) {
       return <div></div>;
     }
 
-    var communityName = "";
+    var community = Helpers.getCommunityFromStatus(this);
 
-    if (this.state.status && this.state.status.community) {
-      if (this.state.data && this.state.data.loaded.communities && this.state.data.communities[this.state.status.community]) {
-        communityName = this.state.data.communities[this.state.status.community].name;
-      }
-    }
-
-    var activityItem = function(id) {
-      var d = this.state.data.activities[id];
-      return ( <Listitem key={id} data={d} onClickHandler={this.onClickSelectActivity}></Listitem> );
+    var activityItem = function(activity) {
+      return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickSelectActivity}></Listitem> );
     }.bind(this);
 
     var myActivities = [],
@@ -51,9 +47,8 @@ export default React.createClass({
 
     if (this.state.data && this.state.data.loaded.activities && this.state.data.groups && this.state.data.loaded.groups && this.state.status && this.state.status.community) {
       loadedData = true;
-      myActivities = Object.keys(this.state.data.activities).filter(
-        function(activityID) {
-          var activity = this.state.data.activities[activityID];
+      myActivities = this.state.data.activities.filter(
+        function(activity) {
           var now = new Date();
           var date = new Date(activity.date);
           // check if this activity is in the future
@@ -61,28 +56,26 @@ export default React.createClass({
             return false;
           }
           // check if this activity is in a group that is in this community
-          var groupID = activity.group;
-          if (this.state.data.groups[groupID]) {
-            var communityID = this.state.data.groups[groupID].community;
-            return communityID === this.state.status.community;
-          }
-          else {
+          var group = Helpers.getGroupById(activity.groupId, this);
+          var community = Helpers.getCommunityById(group.communityId, this);
+          if (community.id !== this.state.status.community) {
             return false;
           }
+          return true;
         }.bind(this));
       if (myActivities.length > 0) { foundActivities = true; }
     }
 
     var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
     if (!foundActivities && loadedData) {
-      listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: communityName}}/></h2></div>;
+      listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: community.name}}/></h2></div>;
     }
     if (!loadedData) {
       listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='loading'/></h2></div>;
     }
     var header =  
       <div className="jumbotron container text-center">
-        <h1><FormattedMessage id='agenda_in' values={{communityName: communityName}}/></h1>
+        <h1><FormattedMessage id='agenda_in' values={{communityName: community.name}}/></h1>
       </div>
 
     return (

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
 import DataStore from '../stores/DataStore';
+import Helpers from '../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
@@ -11,7 +12,7 @@ import Icon from './Icon';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(DataStore, 'data')],
+  mixins: [ Reflux.connect(DataStore, 'data') ],
 
   componentDidMount() {
     DataActions.forceTrigger();
@@ -25,30 +26,22 @@ export default React.createClass({
       }
     ); // selected may be needed later
 
-    if (this.state.data && this.state.data.loaded.groups) {
-      // load group name of this activity
-      var groupName = this.state.data.groups[this.props.data.group].name;
-      // load owner name of this group
-      var ownerId = this.state.data.groups[this.props.data.group].owner;
-      if (this.state.data.loaded.people) {
-        var ownerName = this.state.data.people[ownerId].name;
-      }
-    }
+    var group = Helpers.getGroupById(this.props.data.groupId, this);
+    var owner = Helpers.getPersonById(group.ownerId, this);
 
     // load photos of this activity
     var photoList = [];
     if (this.state.data && this.state.data.loaded.photos && this.props.data.photos.length > 0) {
       this.props.data.photos.map(function(photoId) {
-        var photos = this.state.data.photos[photoId];
+        var photo = Helpers.getPhotoById(photoId, this);
         // each photo contains an image array, as there can also be more than one attachment in Airtable.
-        photos.image.map(function(image) {
-          photoList = photoList.concat({
-            description: photos.description, // store the description for each photo
-            owner: photos.owner, // store the owner for each photo
+        photo.image.map(function(image) {
+          photoList.push({
+            description: photo.description, // store the description for each photo
+            ownerId: photo.owner, // store the owner for each photo
             url: image.url,
             id: image.id
           });
-
         }.bind(this))
       }.bind(this));
     }
@@ -77,7 +70,7 @@ export default React.createClass({
                     minute="2-digit"
                     hour="numeric" /></p>
 
-          <p><FormattedMessage id="group" defaultMessage="Group"/> {groupName} by {ownerName}</p>
+          <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name} by {owner.name}</p>
 
           <p><FormattedMessage id="numberofphotos" values={{numPhotos: photoList.length}}/></p>
           

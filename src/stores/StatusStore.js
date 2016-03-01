@@ -16,7 +16,8 @@ export default Reflux.createStore({
       var cookieValueCommunity = cookie.load(cookieNameCommunity) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
       data = {
         join: cookieValueJoin,
-        community: cookieValueCommunity
+        community: cookieValueCommunity,
+        currentPage: ''
       };
       this.setJoin(cookieValueJoin); // -todo- this only has to be done if default value for cookie has been set
       this.setCommunity(cookieValueCommunity); // -todo- this only has to be done if default value for cookie has been set
@@ -35,8 +36,14 @@ export default Reflux.createStore({
       this.trigger(data);
     },
 
+    setCurrentPage: function(pagename) {
+      data.currentPage = pagename;
+      this.trigger(data);
+    },
+
     forceTrigger: function() {
       this.trigger(data);
-    }
+    },
+
 
 });

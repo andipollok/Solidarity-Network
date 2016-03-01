@@ -17,12 +17,12 @@ export default Reflux.createStore({
     init: function() {
       
       data = {
-        whatsnew:     { },  
-        communities:  { },
-        groups:       { },
-        activities:   { },
-        photos:       { },
-        people:       { },
+        whatsnew:     [],  
+        communities:  [],
+        groups:       [],
+        activities:   [],
+        photos:       [],
+        people:       [],
 
         loaded: {
           whatsnew:    false,
@@ -30,7 +30,8 @@ export default Reflux.createStore({
           groups:      false,
           activities:  false,
           photos:      false,
-          people:      false
+          people:      false,
+          all:         false,  
         },
         errors: []
       };
@@ -57,16 +58,15 @@ export default Reflux.createStore({
         maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
-
         records.forEach(function(record) {
           if (record.get('Name')) {
-            data.communities[record.getId()] = {
+            data.communities.push({
               id: record.getId(),
               name: record.get('Name'),
-              owner: record.get('Owner'),
-              groups: record.get('Groups'),
+              ownerId: record.get('Owner')[0],
+              groupIds: record.get('Groups'),
               countMembers: record.get('CountMembers')
-            };
+            });
           }
         });
         if (!cookieValueCommunity && Object.keys(data.communities).length > 0) {
@@ -84,24 +84,28 @@ export default Reflux.createStore({
       });
     },
 
+    test() {
+      console.log("datastore test");
+      return ("huhu");
+    },
+
     loadWhatsnew() {
       var that = this;
       base('Whatsnew').select({
         maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
-
         records.forEach(function(record) {
             if (record.get('Date') && record.get('Type') && record.get('Person')) {
-              data.whatsnew[record.getId()] = {
+              data.whatsnew.push({
                 id: record.getId(),
                 date: record.get('Date'),
                 type: record.get('Type'),
                 params: record.get('Params'),
                 activityId: record.get('Activity') ? record.get('Activity')[0] : undefined,
                 groupId: record.get('Group') ? record.get('Group')[0] : undefined,
-                personId: record.get('Person')
-              };
+                personId: record.get('Person')[0]
+              });
             }
         });
         data.loaded.whatsnew = true;
@@ -121,19 +125,18 @@ export default Reflux.createStore({
         maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
-
         records.forEach(function(record) {
             if (record.get('Name')) {
-              data.groups[record.getId()] = {
+              data.groups.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                community: record.get('Community')[0],
-                owner: record.get('Owner'),
+                communityId: record.get('Community')[0],
+                ownerId: record.get('Owner')[0],
                 description: record.get('Description'),
                 headerimage: record.get('Header Image'),
                 activities: record.get('Activities'),
                 official: record.get('Official')
-              };
+              });
             }
         });
         data.loaded.groups = true;
@@ -154,13 +157,12 @@ export default Reflux.createStore({
         view: "Main View"
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
       }).eachPage(function page(records, fetchNextPage) {
-
         records.forEach(function(record) {
             if (record.get('Name') && record.get('Date')) {
-              data.activities[record.getId()] = {
+              data.activities.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                group: record.get('Group')[0],
+                groupId: record.get('Group')[0],
                 date: record.get('Date'),
                 type: record.get('Type') || 'default',
                 description: record.get('Description'),
@@ -168,7 +170,7 @@ export default Reflux.createStore({
                 interested: record.get('Interested') || 0,
                 attended: record.get('Attended') || 0,
                 cancelled: record.get('cancelled')
-              };
+              });
             }
         });
         data.loaded.activities = true;
@@ -188,17 +190,16 @@ export default Reflux.createStore({
         maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
-
         records.forEach(function(record) {
             if (record.get('Nr') && record.get('Image') && record.get('Image').length > 0) {
-              data.photos[record.getId()] = {
+              data.photos.push({
                 id: record.getId(),
                 nr: record.get('Nr'),
                 image: record.get('Image') || [],
                 description: record.get('Description') || '',
-                owner: record.get('Owner'),
+                ownerId: record.get('Owner'),
                 activities: record.get('Activities')
-              };
+              });
             }
         });
         data.loaded.photos = true;
@@ -218,15 +219,14 @@ export default Reflux.createStore({
         maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
-
         records.forEach(function(record) {
             if (record.get('Name')) {
-              data.people[record.getId()] = {
+              data.people.push({
                 id: record.getId(),
                 name: record.get('Name'),
                 surname: record.get('Surname'),
                 headshot: record.get('Headshot')
-              };
+              });
             }
         });
         data.loaded.people = true;
@@ -242,6 +242,9 @@ export default Reflux.createStore({
     },
  
     forceTrigger: function() {
+      if (data.loaded.whatsnew && data.loaded.communities && data.loaded.groups && data.loaded.activities && data.loaded.photos && data.loaded.people) {
+        data.loaded.all = true;
+      }
       this.trigger(data);
     }
 

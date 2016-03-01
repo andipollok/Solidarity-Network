@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
 import DataStore from '../stores/DataStore';
+import Helpers from '../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
@@ -11,7 +12,7 @@ import Icon from './Icon';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(DataStore, 'data')],
+  mixins: [ Reflux.connect(DataStore, 'data') ],
 
   componentDidMount() {
     DataActions.forceTrigger();
@@ -25,13 +26,8 @@ export default React.createClass({
       }
     ); // selected may be needed later
 
-    if (this.state.data && this.state.data.loaded.groups) {
-      var groupName = this.state.data.groups[this.props.data.group].name;
-      var ownerId = this.state.data.groups[this.props.data.group].owner;
-      if (this.state.data.loaded.people) {
-        var ownerName = this.state.data.people[ownerId].name;
-      }
-    }
+    var group = Helpers.getGroupById(this.props.data.groupId, this);
+    var owner = Helpers.getPersonById(group.ownerId, this);
 
     return (
       <span>
@@ -58,8 +54,8 @@ export default React.createClass({
                     minute="2-digit"
                     hour="numeric" /></p>
 
-          <p><FormattedMessage id="group" defaultMessage="Group"/> {groupName}
-             &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {ownerName}</p>
+          <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
+             &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
           
         </div>
       </span>
