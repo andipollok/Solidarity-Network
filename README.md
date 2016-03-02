@@ -1,10 +1,11 @@
-# Solidarity Network prototypes
+# Solidarity Network prototype
 
-Prototypes developed for the Solidarity Network project at EPFL+ECAL Lab.
+Prototype developed for the Solidarity Network project at EPFL+ECAL Lab.
 
 ## Tech stack
 
-Using React, Reflux, gulp, bower, sass, Airtable. Initially based on [React Starterify](https://github.com/Granze/react-starterify)
+Using React, Reflux, Airtable, and gulp, bower, sass for development.
+Initially based on [React Starterify](https://github.com/Granze/react-starterify)
 
 ## Usage
 
@@ -12,9 +13,6 @@ __Install the dependencies:__
 
 `npm install`
 
-__Test:__
-
-`npm test`
 
 __Development mode with livereload:__
 
