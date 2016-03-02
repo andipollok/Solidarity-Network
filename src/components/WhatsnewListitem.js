@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Button, ButtonGroup, Row, Col } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -49,12 +50,12 @@ export default React.createClass({
     }
 
     return (
-      <span>
 
-        <div className={divClass} onClick={this.props.onClickHandler.bind(null, link)}>
+      <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, link)}>
+
+        <div className="box white linked text-center whatsnew">
 
           {icon}
-
 
           <h2><FormattedMessage id={ 'whatsnew-' + this.props.data.type.replace(/\s+/g, '') } values={{
               personName: this.props.data.person.name,
@@ -62,13 +63,13 @@ export default React.createClass({
               groupName: this.props.data.group.name || '',
             }} defaultMessage=' '/></h2>
 
-
           <p>
             <span className="grey"><FormattedRelative value={this.props.data.date} /></span>
           </p>
 
         </div>
-      </span>
+
+      </Col>
     );
   }
 });

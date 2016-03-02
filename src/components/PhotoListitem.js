@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -48,8 +49,10 @@ export default React.createClass({
 
     return (
 
-        <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+      <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
+        <div className="box white linked text-center photos">
+      
           <Icon type={'activity-' + this.props.data.type} area='photos' shape='hexagon'/>
 
           <h2>{this.props.data.name}</h2>
@@ -75,6 +78,8 @@ export default React.createClass({
           <p><FormattedMessage id="numberofphotos" values={{numPhotos: photoList.length}}/></p>
           
         </div>
+
+      </Col>
 
     );
   }

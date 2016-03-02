@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
+import { Button, ButtonGroup, Col } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -12,11 +13,16 @@ import StatusStore from '../stores/StatusStore';
 import Helpers from '../stores/Helpers.js';
 
 import Listitem from './AgendaListitem';
+import Calendar from './AgendaCalendar';
 
 
 export default React.createClass({
 
   mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
+
+  getInitialState: function() {
+    return { area: 'upcoming' };
+  },
 
   componentDidMount() {
     DataActions.forceTrigger();
@@ -29,6 +35,10 @@ export default React.createClass({
     window.location.assign("#/activity/" + id);
   },
 
+  setArea(_area) {
+    this.setState({ area: _area });
+  },
+
   render() {
 
     if (!Helpers.checkLanguageLoaded(this)) {
@@ -39,6 +49,10 @@ export default React.createClass({
 
     var activityItem = function(activity) {
       return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickSelectActivity}></Listitem> );
+    }.bind(this);
+
+    var activityItemCalendar = function(activity) {
+      return ( <CalendarItem key={activity.id} data={activity} onClickHandler={this.onClickSelectActivity}></CalendarItem> );
     }.bind(this);
 
     var myActivities = [],
@@ -67,20 +81,36 @@ export default React.createClass({
     }
 
     var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
+
+    // var listActivitiesCalendar = <div className="container">{myActivities.map(activityItemCalendar, this)}</div>;
+    var calendar = <Calendar activities={myActivities} />;
+
+    var header =  
+      <div className="jumbotron container text-center">
+        <h1><FormattedMessage id='agenda_in' values={{communityName: community.name}}/></h1>
+      </div>
+    
+    var Component = listActivities;
+    if (this.state.area === 'calendar') {
+      Component = calendar;
+    }
+
     if (!foundActivities && loadedData) {
       listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: community.name}}/></h2></div>;
     }
     if (!loadedData) {
       listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='loading'/></h2></div>;
     }
-    var header =  
-      <div className="jumbotron container text-center">
-        <h1><FormattedMessage id='agenda_in' values={{communityName: community.name}}/></h1>
-      </div>
 
     return (
       <div>
-        {listActivities}
+        <Col md={12} fluid className="text-center box half padded">
+          <ButtonGroup>
+            <Button bsSize="large" className="padded" active={ this.state.area === 'upcoming' } onClick={ this.setArea.bind(this, 'upcoming') }>Upcoming</Button>  
+            <Button bsSize="large" className="padded" active={ this.state.area === 'calendar' } onClick={ this.setArea.bind(this, 'calendar') }>Calendar</Button>  
+          </ButtonGroup>
+        </Col>
+        {Component}
       </div>
     );
   }

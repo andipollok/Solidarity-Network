@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link}  from 'react-router';
+import { Row, Col } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import LanguageActions from '../stores/LanguageActions';
@@ -50,28 +51,33 @@ export default React.createClass({
     return (
 
       <div className="container start">
-        <div className="row">
-          <div className="col-md-4 box solid linked text-center padded white whatsnew" onClick={this.clickHandler.bind(this, "whatsnew")}>
 
-            <Icon type='whatsnew' area='whatsnew' shape='empty'/>
-
-            <h1><FormattedMessage id='nav_whatsnew'/></h1>
-            <p><FormattedMessage id='seewhatsnew'/></p>
-          </div>
+        <Row>
+          <Col md={4} onClick={this.clickHandler.bind(this, "whatsnew")}>
+            <div className="box white linked text-center whatsnew">
+              <Icon type='whatsnew' area='whatsnew' shape='empty'/>
+              <h1><FormattedMessage id='nav_whatsnew'/></h1>
+              <p><FormattedMessage id='seewhatsnew'/></p>
+            </div>
+          </Col>
       
-          <div className="col-md-4 box solid linked text-center padded white agenda" onClick={this.clickHandler.bind(this, "agenda")}>
-            <Icon type='agenda' area='agenda' shape='empty'/>
-            <h1><FormattedMessage id='nav_agenda'/></h1>
-            <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
-          </div>
+          <Col md={4} onClick={this.clickHandler.bind(this, "agenda")}>
+            <div className="box white linked text-center agenda">
+              <Icon type='agenda' area='agenda' shape='empty'/>
+              <h1><FormattedMessage id='nav_agenda'/></h1>
+              <p><FormattedMessage id='seeagenda' values={{communityName: communityName}}/></p>
+            </div>
+          </Col>
 
-          <div className="col-md-4 box solid linked text-center padded white photos" onClick={this.clickHandler.bind(this, "photos")}>
-            <Icon type='photos' area='photos' shape='empty'/>
-            <h1><FormattedMessage id='nav_photos'/></h1>
-            <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
-          </div> 
+          <Col md={4} onClick={this.clickHandler.bind(this, "photos")}>
+            <div className="box white linked text-center agenda">
+              <Icon type='photos' area='photos' shape='empty'/>
+              <h1><FormattedMessage id='nav_photos'/></h1>
+              <p><FormattedMessage id='seephotos' values={{communityName: communityName}}/></p>
+            </div>
+          </Col>
 
-        </div>
+        </Row>
 
       </div>
 

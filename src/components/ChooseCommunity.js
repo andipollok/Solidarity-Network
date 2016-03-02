@@ -15,16 +15,13 @@ export default React.createClass({
 
   mixins: [Reflux.connect(DataStore, 'data'), Reflux.connect(StatusStore, 'status')],
 
-  onClickSelectCommunity(id) {
-    StatusActions.setCommunity(id);
-  },
-
   componentDidMount() {
     DataActions.forceTrigger();
     StatusActions.forceTrigger();
   },
 
-  getInitialState() {
+  onClickSelectCommunity(id) {
+    StatusActions.setCommunity(id);
   },
 
   render() {

@@ -4,7 +4,7 @@ import SvgIcon from 'react-svg-icons';
 var colors = {
   whatsnew: {
     backgroundColor: '#F6F6F6',
-    iconColor: '#ED695A'
+    iconColor: '#77529D'
   },
   agenda: {
     backgroundColor: '#F6F6F6',
@@ -12,7 +12,7 @@ var colors = {
   },
   photos: {
     backgroundColor: '#F6F6F6',
-    iconColor: '#62BA6B'
+    iconColor: '#77529D'
   },
   default: {
     backgroundColor: '#F6F6F6',

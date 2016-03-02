@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -65,6 +65,7 @@ export default React.createClass({
         }.bind(this));
       if (myActivities.length > 0) { foundActivities = true; }
     }
+    myActivities.reverse();
 
     var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
     if (!foundActivities && loadedData) {
@@ -79,9 +80,9 @@ export default React.createClass({
       </div>
 
     return (
-      <div>
+      <Row fluid>
         {listActivities}
-      </div>
+      </Row>
     );
   }
 });

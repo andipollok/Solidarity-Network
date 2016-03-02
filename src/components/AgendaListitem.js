@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Col } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -30,9 +31,10 @@ export default React.createClass({
     var owner = Helpers.getPersonById(group.ownerId, this);
 
     return (
-      <span>
 
-        <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+      <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+
+        <div className="box white linked text-center agenda">
 
           <Icon type={'activity-' + this.props.data.type} area='agenda' shape='hexagon'/>
 
@@ -56,9 +58,8 @@ export default React.createClass({
 
           <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
              &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
-          
         </div>
-      </span>
+      </Col>
     );
   }
 });

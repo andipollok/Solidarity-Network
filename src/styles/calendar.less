@@ -1,0 +1,144 @@
+/*
+ * Calendar grid
+ */
+
+@calendar-columns:      7;
+@calendar-gutter-width: 12px;
+
+.make-calendar-columns() {
+  // Common styles for all sizes of calendar columns, widths 1-12
+  .cal(@index) when (@index = 1) { // initial
+    @item: ~".calendar-xs-@{index}, .calendar-sm-@{index}, .calendar-md-@{index}, .calendar-lg-@{index}";
+    .cal((@index + 1), @item);
+  }
+  .cal(@index, @list) when (@index =< @calendar-columns) { // general; "=<" isn't a typo
+    @item: ~".calendar-xs-@{index}, .calendar-sm-@{index}, .calendar-md-@{index}, .calendar-lg-@{index}";
+    .cal((@index + 1), ~"@{list}, @{item}");
+  }
+  .cal(@index, @list) when (@index > @calendar-columns) { // terminal
+    @{list} {
+      position: relative;
+      // Prevent columns from collapsing when empty
+      min-height: 1px;
+      // Inner gutter via padding
+      padding-left:  (@calendar-gutter-width / 2);
+      padding-right: (@calendar-gutter-width / 2);
+    }
+  }
+  .cal(1); // kickstart it
+}
+.float-calendar-columns(@class) {
+  .cal(@index) when (@index = 1) { // initial
+    @item: ~".calendar-@{class}-@{index}";
+    .cal((@index + 1), @item);
+  }
+  .cal(@index, @list) when (@index =< @calendar-columns) { // general
+    @item: ~".calendar-@{class}-@{index}";
+    .cal((@index + 1), ~"@{list}, @{item}");
+  }
+  .cal(@index, @list) when (@index > @calendar-columns) { // terminal
+    @{list} {
+      float: left;
+    }
+  }
+  .cal(1); // kickstart it
+}
+
+.calc-calendar-column(@index, @class, @type) when (@type = width) and (@index > 0) {
+  .calendar-@{class}-@{index} {
+    width: percentage((@index / @calendar-columns));
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = push) and (@index > 0) {
+  .calendar-@{class}-push-@{index} {
+    left: percentage((@index / @calendar-columns));
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = push) and (@index = 0) {
+  .calendar-@{class}-push-0 {
+    left: auto;
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = pull) and (@index > 0) {
+  .calendar-@{class}-pull-@{index} {
+    right: percentage((@index / @calendar-columns));
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = pull) and (@index = 0) {
+  .calendar-@{class}-pull-0 {
+    right: auto;
+  }
+}
+.calc-calendar-column(@index, @class, @type) when (@type = offset) {
+  .calendar-@{class}-offset-@{index} {
+//    margin-left: percentage((@index / @calendar-columns));
+  }
+}
+
+// Basic looping in LESS
+.loop-calendar-columns(@index, @class, @type) when (@index >= 0) {
+  .calc-calendar-column(@index, @class, @type);
+  // next iteration
+  .loop-calendar-columns((@index - 1), @class, @type);
+}
+
+// Create grid for specific class
+.make-calendar(@class) {
+  .float-calendar-columns(@class);
+  .loop-calendar-columns(@calendar-columns, @class, width);
+  .loop-calendar-columns(@calendar-columns, @class, pull);
+  .loop-calendar-columns(@calendar-columns, @class, push);
+  .loop-calendar-columns(@calendar-columns, @class, offset);
+}
+
+
+// Row
+//
+// Rows contain and clear the floats of your columns.
+
+.calendar-row {
+  .make-row(@calendar-gutter-width);
+}
+
+
+// Columns
+//
+// Common styles for small and large grid columns
+
+.make-calendar-columns();
+
+
+// Extra small grid
+//
+// Columns, offsets, pushes, and pulls for extra small devices like
+// smartphones.
+
+.make-calendar(xs);
+
+
+// Small grid
+//
+// Columns, offsets, pushes, and pulls for the small device range, from phones
+// to tablets.
+
+@media (min-width: @screen-sm-min) {
+  .make-calendar(sm);
+}
+
+
+// Medium grid
+//
+// Columns, offsets, pushes, and pulls for the desktop device range.
+
+@media (min-width: @screen-md-min) {
+  .make-calendar(md);
+}
+
+
+// Large grid
+//
+// Columns, offsets, pushes, and pulls for the large desktop device range.
+
+@media (min-width: @screen-lg-min) {
+  .make-calendar(lg);
+}

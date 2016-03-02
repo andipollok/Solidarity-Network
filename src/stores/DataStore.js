@@ -57,7 +57,8 @@ export default Reflux.createStore({
 
       base('Communities').select({
         maxRecords: 200,
-        view: "Main View"
+        view: "Main View",
+        sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
           if (record.get('Name')) {
@@ -85,16 +86,12 @@ export default Reflux.createStore({
       });
     },
 
-    test() {
-      console.log("datastore test");
-      return ("huhu");
-    },
-
     loadWhatsnew() {
       var that = this;
       base('Whatsnew').select({
         maxRecords: 200,
-        view: "Main View"
+        view: "Main View",
+        sort: [{field: "Date", direction: "desc"}]
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Date') && record.get('Type') && record.get('Person')) {
@@ -124,7 +121,8 @@ export default Reflux.createStore({
       var that = this;
       base('Groups').select({
         maxRecords: 200,
-        view: "Main View"
+        view: "Main View",
+        sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name')) {
@@ -155,7 +153,8 @@ export default Reflux.createStore({
       var that = this;
       base('Activities').select({
         maxRecords: 200,
-        view: "Main View"
+        view: "Main View",
+        sort: [{field: "Date", direction: "asc"}]
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
@@ -176,6 +175,7 @@ export default Reflux.createStore({
         });
         data.loaded.activities = true;
         // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
+        // console.log("activity dates", data.activities.map(function(a) { return a.name; }).join(', '));
         that.forceTrigger();
 
       }, function done(error) {

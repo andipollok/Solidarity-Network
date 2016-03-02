@@ -69,9 +69,9 @@ export default React.createClass({
               <Link to="/"><h1 id="headertext">Solidarity Network {community.name}</h1></Link>
             </div>
             <ul id="navbar" className={navbarClasses}>
-              <li><Link className={whatsnewClasses} activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew'/></Link></li>
-              <li><Link className={agendaClasses} activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda'/></Link></li>
-              <li><Link className={photosClasses} activeClassName="active" to="/photos"><FormattedMessage id='nav_photos'/></Link></li>
+              <li><Link className={whatsnewClasses} activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/></Link></li>
+              <li><Link className={agendaClasses} activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda' defaultMessage='Agenda'/></Link></li>
+              <li><Link className={photosClasses} activeClassName="active" to="/photos"><FormattedMessage id='nav_photos' defaultMessage='Photos'/></Link></li>
             </ul>
           </div>
    
