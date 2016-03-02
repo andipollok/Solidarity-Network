@@ -139,13 +139,13 @@ gulp.task('lint', () => {
 gulp.task('watchTask', () => {
   gulp.watch(paths.srcCss, ['styles']);
   gulp.watch(paths.srcJsx, ['lint']);
-  gulp.watch('./src/styles/bootstrap-config.less', ['bootstrap-less']);
+  gulp.watch('./src/styles/**/*.less', ['less']);
 });
 
-gulp.task('bootstrap-less', function(){
+gulp.task('less', function(){
   return gulp.src('./src/styles/bootstrap-config.less')
     .pipe(less())
-    .pipe(rename({basename: "bootstrap", extname: ".min.css"}))
+    .pipe(rename({ basename: "bootstrap", extname: ".min.css" }))
     .pipe(sourcemaps.init())
     .pipe(postcss([cssnano]))
     .on('error', notify.onError())
@@ -160,10 +160,10 @@ gulp.task('deploy', function() {
 });
 
 gulp.task('watch', cb => {
-  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'bootstrap-less', 'images', 'lint'], cb);
+  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'less', 'images', 'lint'], cb);
 });
 
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
-  runSequence('clean', ['browserify', 'styles', 'bootstrap-less', 'htmlReplace', 'bower', 'images'], cb);
+  runSequence('clean', ['browserify', 'styles', 'less', 'htmlReplace', 'bower', 'images'], cb);
 });
