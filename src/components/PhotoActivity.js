@@ -11,6 +11,7 @@ import StatusStore from '../stores/StatusStore';
 import Helpers from '../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Icon from './Icon';
 
@@ -67,34 +68,60 @@ export default React.createClass({
     }.bind(this);
 
     return (
-      <div className="box white container text-center">
+      <div className="container">
 
-        <Icon type={'activity-' + activity.type} area='photos' shape='hexagon'/>
+        <Col md={12}>
+          <div className="box text-center">
 
-        <h1><FormattedMessage id='photos_from' values={{activityName: activity.name}}/></h1>
+            <Icon type={'activity-' + activity.type} area='photos' shape='hexagon'/>
 
-        <h3><FormattedMessage id="on" defaultMessage=" "/>
-            &nbsp;<FormattedDate
-                  value={activity.date}
-                  weekday="long"
-                  day="numeric"
-                  month="long"
-                  year="numeric" /> 
-            &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
-        </h3>
+            <h1><FormattedMessage id='photos_from' values={{activityName: activity.name}}/></h1>
 
-        <h3><FormattedMessage id="startingat" defaultMessage=" "/>
-            &nbsp;<FormattedTime
-                  value={activity.date}
-                  minute="2-digit"
-                  hour="numeric" /></h3>
+            <h3><FormattedMessage id="on" defaultMessage=" "/>
+                &nbsp;<FormattedDate
+                      value={activity.date}
+                      weekday="long"
+                      day="numeric"
+                      month="long"
+                      year="numeric" /> 
+                &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
+            </h3>
 
-        <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
-           &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+            <h3><FormattedMessage id="startedat" defaultMessage=" "/>
+                &nbsp;<FormattedTime
+                      value={activity.date}
+                      minute="2-digit"
+                      hour="numeric" /></h3>
 
-        <p><FormattedMessage id="numberofphotos" values={{numPhotos: activity.photoList.length}} /></p>
+            <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
+               &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
 
-        {activity.photoList.map(photoItem,this)}
+            <p><FormattedMessage id="numberofphotos" values={{numPhotos: activity.photoList.length}} /></p>
+
+            {activity.photoList.map(photoItem,this)}
+
+          </div>
+        </Col>
+        <Col sm={4}>
+          <div className="box linked white text-center">
+            <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
+            <p>{owner.name} was hosting this event. You can write him an email or call him on his mobile or landline.</p>
+          </div>
+        </Col>
+
+        <Col sm={4}>
+          <div className="box linked white text-center">
+            <p><Button bsStyle="primary" bsSize="large">Keep me posted!</Button></p>
+            <p>This remembers this type of activity in your favourites. You won't have to give your name or email at this point.</p>
+          </div>
+        </Col>
+
+        <Col sm={4}>
+          <div className="box linked white text-center">
+            <p><Button bsStyle="primary" bsSize="large">Send all photos</Button></p>
+            <p>Send all these pictures to a friend! Also you can select single photos to send or create an album.</p>
+          </div>
+        </Col>
 
       </div>
     );

@@ -40,7 +40,7 @@ export default React.createClass({
     this.getActivities();
   },
 
-  onClickSelectActivity(id) {
+  onClickActivity(id) {
     window.location.assign("#/activity/" + id);
   },
 
@@ -99,11 +99,11 @@ export default React.createClass({
     var community = Helpers.getCommunityFromStatus(this);
 
     var activityItem = function(activity) {
-      return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickSelectActivity}></Listitem> );
+      return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
 
     var activityItemCalendar = function(activity) {
-      return ( <CalendarItem key={activity.id} data={activity} onClickHandler={this.onClickSelectActivity}></CalendarItem> );
+      return ( <CalendarItem key={activity.id} data={activity} onClickHandler={this.onClickActivity}></CalendarItem> );
     }.bind(this);
 
     var listActivities = <Row>{this.state.activitiesFuture.map(activityItem, this)}</Row>;

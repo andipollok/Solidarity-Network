@@ -71,7 +71,12 @@ export default React.createClass({
     this.setState({days: days, weeks: weeks});
   },
 
-  onClickSelectActivity(id) {
+  onClickActivity(id) {
+    // console.log("activity " + id + " selected");
+    window.location.assign("#/activity/" + id);
+  },
+
+  onClickDay(id) {
     console.log("day " + id + " selected");
   },
 
@@ -90,7 +95,7 @@ export default React.createClass({
 
     var dayItem = function(day) {
       return (
-        <Listitem key={'day'+day.id} day={day} onClickHandler={this.onClickSelectActivity} />
+        <Listitem key={'day'+day.id} day={day} onClickDay={this.onClickDay} onClickActivity={this.onClickActivity}/>
       );
     }.bind(this);
 
