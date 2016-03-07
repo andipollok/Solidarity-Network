@@ -14,6 +14,10 @@ import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/lib/locale-data/en';
 import frLocaleData from 'react-intl/lib/locale-data/fr';
 import deLocaleData from 'react-intl/lib/locale-data/de';
+import moment from 'moment';
+import moment_locale_en from 'moment/locale/en-gb.js';
+import moment_locale_fr from 'moment/locale/fr.js';
+import moment_locale_de from 'moment/locale/de.js';
 import ErrorMessage from './ErrorMessage';
 
 addLocaleData(enLocaleData);
@@ -25,6 +29,11 @@ var intldata = {
   messages: {}
 };
 
+var momentLocale = {
+  'en': moment_locale_en,
+  'fr': moment_locale_fr,
+  'de': moment_locale_de
+}
 
 import Nav from './Nav';
 import Footer from './Footer';
@@ -48,6 +57,7 @@ export default React.createClass({
     if (this.state.language && this.state.language.selected) {
       intldata.locale = this.state.language.selected;
       intldata.messages = this.state.language.languages[this.state.language.selectedID].messages;
+      moment.locale(intldata.locale, momentLocale[intldata.locale]);
     }
 
     if (this.state.data && this.state.data.errors.length > 0) {
