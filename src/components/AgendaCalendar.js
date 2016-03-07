@@ -115,7 +115,7 @@ export default React.createClass({
         <Row className="calendar-row hidden-xs">
           {moment.weekdaysShort().map(dayHeader, this)}
         </Row>
-        { this.state.weeks.map(weekItem, this) } 
+          {this.state.weeks.map(weekItem, this)}
       </div>
     );
   }
