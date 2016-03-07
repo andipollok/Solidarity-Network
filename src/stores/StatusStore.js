@@ -21,7 +21,6 @@ export default Reflux.createStore({
       };
       this.setJoin(cookieValueJoin); // -todo- this only has to be done if default value for cookie has been set
       this.setCommunity(cookieValueCommunity); // -todo- this only has to be done if default value for cookie has been set
-      this.trigger(data);
     },
  
     setJoin: function(state) {
