@@ -67,22 +67,18 @@ export default React.createClass({
     }
     myActivities.reverse();
 
-    var listActivities = <div className="container">{myActivities.map(activityItem, this)}</div>;
+    var listActivities = <Row>{myActivities.map(activityItem, this)}</Row>;
     if (!foundActivities && loadedData) {
-      listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='nophotos' values={{communityName: community.name}}/></h2></div>;
+      listActivities = <Col className="text-center box white half"><h2><FormattedMessage id='nophotos' values={{communityName: community.name}}/></h2></Col>;
     }
     if (!loadedData) {
-      listActivities = <div className="container text-center box white half"><h2><FormattedMessage id='loading'/></h2></div>;
+      listActivities = <Col className="text-center box white half"><h2><FormattedMessage id='loading'/></h2></Col>;
     }
-    var header =  
-      <div className="jumbotron container text-center">
-        <h1><FormattedMessage id='photos_in' values={{communityName: community.name}}/></h1>
-      </div>
 
     return (
-      <Row fluid>
+      <div className="container">
         {listActivities}
-      </Row>
+      </div>
     );
   }
 });

@@ -53,7 +53,7 @@ export default React.createClass({
       <div className="container start">
 
         <Row>
-          <Col md={4} onClick={this.clickHandler.bind(this, "whatsnew")}>
+          <Col md={4} className="bottom-buffer" onClick={this.clickHandler.bind(this, "whatsnew")}>
             <div className="box white linked text-center whatsnew">
               <Icon type='whatsnew' area='whatsnew' shape='empty'/>
               <h1><FormattedMessage id='nav_whatsnew'/></h1>
@@ -61,7 +61,7 @@ export default React.createClass({
             </div>
           </Col>
       
-          <Col md={4} onClick={this.clickHandler.bind(this, "agenda")}>
+          <Col md={4} className="bottom-buffer" onClick={this.clickHandler.bind(this, "agenda")}>
             <div className="box white linked text-center agenda">
               <Icon type='agenda' area='agenda' shape='empty'/>
               <h1><FormattedMessage id='nav_agenda'/></h1>
@@ -69,7 +69,7 @@ export default React.createClass({
             </div>
           </Col>
 
-          <Col md={4} onClick={this.clickHandler.bind(this, "photos")}>
+          <Col md={4} className="bottom-buffer" onClick={this.clickHandler.bind(this, "photos")}>
             <div className="box white linked text-center agenda">
               <Icon type='photos' area='photos' shape='empty'/>
               <h1><FormattedMessage id='nav_photos'/></h1>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link }  from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
+import { Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import LanguageActions from '../stores/LanguageActions';
@@ -24,15 +25,17 @@ export default React.createClass({
     var that=this;
     var languageItem = function(id) {
       var d = this.state.language.languages[id];
-      var divClass = classNames( 'col-md-6', 'box', 'half', 'white', 'linked', 'padded', 'text-center',
+      var divClass = classNames( 'box half white linked padded text-center',
         {
           'selected': this.state.language.selectedID === id
         }
       );
       return (
-        <div key={id} className={divClass} onClick={that.onClickSetLanguage.bind(this, id)}>
-          <h2>{d.name}</h2>
-        </div> );
+        <Col md={6} key={id} className="bottom-buffer" onClick={that.onClickSetLanguage.bind(this, id)}>
+          <div className={divClass}>
+            <h2>{d.name}</h2>
+          </div>
+        </Col> );
     };
 
     var selectLanguage = <FormattedMessage id='loading'/>;
@@ -42,9 +45,9 @@ export default React.createClass({
 
     return (
       <div className="container">
-        <div className="row">
+        <Row className="row">
           {selectLanguage}        
-        </div>
+        </Row>
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -37,19 +38,21 @@ export default React.createClass({
 
     var ownerName = Helpers.getPersonById(this.props.data.ownerId, this).name;
 
-    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center',
+    var divClass = classNames( 'box white linked padded text-center',
       {
         'selected': this.props.data.id === this.props.selected
       }
     );
 
     return (
-      <div className={divClass} onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+      <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+        <div className={divClass}>
           <h2>{this.props.data.name}</h2>
           <p><FormattedMessage id='organisedby' values={{name: ownerName}}/></p>
           <p><FormattedMessage id='numberofmembers' values={{numMembers: countMembers}}/></p>
           <p><FormattedMessage id='numberofgroups' values={{numGroups: countGroups}}/></p>
-      </div> 
+        </div>
+      </Col> 
     );
   }
 });

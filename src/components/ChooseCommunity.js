@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link }  from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -36,9 +37,9 @@ export default React.createClass({
 
     return (
       <div className="container">
-        <div className="row">
+        <Row>
           {selectCommunity}
-        </div>
+        </Row>
       </div>
     );
   }
