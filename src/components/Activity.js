@@ -39,52 +39,50 @@ export default React.createClass({
 
     return (
       <div className="container">
-      <Col md={12}>
 
-        <div className="box text-center">
+        <Col md={12}>
+          <div className="box text-center">
 
-          <Icon type={'activity-' + activity.type} area='agenda' shape='hexagon'/>
+            <Icon type={'activity-' + activity.type} area='agenda' shape='hexagon'/>
 
-          <h1>{activity.name}</h1>
+            <h1>{activity.name}</h1>
 
-          <h3><FormattedMessage id="on" defaultMessage=" "/>
-              &nbsp;<FormattedDate
-                    value={activity.date}
-                    weekday="long"
-                    day="numeric"
-                    month="long"
-                    year="numeric" /> 
-              &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
-          </h3>
+            <h3><FormattedMessage id="on" defaultMessage=" "/>
+                &nbsp;<FormattedDate
+                      value={activity.date}
+                      weekday="long"
+                      day="numeric"
+                      month="long"
+                      year="numeric" /> 
+                &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
+            </h3>
 
-          <h3><FormattedMessage id="startingat" defaultMessage=" "/>
-              &nbsp;<FormattedTime
-                    value={activity.date}
-                    minute="2-digit"
-                    hour="numeric" /></h3>
+            <h3><FormattedMessage id="startingat" defaultMessage=" "/>
+                &nbsp;<FormattedTime
+                      value={activity.date}
+                      minute="2-digit"
+                      hour="numeric" /></h3>
 
-          <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
-             &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
-        </div>
-      </Col>
-      <Col sm={4}>
-        <div className="box linked white text-center">
-          <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
-          <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
-        </div>
-      </Col>
-      <Col sm={4}>
-        <div className="box linked white text-center">
-          <p><Button bsStyle="primary" bsSize="large">Keep me posted!</Button></p>
-          <p>This remembers the activity in your favourites. You won't have to give your name or email at this point.</p>
-        </div>
-      </Col>
-      <Col sm={4}>
-        <div className="box linked white text-center">
-          <p><Button bsStyle="primary" bsSize="large">Register</Button></p>
-          <p>Let {owner.name} know that you are interested in joining this activity.</p>
-        </div>
-      </Col>
+            <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
+               &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+          </div>
+        </Col>
+
+        <Col sm={4}>
+          <div className="box white text-center">
+            <h3>Do you want to talk to {owner.name}?</h3>
+            <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
+            <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
+          </div>
+        </Col>
+
+        <Col sm={4}>
+          <div className="box white text-center">
+            <h3>Do you want attend?</h3>
+            <p>Register your interest in this activity.</p>
+            <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
+          </div>
+        </Col>
 
       </div>
     );
