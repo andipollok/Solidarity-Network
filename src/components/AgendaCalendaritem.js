@@ -1,10 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import classNames from 'classnames';
-import { Button, ButtonGroup, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 
-import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
 import Helpers from '../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
@@ -13,27 +11,31 @@ import Icon from './Icon';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(DataStore, 'data') ],
-
-  componentDidMount() {
-    DataActions.forceTrigger();
-  },
-
   render() {
 
-    // var divClass = classNames( 'col-md-2', 'box', 'half', 'white', 'linked', 'padded', 'text-center', 'agenda',
-    //   {
-    //     'selected': false
-    //   }
-    // ); // selected may be needed later
+    if (this.props.day.date.get('date') === 1 || this.props.day.number === 0) {
+      var monthName = <p className="grey">{this.props.day.date.format('MMM')}</p>;
+    }
 
-    var group = Helpers.getGroupById(this.props.data.groupId, this);
-    var owner = Helpers.getPersonById(group.ownerId, this);
+    var divClass = classNames(['box linked expand white text-center agenda calendar'], {
+      weekend: this.props.day.date.isoWeekday() === 6 || this.props.day.date.isoWeekday() === 7,
+      today: this.props.day.date.isSame(moment(), 'day')
+    });
+    if (this.props.day.date.isSame(moment(), 'day')) {
+      var isToday = <p className="grey"><FormattedMessage id="today" defaultMessage="Today"/></p>;
+    }
+
+    var activityItem = function(activity) {
+      return <div className="activity" key={activity.id}>{activity.name}</div>;
+    } 
 
     return (
-      <Col className="calendar-sm-1 bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
-        <div className="linked box half white padded">
-          <h4>{this.props.data.name}</h4>
+      <Col className="calendar-sm-1 calendar-xs-2 expand col bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.day.id)}>
+        <div className={divClass}>
+          <h4>{this.props.day.date.format('DD')}</h4>
+          {monthName}
+          {isToday}
+          {this.props.day.activities.map(activityItem, this)}
         </div>
       </Col>
     );
