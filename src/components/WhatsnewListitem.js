@@ -36,11 +36,7 @@ export default React.createClass({
       link = 'group/' + this.props.data.group.id;
     }
 
-    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center', 'whatsnew',
-      {
-        'selected': false
-      }
-    ); // selected may be needed later
+    var divClass = classNames( 'box white linked text-center whatsnew' );
 
     if(this.props.data.activity.id) {
       var icon = <Icon type={'activity-' + this.props.data.activity.type} area='whatsnew' shape='hexagon'/>
@@ -53,7 +49,7 @@ export default React.createClass({
 
       <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, link)}>
 
-        <div className="box white linked text-center whatsnew">
+        <div className={divClass}>
 
           {icon}
 
