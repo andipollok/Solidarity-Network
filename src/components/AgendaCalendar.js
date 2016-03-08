@@ -22,7 +22,7 @@ export default React.createClass({
 
     return {
       startDate: moment().startOf('month').isoWeekday(1),
-      endDate: moment().startOf('month').add(1, 'month').isoWeekday(6),
+      endDate: moment().startOf('month').add(1, 'month').isoWeekday(7),
       month: date.format('M'),
       monthName: date.format('MMMM'),
       year: date.format('Y'),
