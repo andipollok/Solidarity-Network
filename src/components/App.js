@@ -49,7 +49,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-
+    LanguageActions.forceTrigger();
   },
 
   render: function() {
