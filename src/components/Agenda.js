@@ -63,6 +63,9 @@ export default React.createClass({
         function(activity) {
           // check if this activity is in a group that is in this community
           var group = Helpers.getGroupById(activity.groupId, this);
+          if (!group) {
+            return false;
+          }
           var community = Helpers.getCommunityById(group.communityId, this);
           if (community.id !== this.state.status.community) {
             return false;
@@ -129,13 +132,14 @@ export default React.createClass({
 
     return (
       <div className="container">
-        <Col md={12} className="text-center box">
-          <ButtonGroup>
-            <Button bsSize="large" className="padded" active={ this.state.area === 'upcoming' } onClick={ this.setArea.bind(this, 'upcoming') }>Upcoming</Button>  
-            <Button bsSize="large" className="padded" active={ this.state.area === 'calendar' } onClick={ this.setArea.bind(this, 'calendar') }>Calendar</Button>  
-          </ButtonGroup>
-        </Col>
-
+        <Row>
+          <Col md={12} className="text-center box">
+            <ButtonGroup>
+              <Button bsSize="large" className="padded" active={ this.state.area === 'upcoming' } onClick={ this.setArea.bind(this, 'upcoming') }>Upcoming</Button>  
+              <Button bsSize="large" className="padded" active={ this.state.area === 'calendar' } onClick={ this.setArea.bind(this, 'calendar') }>Calendar</Button>  
+            </ButtonGroup>
+          </Col>
+        </Row>
         {Component}
 
       </div>
