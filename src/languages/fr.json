@@ -22,6 +22,7 @@
 
   "organisedby": "Organisé par {name}",
 
+  "nowhatsnew": "Désolé, il n'y a pas de nouvelles dans {communityName} à ce moment.",
   "noactivities": "Désolé, il n'y a pas d'activités prévues à {communityName}.",
   "nophotos": "Désolé, il n'y a pas de photos d'événements passés à {communityName}.",
 
