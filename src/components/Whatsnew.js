@@ -31,59 +31,82 @@ export default React.createClass({
   },
 
   render() {
-
-    if (!Helpers.checkLanguageLoaded(this)) {
+    if (!Helpers.checkLanguageLoaded(this) || !(this.state.status && this.state.status.community) || !(this.state.data && this.state.data.loaded.whatsnew)) {
       return <div></div>;
     }
 
-    var communityName = Helpers.getCommunityFromStatus(this).name;
+    var community = Helpers.getCommunityFromStatus(this);
 
     var whatsnewItem = function(item) {
       return ( <Listitem key={item.id} data={item} onClickHandler={this.onClickSelectActivity}></Listitem> );
     }.bind(this);
 
     var list = [];
-    if (this.state.data.loaded.whatsnew) {
-      list = this.state.data.whatsnew.filter(function(item) {
 
-        // -todo- check if this item is relevant to user!
+    list = this.state.data.whatsnew.filter(function(item) {
 
-        // load activity
-        item.activity = {};
-        if (this.state.data.loaded.activities && item.activityId) {
-          item.activity = Helpers.getActivityById(item.activityId, this);
-          // item.activity = this.state.data.activities[item.activityId];
+      // -todo- check if this item is relevant to user!
+
+      // load activity
+      item.activity = {};
+      if (this.state.data.loaded.activities && item.activityId) {
+        item.activity = Helpers.getActivityById(item.activityId, this);
+        if (!item.activity) {
+          return false;
         }
-
-        // load person
-        item.person = {};
-        if (this.state.data.loaded.people && item.personId) { // item.personId is actually always there, checked in datastore
-          item.person = Helpers.getPersonById(item.personId, this);
-          // item.person = this.state.data.people[item.personId];
+        // check if that activity is in the user's community
+        var group = Helpers.getGroupById(item.activity.groupId, this);
+        if (!group) {
+          return false;
         }
-
-        // load group
-        item.group = {};
-        if (this.state.data.loaded.groups && item.groupId) {
-          item.group = Helpers.getGroupById(item.groupId, this);
-          // item.group = this.state.data.groups[item.groupId];
+        var community = Helpers.getCommunityById(group.communityId, this);
+        if (community.id !== this.state.status.community) {
+          return false; // filter this entry if item is not in the community
         }
+      }
 
-        return true;
+      // load person
+      item.person = {};
+      if (this.state.data.loaded.people && item.personId) { // item.personId is actually always there, checked in datastore
+        item.person = Helpers.getPersonById(item.personId, this);
+      }
 
-      }.bind(this));
+      // load group
+      item.group = {};
+      if (this.state.data.loaded.groups && item.groupId) {
+        item.group = Helpers.getGroupById(item.groupId, this);
+        // check if that group is in the user's community
+        var community = Helpers.getCommunityById(item.group.communityId, this);
+        if (community.id !== this.state.status.community) {
+          return false; // filter this entry if item is not in the community
+        }
+      }
 
+      return true;
+
+    }.bind(this));
+
+    var Component = {};
+    if (list.length === 0) {
+      // no events found
+      Component = 
+      <Row>
+        <Col className="container text-center box white half">
+          <h2><FormattedMessage id='nowhatsnew' values={{communityName: community.name}}/></h2>
+        </Col>
+      </Row>;
+    }
+    else {
+      Component = <Row>{list.map(whatsnewItem,this)}</Row>;
     }
 
     var header = <div className="container text-center">
-          <h1><FormattedMessage id='whatsnew_in' values={{communityName: communityName}}/></h1>
+          <h1><FormattedMessage id='whatsnew_in' values={{communityName: community.name}}/></h1>
         </div>;
 
     return (
       <div className="container">
-        <Row>
-          {list.map(whatsnewItem,this)}
-        </Row>
+        {Component}
       </div>
     );
   }
