@@ -19,8 +19,10 @@ export default Reflux.createStore({
         community: cookieValueCommunity,
         currentPage: ''
       };
-      this.setJoin(cookieValueJoin); // -todo- this only has to be done if default value for cookie has been set
-      this.setCommunity(cookieValueCommunity); // -todo- this only has to be done if default value for cookie has been set
+      // save join and community state
+      // -todo- this actually only should be done if default value for cookie has been set
+      cookie.save(cookieNameJoin, cookieValueJoin, { path: '/' });
+      cookie.save(cookieNameCommunity, cookieValueCommunity, { path: '/' });
     },
  
     setJoin: function(state) {
