@@ -8,15 +8,18 @@ import eslint from 'gulp-eslint';
 import babelify from 'babelify';
 import uglify from 'gulp-uglify';
 import rimraf from 'rimraf';
+import rename from 'gulp-rename';
 import notify from 'gulp-notify';
 import browserSync, { reload } from 'browser-sync';
-import sourcemaps from 'gulp-sourcemaps';
+
 import postcss from 'gulp-postcss';
-import rename from 'gulp-rename';
-import nested from 'postcss-nested';
-import vars from 'postcss-simple-vars';
-import extend from 'postcss-simple-extend';
+import postcssImport from 'postcss-import';
+import postcssVars from 'postcss-simple-vars';
+import postcssNested from 'postcss-nested';
+import postcssExtend from 'postcss-simple-extend';
+import sourcemaps from 'gulp-sourcemaps';
 import cssnano from 'cssnano';
+
 import htmlReplace from 'gulp-html-replace';
 import imagemin from 'gulp-imagemin';
 import pngquant from 'imagemin-pngquant';
@@ -91,10 +94,10 @@ gulp.task('browserify', () => {
 });
 
 gulp.task('styles', () => {
-  gulp.src(paths.srcCss)
+  gulp.src('src/styles/main.scss')
   .pipe(rename({extname: ".css"}))
   .pipe(sourcemaps.init())
-  .pipe(postcss([vars, extend, nested, autoprefixer, cssnano]))
+  .pipe(postcss([postcssImport, postcssVars, postcssExtend, postcssNested, autoprefixer, cssnano]))
   .on('error', notify.onError())
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(paths.distCss))
