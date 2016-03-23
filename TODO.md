@@ -2,29 +2,29 @@
 
 -todo- Datastore: make actions asynchronous, e.g. load activity only when requested
 
--todo- Photos: photowall instead of activity list
-
 -todo- What's new: hierarchy in importance
 
--todo- main nav more like tabs than buttons
+-todo- Agenda: heading "today", "next week"
 
--todo- agenda: heading "today", "next week"
+-todo- Calendar: browse months / jump back to today
 
--todo- calendar: browse months / jump back to today
-
--todo- activity detail:
+-todo- Activity detail:
         - see what has changed
+
+
+-todo- What's new: filter by photos/activities/groups/everything in community
+
+-todo- Settings: add icons of communities
+
+-todo- Update to Bootstrap  v4.0.0-alpha.2 http://v4-alpha.getbootstrap.com/ (Problem: it uses SCSS instead of LESS, couldn't get it to run)
+
+**Done**
+
+-done- main nav more like tabs than buttons
+
+-done- Photos: photowall instead of activity list
+
+-done- Activity detail:
         - keep me posted button
         - contact host
         - register to attend
-
--todo- what's new: filter by photos/activities/groups/everything in community
-
--todo- settings: add icons of communities
-
-
-
-
-# Functionality ideas
-
-- remind host to send email after making a change (pre-composed email?)
