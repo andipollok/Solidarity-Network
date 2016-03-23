@@ -1,0 +1,30 @@
+button {
+  &.padded {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+  &.btn {
+    font-weight:300;
+    white-space:normal !important;
+    word-wrap:break-word; 
+  }
+  &.btn:focus {
+    outline: none !important;
+  }
+  &.btn:hover {
+    background-color: $color_primary1_hover;
+    color:white;
+  }
+  &.btn-default.active, .btn-default:focus  {
+    background-color: $color_primary1;
+    color: white;
+  }
+  &.btn-default.active:hover {
+    background-color: $color_primary1_hover;
+    color:white;
+  }
+  &.btn-default.active:focus {
+    background-color: $color_primary1;
+    color:white;
+  }
+}

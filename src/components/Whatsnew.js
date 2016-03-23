@@ -37,10 +37,6 @@ export default React.createClass({
 
     var community = Helpers.getCommunityFromStatus(this);
 
-    var whatsnewItem = function(item) {
-      return ( <Listitem key={item.id} data={item} onClickHandler={this.onClickSelectActivity}></Listitem> );
-    }.bind(this);
-
     var list = [];
 
     list = this.state.data.whatsnew.filter(function(item) {
@@ -85,6 +81,10 @@ export default React.createClass({
       return true;
 
     }.bind(this));
+
+    var whatsnewItem = function(item) {
+      return ( <Listitem key={item.id} data={item} onClickHandler={this.onClickSelectActivity}></Listitem> );
+    }.bind(this);
 
     var Component = {};
     if (list.length === 0) {

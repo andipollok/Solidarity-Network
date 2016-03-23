@@ -14,6 +14,7 @@ import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } fro
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Icon from './Icon';
+import Avatar from './Avatar';
 
 export default React.createClass({
 
@@ -41,9 +42,10 @@ export default React.createClass({
       <div className="container">
 
         <Col md={12}>
-          <div className="box text-center">
 
-            <Icon type={'activity-' + activity.type} area='agenda' shape='hexagon'/>
+          <div className="card solid agenda text-center">
+
+            <Icon type={'activity-' + activity.type} area='agenda' fill='solid' shape='hexagon'/>
 
             <h1>{activity.name}</h1>
 
@@ -64,13 +66,15 @@ export default React.createClass({
                       hour="numeric" /></h3>
 
             <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
-               &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+               &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name} 
+               <Avatar imageUrl={owner.pictureUrl} size='small'/></p>
           </div>
         </Col>
 
         <Col sm={4}>
           <div className="box white text-center">
             <h3>Do you want to talk to {owner.name}?</h3>
+            <p><Avatar imageUrl={owner.pictureUrl}/></p>
             <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
             <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
           </div>

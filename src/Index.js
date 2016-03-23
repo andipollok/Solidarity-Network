@@ -53,7 +53,7 @@ render(
   (
     <Router history={browserHistory}>
       <Route name="home" path="/" component={App}>
-        <IndexRoute component={Start}/>
+        <IndexRoute component={Whatsnew}/>
         <Route name="settings" path="/settings" component={Settings}/>
 
         <Route name="whatsnew" path="/whatsnew" component={Whatsnew}/>

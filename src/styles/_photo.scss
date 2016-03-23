@@ -1,0 +1,29 @@
+#content {
+  .photo {
+    width:100%;
+  }
+  .photoThumb {
+    float:left;
+  }
+  .box-photo {
+    height:200px;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    padding:0 !important;
+    outline: 0px solid white;
+    &:hover {
+      outline: 6px solid white;
+      transform: scale(1.05);
+      box-shadow: 10px 10px 5px 5px rgba(0,0,0,0.45) !important;
+    }
+    img {
+      zoom:0.01;
+      flex-shrink:0;
+      min-width:120%;
+      min-height:120%;
+    }
+  }
+}

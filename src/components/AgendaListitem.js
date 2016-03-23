@@ -21,7 +21,7 @@ export default React.createClass({
 
   render() {
 
-    var divClass = classNames( 'col-md-4', 'box', 'white', 'linked', 'padded', 'text-center', 'agenda',
+    var divClass = classNames( 'card solid linked padded text-center agenda solid',
       {
         'selected': false
       }
@@ -30,13 +30,18 @@ export default React.createClass({
     var group = Helpers.getGroupById(this.props.data.groupId, this);
     var owner = Helpers.getPersonById(group.ownerId, this);
 
+    // &nbsp;<span className="grey">(<FormattedRelative value={this.props.data.date} />)</span>
+    //  <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
+    // &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+    var icon = <Icon type={'activity-' + this.props.data.type} area='agenda' fill='solid' shape='hexagon'/>;
+
     return (
 
       <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
-        <div className="box white linked text-center agenda">
+        <div className={divClass}>
 
-          <Icon type={'activity-' + this.props.data.type} area='agenda' shape='hexagon'/>
+          {icon}
 
           <h2>{this.props.data.name}</h2>
 
@@ -47,7 +52,7 @@ export default React.createClass({
                     day="numeric"
                     month="long"
                     year="numeric" /> 
-              &nbsp;<span className="grey">(<FormattedRelative value={this.props.data.date} />)</span>
+              
           </p>
 
           <p><FormattedMessage id="startingat" defaultMessage="Starting at"/>
@@ -56,8 +61,6 @@ export default React.createClass({
                     minute="2-digit"
                     hour="numeric" /></p>
 
-          <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
-             &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
         </div>
       </Col>
     );

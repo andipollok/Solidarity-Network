@@ -1,0 +1,27 @@
+#content {
+  .avatar {
+    width:100px;
+    height:100px;
+    position:relative;
+    display:inline-block;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    border-radius:50px;
+    background-color: $color_grey;
+    &.small {
+      width:45px;
+      height:45px;
+    }
+    &.tiny {
+      width:25px;
+      height:25px;
+    }
+    img {
+      zoom:0.01;
+      flex-shrink:0;
+      min-width:120%;
+      min-height:120%;
+    }
+  }
+}

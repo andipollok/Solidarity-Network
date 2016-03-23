@@ -1,31 +1,11 @@
-/* 
- * Main SCSS Definitions
+@import '_color.scss';
+@import '_button.scss';
+@import '_nav.scss';
+@import '_photo.scss';
+@import '_avatar.scss';
+
+/* Main SCSS Definitions
 */
-
-$color_dark: #282828;
-$color_light: #FFF;
-$color_grey: #EAEAEA;
-$color_lightgrey: #F2F2F2;
-$color_darkgrey: #999;
-$color_highlight: #77529D;
-
-// $color_primary1: #ED695A;
-// $color_primary2: #77529D;
-// $color_primary3: #62BA6B;
-
-$color_primary1: #77529D;
-$color_primary2: #77529D;
-$color_primary3: #77529D;
-
-$color_primary1_font: #FFF;
-$color_primary2_font: #FFF;
-$color_primary3_font: #FFF;
-
-$color_primary1_hover: #8b60b8;
-$color_primary2_hover: #8b60b8;
-$color_primary2_hover: #8b60b8;
-
-$iconsize: 120px;
 
 #__bs_notify__ {
   display:none !important;
@@ -36,40 +16,9 @@ body {
   font-weight:300;
 }
 
-button {
-  &.padded {
-    padding-right: 30px;
-    padding-left: 30px;
-  }
-  &.btn {
-    font-weight:300;
-    white-space:normal !important;
-    word-wrap:break-word; 
-  }
-  &.btn:focus {
-    outline: none !important;
-  }
-  &.btn:hover {
-    background-color: $color_primary1_hover;
-    color:white;
-  }
-  &.btn-default.active, .btn-default:focus  {
-    background-color: $color_primary1;
-    color: white;
-  }
-  &.btn-default.active:hover {
-    background-color: $color_primary1_hover;
-    color:white;
-  }
-  &.btn-default.active:focus {
-    background-color: $color_primary1;
-    color:white;
-  }
-}
-
 #content {
   .mainContainer {
-    padding-top: 160px;
+    padding-top: 102px;
     &.collapsed {
       padding-top: 85px;
     }
@@ -79,17 +28,72 @@ button {
     color: $color_darkgrey;
   }
 
+  .card, .box {
+    padding:20px;
+    &.white {
+      // background-color:#FDFDFD;
+    }
+    &.solid {
+      &.whatsnew { background-color: $color_primary1; color: $color_primary1_font; }
+      &.agenda   { background-color: $color_primary2; color: $color_primary1_font; }
+      &.photos   { background-color: $color_primary3; color: $color_primary1_font; }
+    }
+    &.half {
+      min-height:150px;
+    }
+    &.full {
+      min-height: 300px;
+    }
+    &.linked {
+      cursor: pointer;
+      position:relative;
+      transition: 0.06s;
+    }
+    &.linked:hover {
+      // transform: rotate(-1deg) scale(1.1);
+      z-index:9999;
+      box-sizing: border-box;
+      box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25), 0px 0px 10px 0px rgba(0,0,0,0.2);
+      // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color_primary1; }
+      // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color_primary2; }
+      // &.photos   { box-shadow:inset 0px 0px 0px 10px $color_primary3; }
+
+      &.whatsnew.solid {
+        background-color:$color_primary1;
+        color:$color_primary1_font;
+        .grey { color:white; }
+      }
+      &.agenda.solid {
+        background-color:$color_primary2;
+        color:$color_primary2_font;
+        .grey { color:white; }
+      }
+      &.photos.solid {
+        background-color:$color_primary3;
+        color:$color_primary3_font;
+      }
+    }
+    &.selected {
+      color:white;
+      background-color: $color_primary1;
+    }
+    &.selected:hover {
+      background-color: $color_primary1;
+    }
+  }
+
+  .card {
+
+    border-radius:22px;
+    border:2px solid;
+    &.whatsnew { border-color: $color_primary1; }
+    &.agenda   { border-color: $color_primary2; }
+    &.photos   { border-color: $color_primary3; }
+
+  }
   .box {
     padding:20px;
 
-    &.white {
-      background-color:white;
-    }
-    &.solid {
-      // &.whatsnew { background-color: $color_primary1; color: $color_primary1_font; }
-      // &.agenda   { background-color: $color_primary2; color: $color_primary1_font; }
-      // &.photos   { background-color: $color_primary3; color: $color_primary1_font; }
-    }
     &.calendar {
       padding:6px;
       transition: 0.07s !important;
@@ -120,48 +124,6 @@ button {
       }
     }
 
-    &.half {
-      min-height:150px;
-    }
-    &.full {
-      min-height: 300px;
-    }
-    &.linked {
-      cursor: pointer;
-      position:relative;
-      transition: 0.06s;
-    }
-    &.linked:hover {
-      transform: rotate(-1deg) scale(1.1);
-      z-index:9999;
-      box-sizing: border-box;
-      box-shadow: 6px 6px 3px 0px rgba(0,0,0,0.15), 0px 0px 10px 0px rgba(0,0,0,0.2);
-      // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color_primary1; }
-      // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color_primary2; }
-      // &.photos   { box-shadow:inset 0px 0px 0px 10px $color_primary3; }
-
-      &.whatsnew.solid {
-        background-color:$color_primary1;
-        color:$color_primary1_font;
-        .grey { color:white; }
-      }
-      &.agenda.solid {
-        background-color:$color_primary2;
-        color:$color_primary2_font;
-        .grey { color:white; }
-      }
-      &.photos.solid {
-        background-color:$color_primary3;
-        color:$color_primary3_font;
-      }
-    }
-    &.selected {
-      color:white;
-      background-color: $color_primary1;
-    }
-    &.selected:hover {
-      background-color: $color_primary1;
-    }
   }
 
   .row {
@@ -182,143 +144,39 @@ button {
     height:100%;
   }
 
-
   .bottom-buffer {
     margin-bottom: 6px;
   }
 
-  .calendar {
-    .bottom-buffer {
-      margin-bottom: 6px;
-    }
-    h2 {
-      margin-bottom:30px;
-    }
-  }
-
-  div.icon {
+  .icon {
     .inner {
       display:inline-block;
       position:relative;
-      width:$iconsize;
-      height:$iconsize;
+      width:$iconSize;
+      height:$iconSize;
       svg {
         position:absolute;
         left:0px;
         top:0px;
-        width:$iconsize;
-        height:$iconsize;
+        width: $iconSize;
+        height: $iconSize;
       }
     }
+
+    &.small .inner {
+      width:$iconSizeSmall;
+      height:$iconSizeSmall;
+      svg {
+        width: $iconSizeSmall;
+        height: $iconSizeSmall;
+      }
+    }
+    
   }
 
-  .photo {
-    width:100%;
-  }
-  .photoThumb {
-    float:left;
-  }
-  .box-photo {
-    height:200px;
-    position:relative;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    padding:0 !important;
-    border:0px solid white;
-    &:hover {
-      border: 6px solid white;
-    }
-    img {
-      zoom:0.01;
-      flex-shrink:0;
-      min-width:120%;
-      min-height:120%;
-    }
-  }
-
-  .navbar {
-
-    border:none;
-    text-align:center;
-
-    .nav {
-      float:none;
-      li {
-        display:inline-block;
-        float:left;
-        vertical-align:middle;
-        padding-right:6px;
-        a {
-          font-size:24px;
-          font-weight:300;
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-          text-decoration:underline;
-          padding-left:30px;
-          padding-right:30px;
-          height:200px;
-
-          &:hover {
-            background-color: $color_dark;
-            // &.whatsnew { background-color: $color_primary1; }
-            // &.agenda   { background-color: $color_primary2; }
-            // &.photos   { background-color: $color_primary3; }
-          }
-          &.active {
-            color:black;
-            text-decoration:none;
-            font-weight:400;
-            box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
-            background-color: #E2E2E2;
-            // &.whatsnew { background-color: $color_primary1; }
-            // &.agenda   { background-color: $color_primary2; }
-            // &.photos   { background-color: $color_primary3; }
-          }
-        }
-      }
-      &.header {
-        text-align:left;
-        height:70px;
-
-        a {
-          color:#FFF;
-          text-decoration: none;
-          &:hover {
-            color:white;
-            text-decoration:none;
-          }
-        }
-        h1 {
-          font-size:24px;
-          font-weight:300;
-        }
-      }
-    }
-
-    .navbar-nav {
-      height:66px;
-      transition-property: height;
-      transition-duration: 0.25s;
-      transition-delay:0.1s;
-      transition-timing-function: ease-out;
-      overflow:hidden;
-      &.collapsed {
-        height:0px;
-      }
-    }
-
-    .navbar-toggle {
-      border:none;
-      background-color: $color_highlight;
-      cursor:pointer;
-      color:white;
-      &:hover {
-        // background-color: white;
-      }
-    }
-
+  .cell {
+    display: table-cell;
+    vertical-align: middle;
   }
 
   footer {
@@ -336,40 +194,18 @@ button {
 
 @media screen and (max-width:768px) {
 
-  .nav li {
-    display:block;
-    margin:0
-  }
-
 }
 
-/*
+
 @media all and (min-width: 960px) {
 
-  #content {
-    h1 {
-      font-size: 50px;
-      color:yellow;
-    }
-  }
 }
 
 // ipad portrait
 @media all and (max-width: 959px) and (min-width: 600px) {
-  #content {
-    h1 {
-      font-size: 5vw;
-      color:red;
-    }
-    .nav {}
-  }
+
 }
 
 @media all and (max-width: 599px) {
-  #content {
-    h1 {
-      font-size: 30px;
-      color:green;
-    }
-  }
-}*/
+
+}

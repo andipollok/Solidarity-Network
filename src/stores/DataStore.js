@@ -222,11 +222,19 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name')) {
+              var pictureFullsizeUrl = '', pictureUrl = '';
+              if (record.get('Picture') && record.get('Picture').length > 0) {
+                pictureFullsizeUrl = record.get('Picture')[0].url;
+                pictureUrl = record.get('Picture')[0].thumbnails.large.url;
+              }
               data.people.push({
                 id: record.getId(),
                 name: record.get('Name'),
                 surname: record.get('Surname'),
-                headshot: record.get('Headshot')
+                phone: record.get('Phone'),
+                email: record.get('Email'),
+                pictureFullsizeUrl: pictureFullsizeUrl,
+                pictureUrl: pictureUrl
               });
             }
         });

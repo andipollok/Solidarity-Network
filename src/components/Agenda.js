@@ -23,7 +23,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      area: 'calendar',
+      area: 'upcoming', // upcoming or calendar
       activities: [],
       activitiesFuture: [],
       foundActivities: false,
