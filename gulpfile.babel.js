@@ -15,6 +15,7 @@ import browserSync, { reload } from 'browser-sync';
 import postcss from 'gulp-postcss';
 import postcssImport from 'postcss-import';
 import postcssVars from 'postcss-simple-vars';
+import postcssColor from 'postcss-color-function';
 import postcssNested from 'postcss-nested';
 import postcssExtend from 'postcss-simple-extend';
 import sourcemaps from 'gulp-sourcemaps';
@@ -97,7 +98,7 @@ gulp.task('styles', () => {
   gulp.src('src/styles/main.scss')
   .pipe(rename({extname: ".css"}))
   .pipe(sourcemaps.init())
-  .pipe(postcss([postcssImport, postcssVars, postcssExtend, postcssNested, autoprefixer, cssnano]))
+  .pipe(postcss([postcssImport, postcssVars, postcssColor, postcssExtend, postcssNested, autoprefixer, cssnano]))
   .on('error', notify.onError())
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(paths.distCss))
