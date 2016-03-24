@@ -23,7 +23,7 @@ export default React.createClass({
     return {
       startDate: moment().startOf('month').isoWeekday(1),
       endDate: moment().startOf('month').add(1, 'month').isoWeekday(7),
-      month: date.format('M'),
+      month: Helpers.capitalizeFirstLetter(date.format('M')),
       monthName: date.format('MMMM'),
       year: date.format('Y'),
       days: [],
@@ -88,7 +88,7 @@ export default React.createClass({
 
     var weekItem = function(week) {
       return (
-        <Row key={'week'+week.number} className="calendar-row half">
+        <Row key={'week'+week.number} className="calendar-row calendar-week">
           { week.days.map(dayItem, this) }
         </Row>);
     }.bind(this);
@@ -110,7 +110,7 @@ export default React.createClass({
     return (
       <div className="calendar">
         <Row className="calendar-row text-center">
-        <h2>{this.state.monthName}</h2>
+        <h2>{Helpers.capitalizeFirstLetter(this.state.monthName)}</h2>
         </Row>
         <Row className="calendar-row hidden-xs">
           {moment.weekdaysShort().map(dayHeader, this)}

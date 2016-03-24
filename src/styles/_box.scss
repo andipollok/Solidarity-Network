@@ -1,0 +1,55 @@
+#content {
+
+  .box {
+    
+    padding:20px;
+
+    &.solid {
+      &.whatsnew { background-color: $color_primary1; color: $color_primary1_font; }
+      &.agenda   { background-color: $color_primary2; color: $color_primary1_font; }
+      &.photos   { background-color: $color_primary3; color: $color_primary1_font; }
+    }
+    &.half {
+      min-height:150px;
+    }
+    &.full {
+      min-height: 300px;
+    }
+    &.linked {
+      cursor: pointer;
+      position:relative;
+      transition: 0.06s;
+    }
+    &.linked:hover {
+      // transform: rotate(-1deg) scale(1.1);
+      z-index:9999;
+      box-sizing: border-box;
+      box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25), 0px 0px 10px 0px rgba(0,0,0,0.2);
+      // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color_primary1; }
+      // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color_primary2; }
+      // &.photos   { box-shadow:inset 0px 0px 0px 10px $color_primary3; }
+
+      &.whatsnew.solid {
+        background-color:$color_primary1;
+        color:$color_primary1_font;
+        .grey { color:white; }
+      }
+      &.agenda.solid {
+        background-color:$color_primary2;
+        color:$color_primary2_font;
+        .grey { color:white; }
+      }
+      &.photos.solid {
+        background-color:$color_primary3;
+        color:$color_primary3_font;
+      }
+    }
+    &.selected {
+      color:white;
+      background-color: $color_primary1;
+    }
+    &.selected:hover {
+      background-color: $color_primary1;
+    }
+  }
+}

@@ -123,7 +123,7 @@ export default React.createClass({
     }
 
     return (
-      <div className="container">
+      <div className="container photos">
         <Row>
           <Col md={12} className="text-center box">
             <ButtonGroup>

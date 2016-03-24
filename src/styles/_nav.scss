@@ -19,20 +19,28 @@
           background-color: #EEE;
 
           &:hover {
-           background-color: $color_grey;
-            // &.whatsnew { background-color: $color_primary1; }
-            // &.agenda   { background-color: $color_primary2; }
-            // &.photos   { background-color: $color_primary3; }
+            color: $color_light;
+            background-color: $color_darkgrey;
+            &.whatsnew { background-color: $color_primary1_hover; }
+            &.agenda   { background-color: $color_primary2_hover; }
+            &.photos   { background-color: $color_primary3_hover; }
           }
           &.active {
-            color:black;
+            color:$color_light;
+            background-color: $color_darkgrey;
             text-decoration:none;
             // font-weight:400;
             box-shadow: inset 3px 3px 0px rgba(0,0,0,.125), 0px 0px 0px rgba(0,0,0,.125);
-            background-color: #999;
-            // &.whatsnew { background-color: $color_primary1; }
-            // &.agenda   { background-color: $color_primary2; }
-            // &.photos   { background-color: $color_primary3; }
+            &.whatsnew { background-color: $color_primary1; color: $color_primary1_font; }
+            &.agenda   { background-color: $color_primary2; color: $color_primary2_font; }
+            &.photos   { background-color: $color_primary3; color: $color_primary3_font; }
+          }
+          &.active:hover {
+            color: $color_light;
+            background-color: $color_darkgrey;
+            &.whatsnew { background-color: $color_primary1_hover; color: $color_primary1_font; }
+            &.agenda   { background-color: $color_primary2_hover; color: $color_primary2_font; }
+            &.photos   { background-color: $color_primary3_hover; color: $color_primary3_font; }
           }
         }
       }

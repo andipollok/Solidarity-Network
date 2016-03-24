@@ -1,5 +1,9 @@
 module.exports = {
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  },
+
   checkLanguageLoaded: function(_this) {
     if (!_this || !_this.state || !_this.state.language || (_this.state.language && !_this.state.language.loaded)) {
       return false;

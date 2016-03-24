@@ -23,7 +23,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      area: 'upcoming', // upcoming or calendar
+      area: 'calendar', // upcoming or calendar
       activities: [],
       activitiesFuture: [],
       foundActivities: false,
@@ -113,7 +113,7 @@ export default React.createClass({
 
     var calendar = <Calendar activities={this.state.activities} />;
 
-    var header =  
+    var header = 
       <div className="jumbotron container text-center">
         <h1><FormattedMessage id='agenda_in' values={{communityName: community.name}}/></h1>
       </div>
@@ -131,7 +131,7 @@ export default React.createClass({
     }
 
     return (
-      <div className="container">
+      <div className="container agenda">
         <Row>
           <Col md={12} className="text-center box">
             <ButtonGroup>
@@ -140,6 +140,7 @@ export default React.createClass({
             </ButtonGroup>
           </Col>
         </Row>
+
         {Component}
 
       </div>

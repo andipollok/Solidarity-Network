@@ -4,27 +4,67 @@ button {
     padding-left: 30px;
   }
   &.btn {
-    font-weight:300;
+    border:none;
+    font-weight:300 !important;
     white-space:normal !important;
-    word-wrap:break-word; 
+    word-wrap:break-word;
+
+    &:hover, &:active {
+      background-color: $color_darkgrey;
+      color:white !important;
+      box-shadow:none;
+    }
+    &:focus  {
+      outline: none !important;
+      background-color: $color_dark;
+      color: white;
+    }
+    &.active, &.active:focus {
+      background-color: $color_dark;
+      color:white;
+      box-shadow:inset 3px 3px 0 color($color_dark l(-5));
+    }
+    &.active:hover {
+      background-color: $color_dark;
+      color:white;
+    }
   }
-  &.btn:focus {
-    outline: none !important;
+}
+
+
+.whatsnew {
+  button.btn {
+    &:focus, &.active, &.active:focus, &.active:hover {
+      background-color: $color_primary1;
+      color: $color_primary1_font;
+    }
+    &.active, &.active:focus {
+      box-shadow:inset 3px 3px 0 color($color_primary1 l(-5));
+    }
   }
-  &.btn:hover {
-    background-color: $color_primary1_hover;
-    color:white;
+}
+
+.agenda {
+  button.btn {
+    &:focus, &.active, &.active:focus, &.active:hover {
+      background-color: $color_primary2;
+      color: $color_primary2_font;
+    }
+    &.active, &.active:focus {
+      box-shadow:inset 3px 3px 0 color($color_primary2 l(-5));
+    }
   }
-  &.btn-default.active, .btn-default:focus  {
-    background-color: $color_primary1;
-    color: white;
-  }
-  &.btn-default.active:hover {
-    background-color: $color_primary1_hover;
-    color:white;
-  }
-  &.btn-default.active:focus {
-    background-color: $color_primary1;
-    color:white;
+}
+
+
+.photos {
+  button.btn {
+    &:focus, &.active, &.active:focus, &.active:hover {
+      background-color: $color_primary3;
+      color: $color_primary3_font;
+    }
+    &.active, &.active:focus {
+      box-shadow:inset 3px 3px 0 color($color_primary3 l(-5));
+    }
   }
 }

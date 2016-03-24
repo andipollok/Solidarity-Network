@@ -6,21 +6,21 @@ $color_darkgrey: #999;
 
 $color_highlight: #77529D;
 
-// $color_primary1: #ED695A;
-// $color_primary2: #77529D;
-// $color_primary3: #62BA6B;
+$color_primary1: color(white h(4) s(80) l(50));
+$color_primary2: color(white h(270) s(41) l(50));
+$color_primary3: color(white h(126) s(50) l(50));
 
-$color_primary1: #77529D;
-$color_primary2: #77529D;
-$color_primary3: #77529D;
+// $color_primary1: #77529D;
+// $color_primary2: #77529D;
+// $color_primary3: #77529D;
 
 $color_primary1_font: #FFF;
 $color_primary2_font: #FFF;
 $color_primary3_font: #FFF;
 
-$color_primary1_hover: #8b60b8;
-$color_primary2_hover: #8b60b8;
-$color_primary2_hover: #8b60b8;
+$color_primary1_hover: color($color_primary1 s(+10));
+$color_primary2_hover: color($color_primary2 s(+10));
+$color_primary3_hover: color($color_primary3 s(+10));
 
 $iconSize: 120px;
 $iconSizeSmall: 60px;
