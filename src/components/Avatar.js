@@ -7,13 +7,15 @@ export default React.createClass({
     if (this.props && this.props.imageUrl) {
       var img = <img src={this.props.imageUrl} />;
     }
-    var divClass = classNames('avatar', {
+    var divClass = classNames('avatarImageContainer', {
       small: this.props.size === 'small'
     });
     
     return (
-      <span className={divClass}>
-        {img}
+      <span className='avatar'>
+        <span className={divClass}>
+          {img}
+        </span>
       </span>
     );
   }

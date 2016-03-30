@@ -1,27 +1,35 @@
 #content {
   .avatar {
-    width:100px;
-    height:100px;
-    position:relative;
-    display:inline-block;
+    display: flex;
     justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    border-radius:50px;
-    background-color: $color_grey;
-    &.small {
-      width:45px;
-      height:45px;
-    }
-    &.tiny {
-      width:25px;
-      height:25px;
-    }
-    img {
-      zoom:0.01;
-      flex-shrink:0;
-      min-width:120%;
-      min-height:120%;
+    width:100%;
+    
+    .avatarImageContainer {
+      width:100px;
+      height:100px;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      border-radius:50px;
+      background-color: $color_grey;
+      &.small {
+        width:45px;
+        height:45px;
+        border-radius:22.5px;
+      }
+      &.tiny {
+        width:25px;
+        height:25px;
+        border-radius:13px;
+      }
+      img {
+        zoom:0.1;
+        flex-shrink:0;
+        min-width:100%;
+        min-height:100%;
+      }
     }
   }
 }
