@@ -67,16 +67,18 @@
 }
 
 .whatsnew { 
-  .card.solid { 
+  .card.solid {
     background-color: $color_primary1; color: $color_primary1_font;
   }
 }
 .agenda {
   .card.solid { 
-    background-color: $color_primary2; color: $color_primary2_font; }
-
+    border:2px solid color($color_primary2 l(-10));
+    background-color: $color_primary2; color: $color_primary2_font;
+  }
+}
 .photos {
   .card.solid {
-    background-color: $color_primary3; color: $color_primary3_font; }
+    background-color: $color_primary3; color: $color_primary3_font;
   }
 }

@@ -41,6 +41,7 @@ export default React.createClass({
   },
 
   onClickActivity(id) {
+    console.log("onClickActivity");
     window.location.assign("#/activity/" + id);
   },
 
@@ -105,35 +106,28 @@ export default React.createClass({
       return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
 
-    var activityItemCalendar = function(activity) {
-      return ( <CalendarItem key={activity.id} data={activity} onClickHandler={this.onClickActivity}></CalendarItem> );
-    }.bind(this);
-
-    var listActivities = <Row>{this.state.activitiesFuture.map(activityItem, this)}</Row>;
-
-    var calendar = <Calendar activities={this.state.activities} />;
-
     var header = 
       <div className="jumbotron container text-center">
         <h1><FormattedMessage id='agenda_in' values={{communityName: community.name}}/></h1>
-      </div>
-    
+      </div>;
+  
     var Component = {};
+
     if (!this.state.foundActivities) {
       // no events found
       Component = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: community.name}}/></h2></Col>;
     }
     else if (this.state.area === 'calendar') {
-      Component = calendar;
+      Component = <Calendar activities={this.state.activities} />;
     }
     else {
-      Component = listActivities;
+      Component = <Row>{this.state.activitiesFuture.map(activityItem, this)}</Row>;
     }
 
     return (
       <div className="container agenda">
         <Row>
-          <Col md={12} className="text-center box">
+          <Col md={12} className="text-center box top-buffer bottom-buffer">
             <ButtonGroup>
               <Button bsSize="large" className="padded" active={ this.state.area === 'upcoming' } onClick={ this.setArea.bind(this, 'upcoming') }>Upcoming</Button>  
               <Button bsSize="large" className="padded" active={ this.state.area === 'calendar' } onClick={ this.setArea.bind(this, 'calendar') }>Calendar</Button>  

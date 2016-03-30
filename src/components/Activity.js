@@ -38,6 +38,26 @@ export default React.createClass({
     var group = Helpers.getGroupById(activity.groupId, this);
     var owner = Helpers.getPersonById(group.ownerId, this);
 
+    // load photos
+    activity.photoList = [];
+    activity.photos.map(function(photoId) {
+      var photo = Helpers.getPhotoById(photoId, this);
+      // each photo contains an image array, as there can also be more than one attachment in Airtable.
+      photo.image.map(function(image) {
+        activity.photoList.push({
+          description: photo.description, // store the description for each photo
+          owner: photo.ownerId, // store the owner for each photo
+          url: image.url,
+          id: image.id,
+          type: image.type,
+          size: image.size,
+          thumbnail: image.thumbnails.large.url,
+          thumbnailSmall: image.thumbnails.small.url
+        });
+      }.bind(this))
+    }.bind(this));
+    // console.log("number of photos", activity.photoList.length);
+
     return (
       <div className="container agenda">
 
@@ -76,17 +96,6 @@ export default React.createClass({
               <p><Avatar imageUrl={owner.pictureUrl}/></p>
               <p>Hosted <FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
             </div>
-          </Col>
-          <Col sm={4}>
-            <div className="box text-center">
-              <p><Avatar /></p>
-              <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}</p>
-            </div>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col sm={4}>
             <div className="box white outline text-center bottom-buffer rounded">
               <h3>Do you want to talk to {owner.name}?</h3>
               
@@ -96,6 +105,10 @@ export default React.createClass({
           </Col>
 
           <Col sm={4}>
+            <div className="box text-center">
+              <p><Avatar /></p>
+              <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}</p>
+            </div>
             <div className="box white outline text-center bottom-buffer rounded">
               <h3>Do you want attend?</h3>
               <p>Register your interest in this activity.</p>

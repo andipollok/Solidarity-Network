@@ -21,7 +21,7 @@ export default React.createClass({
 
   render() {
 
-    var divClass = classNames( 'card solid linked padded text-center agenda solid',
+    var divClass = classNames( 'card solid linked padded text-center solid',
       {
         'selected': false
       }

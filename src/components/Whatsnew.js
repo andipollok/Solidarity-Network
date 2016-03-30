@@ -105,7 +105,7 @@ export default React.createClass({
         </div>;
 
     return (
-      <div className="container">
+      <div className="container top-buffer whatsnew">
         {Component}
       </div>
     );

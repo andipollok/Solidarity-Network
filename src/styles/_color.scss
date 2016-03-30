@@ -2,9 +2,8 @@ $color_dark: #282828;
 $color_light: #FFF;
 $color_grey: #EAEAEA;
 $color_lightgrey: #F2F2F2;
-$color_darkgrey: #AAA;
+$color_darkgrey: #CCC;
 
-$color_highlight: #77529D;
 
 $color_primary1: color(white h(4) s(80) l(50));
 $color_primary2: color(white h(270) s(41) l(50));
@@ -21,6 +20,3 @@ $color_primary3_font: #FFF;
 $color_primary1_hover: color($color_primary1 l(+10));
 $color_primary2_hover: color($color_primary2 l(+10));
 $color_primary3_hover: color($color_primary3 l(+10));
-
-$iconSize: 120px;
-$iconSizeSmall: 60px;

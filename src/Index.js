@@ -12,6 +12,8 @@ import Whatsnew from './components/Whatsnew';
 import Agenda from './components/Agenda';
 import Photos from './components/Photos';
 
+import Day from './components/Day';
+
 import Group from './components/Group';
 import Groups from './components/Groups';
 
@@ -59,6 +61,8 @@ render(
         <Route name="whatsnew" path="/whatsnew" component={Whatsnew}/>
         <Route name="agenda" path="/agenda" component={Agenda}/>
         <Route name="photos" path="/photos" component={Photos}/>
+
+        <Route name="day" path="/agenda/:day/:month/:year" component={Day}/>
 
         <Route name="groups" path="/groups/" component={Groups}/>
         <Route name="group" path="/group/:id" component={Group}/>

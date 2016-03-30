@@ -32,10 +32,8 @@ export default React.createClass({
     // each activity for this day
     var activityItem = function(activity) {
       return (
-        <p key={activity.id}>
-          <Button bsStyle="primary" bsSize="small" onClick={this.props.onClickActivity.bind(null, activity.id)}>
-            {activity.name}
-          </Button>
+        <p key={activity.id} className="small">
+          {activity.name}
         </p>
       );
     }
@@ -46,14 +44,15 @@ export default React.createClass({
       numberofActivities = <p><span className="number">{this.props.day.activities.length}</span></p>;
     }
 
+    var listActivities = this.props.day.activities.map(activityItem, this);
+
     return (
-      <Col className="calendar-sm-1 calendar-xs-7 height100 bottom-buffer">
+      <Col className="calendar-xs-1 height100 bottom-buffer" onClick={this.props.onClickDay.bind(null, this.props.day.date)}>
         <div className={divClass}>
-          <h4>{this.props.day.date.format('DD')}</h4>
+          <h4>{this.props.day.date.format('D')}</h4>
           {monthName}
           {isToday}
-          <span className="hidden-xs hidden-sm">{this.props.day.activities.map(activityItem, this)}</span>
-          <span className="hidden-md hidden-lg">{numberofActivities}</span>
+          <span>{numberofActivities}</span>
         </div>
       </Col>
     );

@@ -44,6 +44,9 @@ body {
   .cell {
     display: table-cell;
     vertical-align: middle;
+    &.align-top {
+      vertical-align: top;
+    }
   }
 
 }

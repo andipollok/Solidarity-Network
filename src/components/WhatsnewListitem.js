@@ -38,8 +38,6 @@ export default React.createClass({
       link = 'group/' + this.props.data.group.id;
     }
 
-    var divClass = classNames( 'whatsnew' );
-
     if(this.props.data.activity.id) {
       var icon = <Icon type={'activity-' + this.props.data.activity.type} area='whatsnew' shape='empty'  size='small'/>
     }
@@ -53,37 +51,36 @@ export default React.createClass({
 
     return (
 
-      <Col md={12} className="bottom-buffer">
+      <Row>
 
-        <div className={divClass}>
+        <Col md={12} className="bottom-buffer">
 
-          <p>
+          <div className="box">
 
-            <span className="cell">{icon}</span>
+              <span className="cell align-top">{icon}</span>
 
-            <span className="cell"><Avatar imageUrl={this.props.data.person.pictureUrl} size='small'/></span>            
+              <span className="cell align-top"><Avatar imageUrl={this.props.data.person.pictureUrl} size='small'/></span>            
 
-            <span className="cell padding-left">
+              <span className="cell padding-left">
 
-              <FormattedMessage id={ 'whatsnew-' + this.props.data.type.replace(/\s+/g, '') } values={{
-                personName: this.props.data.person.name,
-                activityName: this.props.data.activity.name || '',
-                groupName: this.props.data.group.name || '',
-              }} defaultMessage=' '/>
-            </span>
-            
-            <span className="cell padding-left">
-            
-              <a href="" onClick={this.props.onClickHandler.bind(null, link)}>Open</a>
+                <FormattedMessage id={ 'whatsnew-' + this.props.data.type.replace(/\s+/g, '') } values={{
+                  personName: this.props.data.person.name,
+                  activityName: this.props.data.activity.name || '',
+                  groupName: this.props.data.group.name || '',
+                }} defaultMessage=' '/>
+              </span>
+              
+              <span className="cell padding-left">
+              
+                <a href="" onClick={this.props.onClickHandler.bind(null, link)}>Open</a>
 
-            </span>
+              </span>
 
+          </div>
 
-          </p>
+        </Col>
 
-        </div>
-
-      </Col>
+      </Row>
     );
   }
 });

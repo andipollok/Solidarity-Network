@@ -1,28 +1,35 @@
+$avatarSize: 120px;
+$avatarSizeSmall: 60px;
+$avatarSizeTiny: 30px;
+
 #content {
+
   .avatar {
+    
     display: flex;
     justify-content:center;
     width:100%;
     
     .avatarImageContainer {
-      width:100px;
-      height:100px;
+      width:$avatarSize;
+      height:$avatarSize;
       position:relative;
       display:flex;
       justify-content:center;
       align-items:center;
       overflow:hidden;
-      border-radius:50px;
+      border-radius: calc($avatarSize / 2);
       background-color: $color_grey;
+
       &.small {
-        width:45px;
-        height:45px;
-        border-radius:22.5px;
+        width: $avatarSizeSmall;
+        height: $avatarSizeSmall;
+        border-radius: calc($avatarSizeSmall / 2);
       }
       &.tiny {
-        width:25px;
-        height:25px;
-        border-radius:13px;
+        width: $avatarSizeTiny;
+        height: $avatarSizeTiny;
+        border-radius: calc($avatarSizeTiny / 2);
       }
       img {
         zoom:0.1;
@@ -32,4 +39,5 @@
       }
     }
   }
+
 }

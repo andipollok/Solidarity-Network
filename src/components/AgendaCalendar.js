@@ -76,8 +76,9 @@ export default React.createClass({
     window.location.assign("#/activity/" + id);
   },
 
-  onClickDay(id) {
-    console.log("day " + id + " selected");
+  onClickDay(date) {
+    // console.log("onClickDay", date.format());
+    window.location.assign("#/agenda/" + date.format("DD/MM/YYYY"));
   },
 
   render() {

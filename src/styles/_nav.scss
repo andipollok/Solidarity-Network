@@ -10,13 +10,13 @@
         a {
           font-size:24px;
           font-weight:300;
-          border-radius: 12px;
+          //border-radius: 12px;
           margin-top:10px;
           margin-bottom:10px;
           padding-left:30px;
           padding-right:30px;
           //box-shadow: inset 0px 0px 0px rgba(0,0,0,.125), 3px 3px 0px rgba(0,0,0,.125);
-          background-color: #EEE;
+          background-color: $color_lightgrey;
 
           &:hover {
             color: $color_light;
@@ -82,9 +82,9 @@
     /* button for opening and closing menu */
     .navbar-toggle {
       border:none;
-      background-color: $color_highlight;
+      background-color: $color_darkgrey;
       cursor:pointer;
-      color:white;
+      color: $color_dark;
       &:hover {
         // background-color: white;
       }
