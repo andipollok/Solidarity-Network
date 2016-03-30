@@ -15,7 +15,7 @@
 
 -todo- Settings: add icons of communities
 
--todo- Update to Bootstrap  v4.0.0-alpha.2 http://v4-alpha.getbootstrap.com/ (Problem: it uses SCSS instead of LESS, couldn't get it to run)
+-todo- Update to Bootstrap  v4.0.0-alpha.2 http://v4-alpha.getbootstrap.com/ (Problem: it uses SCSS instead of LESS, couldn't get it to run) Advantage would be that it would integrate well with other SCSS style sheets
 
 -todo- Gulpfile: Fix injection of CSS on change - right now it injects and reloads page
 
