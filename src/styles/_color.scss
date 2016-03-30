@@ -2,7 +2,7 @@ $color_dark: #282828;
 $color_light: #FFF;
 $color_grey: #EAEAEA;
 $color_lightgrey: #F2F2F2;
-$color_darkgrey: #999;
+$color_darkgrey: #AAA;
 
 $color_highlight: #77529D;
 
@@ -18,9 +18,9 @@ $color_primary1_font: #FFF;
 $color_primary2_font: #FFF;
 $color_primary3_font: #FFF;
 
-$color_primary1_hover: color($color_primary1 s(+10));
-$color_primary2_hover: color($color_primary2 s(+10));
-$color_primary3_hover: color($color_primary3 s(+10));
+$color_primary1_hover: color($color_primary1 l(+10));
+$color_primary2_hover: color($color_primary2 l(+10));
+$color_primary3_hover: color($color_primary3 l(+10));
 
 $iconSize: 120px;
 $iconSizeSmall: 60px;

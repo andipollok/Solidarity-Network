@@ -6,6 +6,8 @@
 @import '_box.scss';
 @import '_card.scss';
 @import '_calendar.scss';
+@import '_icon.scss';
+@import '_footer.scss';
 
 /* Main SCSS Definitions
 */
@@ -22,81 +24,44 @@ body {
 #content {
   .mainContainer {
     padding-top: 102px;
-    &.collapsed {
-      padding-top: 85px;
-    }
     padding-bottom: 60px;
   }
   .grey {
     color: $color_darkgrey;
   }
-
   .height100 {
     height:100%;
   }
-
   .bottom-buffer {
     margin-bottom: 6px;
   }
-
-  .icon {
-    .inner {
-      display:inline-block;
-      position:relative;
-      width:$iconSize;
-      height:$iconSize;
-      svg {
-        position:absolute;
-        left:0px;
-        top:0px;
-        width: $iconSize;
-        height: $iconSize;
-      }
-    }
-
-    &.small .inner {
-      width:$iconSizeSmall;
-      height:$iconSizeSmall;
-      svg {
-        width: $iconSizeSmall;
-        height: $iconSizeSmall;
-      }
-    }
-    
+  .top-buffer {
+    margin-top: 6px;
   }
-
+  .padding-left {
+    padding-left: 12px;
+  }
   .cell {
     display: table-cell;
     vertical-align: middle;
   }
 
-  footer {
-    position:fixed;
-    bottom:0px;
-    left:20px;
-    padding:10px;
-    a {
-      color:white;
-      text-shadow: 0 0 2px rgba(0,0,0,0.4); 
-    }
-  }
+}
+
+/* Extra small devices (phones, below @screen-sm-min 768px) */
+@media (max-width: 767px) {
 
 }
 
-@media screen and (max-width:768px) {
+/* Small devices (tablets, @screen-sm-min 768px and up) */
+@media (min-width: 768px) {
 
 }
 
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+ }
 
-@media all and (min-width: 960px) {
-
-}
-
-// ipad portrait
-@media all and (max-width: 959px) and (min-width: 600px) {
-
-}
-
-@media all and (max-width: 599px) {
-
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
 }

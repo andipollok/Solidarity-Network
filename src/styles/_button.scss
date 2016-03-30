@@ -33,8 +33,11 @@ button {
 
 
 .whatsnew {
+  button.btn-primary {
+    background-color: $color_primary1;    
+  }
   button.btn {
-    &:focus, &.active, &.active:focus, &.active:hover {
+    &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
       background-color: $color_primary1;
       color: $color_primary1_font;
     }
@@ -45,8 +48,11 @@ button {
 }
 
 .agenda {
+  button.btn-primary {
+    background-color: $color_primary2;    
+  }
   button.btn {
-    &:focus, &.active, &.active:focus, &.active:hover {
+    &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
       background-color: $color_primary2;
       color: $color_primary2_font;
     }
@@ -59,7 +65,7 @@ button {
 
 .photos {
   button.btn {
-    &:focus, &.active, &.active:focus, &.active:hover {
+    &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
       background-color: $color_primary3;
       color: $color_primary3_font;
     }

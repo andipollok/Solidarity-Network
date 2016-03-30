@@ -4,28 +4,30 @@
 
     &.calendar {
 
-      padding:6px;
+      padding:0px;
       transition: 0.07s !important;
       overflow: hidden;
       height:100%;
       background-color:$color_lightgrey;
-
+      p {
+        margin:4px;
+      }
       &.weekend {
         background-color:$color_grey;
       }
       &.today {
         box-sizing: border-box;
-        box-shadow:inset 0px 0px 0px 10px $color_primary1;
-        // transform: rotate(-3deg);
+        background-color: #FFF3A3;
+        // box-shadow:inset 0px 0px 0px 10px $color_primary2;
       }
       .activity {
-        background-color: $color_primary1;
+        background-color: $color_primary2;
         color: $color_primary1_font;
         border-radius:5px;
         margin-bottom: 4px;
       }
       .number {
-        background-color: $color_primary1;
+        background-color: $color_primary2;
         color: $color_primary1_font;
         border-radius:15px;
         width:30px;
@@ -38,7 +40,7 @@
 
   .row {
     &.calendar-week {
-      height:200px;
+      height:120px;
     }
   }
 }
