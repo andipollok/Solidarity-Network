@@ -37,7 +37,7 @@ export default React.createClass({
 
     return (
 
-      <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
 
         <div className={divClass}>
 

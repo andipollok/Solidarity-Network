@@ -63,14 +63,17 @@ export default React.createClass({
 
             <span className="cell"><Avatar imageUrl={this.props.data.person.pictureUrl} size='small'/></span>            
 
-            <span className="cell">
+            <span className="cell padding-left">
 
               <FormattedMessage id={ 'whatsnew-' + this.props.data.type.replace(/\s+/g, '') } values={{
                 personName: this.props.data.person.name,
                 activityName: this.props.data.activity.name || '',
                 groupName: this.props.data.group.name || '',
               }} defaultMessage=' '/>
-              
+            </span>
+            
+            <span className="cell padding-left">
+            
               <a href="" onClick={this.props.onClickHandler.bind(null, link)}>Open</a>
 
             </span>

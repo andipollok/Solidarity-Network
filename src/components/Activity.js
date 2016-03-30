@@ -39,54 +39,70 @@ export default React.createClass({
     var owner = Helpers.getPersonById(group.ownerId, this);
 
     return (
-      <div className="container">
+      <div className="container agenda">
 
-        <Col md={12}>
+        <Row>
+          <Col sm={12} className="top-buffer">
 
-          <div className="card solid agenda text-center">
+            <div className="card solid text-center">
 
-            <Icon type={'activity-' + activity.type} area='agenda' fill='solid' shape='hexagon'/>
+              <Icon type={'activity-' + activity.type} area='agenda' fill='solid' shape='hexagon'/>
 
-            <h1>{activity.name}</h1>
+              <h1>{activity.name}</h1>
 
-            <h3><FormattedMessage id="on" defaultMessage=" "/>
-                &nbsp;<FormattedDate
-                      value={activity.date}
-                      weekday="long"
-                      day="numeric"
-                      month="long"
-                      year="numeric" /> 
-                &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
-            </h3>
+              <h3><FormattedMessage id="on" defaultMessage=" "/>
+                  &nbsp;<FormattedDate
+                        value={activity.date}
+                        weekday="long"
+                        day="numeric"
+                        month="long"
+                        year="numeric" /> 
+                  &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
+              </h3>
 
-            <h3><FormattedMessage id="startingat" defaultMessage=" "/>
-                &nbsp;<FormattedTime
-                      value={activity.date}
-                      minute="2-digit"
-                      hour="numeric" /></h3>
+              <h3><FormattedMessage id="startingat" defaultMessage=" "/>
+                  &nbsp;<FormattedTime
+                        value={activity.date}
+                        minute="2-digit"
+                        hour="numeric" /></h3>
 
-            <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
-               &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name} 
-               <Avatar imageUrl={owner.pictureUrl} size='small'/></p>
-          </div>
-        </Col>
+            </div>
+          </Col>
+        </Row>
 
-        <Col sm={4}>
-          <div className="box white text-center">
-            <h3>Do you want to talk to {owner.name}?</h3>
-            <p><Avatar imageUrl={owner.pictureUrl}/></p>
-            <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
-            <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
-          </div>
-        </Col>
+        <Row>
+          <Col sm={4}>
+            <div className="box text-center">
+              <p><Avatar imageUrl={owner.pictureUrl}/></p>
+              <p>Hosted <FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+            </div>
+          </Col>
+          <Col sm={4}>
+            <div className="box text-center">
+              <p><Avatar /></p>
+              <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}</p>
+            </div>
+          </Col>
+        </Row>
 
-        <Col sm={4}>
-          <div className="box white text-center">
-            <h3>Do you want attend?</h3>
-            <p>Register your interest in this activity.</p>
-            <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
-          </div>
-        </Col>
+        <Row>
+          <Col sm={4}>
+            <div className="box white outline text-center bottom-buffer rounded">
+              <h3>Do you want to talk to {owner.name}?</h3>
+              
+              <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
+              <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
+            </div>
+          </Col>
+
+          <Col sm={4}>
+            <div className="box white outline text-center bottom-buffer rounded">
+              <h3>Do you want attend?</h3>
+              <p>Register your interest in this activity.</p>
+              <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
+            </div>
+          </Col>
+        </Row>
 
       </div>
     );
