@@ -35,6 +35,14 @@ var momentLocale = {
   'de': moment_locale_de
 }
 
+
+moment.locale('en', {
+  week: {
+    dow: 1 // Monday is the first day of the week.
+  }
+});
+
+
 import Nav from './Nav';
 import Footer from './Footer';
 import Start from './Start';

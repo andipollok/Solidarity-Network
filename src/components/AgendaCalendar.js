@@ -107,13 +107,18 @@ export default React.createClass({
       );
     }
 
+    // moment.localeData().firstDayOfWeek() is 0 for sunday and 1 for monday.
+    // unfortunately, moment.weekdaysShort() always starts with Sunday ...
+    // so we need to manipulate that
+    var weekdays = Helpers.rotateArray(moment.weekdaysShort(), moment.localeData().firstDayOfWeek());
+
     return (
       <div className="calendar">
         <Row className="calendar-row text-center">
         <h2>{Helpers.capitalizeFirstLetter(this.state.monthName)}</h2>
         </Row>
         <Row className="calendar-row hidden-xs">
-          {moment.weekdaysShort().map(dayHeader, this)}
+          {weekdays.map(dayHeader, this)}
         </Row>
           {this.state.weeks.map(weekItem, this)}
       </div>
