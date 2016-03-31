@@ -51,7 +51,7 @@ export default React.createClass({
       photo.image.map(function(image) {
         activity.photoList.push({
           description: photo.description, // store the description for each photo
-          owner: photo.ownerId, // store the owner for each photo
+          ownerId: photo.ownerId, // store the owner for each photo
           url: image.url,
           id: image.id,
           type: image.type,
@@ -82,6 +82,21 @@ export default React.createClass({
     if(date < now) {
       isInPast = true;
       startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
+    }
+
+    if (isInPast === false) {
+      var registerToAttend = <span>
+          <h3>Do you want attend?</h3>
+          <p>Register your interest in this activity.</p>
+          <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
+          </span>
+    } 
+    else {
+      var registerToAttend = <span>
+          <h3>Did you attend?</h3>
+          <p>And did you like it?</p>
+          <p><Button bsStyle="primary" bsSize="large">Find similar activities</Button></p>
+          </span>
     }
 
     return (
@@ -118,10 +133,12 @@ export default React.createClass({
 
         <Row>
           <Col sm={4}>
+            <Link to={`/person/${owner.id}`}>
             <div className="box text-center">
               <p><Avatar imageUrl={owner.pictureUrl}/></p>
               <p>Hosted <FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
             </div>
+            </Link>
             <div className="box white outline text-center bottom-buffer rounded">
               <h3>Do you want to talk to {owner.name}?</h3>
               
@@ -131,14 +148,14 @@ export default React.createClass({
           </Col>
 
           <Col sm={4}>
-            <div className="box text-center">
-              <p><Avatar /></p>
-              <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}</p>
-            </div>
+            <Link to={`/group/${group.id}`}>
+              <div className="box text-center">
+                <p><Avatar /></p>
+                <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}</p>
+              </div>
+            </Link>
             <div className="box white outline text-center bottom-buffer rounded">
-              <h3>Do you want attend?</h3>
-              <p>Register your interest in this activity.</p>
-              <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
+              {registerToAttend}
             </div>
           </Col>
 
