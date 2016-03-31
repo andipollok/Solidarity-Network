@@ -192,13 +192,13 @@ export default Reflux.createStore({
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
-            if (record.get('Nr') && record.get('Activity') && record.get('Image') && record.get('Image').length > 0) {
+            if (record.get('Nr') && record.get('Owner') && record.get('Activity') && record.get('Image') && record.get('Image').length > 0) {
               data.photos.push({
                 id: record.getId(),
                 nr: record.get('Nr'),
                 image: record.get('Image') || [],
                 description: record.get('Description') || '',
-                ownerId: record.get('Owner') || '',
+                ownerId: record.get('Owner')[0] || '',
                 activityId: record.get('Activity')[0] || ''
               });
             }
