@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link}  from 'react-router';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
@@ -42,6 +43,10 @@ export default React.createClass({
     activity.photoList = [];
     activity.photos.map(function(photoId) {
       var photo = Helpers.getPhotoById(photoId, this);
+      if (!photo) {
+        // this can happen if the photo exists but is not served by dataStore (e.g. if the field name was not filled out, dataStore ignores it)
+        return false;        
+      }
       // each photo contains an image array, as there can also be more than one attachment in Airtable.
       photo.image.map(function(image) {
         activity.photoList.push({
@@ -57,6 +62,27 @@ export default React.createClass({
       }.bind(this))
     }.bind(this));
     // console.log("number of photos", activity.photoList.length);
+
+    var photoItem = function(photo) {
+      return (
+        <div key={photo.id}>
+          <Link to={ '/photo/' + photo.id }>
+            <img src={photo.thumbnail} className="photoThumb" title={photo.description}/>
+          </Link>
+          
+        </div>
+        );
+    }.bind(this);
+
+    var startingAt = <FormattedMessage id="startingat" defaultMessage=" "/>
+    var isInPast = false;
+    // check if activity is in the past          
+    var now = new Date();
+    var date = new Date(activity.date);
+    if(date < now) {
+      isInPast = true;
+      startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
+    }
 
     return (
       <div className="container agenda">
@@ -80,7 +106,7 @@ export default React.createClass({
                   &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
               </h3>
 
-              <h3><FormattedMessage id="startingat" defaultMessage=" "/>
+              <h3>{startingAt}
                   &nbsp;<FormattedTime
                         value={activity.date}
                         minute="2-digit"
@@ -115,6 +141,21 @@ export default React.createClass({
               <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
             </div>
           </Col>
+
+
+          <Col sm={4}>
+
+            {activity.photoList.map(photoItem,this)}
+
+            <p><FormattedMessage id="numberofphotos" values={{numPhotos: activity.photoList.length}} /></p>
+
+            <div className="box white outline text-center bottom-buffer rounded">
+              <p><Button bsStyle="primary" bsSize="large">Send all photos</Button></p>
+              <p>Send all these pictures to a friend! Also you can select single photos to send or create an album.</p>
+            </div>
+
+          </Col>
+
         </Row>
 
       </div>
