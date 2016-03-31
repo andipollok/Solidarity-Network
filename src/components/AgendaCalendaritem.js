@@ -11,6 +11,12 @@ import { Button } from 'react-bootstrap';
 import Icon from './Icon';
 
 export default React.createClass({
+  
+  onClick() {
+    if (this.props.day.activities.length > 0) {
+      this.props.onClickDay(this.props.day.date);
+    }
+  },
 
   render() {
 
@@ -20,9 +26,10 @@ export default React.createClass({
     }
 
     // add classes if it's a weekend or if it's today
-    var divClass = classNames(['box linked expand white text-center agenda calendar'], {
+    var divClass = classNames(['box expand white text-center agenda calendar'], {
       weekend: this.props.day.date.isoWeekday() === 6 || this.props.day.date.isoWeekday() === 7,
-      today: this.props.day.date.isSame(moment(), 'day')
+      today: this.props.day.date.isSame(moment(), 'day'),
+      linked: this.props.day.activities.length > 0
     });
     // add message if it's today
     if (this.props.day.date.isSame(moment(), 'day')) {
@@ -47,7 +54,7 @@ export default React.createClass({
     var listActivities = this.props.day.activities.map(activityItem, this);
 
     return (
-      <Col className="calendar-xs-1 height100 bottom-buffer" onClick={this.props.onClickDay.bind(null, this.props.day.date)}>
+      <Col className="calendar-xs-1 height100 bottom-buffer" onClick={ this.onClick }>
         <div className={divClass}>
           <h4>{this.props.day.date.format('D')}</h4>
           {monthName}
