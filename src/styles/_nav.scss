@@ -1,36 +1,73 @@
 
 #content {
+  .navbar-nav>li>a {
+    text-align: center;
+    padding-top:5px;
+    padding-bottom:12px;
+  }
+  .navbar-fixed-top .navbar-collapse {
+    max-height:100%;
+    .navbar-nav>li>a {
+      height:100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .navbar-nav>li {
+      width: 33%;
+    }
+  }
+
 
   .navbar {
 
-    .nav {
-      float:none;
+    &.navbar-fixed-top {
+      border-width: 0;
+      box-shadow: 0 0 20px 0 rgba(0,0,0,0.15);
+    }
+
+    #navbar.collapse.in, #navbar.collapsing {
       li {
-        padding-right:12px;
+        height:200px;
+      }
+    }
+
+    .nav {
+
+      float:none;
+
+      li {
+
         a {
           font-size:24px;
           font-weight:300;
           //border-radius: 12px;
-          margin-top:10px;
-          margin-bottom:10px;
+
           padding-left:30px;
           padding-right:30px;
           //box-shadow: inset 0px 0px 0px rgba(0,0,0,.125), 3px 3px 0px rgba(0,0,0,.125);
-          background-color: $color_lightgrey;
+          //background-color: $color_lightgrey;
+          box-sizing: border-box;
+          // &.whatsnew { border-bottom: 4px solid $color_primary1; }  
+          // &.agenda   { border-bottom: 4px solid $color_primary2; }
+          // &.photos   { border-bottom: 4px solid $color_primary3; }
 
           &:hover {
-            color: $color_light;
-            background-color: $color_darkgrey;
-            &.whatsnew { background-color: $color_primary1_hover; }
-            &.agenda   { background-color: $color_primary2_hover; }
-            &.photos   { background-color: $color_primary3_hover; }
+            // color: $color_light;
+            // background-color: $color_darkgrey;
+            // &.whatsnew { background-color: $color_primary1_hover; }
+            // &.agenda   { background-color: $color_primary2_hover; }
+            // &.photos   { background-color: $color_primary3_hover; }
+            // &.whatsnew { border-bottom: 4px solid $color_primary1; }  
+            // &.agenda   { border-bottom: 4px solid $color_primary2; }
+            // &.photos   { border-bottom: 4px solid $color_primary3; }
           }
           &.active {
             color:$color_light;
             background-color: $color_darkgrey;
             text-decoration:none;
             // font-weight:400;
-            box-shadow: inset 3px 3px 0px rgba(0,0,0,.125), 0px 0px 0px rgba(0,0,0,.125);
+            //box-shadow: inset 3px 3px 0px rgba(0,0,0,.125), 0px 0px 0px rgba(0,0,0,.125);
             &.whatsnew { background-color: $color_primary1; color: $color_primary1_font; }
             &.agenda   { background-color: $color_primary2; color: $color_primary2_font; }
             &.photos   { background-color: $color_primary3; color: $color_primary3_font; }
@@ -38,9 +75,9 @@
           &.active:hover {
             color: $color_light;
             background-color: $color_darkgrey;
-            &.whatsnew { background-color: $color_primary1_hover; color: $color_primary1_font; }
-            &.agenda   { background-color: $color_primary2_hover; color: $color_primary2_font; }
-            &.photos   { background-color: $color_primary3_hover; color: $color_primary3_font; }
+            &.whatsnew { background-color: $color_primary1; color: $color_primary1_font; }
+            &.agenda   { background-color: $color_primary2; color: $color_primary2_font; }
+            &.photos   { background-color: $color_primary3; color: $color_primary3_font; }
           }
         }
       }
@@ -67,6 +104,7 @@
       border:none;
       box-shadow:none;
     }
+
 /*     .navbar-nav {
       height:76px;
       transition-property: height;

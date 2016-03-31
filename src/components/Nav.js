@@ -11,6 +11,8 @@ import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 import Helpers from '../stores/Helpers.js';
 
+import Icon from './Icon';
+
 import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
@@ -78,9 +80,24 @@ export default React.createClass({
             </div>
             <div id="navbar" className="collapse navbar-collapse">
               <ul className={ulClasses}>
-                <li><Link className={whatsnewClasses} activeClassName="active" to="/whatsnew"><FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/></Link></li>
-                <li><Link className={agendaClasses} activeClassName="active" to="/agenda"><FormattedMessage id='nav_agenda' defaultMessage='Agenda'/></Link></li>
-                <li><Link className={photosClasses} activeClassName="active" to="/photos"><FormattedMessage id='nav_photos' defaultMessage='Photos'/></Link></li>
+                <li>
+                  <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
+                    <div><Icon type={'whatsnew'} area='whatsnew' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
+                    <FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/>
+                  </Link>
+                </li>
+                <li>
+                  <Link className={agendaClasses} activeClassName="active" to="/agenda">
+                    <div><Icon type={'agenda'} area='agenda' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
+                    <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
+                  </Link>
+                </li>
+                <li>
+                  <Link className={photosClasses} activeClassName="active" to="/photos">
+                    <div><Icon type={'photos'} area='photos' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
+                    <FormattedMessage id='nav_photos' defaultMessage='Photos'/>
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

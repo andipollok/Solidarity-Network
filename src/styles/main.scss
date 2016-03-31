@@ -18,15 +18,19 @@
 
 body {
   overflow-y: scroll;
-  font-weight:300;
+  font-weight:400;
+}
+
+a:hover {
+  text-decoration: none !important;
 }
 
 #content {
   .mainContainer {
-    padding-top: 102px;
+    padding-top: 170px;
     padding-bottom: 60px;
   }
-  .grey {
+  p.grey, span.grey {
     color: $color_darkgrey;
   }
   .height100 {
