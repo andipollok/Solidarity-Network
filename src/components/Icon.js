@@ -5,7 +5,7 @@ import classNames from 'classnames';
 var colors = {
   whatsnew: {
     backgroundColor: '#F6F6F6',
-    iconColor: '#77529D',
+    iconColor: '#e62719',
     solidIconColor: '#FFF'
   },
   agenda: {
@@ -15,7 +15,7 @@ var colors = {
   },
   photos: {
     backgroundColor: '#F6F6F6',
-    iconColor: '#77529D',
+    iconColor: '#40bf4d',
     solidIconColor: '#FFF'
   },
   default: {
@@ -28,14 +28,21 @@ var colors = {
 export default React.createClass({
 
   render() {
+    
     var backgroundColor = colors['default'].backgroundColor;
     var iconColor = colors['default'].iconColor;
+
+    // select background color and iconColor based on area (whatsnew, agenda or photos)
     if (this.props.area && colors[this.props.area]) {
       backgroundColor = colors[this.props.area].backgroundColor;
       iconColor = colors[this.props.area].iconColor;
+      // if fill parameter is solid (has solid background), then choose different icon color
       if (this.props.fill === 'solid') {
         iconColor = colors[this.props.area].solidIconColor;
       }
+    }
+    if (this.props.active === true) {
+      iconColor = colors[this.props.area].solidIconColor;
     }
 
     var backgroundShape = this.props.shape || 'circle';
