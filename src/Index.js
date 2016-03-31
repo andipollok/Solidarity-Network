@@ -18,8 +18,10 @@ import Group from './components/Group';
 import Groups from './components/Groups';
 
 import Activity from './components/Activity';
-import PhotoActivity from './components/PhotoActivity';
-import PhotoDetail from './components/PhotoDetail';
+import Photo from './components/Photo';
+import PhotoZoom from './components/PhotoZoom';
+
+import Person from './components/Person';
 
 import Join from './components/Join';
 import Nearby from './components/Nearby';
@@ -67,10 +69,12 @@ render(
         <Route name="groups" path="/groups/" component={Groups}/>
         <Route name="group" path="/group/:id" component={Group}/>
 
-        <Route name="activity" path="/activity/:id" component={Activity}/>
+        <Route name="group" path="/person/:id" component={Person}/>
 
-        <Route name="photos" path="/photos/:id" component={PhotoActivity}/>
-        <Route name="photo" path="/photo/:id" component={PhotoDetail}/>
+        <Route name="activity" path="/activity/:id" component={Activity}/>
+        <Route name="photo" path="/photo/:id" component={Photo}/>
+        <Route name="photozoom" path="/photo/:id/zoom" component={PhotoZoom}/>
+
 
         <Route name="join" path="/join" component={Join}/>
         <Route name="nearby" path="/nearby" component={Nearby}/>
