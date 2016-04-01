@@ -20,6 +20,8 @@ import moment_locale_fr from 'moment/locale/fr.js';
 import moment_locale_de from 'moment/locale/de.js';
 import ErrorMessage from './ErrorMessage';
 
+import iNoBounce from 'inobounce';
+
 addLocaleData(enLocaleData);
 addLocaleData(frLocaleData);
 addLocaleData(deLocaleData);
@@ -58,6 +60,7 @@ export default React.createClass({
 
   componentDidMount() {
     LanguageActions.forceTrigger();
+    iNoBounce.enable();
   },
 
   render: function() {
@@ -72,23 +75,21 @@ export default React.createClass({
       var error = <ErrorMessage {...this.state.data.errors[0]}/>;
     }
 
-    if (this.state.status) {
-      var mainContainerClasses = classNames( ['mainContainer'], {
-        'collapsed': this.state.status.currentPage === 'start'
-      });
-    }
-
     return (
 
       <IntlProvider {...intldata}>
 
-        <div className={mainContainerClasses}>
+        <div className="intlContainer">
 
           <Nav />
 
           {error}
 
-          {this.props.children}
+          <div className="mainContainer scrollable">
+  
+            {this.props.children}
+  
+          </div>
 
           <Footer />
 

@@ -16,9 +16,21 @@
   display:none !important;
 }
 
+body, html, #content, .scrollable, .intlContainer {
+  height:100%;
+}
+
 body {
-  overflow-y: scroll;
   font-weight:400;
+  overflow:hidden;
+}
+
+.scrollable {
+  min-height:0;
+  box-flex: 1;
+  flex: 1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
 }
 
 a:hover {
@@ -26,10 +38,11 @@ a:hover {
 }
 
 #content {
+
   .mainContainer {
-    padding-top: 170px;
-    padding-bottom: 60px;
+    padding-top: 0px;
   }
+
   p.grey, span.grey {
     color: $color_darkgrey;
   }
@@ -67,7 +80,11 @@ a:hover {
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
- }
+  #content {
+    .mainContainer {
+    }
+  }
+}
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {

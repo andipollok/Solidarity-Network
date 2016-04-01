@@ -69,7 +69,8 @@ export default React.createClass({
 
     return (
       <div>
-        <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
+
+        <nav className="navbar navbar-default hidden-sm hidden-xs" role="navigation">
 
           <div className="container">
             <div className="navbar-header">
@@ -102,6 +103,10 @@ export default React.createClass({
             </div>
           </div>
    
+        </nav>
+
+        <nav className="navbar navbar-fixed-bottom hidden-md hidden-lg" role="navigation">
+          Nav bottom
         </nav>
       </div>
     );
