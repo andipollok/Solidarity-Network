@@ -79,7 +79,7 @@ export default React.createClass({
 
       <IntlProvider {...intldata}>
 
-        <div className="intlContainer">
+        <div className="flexContainer">
 
           <Nav />
 

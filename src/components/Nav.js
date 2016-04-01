@@ -46,10 +46,9 @@ export default React.createClass({
     
     if (Helpers.checkLanguageLoaded(this) && this.state.status) {
 
-      var community = Helpers.getCommunityFromStatus(this);
-      var ulClasses = classNames( 'nav navbar-nav', {
-        'collapsed': this.state.status.currentPage === 'start'
-      });
+      // var ulClasses = classNames( 'nav navbar-nav', {
+      //   'collapsed': this.state.status.currentPage === 'start'
+      // });
       var whatsnewClasses = classNames( 'whatsnew', {
         'active': this.state.status.currentPage === 'whatsnew'
       });
@@ -61,54 +60,69 @@ export default React.createClass({
       });
     }
 
-    if (this.state.collapsed) {
+/*    if (this.state.collapsed) {
       var textToggleButton = <FormattedMessage id='nav_openmenu' defaultMessage=' '/>;
     } else {
       var textToggleButton = <FormattedMessage id='nav_closemenu' defaultMessage=' '/>;
-    }
+    }*/
 
     return (
-      <div>
+      <span>
 
-        <nav className="navbar navbar-default hidden-sm hidden-xs" role="navigation">
+        <nav className="navbar navbar-default navbar-top hidden-sm hidden-xs" role="navigation">
 
           <div className="container">
-            <div className="navbar-header">
-               <div id="navbar-collapse-button" onClick={this.toggleCollapse} className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                  {textToggleButton}
-                </div>
-              <h1 id="headertext"></h1>
-            </div>
-            <div id="navbar" className="collapse navbar-collapse">
-              <ul className={ulClasses}>
-                <li>
-                  <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
-                    <div><Icon type={'whatsnew'} area='whatsnew' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
-                    <FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/>
-                  </Link>
-                </li>
-                <li>
-                  <Link className={agendaClasses} activeClassName="active" to="/agenda">
-                    <div><Icon type={'agenda'} area='agenda' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
-                    <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
-                  </Link>
-                </li>
-                <li>
-                  <Link className={photosClasses} activeClassName="active" to="/photos">
-                    <div><Icon type={'photos'} area='photos' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
-                    <FormattedMessage id='nav_photos' defaultMessage='Photos'/>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <ul className="nav navbar-nav">
+              <li>
+                <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
+                  <div><Icon type={'whatsnew'} area='whatsnew' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
+                  <FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/>
+                </Link>
+              </li>
+              <li>
+                <Link className={agendaClasses} activeClassName="active" to="/agenda">
+                  <div><Icon type={'agenda'} area='agenda' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
+                  <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
+                </Link>
+              </li>
+              <li>
+                <Link className={photosClasses} activeClassName="active" to="/photos">
+                  <div><Icon type={'photos'} area='photos' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
+                  <FormattedMessage id='nav_photos' defaultMessage='Photos'/>
+                </Link>
+              </li>
+            </ul>
           </div>
    
         </nav>
 
-        <nav className="navbar navbar-fixed-bottom hidden-md hidden-lg" role="navigation">
-          Nav bottom
+        <nav className="navbar navbar-bottom navbar-fixed-bottom hidden-md hidden-lg" role="navigation">
+          <div className="container text-center">
+            <div id="navbar">
+             <ul className="nav navbar-nav">
+              <li>
+                <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
+                  <div><Icon type={'whatsnew'} area='whatsnew' size='small' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
+                  <FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/>
+                </Link>
+              </li>
+              <li>
+                <Link className={agendaClasses} activeClassName="active" to="/agenda">
+                  <div><Icon type={'agenda'} area='agenda' size='small' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
+                  <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
+                </Link>
+              </li>
+              <li>
+                <Link className={photosClasses} activeClassName="active" to="/photos">
+                  <div><Icon type={'photos'} area='photos' size='small' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
+                  <FormattedMessage id='nav_photos' defaultMessage='Photos'/>
+                </Link>
+              </li>
+            </ul>
+            </div>
+          </div>
         </nav>
-      </div>
+      </span>
     );
   }
 });

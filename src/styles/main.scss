@@ -16,7 +16,13 @@
   display:none !important;
 }
 
-body, html, #content, .scrollable, .intlContainer {
+body, html, #content, .scrollable {
+  height:100%;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
   height:100%;
 }
 
@@ -38,10 +44,6 @@ a:hover {
 }
 
 #content {
-
-  .mainContainer {
-    padding-top: 0px;
-  }
 
   p.grey, span.grey {
     color: $color_darkgrey;
