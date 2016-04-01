@@ -19,6 +19,19 @@
         border-radius: 999px;
         margin-left:20px;
         margin-right:20px;
+        li {
+          &:first-child, &:last-child {
+            flex:1.1;
+          }
+          &:first-child a {
+            border-top-left-radius: 999px;
+            border-bottom-left-radius: 999px;
+          }
+          &:last-child a {
+            border-top-right-radius: 999px;
+            border-bottom-right-radius: 999px;
+          }
+        }
       }
     }
 
@@ -29,21 +42,8 @@
       flex-direction: row;
       flex-wrap: nowrap;
 
-
       li {
         flex:1;
-        &:first-child, &:last-child {
-          flex:1.1;
-        }
-
-        &:first-child a {
-          border-top-left-radius: 999px;
-          border-bottom-left-radius: 999px;
-        }
-        &:last-child a {
-          border-top-right-radius: 999px;
-          border-bottom-right-radius: 999px;
-        }
 
         a {
 
