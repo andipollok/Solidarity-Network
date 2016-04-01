@@ -22,6 +22,9 @@ import ErrorMessage from './ErrorMessage';
 
 import iNoBounce from 'inobounce';
 
+import attachFastClick from 'fastclick';
+attachFastClick(document.body);
+
 addLocaleData(enLocaleData);
 addLocaleData(frLocaleData);
 addLocaleData(deLocaleData);
@@ -36,7 +39,6 @@ var momentLocale = {
   'fr': moment_locale_fr,
   'de': moment_locale_de
 }
-
 
 moment.locale('en', {
   week: {
