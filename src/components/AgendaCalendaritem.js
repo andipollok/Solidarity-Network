@@ -29,7 +29,8 @@ export default React.createClass({
     var divClass = classNames(['box expand white text-center agenda calendar'], {
       weekend: this.props.day.date.isoWeekday() === 6 || this.props.day.date.isoWeekday() === 7,
       today: this.props.day.date.isSame(moment(), 'day'),
-      linked: this.props.day.activities.length > 0
+      linked: this.props.day.activities.length > 0,
+      grey: !this.props.activeMonth.isSame(this.props.day.date, 'month')
     });
     // add message if it's today
     if (this.props.day.date.isSame(moment(), 'day')) {

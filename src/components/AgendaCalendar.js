@@ -21,11 +21,7 @@ export default React.createClass({
     var date = moment();
 
     return {
-      startDate: moment().startOf('month').isoWeekday(1),
-      endDate: moment().startOf('month').add(1, 'month').isoWeekday(7),
-      month: Helpers.capitalizeFirstLetter(date.format('M')),
-      monthName: date.format('MMMM'),
-      year: date.format('Y'),
+      month: moment().startOf('month'), // stores first of month
       days: [],
       weeks: []
     }
@@ -39,8 +35,10 @@ export default React.createClass({
   getDays() {
     var days = [], weeks = [];
     var i=0;
+    var startDate = this.state.month.clone().startOf('month').isoWeekday(1);
+    var endDate = this.state.month.clone().startOf('month').add(1, 'month').isoWeekday(7);
 
-    for (var date = this.state.startDate.clone(); date.diff(this.state.endDate) <= 0; date.add(1, 'days')) {
+    for (var date = startDate.clone(); date.diff(endDate) <= 0; date.add(1, 'days')) {
       // find activities on that date
       var activitiesFound = this.props.activities.filter(function(activity) {
           if (moment(activity.date).isSame(date, 'day')) {
@@ -81,6 +79,16 @@ export default React.createClass({
     window.location.assign("#/agenda/" + date.format("DD/MM/YYYY"));
   },
 
+  onClickPrevMonth() {
+    this.setState({ month: this.state.month.subtract(1, 'month') });
+    this.getDays();
+  },
+
+  onClickNextMonth() {
+    this.setState({ month: this.state.month.add(1, 'month') });
+    this.getDays();
+  },
+
   render() {
 
     if (!Helpers.checkLanguageLoaded(this) || !this.props.activities) {
@@ -96,13 +104,13 @@ export default React.createClass({
 
     var dayItem = function(day) {
       return (
-        <Listitem key={'day'+day.id} day={day} onClickDay={this.onClickDay} onClickActivity={this.onClickActivity}/>
+        <Listitem key={'day'+day.id} day={day} activeMonth={this.state.month} onClickDay={this.onClickDay} onClickActivity={this.onClickActivity}/>
       );
     }.bind(this);
 
     var dayHeader = function(dayName) {
       return (
-        <Col key={'header'+dayName} className="calendar-sm-1 bottom-buffer grey">
+        <Col key={'header'+dayName} className="calendar-sm-1 calendar-header bottom-buffer grey text-center">
           {dayName}
         </Col>
       );
@@ -115,8 +123,16 @@ export default React.createClass({
 
     return (
       <div className="calendar">
-        <Row className="calendar-row text-center">
-        <h2>{Helpers.capitalizeFirstLetter(this.state.monthName)}</h2>
+        <Row className="calendar-row bottom-buffer">
+          <Col className="calendar-sm-1 text-center">
+            <h3 onClick={this.onClickPrevMonth}>&lt;</h3>
+          </Col>
+          <Col className="calendar-sm-5 text-center">
+            <h2>{Helpers.capitalizeFirstLetter(this.state.month.format('MMMM YYYY'))}</h2>
+          </Col>
+          <Col className="calendar-sm-1 text-center">
+            <h3 onClick={this.onClickNextMonth}>&gt;</h3>
+          </Col>
         </Row>
         <Row className="calendar-row hidden-xs">
           {weekdays.map(dayHeader, this)}

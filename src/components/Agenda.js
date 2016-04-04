@@ -127,7 +127,7 @@ export default React.createClass({
     return (
       <div className="container agenda">
         <Row>
-          <Col md={12} className="text-center box top-buffer bottom-buffer">
+          <Col md={12} className="text-center box top-buffer">
             <ButtonGroup>
               <Button bsSize="large" className="padded" active={ this.state.area === 'upcoming' } onClick={ this.setArea.bind(this, 'upcoming') }>Upcoming</Button>  
               <Button bsSize="large" className="padded" active={ this.state.area === 'calendar' } onClick={ this.setArea.bind(this, 'calendar') }>Calendar</Button>  
