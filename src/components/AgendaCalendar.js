@@ -123,14 +123,14 @@ export default React.createClass({
 
     return (
       <div className="calendar">
-        <Row className="calendar-row bottom-buffer">
-          <Col className="calendar-sm-1 text-center">
+        <Row className="calendar-row">
+          <Col className="calendar-xs-1 text-center">
             <h3 onClick={this.onClickPrevMonth}>&lt;</h3>
           </Col>
-          <Col className="calendar-sm-5 text-center">
+          <Col className="calendar-xs-5 text-center">
             <h2>{Helpers.capitalizeFirstLetter(this.state.month.format('MMMM YYYY'))}</h2>
           </Col>
-          <Col className="calendar-sm-1 text-center">
+          <Col className="calendar-xs-1 text-center">
             <h3 onClick={this.onClickNextMonth}>&gt;</h3>
           </Col>
         </Row>
