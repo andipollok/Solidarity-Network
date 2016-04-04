@@ -26,29 +26,15 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    // some jQuery to initiate a click whenever a menu item is clicked in the expanded menu. then it closes the menu.
-    $('#navbar a').click(function(){
-      if(!$('#navbar-collapse-button').hasClass('collapsed')) {
-        $('#navbar-collapse-button').click();
-      }
-    });
-    
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
   },
 
-  toggleCollapse() {
-    this.setState({collapsed: !this.state.collapsed });
-  },
 
   render() {
     
     if (Helpers.checkLanguageLoaded(this) && this.state.status) {
-
-      // var ulClasses = classNames( 'nav navbar-nav', {
-      //   'collapsed': this.state.status.currentPage === 'start'
-      // });
       var whatsnewClasses = classNames( 'whatsnew', {
         'active': this.state.status.currentPage === 'whatsnew'
       });
@@ -59,12 +45,6 @@ export default React.createClass({
         'active': this.state.status.currentPage === 'photos'
       });
     }
-
-/*    if (this.state.collapsed) {
-      var textToggleButton = <FormattedMessage id='nav_openmenu' defaultMessage=' '/>;
-    } else {
-      var textToggleButton = <FormattedMessage id='nav_closemenu' defaultMessage=' '/>;
-    }*/
 
     return (
       <span>
