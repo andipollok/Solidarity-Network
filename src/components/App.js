@@ -48,6 +48,7 @@ moment.locale('en', {
 
 
 import Nav from './Nav';
+import Top from './Top';
 import Footer from './Footer';
 import Start from './Start';
 
@@ -81,13 +82,17 @@ export default React.createClass({
 
       <IntlProvider {...intldata}>
 
-        <div className="flexContainer">
+        <div className="flex-container">
 
           <Nav />
 
+          <div className="top-container">
+            <Top />
+          </div>
+
           {error}
 
-          <div className="mainContainer scrollable">
+          <div className="main-container scrollable">
   
             {this.props.children}
   

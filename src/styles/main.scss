@@ -7,6 +7,7 @@
 @import '_card.scss';
 @import '_calendar.scss';
 @import '_icon.scss';
+@import '_top.scss';
 @import '_footer.scss';
 
 /* Main SCSS Definitions
@@ -20,7 +21,12 @@ body, html, #content, .scrollable {
   height:100%;
 }
 
-.flexContainer {
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* Disable selection/copy in UIWebView */
+}
+
+.flex-container {
   display: flex;
   flex-direction: column;
   height:100%;
@@ -83,7 +89,7 @@ a:hover {
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   #content {
-    .mainContainer {
+    .main-container {
     }
   }
 }

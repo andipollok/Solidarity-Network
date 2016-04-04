@@ -3,6 +3,10 @@
   .box {
     
     padding:20px;
+
+    &.no-padding {
+      padding:0;
+    }
     &.outline {
       border: 2px solid $color_lightgrey;
     }
@@ -59,14 +63,23 @@
   .box.outline { 
     border: 2px solid $color_primary1;
   }
+  .box.solid { 
+    background-color:$color_primary1;
+  }
 }
 .agenda {
   .box.outline {
     border: 2px solid $color_primary2;
   }
+  .box.solid { 
+    background-color:$color_primary2;
+  }
 }
 .photos {
   .box.outline {
     border: 2px solid $color_primary3;
+  }
+  .box.solid { 
+    background-color:$color_primary3;
   }
 }

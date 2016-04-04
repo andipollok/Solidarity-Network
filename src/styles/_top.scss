@@ -1,0 +1,18 @@
+.top-container {
+  .top-bar {
+
+//    background-color:$color_dark;
+    height:60px;
+    overflow: hidden;
+    font-weight:400;
+
+    h4 {
+      font-weight:400;
+      color: $color_light;
+      margin-top:0px;
+      line-height:60px;
+    }
+
+  }
+}
+
