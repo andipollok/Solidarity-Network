@@ -5,12 +5,36 @@
     height:60px;
     overflow: hidden;
     font-weight:400;
+    .top-flex {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      flex-flow: space-between;
+      &>div {
+        flex: 1;
+        &.top-flex-middle {
+          flex: 3;
+        }
+      }
 
+    }
     h4 {
       font-weight:400;
       color: $color_light;
-      margin-top:0px;
+      margin:0px;
       line-height:60px;
+    }
+    .top-flex-left {
+      button {
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+    }
+    .top-flex-right {
+      button {
+        margin-top: 10px;
+        margin-right: 10px;
+      }
     }
 
   }

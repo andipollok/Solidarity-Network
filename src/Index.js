@@ -2,7 +2,7 @@ import React from 'react';
 import ReactIntl from 'react-intl';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute } from 'react-router';
-import { browserHistory } from 'react-router';
+import createHashHistory from 'history/lib/createHashHistory';
 
 import App from './components/App';
 import Start from './components/Start';
@@ -53,9 +53,20 @@ if (process.env.NODE_ENV !== 'production') {
 
 window.React = React;
 
+// const history = createHashHistory({ queryKey: false });
+const history = createHashHistory();
+
+// Get the current location.
+// const location = history.getCurrentLocation();
+
+// Listen for changes to the current location.
+const unlisten = history.listen(location => {
+  console.log(location.pathname);
+})
+
 render(
   (
-    <Router history={browserHistory}>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
       <Route name="home" path="/" component={App}>
         <IndexRoute component={Whatsnew}/>
         <Route name="settings" path="/settings" component={Settings}/>

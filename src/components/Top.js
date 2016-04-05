@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link}  from 'react-router';
 import classNames from 'classnames';
-import { Row, Col } from 'react-bootstrap';
+import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import DataActions from '../stores/DataActions';
@@ -16,6 +16,12 @@ import Icon from './Icon';
 
 import { FormattedMessage } from 'react-intl';
 
+
+import createHashHistory from 'history/lib/createHashHistory';
+
+const history = createHashHistory();
+
+
 export default React.createClass({
 
   mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
@@ -28,6 +34,11 @@ export default React.createClass({
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
+  },
+
+  onClickBack() {
+    console.log("on click back");
+    history.goBack();
   },
 
   render() {
@@ -44,11 +55,25 @@ export default React.createClass({
   
     }
 
+    if (history) {
+      var BackButton = <Button onClick={this.onClickBack}>&lt; Back</Button>;
+    }
+
     return (
       <div className="container-fluid hidden-md hidden-lg">
         <Row className={barClasses}>
-          <Col className="text-center box solid no-padding">
-            <h4>{pageHeading}</h4>
+          <Col className="box solid no-padding">
+            <div className="top-flex">
+              <div className="top-flex-left text-left">
+                {BackButton}
+              </div>
+              <div className="top-flex-middle text-center">
+                <h4>{pageHeading}</h4>
+              </div>
+              <div className="top-flex-right text-right">
+                
+              </div>
+            </div>
           </Col>
         </Row>
 
