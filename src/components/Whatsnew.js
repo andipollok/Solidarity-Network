@@ -23,7 +23,7 @@ export default React.createClass({
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('whatsnew');
+    StatusActions.setArea('whatsnew');
   },
 
   onClickSelectActivity(id) {

@@ -19,11 +19,19 @@ export default React.createClass({
 
   mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
+  componentWillMount() {
+    StatusActions.historyAdd({
+      title: 'Photos',
+      url: '',
+      pathname: '/photos'
+    });
+    StatusActions.setArea('photos');
+  },
+
   componentDidMount() {
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('photos');
   },
 
   getInitialState: function() {

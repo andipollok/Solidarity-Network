@@ -17,7 +17,7 @@ export default React.createClass({
     LanguageStore.forceTrigger();
     DataActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('');
+    StatusActions.setArea('');
   },
 
   render() {

@@ -1,5 +1,7 @@
 import React from 'react';
 import {Link}  from 'react-router';
+import createHashHistory from 'history/lib/createHashHistory';
+
 import classNames from 'classnames';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
@@ -17,10 +19,7 @@ import Icon from './Icon';
 import { FormattedMessage } from 'react-intl';
 
 
-import createHashHistory from 'history/lib/createHashHistory';
-
 const history = createHashHistory();
-
 
 export default React.createClass({
 
@@ -37,8 +36,11 @@ export default React.createClass({
   },
 
   onClickBack() {
-    console.log("on click back");
-    history.goBack();
+    StatusActions.historyBack();
+  },
+
+  onClickForward() {
+    StatusActions.historyForward();
   },
 
   render() {
@@ -52,12 +54,29 @@ export default React.createClass({
       var pageHeading = pageHeadings[this.state.status.currentPage];
 
       var barClasses = classNames( "top-bar", this.state.status.currentPage);
+ 
+      if (this.state.status.history && this.state.status.history.length > 1) {
+        var title = this.state.status.history[this.state.status.history.length-2].title;
+        if (title && title !== '') {
+          var BackButton = <Button onClick={this.onClickBack}>&lt; {title}</Button>;
+        }
+        else {
+          var BackButton = <Button onClick={this.onClickBack}>&lt; Back</Button>;
+        }
+      }
+
+      if (this.state.status.future && this.state.status.future.length > 0) {
+        var title = this.state.status.future[this.state.status.future.length-1].title;
+        if (title && title !== '') {
+          var ForwardButton = <Button onClick={this.onClickForward}>{title}&gt;</Button>;
+        }
+        else {
+          var ForwardButton = <Button onClick={this.onClickForward}>Forward &gt;</Button>;
+        }
+      }
   
     }
 
-    if (history) {
-      var BackButton = <Button onClick={this.onClickBack}>&lt; Back</Button>;
-    }
 
     return (
       <div className="container-fluid hidden-md hidden-lg">
@@ -71,7 +90,7 @@ export default React.createClass({
                 <h4>{pageHeading}</h4>
               </div>
               <div className="top-flex-right text-right">
-                
+                {ForwardButton}
               </div>
             </div>
           </Col>

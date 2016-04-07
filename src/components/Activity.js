@@ -21,16 +21,24 @@ export default React.createClass({
 
   mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(DataStore, 'data'), Reflux.connect(StatusStore, 'status') ],
 
+  componentWillMount() {
+    StatusActions.setArea('agenda');
+    StatusActions.historyAdd({
+      title: 'Agenda',
+      url: '',
+      pathname: '/agenda'
+    });
+  },
+
   componentDidMount() {
     LanguageStore.forceTrigger();
     DataActions.forceTrigger();
-    StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('agenda');
+    StatusActions.forceTrigger();    
   },
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.params.id || !this.state.data || !this.state.data.loaded.activities) {
+    if (!Helpers.checkLanguageLoaded(this) || !this.props.params.id || !this.state.data || !this.state.data.loaded.all) {
       return <div></div>;
     }
 
@@ -98,6 +106,7 @@ export default React.createClass({
           <p><Button bsStyle="primary" bsSize="large">Find similar activities</Button></p>
           </span>
     }
+    var type = Helpers.getActivityTypeById(activity.typeId, this);
 
     return (
       <div className="container agenda">
@@ -107,7 +116,7 @@ export default React.createClass({
 
             <div className="card solid text-center">
 
-              <Icon type={'activity-' + activity.type} area='agenda' fill='solid' shape='hexagon'/>
+              <Icon type={'activity-' + type.name} area='agenda' fill='solid' shape='hexagon'/>
 
               <h1>{activity.name}</h1>
 

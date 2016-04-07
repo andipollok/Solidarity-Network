@@ -18,27 +18,30 @@ export default Reflux.createStore({
     init: function() {
       
       data = {
-        whatsnew:     [],  
-        communities:  [],
-        groups:       [],
-        activities:   [],
-        photos:       [],
-        people:       [],
+        whatsnew:       [],  
+        communities:    [],
+        groups:         [],
+        activities:     [],
+        activitytypes:  [],
+        photos:         [],
+        people:         [],
 
         loaded: {
-          whatsnew:    false,
-          communities: false,
-          groups:      false,
-          activities:  false,
-          photos:      false,
-          people:      false,
-          all:         false,  
+          whatsnew:     false,
+          communities:  false,
+          groups:       false,
+          activities:   false,
+          activitytypes:false,
+          photos:       false,
+          people:       false,
+          all:          false,  
         },
         errors: []
       };
 
       this.loadCommunities();
       this.loadActivities();
+      this.loadActivityTypes();
       this.loadGroups();
       this.loadPhotos();
       this.loadPeople();
@@ -164,7 +167,7 @@ export default Reflux.createStore({
                 name: record.get('Name'),
                 groupId: record.get('Group')[0],
                 date: record.get('Date'),
-                type: record.get('Type') || 'default',
+                typeId: record.get('Type')[0],
                 description: record.get('Description'),
                 photos: record.get('Photos') || [],
                 interested: record.get('Interested') || 0,
@@ -175,7 +178,34 @@ export default Reflux.createStore({
         });
         data.loaded.activities = true;
         // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
-        // console.log("activity dates", data.activities.map(function(a) { return a.name; }).join(', '));
+        // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
+        that.forceTrigger();
+
+      }, function done(error) {
+        if (error) {
+          that.throwError(error);
+        }
+      });
+    },
+
+    loadActivityTypes() {
+      var that = this;
+      base('Activity Types').select({
+        maxRecords: 200,
+        view: "Main View",
+        sort: [{field: "Name", direction: "asc"}]
+      }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            if (record.get('Name')) {
+              data.activitytypes.push({
+                id: record.getId(),
+                name: record.get('Name'),
+                activityIds: record.get('Activities')
+              });
+            }
+        });
+        data.loaded.activitytypes = true;
+        // console.log("found the following " + Object.keys(data.activitytypes).length + " activity types:", data.activitytypes.map(function(a) { return a.name; }).join(', '));
         that.forceTrigger();
 
       }, function done(error) {

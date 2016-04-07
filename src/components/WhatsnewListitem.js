@@ -26,23 +26,21 @@ export default React.createClass({
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.data) {
+    if (!Helpers.checkLanguageLoaded(this) || !this.props.data || !this.state.data || !this.state.data.loaded.all) {
       return <div></div>;
     }
 
     var link = '';
-    if (this.props.data.activity.id) {
+    var icon = '';
+
+    if(this.props.data.activity.id) {
+      var type = Helpers.getActivityTypeById(this.props.data.activity.typeId, this);
       link = 'activity/' + this.props.data.activity.id;
+      icon = <Icon type={'activity-' + type.name} area='whatsnew' shape='empty'  size='small'/>
     }
     else if (this.props.data.group.id) {
       link = 'group/' + this.props.data.group.id;
-    }
-
-    if(this.props.data.activity.id) {
-      var icon = <Icon type={'activity-' + this.props.data.activity.type} area='whatsnew' shape='empty'  size='small'/>
-    }
-    else {
-      var icon = <Icon type='whatsnew' area='whatsnew' shape='empty' size='small'/>
+      icon = <Icon type='whatsnew' area='whatsnew' shape='empty' size='small'/>
     }
 
     var date = <p>

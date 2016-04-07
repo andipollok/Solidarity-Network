@@ -25,7 +25,7 @@ export default React.createClass({
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('start');
+    StatusActions.setArea('start');
   },
 
   clickHandler(p) {

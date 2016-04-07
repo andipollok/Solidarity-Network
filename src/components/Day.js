@@ -33,7 +33,7 @@ export default React.createClass({
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('agenda');
+    StatusActions.setArea('agenda');
   },
 
   onClickActivity(id) {
@@ -87,7 +87,7 @@ export default React.createClass({
     var community = Helpers.getCommunityFromStatus(this);
 
     var activityItem = function(activity) {
-      return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickActivity}></Listitem> );
+      return ( <Listitem key={activity.id} data={activity} showTime={true} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
 
     var header = 

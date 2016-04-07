@@ -20,7 +20,7 @@ export default React.createClass({
   componentDidMount() {
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('settings');
+    StatusActions.setArea('settings');
   },
 
   render() {

@@ -16,6 +16,11 @@ import Helpers from '../stores/Helpers.js';
 import Listitem from './AgendaListitem';
 import Calendar from './AgendaCalendar';
 
+import createHashHistory from 'history/lib/createHashHistory';
+
+const history = createHashHistory();
+
+
 
 export default React.createClass({
 
@@ -32,12 +37,20 @@ export default React.createClass({
     };
   },
 
+  componentWillMount() {
+    StatusActions.historyAdd({
+      title: 'Agenda',
+      url: '',
+      pathname: '/agenda'
+    });
+    StatusActions.setArea('agenda');
+    this.getActivities();
+  },
+
   componentDidMount() {
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('agenda');
-    this.getActivities();
   },
 
   onClickActivity(id) {
@@ -59,7 +72,6 @@ export default React.createClass({
   getActivities() {
     var myActivities = [], myActivitiesFuture = [];
     if (this.state.data && this.state.data.loaded.all && this.state.status && this.state.status.community) {
-      this.setState({ loadedData: true });
       myActivities = this.state.data.activities.filter(
         function(activity) {
           // check if this activity is in a group that is in this community
@@ -83,9 +95,13 @@ export default React.createClass({
           }
           return true;
         }.bind(this));
-      if (myActivitiesFuture.length > 0) { this.setState({foundActivitiesFuture: true }); }
-      if (myActivities.length > 0) { this.setState({foundActivities: true }); }
-      this.setState({ activities: myActivities, activitiesFuture: myActivitiesFuture });
+      this.setState({
+        loadedData: true,
+        activities: myActivities,
+        activitiesFuture: myActivitiesFuture,
+        foundActivities: myActivities.length > 0,
+        foundActivitiesFuture: myActivitiesFuture.length > 0
+      });
     }
    
   },
@@ -103,7 +119,7 @@ export default React.createClass({
     var community = Helpers.getCommunityFromStatus(this);
 
     var activityItem = function(activity) {
-      return ( <Listitem key={activity.id} data={activity} onClickHandler={this.onClickActivity}></Listitem> );
+      return ( <Listitem key={activity.id} data={activity} showDate={true} showTime={true} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
 
     var header = 

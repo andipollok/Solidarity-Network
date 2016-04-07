@@ -20,11 +20,19 @@ export default React.createClass({
 
   mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
 
+  componentWillMount() {
+    StatusActions.historyAdd({
+      title: 'Photo Detail',
+      url: '',
+      pathname: '/photos'
+    });
+    StatusActions.setArea('photos');
+  },
+
   componentDidMount() {
     LanguageActions.forceTrigger();
     DataActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('photos');
   },
 
   makeZoomable() {

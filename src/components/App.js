@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link }  from 'react-router';
+import createHashHistory from 'history/lib/createHashHistory';
+
 import classNames from'classnames';
 
 import Reflux from 'reflux';
@@ -52,6 +54,7 @@ import Top from './Top';
 import Footer from './Footer';
 import Start from './Start';
 
+const history = createHashHistory();
 
 export default React.createClass({
 
@@ -64,6 +67,14 @@ export default React.createClass({
   componentDidMount() {
     LanguageActions.forceTrigger();
     iNoBounce.enable();
+    // Listen for changes to the current location.
+/*    const unlisten = history.listen(location => {
+      StatusActions.historyAdd($.extend({}, location,
+      {
+        title: '',
+        url: ''
+      }));
+    });*/
   },
 
   render: function() {

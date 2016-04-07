@@ -31,6 +31,7 @@ module.exports = {
 
   getCommunityById: function(_id, _this) {
     if (!_id || !_this || !_this.state) {
+      console.error('Could not get Community, arguments missing.', _id, _this);
       return {};
     }
     var community = {};
@@ -42,6 +43,7 @@ module.exports = {
 
   getGroupById: function(_id, _this) {
     if (!_id || !_this || !_this.state) {
+      console.error('Could not get Group, arguments missing.', _id, _this);
       return {};
     }
     var group = {};
@@ -53,33 +55,60 @@ module.exports = {
 
   getActivityById: function(_id, _this) {
     if (!_id || !_this || !_this.state) {
+      console.error('Could not get Activity, arguments missing.', _id, _this);
       return {};
     }
     var activity = {};
     if (_this.state.data && _this.state.data.loaded.activities) {
       activity = $.grep(_this.state.data.activities, function(e){ return e.id === _id; }.bind(this))[0];
     }
+    else {
+      console.error('Could not get Activity, data not loaded yet.');
+    }
     return activity;
+  },
+
+  getActivityTypeById: function(_id, _this) {
+    if (!_id || !_this || !_this.state) {
+      console.error('Could not get Activity type, arguments missing.', _id, _this);
+      return {};
+    }
+    var activitytype = {};
+    if (_this.state.data && _this.state.data.loaded.activitytypes) {
+      activitytype = $.grep(_this.state.data.activitytypes, function(e){ return e.id === _id; }.bind(this))[0];
+    }
+    else {
+      console.error('Could not get Activity type, data not loaded yet.');
+    }
+    return activitytype;
   },
 
   getPersonById: function(_id, _this) {
     if (!_id || !_this || !_this.state) {
+      console.error('Could not get Person, arguments missing.', _id, _this);
       return {};
     }
     var person = {};
     if (_this.state.data && _this.state.data.loaded.people) {
       person = $.grep(_this.state.data.people, function(e){ return e.id === _id; }.bind(this))[0];
     }
+    else {
+      console.error('Could not get Person, data not loaded yet.');
+    }
     return person;
   },
 
   getPhotoById: function(_id, _this) {
     if (!_id || !_this || !_this.state) {
+      console.error('Could not get Photo, arguments missing.', _id, _this);
       return {};
     }
     var photo = {};
     if (_this.state.data && _this.state.data.loaded.photos) {
       photo = $.grep(_this.state.data.photos, function(e){ return e.id === _id; }.bind(this))[0];
+    }
+    else {
+      console.error('Could not get Photo, data not loaded yet.');
     }
     return photo;
   },

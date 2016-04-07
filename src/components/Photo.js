@@ -24,7 +24,7 @@ export default React.createClass({
     LanguageActions.forceTrigger();
     DataActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setCurrentPage('photos');
+    StatusActions.setArea('photos');
   },
 
   onClickBack() {

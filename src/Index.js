@@ -56,13 +56,6 @@ window.React = React;
 // const history = createHashHistory({ queryKey: false });
 const history = createHashHistory();
 
-// Get the current location.
-// const location = history.getCurrentLocation();
-
-// Listen for changes to the current location.
-const unlisten = history.listen(location => {
-  console.log(location.pathname);
-})
 
 render(
   (
