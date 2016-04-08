@@ -4,5 +4,6 @@ node_modules
 dist
 .publish
 .sass-cache
+src/fonts
 src/bower_components
 AirtableConfig.json
