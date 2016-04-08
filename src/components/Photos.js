@@ -21,7 +21,7 @@ export default React.createClass({
 
   componentWillMount() {
     StatusActions.historyAdd({
-      title: 'Photos',
+      title: 'Stories',
       url: '',
       pathname: '/photos'
     });
