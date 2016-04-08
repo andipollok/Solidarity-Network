@@ -1,0 +1,17 @@
+#content {
+  .activity-type-list {
+    white-space: nowrap;
+    text-align: center;
+    ul {
+      list-style: none;
+      li {
+        width:120px;
+        display: inline-block;
+        p {
+          margin:0;
+        }
+      }
+    }
+
+  }
+}
