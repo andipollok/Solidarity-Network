@@ -57,9 +57,7 @@ export default React.createClass({
 
     return (
       <span className={divClass}>
-        <span className="inner">
-          <SvgIcon name={iconType} color={iconColor}/>
-        </span>
+        <SvgIcon name={iconType} color={iconColor}/>
       </span>
     );
   }

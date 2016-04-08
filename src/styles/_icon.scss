@@ -4,24 +4,17 @@ $iconSizeSmall: 60px;
 #content {
 
   .icon {
-    
-    .inner {
-      display:inline-block;
-      position:relative;
-      width:$iconSize;
-      height:$iconSize;
-      svg {
-        position:absolute;
-        left:0px;
-        top:0px;
-        width: $iconSize;
-        height: $iconSize;
-      }
+    display: inline-block;
+    width: $iconSize;
+    height: $iconSize;
+    svg {
+      width: $iconSize;
+      height: $iconSize;
     }
 
-    &.small .inner {
-      width:$iconSizeSmall;
-      height:$iconSizeSmall;
+    &.small {
+      width: $iconSizeSmall;
+      height: $iconSizeSmall;
       svg {
         width: $iconSizeSmall;
         height: $iconSizeSmall;
