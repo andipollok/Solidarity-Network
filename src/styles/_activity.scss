@@ -2,9 +2,15 @@
   .activity-type-list {
     white-space: nowrap;
     text-align: center;
+    overflow: scroll;
+
     ul {
       list-style: none;
       li {
+        color: $color_darkgrey;
+        &.selected {
+          color: $color_dark;
+        }
         width:120px;
         display: inline-block;
         p {
