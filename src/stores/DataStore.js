@@ -281,7 +281,7 @@ export default Reflux.createStore({
     },
  
     forceTrigger: function() {
-      if (data.loaded.whatsnew && data.loaded.communities && data.loaded.groups && data.loaded.activities && data.loaded.photos && data.loaded.people) {
+      if (data.loaded.whatsnew && data.loaded.communities && data.loaded.groups && data.loaded.activities && data.loaded.activitytypes && data.loaded.photos && data.loaded.people) {
         data.loaded.all = true;
       }
       this.trigger(data);
