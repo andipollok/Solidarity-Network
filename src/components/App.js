@@ -50,6 +50,7 @@ moment.locale('en', {
 
 
 import Nav from './Nav';
+import NavBottom from './NavBottom';
 import Top from './Top';
 import Footer from './Footer';
 import Start from './Start';
@@ -108,6 +109,8 @@ export default React.createClass({
             {this.props.children}
   
           </div>
+
+          <NavBottom />
 
           <Footer />
 
