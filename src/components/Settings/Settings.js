@@ -3,11 +3,11 @@ import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
-import Helpers from '../stores/Helpers.js';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
+import Helpers from '../../stores/Helpers.js';
 
 import ChooseCommunity from './ChooseCommunity';
 import ChooseLanguage from './ChooseLanguage';

@@ -3,19 +3,19 @@ import {Link}  from 'react-router';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
-import Helpers from '../stores/Helpers.js';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
+import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
-import Icon from './Icon';
-import Avatar from './Avatar';
+import Icon from '../General/Icon';
+import Avatar from '../General/Avatar';
 
 export default React.createClass({
 

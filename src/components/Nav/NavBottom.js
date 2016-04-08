@@ -3,21 +3,19 @@ import {Link}  from 'react-router';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
-import Helpers from '../stores/Helpers.js';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
+import Helpers from '../../stores/Helpers.js';
 
-import Icon from './Icon';
+import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
+  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   getInitialState() {
     return {
@@ -26,7 +24,6 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
   },
@@ -47,31 +44,32 @@ export default React.createClass({
     }
 
     return (
-        <nav className="navbar navbar-default navbar-top hidden-sm hidden-xs" role="navigation">
-          <div className="container">
-            <ul className="nav navbar-nav">
+        <nav className="navbar navbar-bottom hidden-md hidden-lg" role="navigation">
+          <div className="text-center">
+            <div id="navbar">
+             <ul className="nav navbar-nav">
               <li>
                 <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
-                  <div><Icon type={'whatsnew'} area='whatsnew' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
-                  <FormattedMessage id='nav_whatsnew' defaultMessage='News'/>
+                  <div><Icon type={'whatsnew'} area='whatsnew' size='small' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
+                  <FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/>
                 </Link>
               </li>
               <li>
                 <Link className={agendaClasses} activeClassName="active" to="/agenda">
-                  <div><Icon type={'agenda'} area='agenda' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
+                  <div><Icon type={'agenda'} area='agenda' size='small' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
                   <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
                 </Link>
               </li>
               <li>
                 <Link className={photosClasses} activeClassName="active" to="/photos">
-                  <div><Icon type={'photos'} area='photos' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
-                  <FormattedMessage id='nav_photos' defaultMessage='Stories'/>
+                  <div><Icon type={'photos'} area='photos' size='small' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
+                  <FormattedMessage id='nav_photos' defaultMessage='Photos'/>
                 </Link>
               </li>
             </ul>
+            </div>
           </div>
         </nav>
-
     );
   }
 });

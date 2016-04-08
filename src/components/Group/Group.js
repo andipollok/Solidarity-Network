@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Reflux from 'reflux';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
-import Helpers from '../stores/Helpers.js';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
+import Helpers from '../../stores/Helpers.js';
 
 export default React.createClass({
 

@@ -5,13 +5,13 @@ import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
-import Helpers from '../stores/Helpers.js';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
+import Helpers from '../../stores/Helpers.js';
 
 import Calendar from './Calendar';
 import Schedule from './Schedule';

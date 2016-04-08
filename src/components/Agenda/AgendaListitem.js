@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import { Col } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import Helpers from '../stores/Helpers.js';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
-import Icon from './Icon';
+import Icon from '../General/Icon';
 
 export default React.createClass({
 

@@ -4,16 +4,16 @@ import { Link }  from 'react-router';
 import { Button, ButtonGroup, Row, Col } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import Helpers from '../stores/Helpers.js';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
-import Icon from './Icon';
-import Avatar from './Avatar';
+import Icon from '../General/Icon';
+import Avatar from '../General/Avatar';
 
 export default React.createClass({
 

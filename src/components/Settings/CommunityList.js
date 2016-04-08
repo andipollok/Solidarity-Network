@@ -3,11 +3,11 @@ import classNames from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
-import Helpers from '../stores/Helpers.js';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
+import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage } from 'react-intl';
 

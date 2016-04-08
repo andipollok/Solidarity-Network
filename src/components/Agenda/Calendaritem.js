@@ -3,12 +3,12 @@ import moment from 'moment';
 import classNames from 'classnames';
 import { Col } from 'react-bootstrap';
 
-import Helpers from '../stores/Helpers.js';
+import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button } from 'react-bootstrap';
 
-import Icon from './Icon';
+import Icon from '../General/Icon';
 
 export default React.createClass({
   

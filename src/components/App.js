@@ -20,7 +20,7 @@ import moment from 'moment';
 import moment_locale_en from 'moment/locale/en-gb.js';
 import moment_locale_fr from 'moment/locale/fr.js';
 import moment_locale_de from 'moment/locale/de.js';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './General/ErrorMessage';
 
 import iNoBounce from 'inobounce';
 
@@ -49,11 +49,10 @@ moment.locale('en', {
 });
 
 
-import Nav from './Nav';
-import NavBottom from './NavBottom';
-import Top from './Top';
-import Footer from './Footer';
-import Start from './Start';
+import Nav from './Nav/Nav';
+import NavBottom from './Nav/NavBottom';
+import Top from './Nav/Top';
+import Footer from './Nav/Footer';
 
 const history = createHashHistory();
 

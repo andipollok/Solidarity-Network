@@ -5,27 +5,22 @@ import { Router, Route, IndexRoute } from 'react-router';
 import createHashHistory from 'history/lib/createHashHistory';
 
 import App from './components/App';
-import Start from './components/Start';
-import Settings from './components/Settings';
+import Settings from './components/Settings/Settings';
 
-import Whatsnew from './components/Whatsnew';
-import Agenda from './components/Agenda';
-import Photos from './components/Photos';
+import Whatsnew from './components/News/Whatsnew';
+import Agenda from './components/Agenda/Agenda';
+import Photos from './components/Stories/Stories';
 
-import Day from './components/Day';
+import Day from './components/Agenda/Day';
 
-import Group from './components/Group';
-import Groups from './components/Groups';
+import Group from './components/Group/Group';
+import Groups from './components/Group/Groups';
 
-import Activity from './components/Activity';
-import Photo from './components/Photo';
-import PhotoZoom from './components/PhotoZoom';
+import Activity from './components/Activity/Activity';
+import Photo from './components/Photo/Photo';
+import PhotoZoom from './components/Photo/PhotoZoom';
 
-import Person from './components/Person';
-
-import Join from './components/Join';
-import Nearby from './components/Nearby';
-import About from './components/About';
+import Person from './components/Person/Person';
 
 
 // polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
@@ -79,10 +74,6 @@ render(
         <Route name="photo" path="/photo/:id" component={Photo}/>
         <Route name="photozoom" path="/photo/:id/zoom" component={PhotoZoom}/>
 
-
-        <Route name="join" path="/join" component={Join}/>
-        <Route name="nearby" path="/nearby" component={Nearby}/>
-        <Route name="about" path="/about" component={About}/>
       </Route>
     </Router>
   ), document.getElementById('content')

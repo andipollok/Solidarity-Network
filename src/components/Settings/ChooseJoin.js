@@ -3,8 +3,8 @@ import cookie from 'react-cookie';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
 
 export default React.createClass({
 

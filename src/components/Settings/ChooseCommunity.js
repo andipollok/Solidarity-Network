@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import DataActions from '../stores/DataActions';
-import DataStore from '../stores/DataStore';
-import StatusActions from '../stores/StatusActions';
-import StatusStore from '../stores/StatusStore';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
+import StatusActions from '../../stores/StatusActions';
+import StatusStore from '../../stores/StatusStore';
 
 import CommunityList from './CommunityList';
 

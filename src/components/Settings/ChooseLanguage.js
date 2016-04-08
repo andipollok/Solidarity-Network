@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import { Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import LanguageActions from '../stores/LanguageActions';
-import LanguageStore from '../stores/LanguageStore';
+import LanguageActions from '../../stores/LanguageActions';
+import LanguageStore from '../../stores/LanguageStore';
 
 export default React.createClass({
 
