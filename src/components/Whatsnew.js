@@ -19,15 +19,25 @@ export default React.createClass({
 
   mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
+  componentWillMount() {
+    StatusActions.historyAdd({
+      title: 'News',
+      url: '',
+      pathname: '/whatsnew'
+    });
+    StatusActions.setArea('whatsnew');
+  },
+
   componentDidMount() {
     DataActions.forceTrigger();
     LanguageActions.forceTrigger();
     StatusActions.forceTrigger();
-    StatusActions.setArea('whatsnew');
   },
 
-  onClickSelectActivity(id) {
-    window.location.assign('#/' + id);
+  onClickSelectItem(url) {
+    console.log('click on whatsnew item', url);
+    // -todo- for some reason this does not work on ipad!
+    window.location.assign('#/' + url);
   },
 
   render() {
@@ -83,7 +93,7 @@ export default React.createClass({
     }.bind(this));
 
     var whatsnewItem = function(item) {
-      return ( <Listitem key={item.id} data={item} onClickHandler={this.onClickSelectActivity}></Listitem> );
+      return ( <Listitem key={item.id} data={item} onClickHandler={this.onClickSelectItem}></Listitem> );
     }.bind(this);
 
     var Component = {};
