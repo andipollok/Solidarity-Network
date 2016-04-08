@@ -81,11 +81,12 @@ export default React.createClass({
     }.bind(this));
 
     var activityItem = function(activity) {
+      var type = Helpers.getActivityTypeById(activity.typeId, this);
       return ( 
         <Col sm={4} key={activity.id}>
         <Link to={`/activity/${activity.id}`}>
           <div className="card solid agenda bottom-buffer">
-            <Icon type={'activity-' + activity.type} area='agenda' fill='solid' shape='hexagon'/>
+            <Icon type={'activity-' + type.name} area='agenda' fill='solid' shape='hexagon'/>
             <h4>{activity.name}</h4>
             <p><FormattedDate
                   value={activity.date}

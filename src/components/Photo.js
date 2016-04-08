@@ -62,6 +62,7 @@ export default React.createClass({
 
     var owner = Helpers.getPersonById(photo.ownerId, this);
     var activity = Helpers.getActivityById(photo.activityId, this);
+    var type = Helpers.getActivityTypeById(activity.typeId, this);
     // console.log(this.state.data.activities.map(function(a) { return a.id }))
     // console.log(photo.activityId, activity);
     // xxx todo problem - activity is not found sometimes
@@ -86,7 +87,7 @@ export default React.createClass({
             </Link>
             <Link to={`/activity/${activity.id}`}>
               <div className="card solid agenda">
-                <Icon type={'activity-' + activity.type} area='agenda' fill='solid' shape='hexagon'/>
+                <Icon type={'activity-' + type.name} area='agenda' fill='solid' shape='hexagon'/>
                 <h4>{activity.name}</h4>
                 <p><FormattedDate
                           value={activity.date}

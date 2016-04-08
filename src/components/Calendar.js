@@ -4,17 +4,21 @@ import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
+import DataActions from '../stores/DataActions';
+import DataStore from '../stores/DataStore';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
+import StatusActions from '../stores/StatusActions';
+import StatusStore from '../stores/StatusStore';
 import Helpers from '../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
-import Listitem from './AgendaCalendaritem';
+import Listitem from './Calendaritem';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language') ],
+  mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   getInitialState() {
 
@@ -22,29 +26,62 @@ export default React.createClass({
 
     return {
       month: moment().startOf('month'), // stores first of month
-      days: [],
-      weeks: []
     }
   },
 
   componentDidMount() {
+    DataActions.forceTrigger();
+    StatusActions.forceTrigger();
     LanguageActions.forceTrigger();
-    this.getDays();
   },
 
-  getDays() {
+  onClickActivity(id) {
+    // console.log("activity " + id + " selected");
+    window.location.assign("#/activity/" + id);
+  },
+
+  onClickDay(date) {
+    // console.log("onClickDay", date.format());
+    window.location.assign("#/agenda/" + date.format("DD/MM/YYYY"));
+  },
+
+  onClickPrevMonth() {
+    this.setState({ month: this.state.month.subtract(1, 'month') });
+  },
+
+  onClickNextMonth() {
+    this.setState({ month: this.state.month.add(1, 'month') });
+  },
+
+  render() {
+
+    if (!Helpers.checkLanguageLoaded(this) || !this.state.status || !this.state.status.community || !this.state.data || !this.state.data.loaded.all) {
+      return <div></div>;
+    }
+
     var days = [], weeks = [];
     var i=0;
     var startDate = this.state.month.clone().startOf('month').isoWeekday(1);
     var endDate = this.state.month.clone().startOf('month').add(1, 'month').isoWeekday(7);
 
     for (var date = startDate.clone(); date.diff(endDate) <= 0; date.add(1, 'days')) {
-      // find activities on that date
-      var activitiesFound = this.props.activities.filter(function(activity) {
-          if (moment(activity.date).isSame(date, 'day')) {
+      // find activities
+      var activitiesFound = this.state.data.activities.filter(
+        function(activity) {
+          // check if activity is in selected community
+          var _group = Helpers.getGroupById(activity.groupId, this);
+          if (!_group) {
+            return false;
+          }
+          var _community = Helpers.getCommunityById(_group.communityId, this);
+          if (_community.id !== this.state.status.community) {
+            return false; // filter this entry if item is not in the community
+          }
+          // check if activity is on that day
+          if(moment(activity.date).isSame(date, 'day')) {
             return true;
           }
-        });
+        }.bind(this));
       days.push({
         number: i,
         id: date.format(),
@@ -64,35 +101,6 @@ export default React.createClass({
           // maybe start and end date or week number, but not needed now
       });
       i++;
-    }
-
-    this.setState({days: days, weeks: weeks});
-  },
-
-  onClickActivity(id) {
-    // console.log("activity " + id + " selected");
-    window.location.assign("#/activity/" + id);
-  },
-
-  onClickDay(date) {
-    // console.log("onClickDay", date.format());
-    window.location.assign("#/agenda/" + date.format("DD/MM/YYYY"));
-  },
-
-  onClickPrevMonth() {
-    this.setState({ month: this.state.month.subtract(1, 'month') });
-    this.getDays();
-  },
-
-  onClickNextMonth() {
-    this.setState({ month: this.state.month.add(1, 'month') });
-    this.getDays();
-  },
-
-  render() {
-
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.activities) {
-      return <div></div>;
     }
 
     var weekItem = function(week) {
@@ -137,7 +145,7 @@ export default React.createClass({
         <Row className="calendar-row hidden-xs">
           {weekdays.map(dayHeader, this)}
         </Row>
-          {this.state.weeks.map(weekItem, this)}
+          {weeks.map(weekItem, this)}
       </div>
     );
   }
