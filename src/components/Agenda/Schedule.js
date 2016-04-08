@@ -67,7 +67,12 @@ export default React.createClass({
             return false; // filter this entry if item is not in the community
           }
           // check if activity is in the past
-          if(moment(activity.date) < moment()) {
+          if (moment(activity.date) < moment()) {
+            return false;
+          }
+
+          // check if has selected type
+          if (this.state.type !== '' && activity.typeId !== this.state.type) {
             return false;
           }
 
