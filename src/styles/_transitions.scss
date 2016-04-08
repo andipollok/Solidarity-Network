@@ -1,0 +1,21 @@
+.example-appear {
+  opacity: 0.01;
+  left:-25%;
+  border:10px solid blue;
+}
+
+.example-leave {
+  opacity: 0.01;
+  left:125%;
+  border:10px solid yellow;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  left:0;
+  transition: opacity 0.2s ease-out, left 0.2s ease-out;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+}
