@@ -29,7 +29,7 @@ export default React.createClass({
 
   componentWillMount() {
     StatusActions.historyAdd({
-      title: 'Schedule',
+      title: 'Agenda',
       url: '',
       pathname: '/agenda'
     });
