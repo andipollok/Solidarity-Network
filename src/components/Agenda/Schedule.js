@@ -91,7 +91,7 @@ export default React.createClass({
     }
 
     return (
-        <div className="container agenda" style={{position: 'relative'}}>
+        <div className="container agenda">
 
           <ActivityTypeSelector onSelectType={this.setType} selectedType={this.state.type}/>
 
