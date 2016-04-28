@@ -14,7 +14,7 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import Icon from '../General/Icon';
+import IconActivity from '../General/IconActivity';
 
 
 export default React.createClass({
@@ -28,8 +28,6 @@ export default React.createClass({
   },
 
   onClickType(id) {
-    // window.location.assign("#/activity/" + id);
-    console.log("selected type " + id);
     this.props.onSelectType(id);
   },
 
@@ -57,7 +55,7 @@ export default React.createClass({
           }
           // check if activity is in the past
           if (moment(activity.date) < moment()) {
-            return false;
+            // return false; // xxx
           }
 
           return true;
@@ -74,7 +72,17 @@ export default React.createClass({
         });
       }
 
-      types.sort((a, b) => b.count - a.count);
+      // types.sort((a, b) => b.count - a.count);
+      types.sort(function(a, b) {
+        if (b.count - a.count !== 0) {
+          return b.count - a.count;
+        }
+        else {
+          if(a.name < b.name) { return -1; }
+          if(a.name > b.name) { return 1; }
+          else { return 0; }
+        }
+      });
       
     }
 
@@ -82,9 +90,9 @@ export default React.createClass({
       var divClass = classNames('text-center', {
         'selected': this.props.selectedType === type.id
       });
-      return ( 
+      return (
         <li key={type.id} onClick={this.onClickType.bind(this, type.id)} className={divClass}>
-          <p><Icon type={'activity-' + type.name} area='agenda' shape='hexagon'/></p>
+          <p><IconActivity type={type} area='agenda'/></p>
           <p>{type.name}</p>
           {type.count}
         </li>

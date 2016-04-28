@@ -14,7 +14,7 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
-import Icon from '../General/Icon';
+import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
 
 export default React.createClass({
@@ -45,7 +45,7 @@ export default React.createClass({
     var community = Helpers.getCommunityFromStatus(this);
     var activity = Helpers.getActivityById(this.props.params.id, this);
     var group = Helpers.getGroupById(activity.groupId, this);
-    var owner = Helpers.getPersonById(group.ownerId, this);
+    var owner = group.ownerId ? Helpers.getPersonById(group.ownerId, this) : undefined;
 
     // load photos
     activity.photoList = [];
@@ -108,6 +108,23 @@ export default React.createClass({
     }
     var type = Helpers.getActivityTypeById(activity.typeId, this);
 
+    if (owner) {
+      var componentOwner = <span>
+        <Link to={`/person/${owner.id}`}>
+          <div className="box text-center">
+            <p><Avatar imageUrl={owner.pictureUrl}/></p>
+            <p>Hosted <FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+          </div>
+          </Link>
+          <div className="box white outline text-center bottom-buffer rounded">
+            <h3>Do you want to talk to {owner.name}?</h3>
+            
+            <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
+            <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
+          </div>
+        </span>
+    }
+
     return (
       <div className="container agenda">
 
@@ -116,7 +133,7 @@ export default React.createClass({
 
             <div className="card solid text-center">
 
-              <Icon type={'activity-' + type.name} area='agenda' fill='solid' shape='hexagon'/>
+              <IconActivity type={type} area='agenda' fill='solid'/>
 
               <h1>{activity.name}</h1>
 
@@ -142,18 +159,7 @@ export default React.createClass({
 
         <Row>
           <Col sm={4}>
-            <Link to={`/person/${owner.id}`}>
-            <div className="box text-center">
-              <p><Avatar imageUrl={owner.pictureUrl}/></p>
-              <p>Hosted <FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
-            </div>
-            </Link>
-            <div className="box white outline text-center bottom-buffer rounded">
-              <h3>Do you want to talk to {owner.name}?</h3>
-              
-              <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
-              <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
-            </div>
+            {componentOwner}
           </Col>
 
           <Col sm={4}>

@@ -66,6 +66,7 @@ export default React.createClass({
           if (_community.id !== this.state.status.community) {
             return false; // filter this entry if item is not in the community
           }
+
           // check if activity is in the past
           if (moment(activity.date) < moment()) {
             return false;

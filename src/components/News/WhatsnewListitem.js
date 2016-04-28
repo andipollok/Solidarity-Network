@@ -13,6 +13,7 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 import Icon from '../General/Icon';
+import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
 
 export default React.createClass({
@@ -36,11 +37,15 @@ export default React.createClass({
     if(this.props.data.activity.id) {
       var type = Helpers.getActivityTypeById(this.props.data.activity.typeId, this);
       link = 'activity/' + this.props.data.activity.id;
-      icon = <Icon type={'activity-' + type.name} area='whatsnew' shape='empty'  size='small'/>
+      icon = <IconActivity type={'activity-' + type.name} area='whatsnew' shape='empty'  size='small'/>
     }
     else if (this.props.data.group.id) {
       link = 'group/' + this.props.data.group.id;
       icon = <Icon type='whatsnew' area='whatsnew' shape='empty' size='small'/>
+    }
+
+    if (link) {
+      var componentLink = <a href="" onClick={this.props.onClickHandler.bind(null, link)}>Open</a>;
     }
 
     var date = <p>
@@ -70,7 +75,7 @@ export default React.createClass({
               
               <span className="cell padding-left">
               
-                <a href="" onClick={this.props.onClickHandler.bind(null, link)}>Open</a>
+                {componentLink}
 
               </span>
 
