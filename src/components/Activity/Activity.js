@@ -105,6 +105,8 @@ export default React.createClass({
           <p><Button bsStyle="primary" bsSize="large">Find similar activities</Button></p>
           </span>
     }
+
+    // show photos if available
     if (activity.photoList.length > 0) {
       var componentPhoto = <span>
             {activity.photoList.map(photoItem,this)}
@@ -116,7 +118,7 @@ export default React.createClass({
           </span>
     }
 
-
+    // show owner if available
     if (owner) {
       var componentOwner = <span>
         <Link to={`/person/${owner.id}`}>
@@ -134,6 +136,7 @@ export default React.createClass({
         </span>
     }
 
+    // format start and end time
     var componentTime = <h3>
                   {startingAt}&nbsp;<FormattedTime
                         value={activity.date}
