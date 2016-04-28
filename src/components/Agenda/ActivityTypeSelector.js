@@ -55,7 +55,7 @@ export default React.createClass({
           }
           // check if activity is in the past
           if (moment(activity.date) < moment()) {
-            // return false; // xxx
+            return false;
           }
 
           return true;
