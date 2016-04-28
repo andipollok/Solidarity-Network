@@ -37,7 +37,7 @@ export default React.createClass({
     if(this.props.data.activity.id) {
       var type = Helpers.getActivityTypeById(this.props.data.activity.typeId, this);
       link = 'activity/' + this.props.data.activity.id;
-      icon = <IconActivity type={'activity-' + type.name} area='whatsnew' shape='empty'  size='small'/>
+      icon = <IconActivity type={'activity-' + type.name} area='whatsnew' shape='empty' size='small'/>
     }
     else if (this.props.data.group.id) {
       link = 'group/' + this.props.data.group.id;
