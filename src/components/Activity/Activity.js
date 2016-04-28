@@ -44,6 +44,7 @@ export default React.createClass({
 
     var community = Helpers.getCommunityFromStatus(this);
     var activity = Helpers.getActivityById(this.props.params.id, this);
+    var type = Helpers.getActivityTypeById(activity.typeId, this);
     var group = Helpers.getGroupById(activity.groupId, this);
     var owner = group.ownerId ? Helpers.getPersonById(group.ownerId, this) : undefined;
 
@@ -69,7 +70,6 @@ export default React.createClass({
         });
       }.bind(this))
     }.bind(this));
-    // console.log("number of photos", activity.photoList.length);
 
     var photoItem = function(photo) {
       return (
@@ -82,31 +82,40 @@ export default React.createClass({
         );
     }.bind(this);
 
-    var startingAt = <FormattedMessage id="startingat" defaultMessage=" "/>
-    var isInPast = false;
     // check if activity is in the past          
-    var now = new Date();
-    var date = new Date(activity.date);
-    if(date < now) {
-      isInPast = true;
-      startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
-    }
+    var isInPast = new Date(activity.date) < new Date();
+    
+    var startingAt, registerToAttend;
 
     if (isInPast === false) {
-      var registerToAttend = <span>
+      // event is in the future
+      startingAt = <FormattedMessage id="startingat" defaultMessage=" "/>
+      registerToAttend = <span>
           <h3>Do you want attend?</h3>
           <p>Register your interest in this activity.</p>
           <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
           </span>
     } 
     else {
-      var registerToAttend = <span>
+      // event is in the past
+      startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
+      registerToAttend = <span>
           <h3>Did you attend?</h3>
           <p>And did you like it?</p>
           <p><Button bsStyle="primary" bsSize="large">Find similar activities</Button></p>
           </span>
     }
-    var type = Helpers.getActivityTypeById(activity.typeId, this);
+    if (activity.photoList.length > 0) {
+      var componentPhoto = <span>
+            {activity.photoList.map(photoItem,this)}
+            <p><FormattedMessage id="numberofphotos" values={{numPhotos: activity.photoList.length}} /></p>
+            <div className="box white outline text-center bottom-buffer rounded">
+              <p><Button bsStyle="primary" bsSize="large">Send all photos</Button></p>
+              <p>Send all these pictures to a friend! Also you can select single photos to send or create an album.</p>
+            </div>
+          </span>
+    }
+
 
     if (owner) {
       var componentOwner = <span>
@@ -123,6 +132,26 @@ export default React.createClass({
             <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
           </div>
         </span>
+    }
+
+    var componentTime = <h3>
+                  {startingAt}&nbsp;<FormattedTime
+                        value={activity.date}
+                        minute="2-digit"
+                        hour="numeric" />
+                        </h3>
+
+    if (activity.dateEnd) {
+      componentTime = <h3>
+                      From&nbsp;<FormattedTime
+                        value={activity.date}
+                        minute="2-digit"
+                        hour="numeric" />
+                        &nbsp;to&nbsp;<FormattedTime
+                        value={activity.dateEnd}
+                        minute="2-digit"
+                        hour="numeric" />
+                        </h3>
     }
 
     return (
@@ -147,11 +176,7 @@ export default React.createClass({
                   &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
               </h3>
 
-              <h3>{startingAt}
-                  &nbsp;<FormattedTime
-                        value={activity.date}
-                        minute="2-digit"
-                        hour="numeric" /></h3>
+              {componentTime}
 
             </div>
           </Col>
@@ -177,14 +202,7 @@ export default React.createClass({
 
           <Col sm={4}>
 
-            {activity.photoList.map(photoItem,this)}
-
-            <p><FormattedMessage id="numberofphotos" values={{numPhotos: activity.photoList.length}} /></p>
-
-            <div className="box white outline text-center bottom-buffer rounded">
-              <p><Button bsStyle="primary" bsSize="large">Send all photos</Button></p>
-              <p>Send all these pictures to a friend! Also you can select single photos to send or create an album.</p>
-            </div>
+            {componentPhoto}
 
           </Col>
 
