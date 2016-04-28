@@ -3,6 +3,7 @@ import Actions from './DataActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
 import AirtableConfig from './AirtableConfig';
+import moment from 'moment';
 
 Airtable.configure({ apiKey: AirtableConfig.apiKey });
 var base = new Airtable().base(AirtableConfig.base);
@@ -59,7 +60,6 @@ export default Reflux.createStore({
       var cookieValueCommunity = cookie.load(cookieNameCommunity) || ""; // -todo- this value should be taken from StatusStore!
 
       base('Communities').select({
-        maxRecords: 200,
         view: "Main View",
         sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
@@ -74,15 +74,15 @@ export default Reflux.createStore({
             });
           }
         });
+        fetchNextPage();
+
+      }, function done(error) {
         if (!cookieValueCommunity && Object.keys(data.communities).length > 0) {
           // -todo- set cookie of default community via StatusStore
 //          cookie.save(cookieNameCommunity, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
         }
-
         data.loaded.communities = true;
         that.forceTrigger();
-
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
@@ -92,7 +92,6 @@ export default Reflux.createStore({
     loadWhatsnew() {
       var that = this;
       base('Whatsnew').select({
-        maxRecords: 200,
         view: "Main View",
         sort: [{field: "Date", direction: "desc"}]
       }).eachPage(function page(records, fetchNextPage) {
@@ -109,11 +108,12 @@ export default Reflux.createStore({
               });
             }
         });
+        fetchNextPage();
+
+      }, function done(error) {
         data.loaded.whatsnew = true;
         // console.log("found the following " + Object.keys(data.whatsnew).length + " whatsnew entries", data.whatsnew);
         that.forceTrigger();
-
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
@@ -123,7 +123,6 @@ export default Reflux.createStore({
     loadGroups() {
       var that = this;
       base('Groups').select({
-        maxRecords: 200,
         view: "Main View",
         sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
@@ -132,8 +131,8 @@ export default Reflux.createStore({
               data.groups.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                communityId: record.get('Community')[0],
-                ownerId: record.get('Owner')[0],
+                communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+                ownerId: record.get('Owner') ? record.get('Owner')[0] : undefined,
                 description: record.get('Description'),
                 headerimage: record.get('Header Image'),
                 activities: record.get('Activities'),
@@ -141,11 +140,14 @@ export default Reflux.createStore({
               });
             }
         });
+        fetchNextPage();
+
+      }, function done(error) {
+
         data.loaded.groups = true;
         // console.log("found the following " + Object.keys(data.groups).length + " groups", data.groups);
         that.forceTrigger();
 
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
@@ -155,7 +157,8 @@ export default Reflux.createStore({
     loadActivities() {
       var that = this;
       base('Activities').select({
-        maxRecords: 200,
+        maxRecords: 999,
+        pageSize: 100,
         view: "Main View",
         sort: [{field: "Date", direction: "asc"}]
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
@@ -165,9 +168,9 @@ export default Reflux.createStore({
               data.activities.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                groupId: record.get('Group')[0],
+                groupId: record.get('Group') ? record.get('Group')[0] : undefined,
                 date: record.get('Date'),
-                typeId: record.get('Type')[0],
+                typeId: record.get('Type') ? record.get('Type')[0] : undefined,
                 description: record.get('Description'),
                 photos: record.get('Photos') || [],
                 interested: record.get('Interested') || 0,
@@ -176,12 +179,16 @@ export default Reflux.createStore({
               });
             }
         });
+        fetchNextPage();
+
+      }, function done(error) {
+
         data.loaded.activities = true;
         // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
         // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
+        // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
         that.forceTrigger();
 
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
@@ -191,7 +198,6 @@ export default Reflux.createStore({
     loadActivityTypes() {
       var that = this;
       base('Activity Types').select({
-        maxRecords: 200,
         view: "Main View",
         sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
@@ -200,15 +206,17 @@ export default Reflux.createStore({
               data.activitytypes.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                activityIds: record.get('Activities')
+                activityIds: record.get('Activities'),
+                icon: record.get('Icon') || ''
               });
             }
         });
+        fetchNextPage();
+
+      }, function done(error) {
         data.loaded.activitytypes = true;
         // console.log("found the following " + Object.keys(data.activitytypes).length + " activity types:", data.activitytypes.map(function(a) { return a.name; }).join(', '));
         that.forceTrigger();
-
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
@@ -218,7 +226,6 @@ export default Reflux.createStore({
     loadPhotos() {
       var that = this;
       base('Photos').select({
-        maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
@@ -233,11 +240,12 @@ export default Reflux.createStore({
               });
             }
         });
+        fetchNextPage();
+
+      }, function done(error) {
         data.loaded.photos = true;
         // console.log("found the following " + Object.keys(data.photos).length + " photos", data.photos);
         that.forceTrigger();
-
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
@@ -247,7 +255,6 @@ export default Reflux.createStore({
     loadPeople() {
       var that = this;
       base('People').select({
-        maxRecords: 200,
         view: "Main View"
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
@@ -268,12 +275,13 @@ export default Reflux.createStore({
               });
             }
         });
+        fetchNextPage();
+
+      }, function done(error) {
         data.loaded.people = true;
         // console.log(JSON.stringify(data.people, null, 2));
         // console.log("found the following " + Object.keys(data.people).length + " people", data.people);
         that.forceTrigger();
-
-      }, function done(error) {
         if (error) {
           that.throwError(error);
         }
