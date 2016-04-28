@@ -15,7 +15,7 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import Listitem from './AgendaListitem';
+import AgendaListitem from './AgendaListitem';
 import ActivityTypeSelector from './ActivityTypeSelector';
 
 
@@ -46,44 +46,42 @@ export default React.createClass({
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.state.status || !this.state.status.community) {
+    if (!Helpers.checkLanguageLoaded(this) || !this.state.status || !this.state.status.community || !this.state.data || !this.state.data.loaded.all) {
       return <div></div>;
     }
+
     var activities = [];
     var community = Helpers.getCommunityById(this.state.status.community, this);
 
-    if (this.state.data && this.state.data.loaded.all) {
+    activities = this.state.data.activities.filter(
+      function(activity) {
 
-      activities = this.state.data.activities.filter(
-        function(activity) {
+        // check if activity is in selected community
+        var _group = Helpers.getGroupById(activity.groupId, this);
+        if (!_group) {
+          return false;
+        }
+        var _community = Helpers.getCommunityById(_group.communityId, this);
+        if (_community.id !== this.state.status.community) {
+          return false; // filter this entry if item is not in the community
+        }
 
-          // check if activity is in selected community
-          var _group = Helpers.getGroupById(activity.groupId, this);
-          if (!_group) {
-            return false;
-          }
-          var _community = Helpers.getCommunityById(_group.communityId, this);
-          if (_community.id !== this.state.status.community) {
-            return false; // filter this entry if item is not in the community
-          }
+        // check if activity is in the past
+        if (moment(activity.date) < moment()) {
+          return false;
+        }
 
-          // check if activity is in the past
-          if (moment(activity.date) < moment()) {
-            return false;
-          }
+        // check if has selected type
+        if (this.state.type !== '' && activity.typeId !== this.state.type) {
+          return false;
+        }
 
-          // check if has selected type
-          if (this.state.type !== '' && activity.typeId !== this.state.type) {
-            return false;
-          }
-
-          return true;
-        }.bind(this)
-      );
-    }
+        return true;
+      }.bind(this)
+    );
 
     var activityItem = function(activity) {
-      return ( <Listitem key={activity.id} data={activity} showDate={true} showTime={true} onClickHandler={this.onClickActivity}></Listitem> );
+      return ( <AgendaListitem key={activity.id} data={activity} showDate={true} showTime={true} showIcon={this.state.type === ''} onClickHandler={this.onClickActivity} /> );
     }.bind(this);
   
     if (activities.length === 0) {
