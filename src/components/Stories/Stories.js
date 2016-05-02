@@ -4,10 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -17,21 +13,13 @@ import Listitem from './PhotoListitem';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
-
   componentWillMount() {
-    StatusActions.historyAdd({
+/*    StatusActions.historyAdd({
       title: 'Stories',
       url: '',
       pathname: '/photos'
-    });
-    StatusActions.setArea('photos');
-  },
-
-  componentDidMount() {
-    DataActions.forceTrigger();
-    LanguageActions.forceTrigger();
-    StatusActions.forceTrigger();
+    });*/
+    StatusActions.setArea('stories');
   },
 
   getInitialState: function() {
@@ -54,11 +42,7 @@ export default React.createClass({
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !(this.state.data && this.state.data.loaded) || !(this.state.status && this.state.status.community)) {
-      return <div></div>;
-    }
-
-    var community = Helpers.getCommunityFromStatus(this);
+    var data = this.props.data;
 
     var photoItem = function(photo) {
       return ( <Listitem key={photo.id} data={photo} onClickHandler={this.onClickSelectPhoto}></Listitem> );
@@ -68,21 +52,21 @@ export default React.createClass({
         myPhotoList = [],
         foundPhotos = false;
 
-    myPhotos = this.state.data.photos.filter(
+    myPhotos = data.photos.filter(
       function(photo) {
         // find photos in this community
-        var activity = Helpers.getActivityById(photo.activityId, this);
+        var activity = Helpers.getActivityById(photo.activityId, data);
         if (!activity) {
           // in some cases if the Airtable is not filled out correctly, it can occur that an activity is not valid
           // (e.g. no date, no name) and thus the DataStore does not provide it
           return false;
         }
-        var group = Helpers.getGroupById(activity.groupId, this);
+        var group = Helpers.getGroupById(activity.groupId, data);
         if (!group) {
           return false;
         }
-        var community = Helpers.getCommunityById(group.communityId, this);
-        if (community.id !== this.state.status.community) {
+        var community = Helpers.getCommunityById(group.communityId, data);
+        if (community.id !== data.status.community) {
           return false; // filter this photo if it is not in the community
         }
         return true;
@@ -131,7 +115,7 @@ export default React.createClass({
     }
 
     return (
-      <div className="container photos">
+      <div className="container stories">
         <Row>
           <Col md={12} className="text-center box">
             <ButtonGroup>

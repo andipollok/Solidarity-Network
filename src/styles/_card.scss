@@ -24,17 +24,17 @@
     // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color_primary2; }
     // &.photos   { box-shadow:inset 0px 0px 0px 10px $color_primary3; }
 
-    &.whatsnew.solid {
+    &.news.solid {
       background-color:$color_primary1;
       color:$color_primary1_font;
       .grey { color:white; }
     }
-    &.agenda.solid {
+    &.activities.solid {
       background-color:$color_primary2;
       color:$color_primary2_font;
       .grey { color:white; }
     }
-    &.photos.solid {
+    &.stories.solid {
       background-color:$color_primary3;
       color:$color_primary3_font;
     }
@@ -47,7 +47,7 @@
     background-color: $color_primary1;
   }
 
-  &.whatsnew { 
+  &.news { 
     &.solid {
       border:2px solid color($color_primary1 l(-10)) !important;
       background-color: $color_primary1 !important;
@@ -55,14 +55,14 @@
     }
   }
 
-  &.agenda {
+  &.activities {
     &.solid {
       border:2px solid color($color_primary2 l(-10)) !important;
       background-color: $color_primary2 !important;
       color: $color_primary2_font !important;
     }
   }
-  &.photos {
+  &.stories {
     &.solid {
       border:2px solid color($color_primary3 l(-10)) !important;
       background-color: $color_primary3 !important;
@@ -72,37 +72,37 @@
 }
 
 
-.whatsnew { 
+.news { 
   .card.outline { 
     border-color: $color_primary1;
   }
 }
-.agenda {
+.activities {
   .card.outline {
     border-color: $color_primary2;
   }
 }
-.photos {
+.stories {
   .card.outline {
     border-color: $color_primary3;
   }
 }
 
-.whatsnew { 
+.news { 
   .card.solid {
     border:2px solid color($color_primary1 l(-10));
     background-color: $color_primary1;
     color: $color_primary1_font;
   }
 }
-.agenda {
+.activities {
   .card.solid { 
     border:2px solid color($color_primary2 l(-10));
     background-color: $color_primary2;
     color: $color_primary2_font;
   }
 }
-.photos {
+.stories {
   .card.solid {
     border:2px solid color($color_primary3 l(-10));
     background-color: $color_primary3;

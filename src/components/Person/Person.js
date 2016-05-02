@@ -3,10 +3,6 @@ import {Link}  from 'react-router';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -19,33 +15,25 @@ import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(DataStore, 'data'), Reflux.connect(StatusStore, 'status') ],
-
   componentDidMount() {
-    LanguageStore.forceTrigger();
-    DataActions.forceTrigger();
-    StatusActions.forceTrigger();
-    StatusActions.setArea('');
+    StatusActions.setArea('person');
   },
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.params.id || !this.state.data || !this.state.data.loaded.all) {
-      return <div></div>;
-    }
+    var data = this.props.data;
 
     var personId = this.props.params.id;
 
-    var community = Helpers.getCommunityFromStatus(this);
-    var person = Helpers.getPersonById(personId, this);
+    var person = Helpers.getPersonById(personId, data);
 
-    var groups = this.state.data.groups.filter(function(group) {
+    var groups = data.groups.filter(function(group) {
       if (group.ownerId === this.props.params.id) {
         return true;
       }
     }.bind(this));
 
-    var activities = this.state.data.activities.filter(function(activity) {
+    var activities = data.activities.filter(function(activity) {
       // here we have to check if the activity is in any of this person's groups
       var found = false;
       groups.map(function(group) {
@@ -57,11 +45,9 @@ export default React.createClass({
     }.bind(this));
 
 
-
-
     var photos = [];
 
-    this.state.data.photos.map(function(photo) {
+    data.photos.map(function(photo) {
       if (photo.ownerId !== personId) {
         return false;
       }

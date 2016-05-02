@@ -2,9 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { Col } from 'react-bootstrap';
 
-import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
 import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
@@ -13,25 +10,19 @@ import IconActivity from '../General/IconActivity';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(DataStore, 'data') ],
-
-  componentDidMount() {
-    DataActions.forceTrigger();
-  },
-
   render() {
 
-    if (!this.state.data || !this.state.data.loaded.all) {
-      return <div></div>
-    }
+    var data = this.props.data;
+    var activity = this.props.activity;
 
-    var group = Helpers.getGroupById(this.props.data.groupId, this);
-    var type = Helpers.getActivityTypeById(this.props.data.typeId, this);
+    var group = Helpers.getGroupById(activity.groupId, data);
+
+    var type = Helpers.getActivityTypeById(activity.typeId, data);
     
     // check if activity is in the past          
-    var isInPast = new Date(this.props.data.date) < new Date();
+    var isInPast = new Date(activity.date) < new Date();
 
-    // &nbsp;<span className="grey">(<FormattedRelative value={this.props.data.date} />)</span>
+    // &nbsp;<span className="grey">(<FormattedRelative value={this.props.activity.date} />)</span>
     //  <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
     // &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
 
@@ -40,7 +31,7 @@ export default React.createClass({
           <FormattedMessage id="on" defaultMessage="on"/>
           &nbsp;
           <FormattedDate
-                    value={this.props.data.date}
+                    value={activity.date}
                     weekday="long"
                     day="numeric"
                     month="long"
@@ -64,30 +55,23 @@ export default React.createClass({
         // event is in the past
         startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
       }
-/*      var componentTime = <p>
-            <FormattedMessage id="startingat" defaultMessage="Starting at"/>
-            &nbsp;<FormattedTime
-                    value={this.props.data.date}
-                    minute="2-digit"
-                    hour="numeric" />
-          </p>*/
 
       // format start and end time
       var componentTime = <p>
                     {startingAt}&nbsp;<FormattedTime
-                          value={this.props.data.date}
+                          value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
                           </p>
 
-      if (this.props.data.dateEnd) {
+      if (activity.dateEnd) {
         componentTime = <p>
                         From&nbsp;<FormattedTime
-                          value={this.props.data.date}
+                          value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
                           &nbsp;to&nbsp;<FormattedTime
-                          value={this.props.data.dateEnd}
+                          value={activity.dateEnd}
                           minute="2-digit"
                           hour="numeric" />
                           </p>
@@ -96,13 +80,13 @@ export default React.createClass({
 
     return (
 
-      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
+      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.activity.id)}>
 
         <div className="card solid linked padded text-center solid">
 
           {componentIcon}
 
-          <h2>{this.props.data.name}</h2>
+          <h2>{activity.name}</h2>
 
           {componentDate}
 

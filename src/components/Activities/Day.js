@@ -5,10 +5,6 @@ import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import moment from 'moment';
 
 import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -17,8 +13,6 @@ import Listitem from './AgendaListitem';
 
 
 export default React.createClass({
-
-  mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   getInitialState: function() {
     return {
@@ -30,10 +24,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    DataActions.forceTrigger();
-    LanguageActions.forceTrigger();
-    StatusActions.forceTrigger();
-    StatusActions.setArea('agenda');
+    StatusActions.setArea('activities');
   },
 
   onClickActivity(id) {
@@ -41,14 +32,13 @@ export default React.createClass({
   },
 
   onClickCalendar() {
-    window.location.assign("#/agenda/");
+    window.location.assign("#/activities/");
   },
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.state.data || !this.state.data.loaded.all || !this.state.status || !this.state.status.community) {
-      return <div></div>;
-    }
+    var data = this.props.data;
+
     var myDate = moment({
       year: this.props.params.year,
       month: this.props.params.month - 1,
@@ -59,22 +49,22 @@ export default React.createClass({
       return <div>Invalid date</div>;
     }
 
-    var myActivities = [];
-    myActivities = this.state.data.activities.filter(
+    var activities = [];
+    activities = data.activities.filter(
       function(activity) {
         // check if this activity is in a group that is in this community
-        var group = Helpers.getGroupById(activity.groupId, this);
+        var group = Helpers.getGroupById(activity.groupId, data);
         if (!group) {
           return false;
         }
-        var community = Helpers.getCommunityById(group.communityId, this);
-        if (community.id !== this.state.status.community) {
+        var community = Helpers.getCommunityById(group.communityId, data);
+        if (community.id !== data.status.community) {
           return false;
         }
         return true;
       }.bind(this));
 
-    myActivities = myActivities.filter(
+    activities = activities.filter(
       function(activity) {
         // check if this activity is on the given day
         if (moment(activity.date).isSame(myDate, 'day')) {
@@ -82,31 +72,29 @@ export default React.createClass({
         }
       }.bind(this));
 
-    // console.log("found activities on the date", myDate.format(), myActivities.length);    
-
-    var community = Helpers.getCommunityFromStatus(this);
+    // console.log("found activities on the date", myDate.format(), activities.length);    
 
     var activityItem = function(activity) {
-      return ( <Listitem key={activity.id} data={activity} showTime={true} onClickHandler={this.onClickActivity}></Listitem> );
+      return ( <Listitem key={activity.id} activity={activity} data={data} showTime={true} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
 
     var header = 
       <div className="jumbotron container text-center">
-        <h1><FormattedMessage id='agenda_in' values={{communityName: community.name}}/></h1>
+        <h1><FormattedMessage id='agenda_in' values={{communityName: data.community.name}}/></h1>
       </div>;
   
     var Component = {};
     
-    if (myActivities.length === 0) {
+    if (activities.length === 0) {
       // no events found
-      Component = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: community.name}}/></h2></Col>;
+      Component = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: data.community.name}}/></h2></Col>;
     }
     else {
-      Component = <Row>{myActivities.map(activityItem, this)}</Row>;
+      Component = <Row>{activities.map(activityItem, this)}</Row>;
     }
 
     return (
-      <div className="container agenda">
+      <div className="container activities">
         <Row>
           <Col md={12} className="text-center box top-buffer bottom-buffer">
             <ButtonGroup>

@@ -4,10 +4,6 @@ import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -17,8 +13,6 @@ import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } fro
 import Listitem from './Calendaritem';
 
 export default React.createClass({
-
-  mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   getInitialState() {
 
@@ -30,9 +24,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    DataActions.forceTrigger();
-    StatusActions.forceTrigger();
-    LanguageActions.forceTrigger();
+    StatusActions.setArea('activities');
   },
 
   onClickActivity(id) {
@@ -42,7 +34,7 @@ export default React.createClass({
 
   onClickDay(date) {
     // console.log("onClickDay", date.format());
-    window.location.assign("#/agenda/" + date.format("DD/MM/YYYY"));
+    window.location.assign("#/activities/" + date.format("DD/MM/YYYY"));
   },
 
   onClickPrevMonth() {
@@ -55,9 +47,7 @@ export default React.createClass({
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.state.status || !this.state.status.community || !this.state.data || !this.state.data.loaded.all) {
-      return <div></div>;
-    }
+    var data = this.props.data;
 
     var days = [], weeks = [];
     var i=0;
@@ -66,15 +56,15 @@ export default React.createClass({
 
     for (var date = startDate.clone(); date.diff(endDate) <= 0; date.add(1, 'days')) {
       // find activities
-      var activitiesFound = this.state.data.activities.filter(
+      var activitiesFound = data.activities.filter(
         function(activity) {
           // check if activity is in selected community
-          var _group = Helpers.getGroupById(activity.groupId, this);
+          var _group = Helpers.getGroupById(activity.groupId, data);
           if (!_group) {
             return false;
           }
-          var _community = Helpers.getCommunityById(_group.communityId, this);
-          if (_community.id !== this.state.status.community) {
+          var _community = Helpers.getCommunityById(_group.communityId, data);
+          if (_community.id !== data.status.community) {
             return false; // filter this entry if item is not in the community
           }
           // check if activity is on that day

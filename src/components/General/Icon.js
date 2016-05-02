@@ -3,17 +3,17 @@ import SvgIcon from 'react-svg-icons';
 import classNames from 'classnames';
 
 var colors = {
-  whatsnew: {
+  news: {
     backgroundColor: '#F6F6F6',
     iconColor: '#e62719',
     solidIconColor: '#FFF'
   },
-  agenda: {
+  activities: {
     backgroundColor: '#F6F6F6',
     iconColor: '#77529D',
     solidIconColor: '#FFF'
   },
-  photos: {
+  stories: {
     backgroundColor: '#F6F6F6',
     iconColor: '#40bf4d',
     solidIconColor: '#FFF'
@@ -37,12 +37,9 @@ export default React.createClass({
       backgroundColor = colors[this.props.area].backgroundColor;
       iconColor = colors[this.props.area].iconColor;
       // if fill parameter is solid (has solid background), then choose different icon color
-      if (this.props.fill === 'solid') {
+      if (this.props.fill === 'solid' || this.props.active === true) {
         iconColor = colors[this.props.area].solidIconColor;
       }
-    }
-    if (this.props.active === true) {
-      iconColor = colors[this.props.area].solidIconColor;
     }
 
     var backgroundShape = this.props.shape || 'circle';

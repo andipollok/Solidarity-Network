@@ -2,20 +2,11 @@ import React from 'react';
 import {Link}  from 'react-router';
 import classNames from 'classnames';
 
-import Reflux from 'reflux';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
-import StatusActions from '../../stores/StatusActions';
-import StatusStore from '../../stores/StatusStore';
-import Helpers from '../../stores/Helpers.js';
-
 import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
-
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   getInitialState() {
     return {
@@ -23,23 +14,19 @@ export default React.createClass({
     }
   },
 
-  componentDidMount() {
-    LanguageActions.forceTrigger();
-    StatusActions.forceTrigger();
-  },
-
-
   render() {
+
+    var data = this.props.data;
     
-    if (Helpers.checkLanguageLoaded(this) && this.state.status) {
-      var whatsnewClasses = classNames( 'whatsnew', {
-        'active': this.state.status.currentPage === 'whatsnew'
+    if (data.status) {
+      var newsClasses = classNames( 'news', {
+        'active': data.status.currentPage === 'news'
       });
-      var agendaClasses = classNames( 'agenda', {
-        'active': this.state.status.currentPage === 'agenda'
+      var activitiesClasses = classNames( 'activities', {
+        'active': data.status.currentPage === 'activities'
       });
-      var photosClasses = classNames( 'photos', {
-        'active': this.state.status.currentPage === 'photos'
+      var storiesClasses = classNames( 'stories', {
+        'active': data.status.currentPage === 'stories'
       });
     }
 
@@ -49,21 +36,21 @@ export default React.createClass({
             <div id="navbar">
              <ul className="nav navbar-nav">
               <li>
-                <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
-                  <div><Icon type={'whatsnew'} area='whatsnew' size='small' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
-                  <FormattedMessage id='nav_whatsnew' defaultMessage='What&#8217;s new?'/>
+                <Link className={newsClasses} activeClassName="active" to="/news">
+                  <div><Icon type='nav-news' area='news' size='small' active={data.status && data.status.currentPage === 'news'}/></div>
+                  <FormattedMessage id='nav_news' defaultMessage='News'/>
                 </Link>
               </li>
               <li>
-                <Link className={agendaClasses} activeClassName="active" to="/agenda">
-                  <div><Icon type={'agenda'} area='agenda' size='small' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
-                  <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
+                <Link className={activitiesClasses} activeClassName="active" to="/activities">
+                  <div><Icon type='nav-activities' area='activities' size='small' active={data.status && data.status.currentPage === 'activities'}/></div>
+                  <FormattedMessage id='nav_activities' defaultMessage='Activities'/>
                 </Link>
               </li>
               <li>
-                <Link className={photosClasses} activeClassName="active" to="/photos">
-                  <div><Icon type={'photos'} area='photos' size='small' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
-                  <FormattedMessage id='nav_photos' defaultMessage='Photos'/>
+                <Link className={storiesClasses} activeClassName="active" to="/stories">
+                  <div><Icon type='nav-stories' area='stories' size='small' active={data.status && data.status.currentPage === 'stories'}/></div>
+                  <FormattedMessage id='nav_stories' defaultMessage='Stories'/>
                 </Link>
               </li>
             </ul>

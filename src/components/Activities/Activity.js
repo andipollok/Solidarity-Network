@@ -3,10 +3,6 @@ import {Link}  from 'react-router';
 import classNames from 'classnames';
 
 import Reflux from 'reflux';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -19,39 +15,28 @@ import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(DataStore, 'data'), Reflux.connect(StatusStore, 'status') ],
-
   componentWillMount() {
-    StatusActions.setArea('agenda');
-    StatusActions.historyAdd({
+    StatusActions.setArea('activities');
+/*    StatusActions.historyAdd({
       title: 'Agenda',
       url: '',
       pathname: '/agenda'
-    });
-  },
-
-  componentDidMount() {
-    LanguageStore.forceTrigger();
-    DataActions.forceTrigger();
-    StatusActions.forceTrigger();    
+    });*/
   },
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.params.id || !this.state.data || !this.state.data.loaded.all) {
-      return <div></div>;
-    }
+    var data = this.props.data;
 
-    var community = Helpers.getCommunityFromStatus(this);
-    var activity = Helpers.getActivityById(this.props.params.id, this);
-    var type = Helpers.getActivityTypeById(activity.typeId, this);
-    var group = Helpers.getGroupById(activity.groupId, this);
-    var owner = group.ownerId ? Helpers.getPersonById(group.ownerId, this) : undefined;
+    var activity = Helpers.getActivityById(this.props.params.id, data);
+    var type = Helpers.getActivityTypeById(activity.typeId, data);
+    var group = Helpers.getGroupById(activity.groupId, data);
+    var owner = group.ownerId ? Helpers.getPersonById(group.ownerId, data) : undefined;
 
     // load photos
     activity.photoList = [];
     activity.photos.map(function(photoId) {
-      var photo = Helpers.getPhotoById(photoId, this);
+      var photo = Helpers.getPhotoById(photoId, data);
       if (!photo) {
         // this can happen if the photo exists but is not served by dataStore (e.g. if the field name was not filled out, dataStore ignores it)
         return false;        
@@ -158,14 +143,14 @@ export default React.createClass({
     }
 
     return (
-      <div className="container agenda">
+      <div className="container activities">
 
         <Row>
           <Col sm={12} className="top-buffer">
 
             <div className="card solid text-center">
 
-              <IconActivity type={type} area='agenda' fill='solid'/>
+              <IconActivity type={type} area='activities' fill='solid'/>
 
               <h1>{activity.name}</h1>
 

@@ -8,7 +8,7 @@ export default React.createClass({
 
   render() {
     
-    var icon = 'activity-' + (this.props.type.icon || 'book');
+    var icon = 'activity-' + (this.props.type.icon || 'default');
 
     return (
       <Icon type={icon} area={this.props.area} fill={this.props.fill} size={this.props.size}>

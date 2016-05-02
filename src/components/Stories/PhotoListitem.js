@@ -2,9 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
-import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
 import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
@@ -12,12 +9,6 @@ import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } fro
 import Icon from '../General/Icon';
 
 export default React.createClass({
-
-  mixins: [ Reflux.connect(DataStore, 'data') ],
-
-  componentDidMount() {
-    DataActions.forceTrigger();
-  },
 
   render() {
 

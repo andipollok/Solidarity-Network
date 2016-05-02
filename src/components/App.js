@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link }  from 'react-router';
 import createHashHistory from 'history/lib/createHashHistory';
+import withScroll from 'scroll-behavior/lib/withStandardScroll';
 
 import classNames from'classnames';
 
@@ -11,6 +12,7 @@ import StatusActions from '../stores/StatusActions';
 import StatusStore from '../stores/StatusStore';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
+import Helpers from '../stores/Helpers';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/lib/locale-data/en';
@@ -54,7 +56,7 @@ import NavBottom from './Nav/NavBottom';
 import Top from './Nav/Top';
 import Footer from './Nav/Footer';
 
-const history = createHashHistory();
+const history = withScroll(createHashHistory());
 
 export default React.createClass({
 
@@ -66,18 +68,26 @@ export default React.createClass({
 
   componentDidMount() {
     LanguageActions.forceTrigger();
+    DataActions.forceTrigger();
+    StatusStore.forceTrigger();
+
     iNoBounce.enable();
     // Listen for changes to the current location.
-/*    const unlisten = history.listen(location => {
-      StatusActions.historyAdd($.extend({}, location,
+    const unlisten = history.listen(location => {
+/*      StatusActions.historyAdd($.extend({}, location,
       {
         title: '',
         url: ''
       }));
-    });*/
+*/
+    });
   },
 
   render: function() {
+
+    if (!Helpers.checkDataLoaded(this) || !Helpers.checkLanguageLoaded(this)) {
+      return <div></div>
+    }
 
     if (this.state.language && this.state.language.selected) {
       intldata.locale = this.state.language.selected;
@@ -89,27 +99,33 @@ export default React.createClass({
       var error = <ErrorMessage {...this.state.data.errors[0]}/>;
     }
 
+    // consolidate other data into data object to pass to children
+    var data = this.state.data;
+    data.language = this.state.language;
+    data.status = this.state.status;
+    data.community = Helpers.getCommunityFromStatus(data);
+
     return (
 
       <IntlProvider {...intldata}>
 
         <div className="flex-container">
 
-          <Nav />
+          <Nav data={data}/>
 
           <div className="top-container">
-            <Top />
+            <Top data={data}/>
           </div>
 
           {error}
 
           <div className="main-container scrollable">
   
-            {this.props.children}
+            {React.cloneElement(this.props.children, {data: data})}
   
           </div>
 
-          <NavBottom />
+          <NavBottom data={data}/>
 
           <Footer />
 

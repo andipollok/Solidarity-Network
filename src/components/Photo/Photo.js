@@ -5,43 +5,32 @@ import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } fro
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import Icon from '../General/Icon';
+import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
-
   componentDidMount() {
-    LanguageActions.forceTrigger();
-    DataActions.forceTrigger();
-    StatusActions.forceTrigger();
-    StatusActions.setArea('photos');
+    StatusActions.setArea('stories');
   },
 
   onClickBack() {
-    window.location.assign("#/photos/");
+    window.location.assign("#/stories/");
   },
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.params.id || !this.state.data || !this.state.data.loaded.all) {
-      return <div></div>;
-    }
- 
+    var data = this.props.data;
+
     var photoId = this.props.params.id;
     //var photo = Helpers.getPhotoById(photoId, this);
     var photo = {};
     // each entry in allPhotos has an images property with an array of attachments. we need to check if any of these matches the id.
-    this.state.data.photos.map(function(p) {
+    data.photos.map(function(p) {
       // each photo contains an image array, as there can also be more than one attachment in Airtable.
       p.image.map(function(image) {
         if (image.id === photoId) {
@@ -60,16 +49,16 @@ export default React.createClass({
       }.bind(this));
     }.bind(this));
 
-    var owner = Helpers.getPersonById(photo.ownerId, this);
-    var activity = Helpers.getActivityById(photo.activityId, this);
-    var type = Helpers.getActivityTypeById(activity.typeId, this);
+    var owner = Helpers.getPersonById(photo.ownerId, data);
+    var activity = Helpers.getActivityById(photo.activityId, data);
+    var type = Helpers.getActivityTypeById(activity.typeId, data);
     // console.log(this.state.data.activities.map(function(a) { return a.id }))
     // console.log(photo.activityId, activity);
     // xxx todo problem - activity is not found sometimes
     var h2Description = photo.description ? <h2>{photo.description}</h2> : '';
 
     return (
-      <div className="container photos">
+      <div className="container stories">
         <Row>
           <Col md={12} className="text-center box">
             <ButtonGroup>
@@ -86,8 +75,8 @@ export default React.createClass({
               </div>
             </Link>
             <Link to={`/activity/${activity.id}`}>
-              <div className="card solid agenda">
-                <Icon type={'activity-' + type.name} area='agenda' fill='solid' shape='hexagon'/>
+              <div className="card solid activities">
+                <IconActivity type={type} area='activities' fill='solid' />
                 <h4>{activity.name}</h4>
                 <p><FormattedDate
                           value={activity.date}

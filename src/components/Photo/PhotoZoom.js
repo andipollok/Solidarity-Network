@@ -5,10 +5,7 @@ import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } fro
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
+
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -18,21 +15,13 @@ import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
-
   componentWillMount() {
-    StatusActions.historyAdd({
+/*    StatusActions.historyAdd({
       title: 'Photo Detail',
       url: '',
       pathname: '/photos'
-    });
-    StatusActions.setArea('photos');
-  },
-
-  componentDidMount() {
-    LanguageActions.forceTrigger();
-    DataActions.forceTrigger();
-    StatusActions.forceTrigger();
+    });*/
+    StatusActions.setArea('stories');
   },
 
   makeZoomable() {
@@ -48,15 +37,13 @@ export default React.createClass({
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.props.params.id || !this.state.data || !this.state.data.loaded.all) {
-      return <div></div>;
-    }
+    var data = this.props.data;
  
     var photoId = this.props.params.id;
     //var photo = Helpers.getPhotoById(photoId, this);
     var photo = {};
     // each entry in allPhotos has an images property with an array of attachments. we need to check if any of these matches the id.
-    this.state.data.photos.map(function(p) {
+    data.photos.map(function(p) {
       // each photo contains an image array, as there can also be more than one attachment in Airtable.
       p.image.map(function(image) {
         if (image.id === photoId) {
@@ -75,13 +62,13 @@ export default React.createClass({
       }.bind(this));
     }.bind(this));
 
-    var owner = Helpers.getPersonById(photo.ownerId, this);
-    var activity = Helpers.getActivityById(photo.activityId, this);
+    var owner = Helpers.getPersonById(photo.ownerId, data);
+    var activity = Helpers.getActivityById(photo.activityId, data);
 
     this.makeZoomable();
 
     return (
-      <div className="container-fluid photos">
+      <div className="container-fluid stories">
         <Row>
           <Col md={12} className="text-center box">
             <ButtonGroup>

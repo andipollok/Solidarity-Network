@@ -7,10 +7,6 @@ import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 
 import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
@@ -21,24 +17,15 @@ import ActivityTypeSelector from './ActivityTypeSelector';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
-
   getInitialState: function() {
     return {
       type: ''
     };
   },
 
-  componentDidMount() {
-    DataActions.forceTrigger();
-    LanguageActions.forceTrigger();
-    StatusActions.forceTrigger();
-  },
-
   onClickActivity(id) {
     window.location.assign("#/activity/" + id);
   },
-
 
   setType(_type) {
     this.setState({ type: _type });
@@ -46,23 +33,21 @@ export default React.createClass({
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this) || !this.state.status || !this.state.status.community || !this.state.data || !this.state.data.loaded.all) {
-      return <div></div>;
-    }
+    var data = this.props.data;
 
     var activities = [];
-    var community = Helpers.getCommunityById(this.state.status.community, this);
+    var community = Helpers.getCommunityById(data.status.community, data);
 
-    activities = this.state.data.activities.filter(
+    activities = data.activities.filter(
       function(activity) {
 
         // check if activity is in selected community
-        var _group = Helpers.getGroupById(activity.groupId, this);
+        var _group = Helpers.getGroupById(activity.groupId, data);
         if (!_group) {
           return false;
         }
-        var _community = Helpers.getCommunityById(_group.communityId, this);
-        if (_community.id !== this.state.status.community) {
+        var _community = Helpers.getCommunityById(_group.communityId, data);
+        if (_community.id !== data.status.community) {
           return false; // filter this entry if item is not in the community
         }
 
@@ -81,7 +66,7 @@ export default React.createClass({
     );
 
     var activityItem = function(activity) {
-      return ( <AgendaListitem key={activity.id} data={activity} showDate={true} showTime={true} showIcon={this.state.type === ''} onClickHandler={this.onClickActivity} /> );
+      return ( <AgendaListitem key={activity.id} activity={activity} data={data} showDate={true} showTime={true} showIcon={this.state.type === ''} onClickHandler={this.onClickActivity} /> );
     }.bind(this);
   
     if (activities.length === 0) {
@@ -92,7 +77,7 @@ export default React.createClass({
     return (
         <div className="container agenda">
 
-          <ActivityTypeSelector onSelectType={this.setType} selectedType={this.state.type}/>
+          <ActivityTypeSelector onSelectType={this.setType} data={data} selectedType={this.state.type}/>
 
           <Row>{activities.map(activityItem, this)}</Row>
 

@@ -7,20 +7,20 @@ import createHashHistory from 'history/lib/createHashHistory';
 import App from './components/App';
 import Settings from './components/Settings/Settings';
 
-import Whatsnew from './components/News/Whatsnew';
-import Agenda from './components/Agenda/Agenda';
-import Photos from './components/Stories/Stories';
+import News from './components/News/News';
+import Activities from './components/Activities/List';
+import Calendar from './components/Activities/Calendar';
+import Stories from './components/Stories/Stories';
 
-import Day from './components/Agenda/Day';
-
+import Person from './components/Person/Person';
 import Group from './components/Group/Group';
 import Groups from './components/Group/Groups';
 
-import Activity from './components/Activity/Activity';
+import Day from './components/Activities/Day';
+import Activity from './components/Activities/Activity';
+import Story from './components/Stories/Story';
 import Photo from './components/Photo/Photo';
 import PhotoZoom from './components/Photo/PhotoZoom';
-
-import Person from './components/Person/Person';
 
 
 // polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
@@ -56,21 +56,27 @@ render(
   (
     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
       <Route name="home" path="/" component={App}>
-        <IndexRoute component={Whatsnew}/>
+
+        <IndexRoute component={News}/>
+
         <Route name="settings" path="/settings" component={Settings}/>
 
-        <Route name="whatsnew" path="/whatsnew" component={Whatsnew}/>
-        <Route name="agenda" path="/agenda" component={Agenda}/>
-        <Route name="photos" path="/photos" component={Photos}/>
+        <Route name="news" path="/news" component={News}/>
+        <Route name="activities" path="/activities" component={Activities}/>
+        <Route name="activities/month" path="/activities/month" component={Calendar}/>
+        <Route name="stories" path="/stories" component={Stories}/>
 
-        <Route name="day" path="/agenda/:day/:month/:year" component={Day}/>
+        <Route name="day" path="/activities/:day/:month/:year" component={Day}/>
 
         <Route name="groups" path="/groups/" component={Groups}/>
         <Route name="group" path="/group/:id" component={Group}/>
 
-        <Route name="group" path="/person/:id" component={Person}/>
+        <Route name="person" path="/person/:id" component={Person}/>
 
         <Route name="activity" path="/activity/:id" component={Activity}/>
+
+        <Route name="story" path="/story/:id" component={Story}/>
+
         <Route name="photo" path="/photo/:id" component={Photo}/>
         <Route name="photozoom" path="/photo/:id/zoom" component={PhotoZoom}/>
 

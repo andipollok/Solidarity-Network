@@ -16,51 +16,59 @@ module.exports = {
     return true;
   },
 
-  getCommunityFromStatus: function(_this) {
-    if (!_this || !_this.state) {
+  checkDataLoaded: function(_this) {
+    if (!_this || !_this.state || !_this.state.data || (_this.state.data && !_this.state.data.loaded.all)) {
+      return false;
+    }
+    return true;
+  },
+
+  getCommunityFromStatus: function(data) {
+    if (!data || !data.loaded) {
       return {};
     }
     var community = {};
-      if (_this.state.status && _this.state.status.community) {
-        if (_this.state.data && _this.state.data.loaded.communities) {
-        community = $.grep(_this.state.data.communities, function(e){ return e.id === _this.state.status.community; }.bind(_this))[0];
+      if (data.status && data.status.community) {
+        if (data && data.loaded.communities) {
+        community = $.grep(data.communities, function(e){ return e.id === data.status.community; }.bind(this))[0];
       }
     }
     return community;
   },
 
-  getCommunityById: function(_id, _this) {
-    if (!_id || !_this || !_this.state) {
-      console.error('Could not get Community, arguments missing.', _id, _this);
+  getCommunityById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Community, arguments missing.', id, data);
       return {};
     }
     var community = {};
-    if (_this.state.data && _this.state.data.loaded.communities) {
-      community = $.grep(_this.state.data.communities, function(e){ return e.id === _id; }.bind(this))[0];
+    if (data.loaded.communities) {
+      community = $.grep(data.communities, function(e){ return e.id === id; }.bind(this))[0];
     }
     return community;
   },
 
-  getGroupById: function(_id, _this) {
-    if (!_id || !_this || !_this.state) {
-      console.error('Could not get Group, arguments missing.', _id, _this);
+  getGroupById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Group, arguments missing.', id, data);
       return {};
     }
     var group = {};
-    if (_this.state.data && _this.state.data.loaded.groups) {
-      group = $.grep(_this.state.data.groups, function(e){ return e.id === _id; }.bind(this))[0];
+    // console.log("getgroupbyid", data);
+    if (data.loaded.groups) {
+      group = $.grep(data.groups, function(e){ return e.id === id; }.bind(this))[0];
     }
     return group;
   },
 
-  getActivityById: function(_id, _this) {
-    if (!_id || !_this || !_this.state) {
-      console.error('Could not get Activity, arguments missing.', _id, _this);
+  getActivityById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Activity, arguments missing.', id, data);
       return {};
     }
     var activity = {};
-    if (_this.state.data && _this.state.data.loaded.activities) {
-      activity = $.grep(_this.state.data.activities, function(e){ return e.id === _id; }.bind(this))[0];
+    if (data.loaded.activities) {
+      activity = $.grep(data.activities, function(e){ return e.id === id; }.bind(this))[0];
     }
     else {
       console.error('Could not get Activity, data not loaded yet.');
@@ -68,14 +76,14 @@ module.exports = {
     return activity;
   },
 
-  getActivityTypeById: function(_id, _this) {
-    if (!_id || !_this || !_this.state) {
-      console.error('Could not get Activity type, arguments missing.', _id, _this);
+  getActivityTypeById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Activity type, arguments missing.', id, data);
       return {};
     }
     var activitytype = {};
-    if (_this.state.data && _this.state.data.loaded.activitytypes) {
-      activitytype = $.grep(_this.state.data.activitytypes, function(e){ return e.id === _id; }.bind(this))[0];
+    if (data.loaded.activitytypes) {
+      activitytype = $.grep(data.activitytypes, function(e){ return e.id === id; }.bind(this))[0];
     }
     else {
       console.error('Could not get Activity type, data not loaded yet.');
@@ -83,14 +91,14 @@ module.exports = {
     return activitytype;
   },
 
-  getPersonById: function(_id, _this) {
-    if (!_id || !_this || !_this.state) {
-      console.error('Could not get Person, arguments missing.', _id, _this);
+  getPersonById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Person, arguments missing.', id, data);
       return {};
     }
     var person = {};
-    if (_this.state.data && _this.state.data.loaded.people) {
-      person = $.grep(_this.state.data.people, function(e){ return e.id === _id; }.bind(this))[0];
+    if (data.loaded.people) {
+      person = $.grep(data.people, function(e){ return e.id === id; }.bind(this))[0];
     }
     else {
       console.error('Could not get Person, data not loaded yet.');
@@ -98,14 +106,14 @@ module.exports = {
     return person;
   },
 
-  getPhotoById: function(_id, _this) {
-    if (!_id || !_this || !_this.state) {
-      console.error('Could not get Photo, arguments missing.', _id, _this);
+  getPhotoById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Photo, arguments missing.', id, data);
       return {};
     }
     var photo = {};
-    if (_this.state.data && _this.state.data.loaded.photos) {
-      photo = $.grep(_this.state.data.photos, function(e){ return e.id === _id; }.bind(this))[0];
+    if (data.loaded.photos) {
+      photo = $.grep(data.photos, function(e){ return e.id === id; }.bind(this))[0];
     }
     else {
       console.error('Could not get Photo, data not loaded yet.');

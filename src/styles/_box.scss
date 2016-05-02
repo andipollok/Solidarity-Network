@@ -34,17 +34,17 @@
       // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color_primary2; }
       // &.photos   { box-shadow:inset 0px 0px 0px 10px $color_primary3; }
 
-      &.whatsnew.solid {
+      &.news.solid {
         background-color:$color_primary1;
         color:$color_primary1_font;
         .grey { color:white; }
       }
-      &.agenda.solid {
+      &.activities.solid {
         background-color:$color_primary2;
         color:$color_primary2_font;
         .grey { color:white; }
       }
-      &.photos.solid {
+      &.stories.solid {
         background-color:$color_primary3;
         color:$color_primary3_font;
       }
@@ -59,7 +59,7 @@
   }
 }
 
-.whatsnew { 
+.news { 
   .box.outline { 
     border: 2px solid $color_primary1;
   }
@@ -67,7 +67,7 @@
     background-color:$color_primary1;
   }
 }
-.agenda {
+.activities {
   .box.outline {
     border: 2px solid $color_primary2;
   }
@@ -75,7 +75,7 @@
     background-color:$color_primary2;
   }
 }
-.photos {
+.stories {
   .box.outline {
     border: 2px solid $color_primary3;
   }

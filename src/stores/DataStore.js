@@ -290,11 +290,23 @@ export default Reflux.createStore({
     },
  
     forceTrigger: function() {
+      if (this.checkData()) {
+        this.trigger(data);
+      }
+    },
+
+    checkData: function() {
+      if (!data) { return false; }
       if (data.loaded.whatsnew && data.loaded.communities && data.loaded.groups && data.loaded.activities && data.loaded.activitytypes && data.loaded.photos && data.loaded.people) {
         data.loaded.all = true;
+        return true;
       }
-      this.trigger(data);
+      else {
+        return true;
+      }
     }
+
+
 
 });
 

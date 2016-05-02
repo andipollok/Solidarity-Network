@@ -1,8 +1,8 @@
 {
   "loading": "Just a moment please…",
-  "nav_whatsnew": "News",
-  "nav_agenda": "Agenda",
-  "nav_photos": "Stories",
+  "nav_news": "News",
+  "nav_activities": "Activities",
+  "nav_stories": "Stories",
   "nav_settings": "Settings",
   "nav_openmenu": "Open menu",
   "nav_closemenu": "Close menu",
@@ -46,12 +46,12 @@
   "photos_by": "Photos by {personName}",
   "photo_by": "Photo by {personName}",
 
-  "whatsnew-uploadedphoto": "{personName} shared 8 photos from {activityName}!",
-  "whatsnew-changedtime": "Careful, {personName} changed the starting time of {activityName}!",
-  "whatsnew-createdgroup": "{personName} created a new group {groupName}!",
-  "whatsnew-cancelled": "Bummer! {personName} cancelled the activity {activityName}.",
-  "whatsnew-joinedgroup": "Hooray! {personName} joined the group {groupName}.",
-  "whatsnew-createdactivity": "Oh yeah, {personName} created the activity {activityName}.",
+  "news-uploadedphoto": "{personName} shared 8 photos from {activityName}!",
+  "news-changedtime": "Careful, {personName} changed the starting time of {activityName}!",
+  "news-createdgroup": "{personName} created a new group {groupName}!",
+  "news-cancelled": "Bummer! {personName} cancelled the activity {activityName}.",
+  "news-joinedgroup": "Hooray! {personName} joined the group {groupName}.",
+  "news-createdactivity": "Oh yeah, {personName} created the activity {activityName}.",
 
   "today": "Today",
 }

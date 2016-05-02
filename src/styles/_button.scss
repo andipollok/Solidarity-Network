@@ -32,7 +32,7 @@ button {
 }
 
 
-.whatsnew {
+.news {
   button.btn-primary {
     background-color: $color_primary1;    
   }
@@ -47,7 +47,7 @@ button {
   }
 }
 
-.agenda {
+.activities {
   button.btn-primary {
     background-color: $color_primary2;    
   }
@@ -63,7 +63,7 @@ button {
 }
 
 
-.photos {
+.stories {
   button.btn {
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
       background-color: $color_primary3;

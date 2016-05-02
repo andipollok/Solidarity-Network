@@ -2,13 +2,6 @@ import React from 'react';
 import {Link}  from 'react-router';
 import classNames from 'classnames';
 
-import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
-import StatusActions from '../../stores/StatusActions';
-import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
 import Icon from '../General/Icon';
@@ -17,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
 
-  mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
+  // mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
 
   getInitialState() {
     return {
@@ -25,24 +18,26 @@ export default React.createClass({
     }
   },
 
-  componentDidMount() {
-    DataActions.forceTrigger();
-    LanguageActions.forceTrigger();
-    StatusActions.forceTrigger();
-  },
+  // componentDidMount() {
+  //   DataActions.forceTrigger();
+  //   LanguageActions.forceTrigger();
+  //   StatusActions.forceTrigger();
+  // },
 
 
   render() {
+
+    var data = this.props.data;
     
-    if (Helpers.checkLanguageLoaded(this) && this.state.status) {
+    if (data.status) {
       var whatsnewClasses = classNames( 'whatsnew', {
-        'active': this.state.status.currentPage === 'whatsnew'
+        'active': data.status.currentPage === 'whatsnew'
       });
       var agendaClasses = classNames( 'agenda', {
-        'active': this.state.status.currentPage === 'agenda'
+        'active': data.status.currentPage === 'agenda'
       });
       var photosClasses = classNames( 'photos', {
-        'active': this.state.status.currentPage === 'photos'
+        'active': data.status.currentPage === 'photos'
       });
     }
 
@@ -52,19 +47,19 @@ export default React.createClass({
             <ul className="nav navbar-nav">
               <li>
                 <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
-                  <div><Icon type={'whatsnew'} area='whatsnew' active={this.state.status && this.state.status.currentPage === 'whatsnew'}/></div>
+                  <div><Icon type={'whatsnew'} area='whatsnew' active={data.status && data.status.currentPage === 'whatsnew'}/></div>
                   <FormattedMessage id='nav_whatsnew' defaultMessage='News'/>
                 </Link>
               </li>
               <li>
                 <Link className={agendaClasses} activeClassName="active" to="/agenda">
-                  <div><Icon type={'agenda'} area='agenda' active={this.state.status && this.state.status.currentPage === 'agenda'}/></div>
+                  <div><Icon type={'agenda'} area='agenda' active={data.status && data.status.currentPage === 'agenda'}/></div>
                   <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
                 </Link>
               </li>
               <li>
                 <Link className={photosClasses} activeClassName="active" to="/photos">
-                  <div><Icon type={'photos'} area='photos' active={this.state.status && this.state.status.currentPage === 'photos'}/></div>
+                  <div><Icon type={'photos'} area='photos' active={data.status && data.status.currentPage === 'photos'}/></div>
                   <FormattedMessage id='nav_photos' defaultMessage='Stories'/>
                 </Link>
               </li>
