@@ -40,7 +40,7 @@ export default React.createClass({
     }
 
     if (this.props.showIcon) {
-      var componentIcon = <IconActivity type={type} area='agenda' fill='solid' />;
+      var componentIcon = <IconActivity type={type} area='activities' isOnSolid={true} />;
     }
 
     if (this.props.showTime) {
@@ -91,6 +91,7 @@ export default React.createClass({
           {componentDate}
 
           {componentTime}
+
 
         </div>
       </Col>

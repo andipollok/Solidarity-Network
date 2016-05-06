@@ -37,7 +37,7 @@ export default React.createClass({
       backgroundColor = colors[this.props.area].backgroundColor;
       iconColor = colors[this.props.area].iconColor;
       // if fill parameter is solid (has solid background), then choose different icon color
-      if (this.props.fill === 'solid' || this.props.active === true) {
+      if (this.props.isOnSolid === true || this.props.active === true) {
         iconColor = colors[this.props.area].solidIconColor;
       }
     }

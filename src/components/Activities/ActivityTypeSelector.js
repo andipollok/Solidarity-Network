@@ -70,7 +70,7 @@ export default React.createClass({
       });
       return (
         <li key={type.id} onClick={this.onClickType.bind(this, type.id)} className={divClass}>
-          <p><IconActivity type={type} area='agenda'/></p>
+          <p><IconActivity type={type} area='activities' active='false'/></p>
           <p>{type.name}</p>
           {type.count}
         </li>

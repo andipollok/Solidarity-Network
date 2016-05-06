@@ -150,7 +150,7 @@ export default React.createClass({
 
             <div className="card solid text-center">
 
-              <IconActivity type={type} area='activities' fill='solid'/>
+              <IconActivity type={type} area='activities' isOnSolid={true}/>
 
               <h1>{activity.name}</h1>
 
@@ -171,8 +171,18 @@ export default React.createClass({
         </Row>
 
         <Row>
+          <Col sm={12} className="box">
+            <p>
+              {activity.description}
+            </p>
+          </Col>
+        </Row>
+
+        <Row>
           <Col sm={4}>
+
             {componentOwner}
+
           </Col>
 
           <Col sm={4}>
