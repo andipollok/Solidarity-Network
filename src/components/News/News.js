@@ -18,8 +18,6 @@ export default React.createClass({
   },
 
   onClickSelectItem(url) {
-    console.log('click on whatsnew item', url);
-    // -todo- for some reason this does not work on ipad!
     window.location.assign('#/' + url);
   },
 

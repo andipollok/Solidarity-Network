@@ -32,7 +32,7 @@ export default React.createClass({
     }
 
     if (link) {
-      var componentLink = <a href="" onClick={this.props.onClickHandler.bind(null, link)}>Open</a>;
+      var componentLink = <a onClick={this.props.onClickHandler.bind(null, link)}>Open</a>;
     }
 
     var date = <p>
