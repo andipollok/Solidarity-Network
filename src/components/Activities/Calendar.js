@@ -11,8 +11,11 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 import Listitem from './Calendaritem';
+import TypeSelectorButton from './TypeSelectorButton';
 
 export default React.createClass({
+
+  // mixins: [ Reflux.connect(StatusStore, 'status') ],
 
   getInitialState() {
 
@@ -24,7 +27,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    StatusActions.setArea('activities');
+    StatusActions.setPage('activities');
   },
 
   onClickActivity(id) {
@@ -58,17 +61,24 @@ export default React.createClass({
       // find activities
       var activitiesFound = data.activities.filter(
         function(activity) {
-          // check if activity is in selected community
-          var _group = Helpers.getGroupById(activity.groupId, data);
-          if (!_group) {
-            return false;
-          }
-          var _community = Helpers.getCommunityById(_group.communityId, data);
-          if (_community.id !== data.status.community) {
-            return false; // filter this entry if item is not in the community
-          }
           // check if activity is on that day
           if(moment(activity.date).isSame(date, 'day')) {
+
+            // check if activity is of selected type(s)
+            if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
+              return false;
+            }
+
+            // check if activity is in selected community
+            var _community = Helpers.getCommunityById(activity.communityId, data);
+            if (!_community) {
+              return false;
+            }
+            var _area = Helpers.getAreaById(_community.areaId, data);
+            if (_area.id !== data.status.area) {
+              return false; // filter this entry if item is not in the community
+            }
+
             return true;
           }
         }.bind(this));
@@ -120,22 +130,27 @@ export default React.createClass({
     var weekdays = Helpers.rotateArray(moment.weekdaysShort(), moment.localeData().firstDayOfWeek());
 
     return (
-      <div className="calendar">
-        <Row className="calendar-row">
-          <Col className="calendar-xs-1 text-center">
-            <h3 onClick={this.onClickPrevMonth}>&lt;</h3>
-          </Col>
-          <Col className="calendar-xs-5 text-center">
-            <h2>{Helpers.capitalizeFirstLetter(this.state.month.format('MMMM YYYY'))}</h2>
-          </Col>
-          <Col className="calendar-xs-1 text-center">
-            <h3 onClick={this.onClickNextMonth}>&gt;</h3>
-          </Col>
-        </Row>
-        <Row className="calendar-row hidden-xs">
-          {weekdays.map(dayHeader, this)}
-        </Row>
-          {weeks.map(weekItem, this)}
+      <div className="container">
+
+        <TypeSelectorButton data={data}/>
+
+        <div className="calendar">
+          <Row className="calendar-row">
+            <Col className="calendar-xs-1 text-center">
+              <h3 onClick={this.onClickPrevMonth}>&lt;</h3>
+            </Col>
+            <Col className="calendar-xs-5 text-center">
+              <h2>{Helpers.capitalizeFirstLetter(this.state.month.format('MMMM YYYY'))}</h2>
+            </Col>
+            <Col className="calendar-xs-1 text-center">
+              <h3 onClick={this.onClickNextMonth}>&gt;</h3>
+            </Col>
+          </Row>
+          <Row className="calendar-row hidden-xs">
+            {weekdays.map(dayHeader, this)}
+          </Row>
+            {weeks.map(weekItem, this)}
+        </div>
       </div>
     );
   }

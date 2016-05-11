@@ -13,7 +13,7 @@ export default React.createClass({
     // LanguageStore.forceTrigger();
     // DataActions.forceTrigger();
     // StatusActions.forceTrigger();
-    StatusActions.setArea('agenda');
+    StatusActions.setPage('agenda');
   },
 
   render() {

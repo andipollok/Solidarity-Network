@@ -15,7 +15,7 @@ export default React.createClass({
     var data = this.props.data;
     var activity = this.props.activity;
 
-    var group = Helpers.getGroupById(activity.groupId, data);
+    var community = Helpers.getCommunityById(activity.communityId, data);
 
     var type = Helpers.getActivityTypeById(activity.typeId, data);
     
@@ -82,7 +82,7 @@ export default React.createClass({
 
       <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.activity.id)}>
 
-        <div className="card solid linked padded text-center solid">
+        <div className="card upcoming solid linked padded text-center solid">
 
           {componentIcon}
 

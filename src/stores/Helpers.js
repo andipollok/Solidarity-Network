@@ -23,17 +23,29 @@ module.exports = {
     return true;
   },
 
-  getCommunityFromStatus: function(data) {
+  getAreaFromStatus: function(data) {
     if (!data || !data.loaded) {
       return {};
     }
-    var community = {};
-      if (data.status && data.status.community) {
-        if (data && data.loaded.communities) {
-        community = $.grep(data.communities, function(e){ return e.id === data.status.community; }.bind(this))[0];
+    var area = {};
+      if (data.status && data.status.area) {
+        if (data && data.loaded.areas) {
+        area = $.grep(data.areas, function(e){ return e.id === data.status.area; }.bind(this))[0];
       }
     }
-    return community;
+    return area;
+  },
+
+  getAreaById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Area, arguments missing.', id, data);
+      return {};
+    }
+    var area = {};
+    if (data.loaded.areas) {
+      area = $.grep(data.areas, function(e){ return e.id === id; }.bind(this))[0];
+    }
+    return area;
   },
 
   getCommunityById: function(id, data) {
@@ -42,23 +54,11 @@ module.exports = {
       return {};
     }
     var community = {};
+    // console.log("getCommunityById", data);
     if (data.loaded.communities) {
       community = $.grep(data.communities, function(e){ return e.id === id; }.bind(this))[0];
     }
     return community;
-  },
-
-  getGroupById: function(id, data) {
-    if (!id || !data || !data.loaded) {
-      console.error('Could not get Group, arguments missing.', id, data);
-      return {};
-    }
-    var group = {};
-    // console.log("getgroupbyid", data);
-    if (data.loaded.groups) {
-      group = $.grep(data.groups, function(e){ return e.id === id; }.bind(this))[0];
-    }
-    return group;
   },
 
   getActivityById: function(id, data) {

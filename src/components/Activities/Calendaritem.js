@@ -32,6 +32,12 @@ export default React.createClass({
       linked: this.props.day.activities.length > 0,
       grey: !this.props.activeMonth.isSame(this.props.day.date, 'month')
     });
+
+    // add class to highlight there is an activity
+    var headingClass = classNames( { 
+      highlight: this.props.day.activities.length > 0
+    });
+
     // add message if it's today
     if (this.props.day.date.isSame(moment(), 'day')) {
       var isToday = <p className="grey"><FormattedMessage id="today" defaultMessage="Today"/></p>;
@@ -57,10 +63,9 @@ export default React.createClass({
     return (
       <Col className="calendar-xs-1 height100 bottom-buffer" onClick={ this.onClick }>
         <div className={divClass}>
-          <h4>{this.props.day.date.format('D')}</h4>
+          <h4 className={headingClass}>{this.props.day.date.format('D')}</h4>
           {monthName}
           {isToday}
-          <span>{numberofActivities}</span>
         </div>
       </Col>
     );

@@ -8,7 +8,7 @@
       padding:0;
     }
     &.outline {
-      border: 2px solid $color_lightgrey;
+      border: 2px solid $color_grey4;
     }
     &.outline.rounded {
       border-radius:12px;
@@ -26,60 +26,60 @@
     }
     &.linked:hover {
       // transform: rotate(-1deg) scale(1.1);
-      z-index:9999;
+      z-index:99;
       box-sizing: border-box;
       box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25), 0px 0px 10px 0px rgba(0,0,0,0.05);
       // box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25);
-      // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color_primary1; }
-      // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color_primary2; }
-      // &.photos   { box-shadow:inset 0px 0px 0px 10px $color_primary3; }
+      // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color1; }
+      // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color2; }
+      // &.photos   { box-shadow:inset 0px 0px 0px 10px $color3; }
 
       &.news.solid {
-        background-color:$color_primary1;
-        color:$color_primary1_font;
+        background-color:$color1;
+        color:$color1_font;
         .grey { color:white; }
       }
       &.activities.solid {
-        background-color:$color_primary2;
-        color:$color_primary2_font;
+        background-color:$color2;
+        color:$color2_font;
         .grey { color:white; }
       }
       &.stories.solid {
-        background-color:$color_primary3;
-        color:$color_primary3_font;
+        background-color:$color3;
+        color:$color3_font;
       }
     }
     &.selected {
       color:white;
-      background-color: $color_primary1;
+      background-color: $color1;
     }
     &.selected:hover {
-      background-color: $color_primary1;
+      background-color: $color1;
     }
   }
 }
 
 .news { 
   .box.outline { 
-    border: 2px solid $color_primary1;
+    border: 2px solid $color1;
   }
   .box.solid { 
-    background-color:$color_primary1;
+    background-color:$color1;
   }
 }
 .activities {
   .box.outline {
-    border: 2px solid $color_primary2;
+    border: 2px solid $color2;
   }
   .box.solid { 
-    background-color:$color_primary2;
+    background-color:$color2;
   }
 }
 .stories {
   .box.outline {
-    border: 2px solid $color_primary3;
+    border: 2px solid $color3;
   }
   .box.solid { 
-    background-color:$color_primary3;
+    background-color:$color3;
   }
 }

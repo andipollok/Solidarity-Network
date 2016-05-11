@@ -52,7 +52,6 @@ moment.locale('en', {
 
 
 import Nav from './Nav/Nav';
-import NavBottom from './Nav/NavBottom';
 import Top from './Nav/Top';
 import Footer from './Nav/Footer';
 
@@ -103,15 +102,13 @@ export default React.createClass({
     var data = this.state.data;
     data.language = this.state.language;
     data.status = this.state.status;
-    data.community = Helpers.getCommunityFromStatus(data);
-
+    data.area = Helpers.getAreaFromStatus(data);
+    
     return (
 
       <IntlProvider {...intldata}>
 
         <div className="flex-container">
-
-          <Nav data={data}/>
 
           <div className="top-container">
             <Top data={data}/>
@@ -125,7 +122,7 @@ export default React.createClass({
   
           </div>
 
-          <NavBottom data={data}/>
+          <Nav data={data}/>
 
           <Footer />
 

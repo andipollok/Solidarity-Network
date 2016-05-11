@@ -1,0 +1,20 @@
+.typeselector { 
+  .box.solid { 
+    background-color: $color2;
+  }
+
+  .activity-item {
+    cursor: pointer;
+    color: $color_light;
+    &.selected {
+      background-color: white;
+      color: $color_dark;
+    }
+  }
+
+}
+
+.typeselectorbutton {
+  margin-top:20px;
+  margin-bottom:20px;
+}

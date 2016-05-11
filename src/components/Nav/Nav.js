@@ -2,15 +2,11 @@ import React from 'react';
 import {Link}  from 'react-router';
 import classNames from 'classnames';
 
-import Helpers from '../../stores/Helpers.js';
-
 import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
-
-  // mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
 
   getInitialState() {
     return {
@@ -18,55 +14,67 @@ export default React.createClass({
     }
   },
 
-  // componentDidMount() {
-  //   DataActions.forceTrigger();
-  //   LanguageActions.forceTrigger();
-  //   StatusActions.forceTrigger();
-  // },
-
-
   render() {
 
     var data = this.props.data;
     
     if (data.status) {
-      var whatsnewClasses = classNames( 'whatsnew', {
-        'active': data.status.currentPage === 'whatsnew'
+      var homeClasses = classNames( 'home', {
+        'active': data.status.currentPage === 'home'
       });
-      var agendaClasses = classNames( 'agenda', {
-        'active': data.status.currentPage === 'agenda'
+      var newsClasses = classNames( 'news', {
+        'active': data.status.currentPage === 'news'
       });
-      var photosClasses = classNames( 'photos', {
-        'active': data.status.currentPage === 'photos'
+      var activitiesClasses = classNames( 'activities', {
+        'active': data.status.currentPage === 'activities'
+      });
+      var storiesClasses = classNames( 'stories', {
+        'active': data.status.currentPage === 'stories'
+      });
+      var settingsClasses = classNames( 'settings', {
+        'active': data.status.currentPage === 'settings'
       });
     }
 
     return (
-        <nav className="navbar navbar-default navbar-top hidden-sm hidden-xs" role="navigation">
-          <div className="container">
-            <ul className="nav navbar-nav">
+        <nav className="navbar navbar-bottom hidden-md hidden-lg" role="navigation">
+          <div className="text-center">
+            <div id="navbar">
+             <ul className="nav navbar-nav">
               <li>
-                <Link className={whatsnewClasses} activeClassName="active" to="/whatsnew">
-                  <div><Icon type={'whatsnew'} area='whatsnew' active={data.status && data.status.currentPage === 'whatsnew'}/></div>
-                  <FormattedMessage id='nav_whatsnew' defaultMessage='News'/>
+                <Link className={homeClasses} activeClassName="active" to="/home">
+                  <div><Icon type='nav-default' area='home' size='small' active={data.status && data.status.currentPage === 'home'}/></div>
+                  <FormattedMessage id='nav_home' defaultMessage='Home'/>
                 </Link>
               </li>
               <li>
-                <Link className={agendaClasses} activeClassName="active" to="/agenda">
-                  <div><Icon type={'agenda'} area='agenda' active={data.status && data.status.currentPage === 'agenda'}/></div>
-                  <FormattedMessage id='nav_agenda' defaultMessage='Agenda'/>
+                <Link className={newsClasses} activeClassName="active" to="/news">
+                  <div><Icon type='nav-news' area='news' size='small' active={data.status && data.status.currentPage === 'news'}/></div>
+                  <FormattedMessage id='nav_news' defaultMessage='News'/>
                 </Link>
               </li>
               <li>
-                <Link className={photosClasses} activeClassName="active" to="/photos">
-                  <div><Icon type={'photos'} area='photos' active={data.status && data.status.currentPage === 'photos'}/></div>
-                  <FormattedMessage id='nav_photos' defaultMessage='Stories'/>
+                <Link className={activitiesClasses} activeClassName="active" to="/activities">
+                  <div><Icon type='nav-activities' area='activities' size='small' active={data.status && data.status.currentPage === 'activities'}/></div>
+                  <FormattedMessage id='nav_activities' defaultMessage='Activities'/>
+                </Link>
+              </li>
+              <li>
+                <Link className={storiesClasses} activeClassName="active" to="/stories">
+                  <div><Icon type='nav-stories' area='stories' size='small' active={data.status && data.status.currentPage === 'stories'}/></div>
+                  <FormattedMessage id='nav_stories' defaultMessage='Stories'/>
+                </Link>
+              </li>
+              <li>
+                <Link className={settingsClasses} activeClassName="active" to="/settings">
+                  <div><Icon type='nav-default' area='home' size='small' active={data.status && data.status.currentPage === 'settings'}/></div>
+                  <FormattedMessage id='nav_settings' defaultMessage='Settings'/>
                 </Link>
               </li>
             </ul>
+            </div>
           </div>
         </nav>
-
     );
   }
 });

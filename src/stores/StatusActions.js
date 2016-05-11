@@ -2,11 +2,19 @@ var Reflux = require('reflux');
 
 module.exports = Reflux.createActions([
   "setJoin",
-  "setCommunity",
   "setArea",
+  
   "setTitle",
+  "setPage",
+
+  "addActivityType",
+  "removeActivityType",
+  "clearActivityTypes",
+
   "historyAdd",
   "historyBack",
   "historyForward",
+
   "forceTrigger"
+
 ]);

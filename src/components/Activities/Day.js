@@ -9,7 +9,8 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import Listitem from './AgendaListitem';
+import Listitem from './DayItem';
+import TypeSelectorButton from './TypeSelectorButton';
 
 
 export default React.createClass({
@@ -24,7 +25,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    StatusActions.setArea('activities');
+    StatusActions.setPage('activities');
   },
 
   onClickActivity(id) {
@@ -52,42 +53,40 @@ export default React.createClass({
     var activities = [];
     activities = data.activities.filter(
       function(activity) {
-        // check if this activity is in a group that is in this community
-        var group = Helpers.getGroupById(activity.groupId, data);
-        if (!group) {
-          return false;
-        }
-        var community = Helpers.getCommunityById(group.communityId, data);
-        if (community.id !== data.status.community) {
-          return false;
-        }
-        return true;
-      }.bind(this));
 
-    activities = activities.filter(
-      function(activity) {
+        // check if this activity is in a group that is in this community
+        var community = Helpers.getCommunityById(activity.communityId, data);
+        if (!community) {
+          return false;
+        }
+        var area = Helpers.getAreaById(community.areaId, data);
+        if (!area || area.id !== data.status.area) {
+          return false;
+        }
+
+        // check if activity is of selected type(s)
+        if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
+          return false;
+        }
+ 
         // check if this activity is on the given day
         if (moment(activity.date).isSame(myDate, 'day')) {
           return true;
         }
+
       }.bind(this));
 
     // console.log("found activities on the date", myDate.format(), activities.length);    
 
     var activityItem = function(activity) {
-      return ( <Listitem key={activity.id} activity={activity} data={data} showTime={true} onClickHandler={this.onClickActivity}></Listitem> );
+      return ( <Listitem key={activity.id} activity={activity} data={data} showTime={true} showIcon={true} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
-
-    var header = 
-      <div className="jumbotron container text-center">
-        <h1><FormattedMessage id='agenda_in' values={{communityName: data.community.name}}/></h1>
-      </div>;
   
     var Component = {};
     
     if (activities.length === 0) {
       // no events found
-      Component = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{communityName: data.community.name}}/></h2></Col>;
+      Component = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: data.area.name}}/></h2></Col>;
     }
     else {
       Component = <Row>{activities.map(activityItem, this)}</Row>;
@@ -95,13 +94,9 @@ export default React.createClass({
 
     return (
       <div className="container activities">
-        <Row>
-          <Col md={12} className="text-center box top-buffer bottom-buffer">
-            <ButtonGroup>
-              <Button bsSize="large" className="padded" onClick={ this.onClickCalendar }>Back to calendar</Button>  
-            </ButtonGroup>
-          </Col>
-        </Row>
+
+        <TypeSelectorButton data={data}/>
+
         <Row>
           <Col md={12} className="text-center box top-buffer bottom-buffer">
             <h1><FormattedDate

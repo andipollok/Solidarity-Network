@@ -14,12 +14,7 @@ import Listitem from './PhotoListitem';
 export default React.createClass({
 
   componentWillMount() {
-/*    StatusActions.historyAdd({
-      title: 'Stories',
-      url: '',
-      pathname: '/photos'
-    });*/
-    StatusActions.setArea('stories');
+    StatusActions.setPage('stories');
   },
 
   getInitialState: function() {
@@ -34,10 +29,6 @@ export default React.createClass({
 
   onClickSelectPhoto(id) {
     window.location.assign("#/photo/" + id);
-  },
-
-  setArea(_area) {
-    this.setState({ area: _area });
   },
 
   render() {
@@ -61,12 +52,12 @@ export default React.createClass({
           // (e.g. no date, no name) and thus the DataStore does not provide it
           return false;
         }
-        var group = Helpers.getGroupById(activity.groupId, data);
-        if (!group) {
+        var community = Helpers.getCommunityById(activity.communityId, data);
+        if (!community) {
           return false;
         }
-        var community = Helpers.getCommunityById(group.communityId, data);
-        if (community.id !== data.status.community) {
+        var area = Helpers.getAreaById(community.areaId, data);
+        if (!area || area.id !== data.status.area) {
           return false; // filter this photo if it is not in the community
         }
         return true;
@@ -109,22 +100,13 @@ export default React.createClass({
       listPhotos =
         <Row>
           <Col md={12} className="text-center box white half">
-            <h2><FormattedMessage id='nophotos' values={{communityName: community.name}}/></h2>
+            <h2><FormattedMessage id='nophotos' values={{areaName: area.name}}/></h2>
           </Col>
         </Row>;
     }
 
     return (
       <div className="container stories">
-        <Row>
-          <Col md={12} className="text-center box">
-            <ButtonGroup>
-              <Button bsSize="large" className="padded" active={ this.state.area === 'overview' } onClick={ this.setArea.bind(this, 'overview') }>Photowall</Button>  
-              <Button bsSize="large" className="padded" active={ this.state.area === 'byactivity' } onClick={ this.setArea.bind(this, 'byactivity') }>By activity</Button>
-              <Button bsSize="large" className="padded" active={ this.state.area === 'bytype' } onClick={ this.setArea.bind(this, 'bytype') }>By type</Button>  
-            </ButtonGroup>
-          </Col>
-        </Row>
         {listPhotos}
       </div>
     );

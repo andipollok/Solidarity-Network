@@ -10,7 +10,7 @@ button {
     word-wrap:break-word;
 
     &:hover, &:active {
-      background-color: $color_darkgrey;
+      background-color: $color_dark;
       color:white !important;
       box-shadow:none;
     }
@@ -32,32 +32,34 @@ button {
 }
 
 
+
+
 .news {
   button.btn-primary {
-    background-color: $color_primary1;    
+    background-color: $color1;    
   }
   button.btn {
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
-      background-color: $color_primary1;
-      color: $color_primary1_font;
+      background-color: $color1;
+      color: $color1_font;
     }
     &.active, &.active:focus {
-      box-shadow:inset 3px 3px 0 color($color_primary1 l(-5));
+      box-shadow:inset 3px 3px 0 color($color1 l(-5));
     }
   }
 }
 
 .activities {
   button.btn-primary {
-    background-color: $color_primary2;    
+    background-color: $color2;    
   }
   button.btn {
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
-      background-color: $color_primary2;
-      color: $color_primary2_font;
+      background-color: $color2;
+      color: $color2_font;
     }
     &.active, &.active:focus {
-      box-shadow:inset 3px 3px 0 color($color_primary2 l(-5));
+      box-shadow:inset 3px 3px 0 color($color2 l(-5));
     }
   }
 }
@@ -66,11 +68,11 @@ button {
 .stories {
   button.btn {
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
-      background-color: $color_primary3;
-      color: $color_primary3_font;
+      background-color: $color3;
+      color: $color3_font;
     }
     &.active, &.active:focus {
-      box-shadow:inset 3px 3px 0 color($color_primary3 l(-5));
+      box-shadow:inset 3px 3px 0 color($color3 l(-5));
     }
   }
 }

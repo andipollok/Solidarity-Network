@@ -6,10 +6,12 @@ import createHashHistory from 'history/lib/createHashHistory';
 
 import App from './components/App';
 import Settings from './components/Settings/Settings';
+import Start from './components/Start/Start';
 
 import News from './components/News/News';
-import Activities from './components/Activities/List';
+import Upcoming from './components/Activities/Upcoming';
 import Calendar from './components/Activities/Calendar';
+import TypeSelector from './components/Activities/TypeSelector';
 import Stories from './components/Stories/Stories';
 
 import Person from './components/Person/Person';
@@ -57,13 +59,20 @@ render(
     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
       <Route name="home" path="/" component={App}>
 
-        <IndexRoute component={News}/>
+        <IndexRoute component={Start}/>
+
+        <Route name="home" path="/home" component={Start}/>
 
         <Route name="settings" path="/settings" component={Settings}/>
 
         <Route name="news" path="/news" component={News}/>
-        <Route name="activities" path="/activities" component={Activities}/>
-        <Route name="activities/month" path="/activities/month" component={Calendar}/>
+ 
+        <Route name="activities" path="/activities" component={Upcoming}/>
+
+        <Route name="activities-upcoming" path="/activities/upcoming" component={Upcoming}/>
+        <Route name="activities-month" path="/activities/month" component={Calendar}/>
+        <Route name="activities-type" path="/activities/type" component={TypeSelector}/>
+
         <Route name="stories" path="/stories" component={Stories}/>
 
         <Route name="day" path="/activities/:day/:month/:year" component={Day}/>

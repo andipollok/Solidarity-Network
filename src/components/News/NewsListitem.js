@@ -26,8 +26,8 @@ export default React.createClass({
       link = 'activity/' + item.activity.id;
       icon = <IconActivity type={type} area='news' shape='empty' size='small'/>
     }
-    else if (item.group && item.group.id) {
-      link = 'group/' + item.group.id;
+    else if (item.community && item.community.id) {
+      link = 'community/' + item.community.id;
       icon = <Icon type='activity-default' area='news' shape='empty' size='small'/>
     }
 
@@ -56,7 +56,7 @@ export default React.createClass({
                 <FormattedMessage id={ 'news-' + item.type.replace(/\s+/g, '') } values={{
                   personName: item.person.name,
                   activityName: item.activity.name || '',
-                  groupName: item.group.name || '',
+                  communityName: item.community.name || '',
                 }} defaultMessage=' '/>
               </span>
               

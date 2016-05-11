@@ -9,7 +9,7 @@ import DataStore from '../../stores/DataStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 
-import CommunityList from './CommunityList';
+import AreaList from './AreaList';
 
 
 export default React.createClass({
@@ -21,24 +21,24 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
-  onClickSelectCommunity(id) {
-    StatusActions.setCommunity(id);
+  onClickSelectArea(id) {
+    StatusActions.setArea(id);
   },
 
   render() {
 
-    var selectCommunity = <FormattedMessage id='loading'/>;
-    if (this.state.data && this.state.data.loaded.communities && this.state.status) {
-      var communityItem = function(community) {
-        return ( <CommunityList key={community.id} data={community} selected={this.state.status.community} onClickHandler={this.onClickSelectCommunity}></CommunityList> );
-      }.bind(this);
-      selectCommunity = <span>{this.state.data.communities.map(communityItem, this)}</span>
-    }
+    var data = this.props.data;
+
+    var areaItem = function(area) {
+      return ( <AreaList key={area.id} data={area} selected={data.status.area} onClickHandler={this.onClickSelectArea}></AreaList> );
+    }.bind(this);
+
+    var selectArea = <span>{data.areas.map(areaItem, this)}</span>
 
     return (
       <div className="container">
         <Row>
-          {selectCommunity}
+          {selectArea}
         </Row>
       </div>
     );

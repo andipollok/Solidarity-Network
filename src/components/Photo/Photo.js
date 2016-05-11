@@ -15,7 +15,7 @@ import Avatar from '../General/Avatar';
 export default React.createClass({
 
   componentDidMount() {
-    StatusActions.setArea('stories');
+    StatusActions.setPage('stories');
   },
 
   onClickBack() {

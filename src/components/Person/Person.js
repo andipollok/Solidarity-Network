@@ -16,7 +16,7 @@ import Avatar from '../General/Avatar';
 export default React.createClass({
 
   componentDidMount() {
-    StatusActions.setArea('person');
+    StatusActions.setPage('person');
   },
 
   render() {

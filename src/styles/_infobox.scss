@@ -1,0 +1,16 @@
+.infobox {
+  background-color: $color_infobox;
+  color: $color_light;
+  font-size: 24px;
+
+  button.btn {
+    background-color: $color_light;
+    &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
+      background-color: red;
+      color: $color1_font;
+    }
+    &.active, &.active:focus {
+
+    }
+  }
+}

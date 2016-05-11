@@ -14,8 +14,8 @@ $navbar-bottom-height: 110px;
     &.navbar-bottom {
       width:100%;
       min-height:$navbar-bottom-height;
+      border-top: 1px solid $color_grey4;
       ul {
-        box-shadow: 0 0 6px 2px rgba(0,0,0,0.1);
         li a {
           height:$navbar-bottom-height;
         }
@@ -47,25 +47,26 @@ $navbar-bottom-height: 110px;
           font-weight:300;
 
           background-color: $color_light;
+          
           &:hover {
-            background-color: $color_lightgrey;
+            background-color: $color_grey4;
           }
           &.active {
             color:$color_light;
-            background-color: $color_darkgrey;
+            background-color: $color_dark;
             text-decoration:none;
             // font-weight:400;
             //box-shadow: inset 3px 3px 0px rgba(0,0,0,.125), 0px 0px 0px rgba(0,0,0,.125);
-            &.news { background-color: $color_primary1; color: $color_primary1_font; }
-            &.activities   { background-color: $color_primary2; color: $color_primary2_font; }
-            &.stories   { background-color: $color_primary3; color: $color_primary3_font; }
+            &.news { background-color: $color1; color: $color1_font; }
+            &.activities   { background-color: $color2; color: $color2_font; }
+            &.stories   { background-color: $color3; color: $color3_font; }
           }
           &.active:hover {
             color: $color_light;
-            background-color: $color_darkgrey;
-            &.news { background-color: $color_primary1; color: $color_primary1_font; }
-            &.activities   { background-color: $color_primary2; color: $color_primary2_font; }
-            &.stories   { background-color: $color_primary3; color: $color_primary3_font; }
+            background-color: $color_dark;
+            &.news { background-color: $color1; color: $color1_font; }
+            &.activities   { background-color: $color2; color: $color2_font; }
+            &.stories   { background-color: $color3; color: $color3_font; }
           }
         }
       }

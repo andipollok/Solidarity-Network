@@ -16,7 +16,7 @@ import Avatar from '../General/Avatar';
 export default React.createClass({
 
   componentWillMount() {
-    StatusActions.setArea('activities');
+    StatusActions.setPage('activities');
 /*    StatusActions.historyAdd({
       title: 'Agenda',
       url: '',
@@ -30,8 +30,9 @@ export default React.createClass({
 
     var activity = Helpers.getActivityById(this.props.params.id, data);
     var type = Helpers.getActivityTypeById(activity.typeId, data);
-    var group = Helpers.getGroupById(activity.groupId, data);
-    var owner = group.ownerId ? Helpers.getPersonById(group.ownerId, data) : undefined;
+    var community = Helpers.getCommunityById(activity.communityId, data);
+
+    var owner = activity.ownerIds && activity.ownerIds.length > 0 ? Helpers.getPersonById(activity.ownerId[0], data) : undefined;
 
     // load photos
     activity.photoList = [];
@@ -186,10 +187,10 @@ export default React.createClass({
           </Col>
 
           <Col sm={4}>
-            <Link to={`/group/${group.id}`}>
+            <Link to={`/community/${community.id}`}>
               <div className="box text-center">
                 <p><Avatar /></p>
-                <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}</p>
+                <p><FormattedMessage id="community" defaultMessage="Community"/> {community.name}</p>
               </div>
             </Link>
             <div className="box white outline text-center bottom-buffer rounded">

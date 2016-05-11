@@ -20,8 +20,8 @@ export default Reflux.createStore({
       
       data = {
         whatsnew:       [],  
+        areas:           [],
         communities:    [],
-        groups:         [],
         activities:     [],
         activitytypes:  [],
         photos:         [],
@@ -29,8 +29,8 @@ export default Reflux.createStore({
 
         loaded: {
           whatsnew:     false,
+          areas:        false,
           communities:  false,
-          groups:       false,
           activities:   false,
           activitytypes:false,
           photos:       false,
@@ -40,10 +40,10 @@ export default Reflux.createStore({
         errors: []
       };
 
+      this.loadAreas();
       this.loadCommunities();
       this.loadActivities();
       this.loadActivityTypes();
-      this.loadGroups();
       this.loadPhotos();
       this.loadPeople();
       this.loadWhatsnew();
@@ -55,21 +55,21 @@ export default Reflux.createStore({
       this.forceTrigger();
     },
 
-    loadCommunities() {
+    loadAreas() {
       var that = this;
       var cookieValueCommunity = cookie.load(cookieNameCommunity) || ""; // -todo- this value should be taken from StatusStore!
 
-      base('Communities').select({
+      base('Areas').select({
         view: "Main View",
         sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
           if (record.get('Name')) {
-            data.communities.push({
+            data.areas.push({
               id: record.getId(),
               name: record.get('Name'),
-              ownerId: record.get('Owner')[0],
-              groupIds: record.get('Groups'),
+              ownersId: record.get('Owners'),
+              communitiesId: record.get('Communities'),
               countMembers: record.get('CountMembers')
             });
           }
@@ -81,7 +81,7 @@ export default Reflux.createStore({
           // -todo- set cookie of default community via StatusStore
 //          cookie.save(cookieNameCommunity, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
         }
-        data.loaded.communities = true;
+        data.loaded.areas = true;
         that.forceTrigger();
         if (error) {
           that.throwError(error);
@@ -91,20 +91,20 @@ export default Reflux.createStore({
 
     loadWhatsnew() {
       var that = this;
-      base('Whatsnew').select({
+      base('News').select({
         view: "Main View",
         sort: [{field: "Date", direction: "desc"}]
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
-            if (record.get('Date') && record.get('Type') && record.get('Person')) {
+            if (record.get('Date') && record.get('Type')) {
               data.whatsnew.push({
                 id: record.getId(),
                 date: record.get('Date'),
                 type: record.get('Type'),
                 params: record.get('Params'),
                 activityId: record.get('Activity') ? record.get('Activity')[0] : undefined,
-                groupId: record.get('Group') ? record.get('Group')[0] : undefined,
-                personId: record.get('Person')[0]
+                communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+                personId: record.get('Person') ? record.get('Person')[0] : undefined
               });
             }
         });
@@ -120,19 +120,19 @@ export default Reflux.createStore({
       });
     },
 
-    loadGroups() {
+    loadCommunities() {
       var that = this;
-      base('Groups').select({
+      base('Communities').select({
         view: "Main View",
         sort: [{field: "Name", direction: "asc"}]
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name')) {
-              data.groups.push({
+              data.communities.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                communityId: record.get('Community') ? record.get('Community')[0] : undefined,
-                ownerId: record.get('Owner') ? record.get('Owner')[0] : undefined,
+                areaId: record.get('Area') ? record.get('Area')[0] : undefined,
+                ownersId: record.get('Owners'),
                 description: record.get('Description'),
                 headerimage: record.get('Header Image'),
                 activities: record.get('Activities'),
@@ -144,7 +144,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
 
-        data.loaded.groups = true;
+        data.loaded.communities = true;
         // console.log("found the following " + Object.keys(data.groups).length + " groups", data.groups);
         that.forceTrigger();
 
@@ -168,7 +168,8 @@ export default Reflux.createStore({
               data.activities.push({
                 id: record.getId(),
                 name: record.get('Name'),
-                groupId: record.get('Group') ? record.get('Group')[0] : undefined,
+                communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+                ownersId: record.get('Owners'),
                 date: record.get('Date'),
                 dateEnd: record.get('Date End'),
                 typeId: record.get('Type') ? record.get('Type')[0] : undefined,
@@ -297,7 +298,7 @@ export default Reflux.createStore({
 
     checkData: function() {
       if (!data) { return false; }
-      if (data.loaded.whatsnew && data.loaded.communities && data.loaded.groups && data.loaded.activities && data.loaded.activitytypes && data.loaded.photos && data.loaded.people) {
+      if (data.loaded.whatsnew && data.loaded.areas && data.loaded.communities && data.loaded.activities && data.loaded.activitytypes && data.loaded.photos && data.loaded.people) {
         data.loaded.all = true;
         return true;
       }

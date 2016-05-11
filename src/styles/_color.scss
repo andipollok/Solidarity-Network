@@ -1,22 +1,27 @@
-$color_dark: #282828;
+
 $color_light: #FFF;
-$color_grey: #EAEAEA;
-$color_lightgrey: #F2F2F2;
-$color_darkgrey: #CCC;
+$color_grey4: color(white l(90));
+$color_grey3: color(white l(80));
+$color_grey2: color(white l(70));
+$color_grey1: color(white l(50));
+$color_dark: color(white l(20));
 
+$color1: color(white h(4) s(80) l(50));
+$color2: color(white h(270) s(41) l(50));
+$color3: color(white h(126) s(50) l(50));
 
-$color_primary1: color(white h(4) s(80) l(50));
-$color_primary2: color(white h(270) s(41) l(50));
-$color_primary3: color(white h(126) s(50) l(50));
+$color1_font: #FFF;
+$color2_font: #FFF;
+$color3_font: #FFF;
 
-// $color_primary1: #77529D;
-// $color_primary2: #77529D;
-// $color_primary3: #77529D;
+$color1_light: color($color1 l(+10));
+$color2_light: color($color2 l(+10));
+$color3_light: color($color3 l(+10));
 
-$color_primary1_font: #FFF;
-$color_primary2_font: #FFF;
-$color_primary3_font: #FFF;
+$color1_dark: color($color1 l(-10));
+$color2_dark: color($color2 l(-10));
+$color3_dark: color($color3 l(-10));
 
-$color_primary1_hover: color($color_primary1 l(+10));
-$color_primary2_hover: color($color_primary2 l(+10));
-$color_primary3_hover: color($color_primary3 l(+10));
+$color_infobox: color(white h(190) s(80) l(60));
+$color_infobox_font: #FFF;
+$color_infobox_dark: color($color_infobox l(-10));

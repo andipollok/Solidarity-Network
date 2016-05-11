@@ -9,7 +9,7 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import ChooseCommunity from './ChooseCommunity';
+import ChooseArea from './ChooseArea';
 import ChooseLanguage from './ChooseLanguage';
 
 
@@ -18,25 +18,21 @@ export default React.createClass({
   mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
   componentDidMount() {
-    LanguageActions.forceTrigger();
-    StatusActions.forceTrigger();
-    StatusActions.setArea('settings');
+    StatusActions.setPage('settings');
   },
 
   render() {
 
-    if (!Helpers.checkLanguageLoaded(this)) {
-      return <div></div>;
-    }
+    var data = this.props.data;
 
     return (
       <div className="container text-center">
       
         <h2><FormattedMessage id='wheredoyoulive'/></h2>
-        <ChooseCommunity />
+        <ChooseArea data={data}/>
 
         <h2><FormattedMessage id='whichlanguagedoyouspeak'/></h2>
-        <ChooseLanguage />
+        <ChooseLanguage  data={data}/>
 
       </div>
     );

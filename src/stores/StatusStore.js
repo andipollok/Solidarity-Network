@@ -10,7 +10,7 @@ const history = createHashHistory();
 
 var data = {};
 var cookieNameJoin = "join";
-var cookieNameCommunity = "community";
+var cookieNameArea = "area";
 
 
 export default Reflux.createStore({
@@ -19,19 +19,21 @@ export default Reflux.createStore({
 
     init: function() {
       var cookieValueJoin = cookie.load(cookieNameJoin) || false;
-      var cookieValueCommunity = cookie.load(cookieNameCommunity) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
+      var cookieValueArea = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
       data = {
         join: cookieValueJoin,
-        community: cookieValueCommunity,
-        currentArea: '',
+        area: cookieValueArea,
+        currentPage: '',
         currentTitle: '',
+        selectedActivityTypes: [],
+        activityView: '', // upcoming or month
         history: [],
         future: []
       };
       // save join and community state
       // -todo- this actually only should be done if default value for cookie has been set
       cookie.save(cookieNameJoin, cookieValueJoin, { path: '/' });
-      cookie.save(cookieNameCommunity, cookieValueCommunity, { path: '/' });
+      cookie.save(cookieNameArea, cookieValueArea, { path: '/' });
     },
  
     setJoin: function(state) {
@@ -40,19 +42,41 @@ export default Reflux.createStore({
       this.trigger(data);
     },
 
-    setCommunity: function(state) {
-      cookie.save(cookieNameCommunity, state, { path: '/' });
-      data.community = state;
+    setArea: function(area) {
+      cookie.save(cookieNameArea, state, { path: '/' });
+      data.area = area;
       this.trigger(data);
     },
 
-    setArea: function(pagename) {
+    setPage: function(pagename) {
       data.currentPage = pagename;
       this.trigger(data);
     },
 
     setTitle: function(title) {
       data.currentTitle = title;
+      this.trigger(data);
+    },
+
+    addActivityType: function(id) {
+      console.log("addActivityType", id);
+      if (data.selectedActivityTypes.indexOf(id) === -1) {
+        data.selectedActivityTypes.push(id);
+        this.trigger(data);
+      }
+    },
+
+    removeActivityType: function(id) {
+      console.log("removeActivityType", id);
+      var index = data.selectedActivityTypes.indexOf(id);
+      if (index === -1) {
+        data.selectedActivityTypes.splice(id, 1);
+        this.trigger(data);
+      }
+    },
+
+    clearActivityTypes: function() {
+      data.selectedActivityTypes = [];
       this.trigger(data);
     },
 

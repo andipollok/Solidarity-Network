@@ -14,7 +14,7 @@ import Listitem from './NewsListitem';
 export default React.createClass({
 
   componentWillMount() {
-    StatusActions.setArea('news');
+    StatusActions.setPage('news');
   },
 
   onClickSelectItem(url) {
@@ -29,8 +29,6 @@ export default React.createClass({
 
     list = data.whatsnew.filter(function(item) {
 
-      // -todo- check if this item is relevant to user!
-
       // load activity
       item.activity = {};
       if (data.loaded.activities && item.activityId) {
@@ -38,14 +36,14 @@ export default React.createClass({
         if (!item.activity) {
           return false;
         }
-        // check if that activity is in the user's community
-        var group = Helpers.getGroupById(item.activity.groupId, data);
-        if (!group) {
+        // check if this activity is in a group that is in this community
+        var community = Helpers.getCommunityById(item.activity.communityId, data);
+        if (!community) {
           return false;
         }
-        var community = Helpers.getCommunityById(group.communityId, data);
-        if (community.id !== data.status.community) {
-          return false; // filter this entry if item is not in the community
+        var area = Helpers.getAreaById(community.areaId, data);
+        if (!area || area.id !== data.status.area) {
+          return false;
         }
       }
 
@@ -55,14 +53,14 @@ export default React.createClass({
         item.person = Helpers.getPersonById(item.personId, data);
       }
 
-      // load group
-      item.group = {};
-      if (data.loaded.groups && item.groupId) {
-        item.group = Helpers.getGroupById(item.groupId, data);
-        // check if that group is in the user's community
-        var community = Helpers.getCommunityById(item.group.communityId, data);
-        if (community.id !== data.status.community) {
-          return false; // filter this entry if item is not in the community
+      // load community
+      item.community = {};
+      if (data.loaded.communities && item.communityId) {
+        item.community = Helpers.getCommunityById(item.communityId, data);
+        // check if that group is in the user's area
+        var area = Helpers.getAreaById(item.community.areaId, data);
+        if (area.id !== data.status.area) {
+          return false; // filter this entry if item is not in the area
         }
       }
 
@@ -80,7 +78,7 @@ export default React.createClass({
       Component = 
       <Row>
         <Col className="container text-center box white half">
-          <h2><FormattedMessage id='nowhatsnew' values={{communityName: data.community.name}}/></h2>
+          <h2><FormattedMessage id='nowhatsnew' values={{areaName: data.area.name}}/></h2>
         </Col>
       </Row>;
     }
@@ -89,7 +87,7 @@ export default React.createClass({
     }
 
     var header = <div className="container text-center">
-          <h1><FormattedMessage id='whatsnew_in' values={{communityName: data.community.name}}/></h1>
+          <h1><FormattedMessage id='whatsnew_in' values={{areaName: data.area.name}}/></h1>
         </div>;
 
     return (

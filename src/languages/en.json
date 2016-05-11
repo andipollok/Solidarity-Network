@@ -1,32 +1,40 @@
 {
+
   "loading": "Just a moment please…",
+
+  "nav_home": "Start",
   "nav_news": "News",
   "nav_activities": "Activities",
   "nav_stories": "Stories",
   "nav_settings": "Settings",
+
   "nav_openmenu": "Open menu",
   "nav_closemenu": "Close menu",
 
   "welcome": "Welcome",
-  "welcome_in": "Welcome in {communityName}",
-  "whatsnew_in": "What's new in {communityName}",
-  "agenda_in": "Agenda in {communityName}",
-  "photos_in": "Photos from {communityName}",
+  "welcome_in": "Welcome in {areaName}",
+  "whatsnew_in": "What's new in {areaName}",
+  "agenda_in": "Agenda in {areaName}",
+  "photos_in": "Photos from {areaName}",
+  "stories_in": "Stories from {areaName}",
 
   "wheredoyoulive": "Where do you live?",
   "whichlanguagedoyouspeak": "Which language do you speak?",
 
-  "seewhatsnew": "Find out what's new since you were here last time",
-  "seeagenda": "See all activities in {communityName}",
-  "seephotos": "Browse photos of past activities in {communityName}",
+  "seenews": "Find out what's new since you were here last time",
+  "seeagenda": "See all activities in {areaName}",
+  "seephotos": "Browse photos of activities in {areaName}",
+  "seestories": "Browse stories in {areaName}",
 
   "organisedby": "Organised by {name}",
 
-  "nowhatsnew": "Sorry, there are no news in {communityName} at this time.",
-  "noactivities": "Sorry, there are no activities planned in {communityName}.",
-  "nophotos": "Sorry, there are no photos from past events in {communityName}.",
+  "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",
+  "noactivities": "Sorry, there are no activities planned in {areaName}.",
+  "nophotos": "Sorry, there are no photos from activities in {areaName}.",
+  "nophotos": "Sorry, there are no stories from activities in {areaName}.",
 
   "numberofgroups": "{numGroups, plural, =0 {No groups yet} =1 {One group} other {# groups}}",
+  "numberofgroups": "{numStories, plural, =0 {No stories yet} =1 {One story} other {# stories}}",
   "numberofmembers": "{numMembers, plural, =0 {No one yet} =1 {One person} other {# people}}",
   "numberofphotos": "{numPhotos, plural, =0 {No photos yet} =1 {One photo} other {# photos}}",
 
@@ -36,10 +44,14 @@
   "startingat": "Starting at",
   "startedat": "Started at",
 
+  "community": "Community",
+  "communities": "Communities",
   "group": "Group",
   "groups": "Groups",
   "photo": "Photo",
   "photos": "Photos",
+  "story": "Story",
+  "stories": "Stories",
 
   "photos_from": "Photos from {activityName}",
   "photo_from": "Photo from {activityName}",
@@ -48,10 +60,11 @@
 
   "news-uploadedphoto": "{personName} shared 8 photos from {activityName}!",
   "news-changedtime": "Careful, {personName} changed the starting time of {activityName}!",
-  "news-createdgroup": "{personName} created a new group {groupName}!",
+  "news-createdcommunity": "There is a new community in your area! Check out {communityName}.",
   "news-cancelled": "Bummer! {personName} cancelled the activity {activityName}.",
-  "news-joinedgroup": "Hooray! {personName} joined the group {groupName}.",
+  "news-joinedcommunity": "Hooray! {personName} joined the community {communityName}.",
   "news-createdactivity": "Oh yeah, {personName} created the activity {activityName}.",
 
   "today": "Today",
+  "tomorrow": "Tomorrow",
 }

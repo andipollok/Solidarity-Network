@@ -22,7 +22,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    StatusActions.setArea('stories');
+    StatusActions.setPage('stories');
   },
 
   onClickActivity(id) {

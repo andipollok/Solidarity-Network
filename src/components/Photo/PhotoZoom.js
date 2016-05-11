@@ -21,7 +21,7 @@ export default React.createClass({
       url: '',
       pathname: '/photos'
     });*/
-    StatusActions.setArea('stories');
+    StatusActions.setPage('stories');
   },
 
   makeZoomable() {
