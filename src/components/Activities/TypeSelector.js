@@ -25,7 +25,7 @@ export default React.createClass({
   },
 
   addType(id) {
-    StatusActions.clearActivityTypes(id);
+    StatusActions.clearActivityTypes();
     StatusActions.addActivityType(id);
     history.goBack();
   },
