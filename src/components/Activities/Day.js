@@ -25,7 +25,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    StatusActions.setPage('activities');
+    StatusActions.setPage('activitiesday');
   },
 
   onClickActivity(id) {

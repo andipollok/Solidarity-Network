@@ -36,15 +36,18 @@ export default React.createClass({
     var pageHeadings = {
       news:       <FormattedMessage id='nav_news' defaultMessage='News'/>,
       activities: <FormattedMessage id='nav_activities' defaultMessage='Activities'/>,
+      activitiesday: <FormattedMessage id='nav_activities' defaultMessage='Activities'/>,
       stories:    <FormattedMessage id='nav_stories' defaultMessage='Stories'/>,
+      settings: <FormattedMessage id='nav_settings' defaultMessage='Settings'/>,
       person: 'Person',
       group: 'Group',
-      typeselector: 'Select activity type'
+      typeselector: 'Select activity type',
     };
 
     var showBackbutton = {
       news: false,
       activities: false,
+      activitiesday: true,
       stories: false,
       person: true,
       group: true,
