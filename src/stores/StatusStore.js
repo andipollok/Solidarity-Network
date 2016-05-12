@@ -43,7 +43,7 @@ export default Reflux.createStore({
     },
 
     setArea: function(area) {
-      cookie.save(cookieNameArea, state, { path: '/' });
+      cookie.save(cookieNameArea, area, { path: '/' });
       data.area = area;
       this.trigger(data);
     },
@@ -59,7 +59,6 @@ export default Reflux.createStore({
     },
 
     addActivityType: function(id) {
-      console.log("addActivityType", id);
       if (data.selectedActivityTypes.indexOf(id) === -1) {
         data.selectedActivityTypes.push(id);
         this.trigger(data);
@@ -67,7 +66,6 @@ export default Reflux.createStore({
     },
 
     removeActivityType: function(id) {
-      console.log("removeActivityType", id);
       var index = data.selectedActivityTypes.indexOf(id);
       if (index === -1) {
         data.selectedActivityTypes.splice(id, 1);
