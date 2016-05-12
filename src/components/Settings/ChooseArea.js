@@ -30,7 +30,13 @@ export default React.createClass({
     var data = this.props.data;
 
     var areaItem = function(area) {
-      return ( <AreaList key={area.id} data={area} selected={data.status.area} onClickHandler={this.onClickSelectArea}></AreaList> );
+      return ( <AreaList
+          key={area.id}
+          data={data}
+          area={area}
+          onClickHandler={this.onClickSelectArea}
+          />
+          );
     }.bind(this);
 
     var selectArea = <span>{data.areas.map(areaItem, this)}</span>

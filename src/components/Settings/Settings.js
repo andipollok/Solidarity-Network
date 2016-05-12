@@ -32,7 +32,7 @@ export default React.createClass({
         <ChooseArea data={data}/>
 
         <h2><FormattedMessage id='whichlanguagedoyouspeak'/></h2>
-        <ChooseLanguage  data={data}/>
+        <ChooseLanguage data={data}/>
 
       </div>
     );

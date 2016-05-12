@@ -1,58 +1,43 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Button, ButtonGroup } from 'react-bootstrap';
 
-import Reflux from 'reflux';
-import DataActions from '../../stores/DataActions';
-import DataStore from '../../stores/DataStore';
-import LanguageActions from '../../stores/LanguageActions';
-import LanguageStore from '../../stores/LanguageStore';
 import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage } from 'react-intl';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(DataStore, 'data'), Reflux.connect(LanguageStore, 'language')],
-
-  componentDidMount() {
-    DataActions.forceTrigger();
-    LanguageActions.forceTrigger();
-  },
-
   render() {
+    
+    var data = this.props.data;
 
-    if (!Helpers.checkLanguageLoaded(this)) {
-      return <div></div>;
-    }
+    var area = this.props.area;
 
-    var countGroups = 0;
-    if (this.props.data && this.props.data.groupIds) {
-      countGroups = this.props.data.groupIds.length;
-    }
+    var countCommunities = area.communitiesId.length;
 
-    var countMembers = 0;
-    if (this.props.data && this.props.data.countMembers) {
-      countMembers = this.props.data.countMembers;
-    }
+    var countMembers = area.countMembers;
 
-    var ownerName = Helpers.getPersonById(this.props.data.ownerId, this).name;
+    var ownersName = [];
 
-    var divClass = classNames( 'box white linked padded text-center',
+    area.ownersId.map(function(ownerId) {
+      ownersName.push(Helpers.getPersonById(ownerId, data).name);
+    });
+
+    var buttonClass = classNames( 'padded top-buffer',
       {
-        'selected': this.props.data.id === this.props.selected
+        'active': area.id === data.status.area
       }
     );
 
+    var organisers = <p><FormattedMessage id='organisedby' values={{name: ownersName.join(', ')}}/></p>;
+    var members = <p><FormattedMessage id='numberofmembers' values={{num: countMembers}}/></p>
+    var communities = <p><FormattedMessage id='numberofcommunities' values={{num: countCommunities}}/></p>
+
     return (
-      <Col md={4} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.data.id)}>
-        <div className={divClass}>
-          <h2>{this.props.data.name}</h2>
-          <p><FormattedMessage id='organisedby' values={{name: ownerName}}/></p>
-          <p><FormattedMessage id='numberofmembers' values={{numMembers: countMembers}}/></p>
-          <p><FormattedMessage id='numberofgroups' values={{numGroups: countGroups}}/></p>
-        </div>
-      </Col> 
+      <p>
+        <Button bsSize="large" className={buttonClass} onClick={this.props.onClickHandler.bind(null, area.id)}>{area.name}</Button>
+      </p>
     );
   }
 });

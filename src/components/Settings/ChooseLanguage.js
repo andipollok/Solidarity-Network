@@ -2,7 +2,7 @@ import React from 'react';
 import { Link }  from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Button, ButtonGroup } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import LanguageActions from '../../stores/LanguageActions';
@@ -10,43 +10,38 @@ import LanguageStore from '../../stores/LanguageStore';
 
 export default React.createClass({
 
-  mixins: [Reflux.connect(LanguageStore, 'language')],
-
   onClickSetLanguage(id) {
     LanguageActions.setLanguage(id);
   },
 
-  componentDidMount() {
-    LanguageActions.forceTrigger();
-  },
-
   render() {
 
-    var that=this;
+    var data = this.props.data;
+
     var languageItem = function(id) {
-      var d = this.state.language.languages[id];
-      var divClass = classNames( 'box half white linked padded text-center',
+      var d = data.language.languages[id];
+      var buttonClass = classNames( 'padded top-buffer',
         {
-          'selected': this.state.language.selectedID === id
+          'active': data.language.selectedID === id
         }
       );
       return (
-        <Col md={6} key={id} className="bottom-buffer" onClick={that.onClickSetLanguage.bind(this, id)}>
-          <div className={divClass}>
-            <h2>{d.name}</h2>
-          </div>
-        </Col> );
-    };
+        <Button bsSize="large" key={id} className={buttonClass} onClick={this.onClickSetLanguage.bind(this, id)}>
+          {d.name}
+        </Button> );
+    }.bind(this);
 
     var selectLanguage = <FormattedMessage id='loading'/>;
-    if (this.state.language && this.state.language.languages) {
-      selectLanguage = <span>{Object.keys(this.state.language.languages).map(languageItem, this)}</span>;
+    if (data.language && data.language.languages) {
+      selectLanguage = <span>{Object.keys(data.language.languages).map(languageItem, this)}</span>;
     }
 
     return (
       <div className="container">
-        <Row className="row">
-          {selectLanguage}        
+        <Row>
+          <ButtonGroup>
+            {selectLanguage}        
+          </ButtonGroup>
         </Row>
       </div>
     );
