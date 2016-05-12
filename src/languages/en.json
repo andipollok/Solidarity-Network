@@ -33,10 +33,11 @@
   "nophotos": "Sorry, there are no photos from activities in {areaName}.",
   "nophotos": "Sorry, there are no stories from activities in {areaName}.",
 
-  "numberofgroups": "{numGroups, plural, =0 {No groups yet} =1 {One group} other {# groups}}",
-  "numberofgroups": "{numStories, plural, =0 {No stories yet} =1 {One story} other {# stories}}",
-  "numberofmembers": "{numMembers, plural, =0 {No one yet} =1 {One person} other {# people}}",
-  "numberofphotos": "{numPhotos, plural, =0 {No photos yet} =1 {One photo} other {# photos}}",
+  "numberofgroups": "{num, plural, =0 {No groups yet} =1 {One group} other {# groups}}",
+  "numberofstories": "{num, plural, =0 {No stories yet} =1 {One story} other {# stories}}",
+  "numberofcommunities": "{num, plural, =0 {No communities yet} =1 {One community} other {# communities}}",
+  "numberofmembers": "{num, plural, =0 {No one yet} =1 {One person} other {# people}}",
+  "numberofphotos": "{num, plural, =0 {No photos yet} =1 {One photo} other {# photos}}",
 
   "on": "On",
   "at": "At",
