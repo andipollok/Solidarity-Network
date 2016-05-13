@@ -65,7 +65,6 @@ export default React.createClass({
 
         {resetButton}
 
-      
       </Row>
     );
   }

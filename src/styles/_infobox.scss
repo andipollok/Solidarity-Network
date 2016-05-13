@@ -4,13 +4,15 @@
   font-size: 24px;
 
   button.btn {
-    background-color: $color_light;
+    background-color: $color_infobox_dark;
+    color: $color_light;
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
-      background-color: red;
-      color: $color1_font;
+      background-color: $color_light;
+      color: $color_infobox_dark;
     }
     &.active, &.active:focus {
-
+      background-color: $color_light;
+      color: $color_infobox_dark;
     }
   }
 }

@@ -15,8 +15,10 @@ import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
-  componentDidMount() {
+  componentWillMount() {
     StatusActions.setPage('person');
+    StatusActions.setTitle(<FormattedMessage id='nav_person' defaultMessage='Person'/>);
+    StatusActions.setSecondaryNav(null);
   },
 
   render() {

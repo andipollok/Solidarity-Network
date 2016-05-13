@@ -22,12 +22,10 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    StatusActions.setPage('stories');
+    StatusActions.setPage('story');
+    StatusActions.setTitle('Story');
   },
 
-  onClickActivity(id) {
-    window.location.assign("#/activity/" + id);
-  },
 
   render() {
 

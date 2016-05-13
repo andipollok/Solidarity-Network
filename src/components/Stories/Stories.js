@@ -9,12 +9,16 @@ import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
 import Listitem from './PhotoListitem';
-
+import TypeSelectorButton from '../General/TypeSelectorButton';
+import ViewSelectorButtons from './ViewSelectorButtons';
 
 export default React.createClass({
 
   componentWillMount() {
     StatusActions.setPage('stories');
+    StatusActions.showBackButton(false);
+    StatusActions.setTitle(<FormattedMessage id='nav_stories' defaultMessage='Stories'/>);
+    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
   },
 
   getInitialState: function() {
@@ -34,6 +38,7 @@ export default React.createClass({
   render() {
 
     var data = this.props.data;
+    var area = Helpers.getAreaById(data.status.area, data);
 
     var photoItem = function(photo) {
       return ( <Listitem key={photo.id} data={photo} onClickHandler={this.onClickSelectPhoto}></Listitem> );
@@ -52,12 +57,12 @@ export default React.createClass({
           // (e.g. no date, no name) and thus the DataStore does not provide it
           return false;
         }
-        var community = Helpers.getCommunityById(activity.communityId, data);
-        if (!community) {
+        var _community = Helpers.getCommunityById(activity.communityId, data);
+        if (!_community) {
           return false;
         }
-        var area = Helpers.getAreaById(community.areaId, data);
-        if (!area || area.id !== data.status.area) {
+        var _area = Helpers.getAreaById(_community.areaId, data);
+        if (!_area || _area.id !== data.status.area) {
           return false; // filter this photo if it is not in the community
         }
         return true;
@@ -107,7 +112,11 @@ export default React.createClass({
 
     return (
       <div className="container stories">
+
+        <TypeSelectorButton data={data}/>
+
         {listPhotos}
+      
       </div>
     );
   }

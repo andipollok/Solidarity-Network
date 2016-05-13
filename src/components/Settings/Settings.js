@@ -17,8 +17,10 @@ export default React.createClass({
 
   mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status') ],
 
-  componentDidMount() {
+  componentWillMount() {
     StatusActions.setPage('settings');
+    StatusActions.setTitle(<FormattedMessage id='nav_settings' defaultMessage='Settings'/>);
+    StatusActions.setSecondaryNav(null);
   },
 
   render() {

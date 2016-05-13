@@ -11,11 +11,22 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 import Listitem from './Calendaritem';
-import TypeSelectorButton from './TypeSelectorButton';
+import TypeSelectorButton from '../General/TypeSelectorButton';
+import ViewSelectorButtons from './ViewSelectorButtons';
+
 
 export default React.createClass({
 
-  // mixins: [ Reflux.connect(StatusStore, 'status') ],
+  componentWillMount() {
+    StatusActions.setPage('activities');
+    StatusActions.showBackButton(false);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='month'/>);
+  },
+
+  componentDidMount() {
+    console.log('calendar did mount');
+  },
 
   getInitialState() {
 
@@ -24,10 +35,6 @@ export default React.createClass({
     return {
       month: moment().startOf('month'), // stores first of month
     }
-  },
-
-  componentDidMount() {
-    StatusActions.setPage('activities');
   },
 
   onClickActivity(id) {

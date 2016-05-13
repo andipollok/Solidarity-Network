@@ -23,10 +23,11 @@ export default Reflux.createStore({
       data = {
         join: cookieValueJoin,
         area: cookieValueArea,
-        currentPage: '',
-        currentTitle: '',
+        page: '',
+        title: '',
+        secondaryNav: null,
+        showBackButton: false,
         selectedActivityTypes: [],
-        activityView: '', // upcoming or month
         history: [],
         future: []
       };
@@ -49,12 +50,22 @@ export default Reflux.createStore({
     },
 
     setPage: function(pagename) {
-      data.currentPage = pagename;
+      data.page = pagename;
       this.trigger(data);
     },
 
     setTitle: function(title) {
-      data.currentTitle = title;
+      data.title = title;
+      this.trigger(data);
+    },
+
+    showBackButton: function(status) {
+      data.showBackButton = status;
+      this.trigger(data);
+    },
+
+    setSecondaryNav: function(component) {
+      data.secondaryNav = component;
       this.trigger(data);
     },
 

@@ -20,7 +20,7 @@ export default React.createClass({
 
   setView(_view) {
     this.setState({ view: _view });
-    window.location.assign("#/activities/" + _view);
+    window.location.assign("#/stories/" + _view);
   },
 
   render() {
@@ -37,7 +37,7 @@ export default React.createClass({
           active={ this.state.view === 'upcoming' } 
           onClick={ this.setView.bind(this, 'upcoming') }>
 
-            Upcoming activities
+            Photowall
 
         </Button>  
         

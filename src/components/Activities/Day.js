@@ -10,10 +10,17 @@ import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
 import Listitem from './DayItem';
-import TypeSelectorButton from './TypeSelectorButton';
+import TypeSelectorButton from '../General/TypeSelectorButton';
 
 
 export default React.createClass({
+
+  componentWillMount() {
+    StatusActions.setPage('activities');
+    StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='nav_activitiesday' defaultMessage='Activities Day'/>);
+    StatusActions.setSecondaryNav(null);
+  },
 
   getInitialState: function() {
     return {
@@ -22,10 +29,6 @@ export default React.createClass({
       foundActivities: false,
       foundActivitiesFuture: false
     };
-  },
-
-  componentDidMount() {
-    StatusActions.setPage('activitiesday');
   },
 
   onClickActivity(id) {
@@ -87,6 +90,24 @@ export default React.createClass({
     if (activities.length === 0) {
       // no events found
       Component = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: data.area.name}}/></h2></Col>;
+      // also, there is a filter for activity type active
+      if (data.status.selectedActivityTypes.length > 0) {
+        Component = (
+          <Col className="container text-center box white half">
+            <h2>
+              <FormattedMessage id='noactivitiesfiltered' values={{ 
+                areaName: data.area.name, 
+                activityTypes: data.status.selectedActivityTypes.map( function(id) {
+                  var type = Helpers.getActivityTypeById(id, data);
+                  return type.name;
+                })
+              }} />
+            </h2>
+          </Col>
+        );
+      }
+
+
     }
     else {
       Component = <Row>{activities.map(activityItem, this)}</Row>;

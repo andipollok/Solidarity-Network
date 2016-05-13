@@ -30,6 +30,7 @@
 
   "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",
   "noactivities": "Sorry, there are no activities planned in {areaName}.",
+  "noactivitiesfiltered": "Sorry, there are no {activityTypes} activities planned in {areaName}.",
   "nophotos": "Sorry, there are no photos from activities in {areaName}.",
   "nophotos": "Sorry, there are no stories from activities in {areaName}.",
 

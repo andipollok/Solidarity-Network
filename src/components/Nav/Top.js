@@ -6,11 +6,7 @@ import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Icon from '../General/Icon';
 
-import ViewSelectorButtons from '../Activities/ViewSelectorButtons';
-import TypeSelectorButton from '../Activities/TypeSelectorButton';
-
 import { FormattedMessage } from 'react-intl';
-
 
 const history = createHashHistory();
 
@@ -29,59 +25,22 @@ export default React.createClass({
 
     var data = this.props.data;
 
-    if (!data || data.status.currentPage === undefined || data.status.currentPage === 'start') {
-      return <div></div>
-    }
+    // primary navigation
+    if (data.status.title !== null) {
 
-    var pageHeadings = {
-      news:       <FormattedMessage id='nav_news' defaultMessage='News'/>,
-      activities: <FormattedMessage id='nav_activities' defaultMessage='Activities'/>,
-      activitiesday: <FormattedMessage id='nav_activities' defaultMessage='Activities'/>,
-      stories:    <FormattedMessage id='nav_stories' defaultMessage='Stories'/>,
-      settings: <FormattedMessage id='nav_settings' defaultMessage='Settings'/>,
-      person: 'Person',
-      group: 'Group',
-      typeselector: 'Select activity type',
-    };
+      var barClasses = classNames( "top-bar", data.status.page);
 
-    var showBackbutton = {
-      news: false,
-      activities: false,
-      activitiesday: true,
-      stories: false,
-      person: true,
-      group: true,
-      typeselector: true
-    }
+      var BackButton = <Button onClick={this.onClickBack}>&lt; Back</Button>;
 
-    var pageHeading = pageHeadings[data.status.currentPage];
-
-    var barClasses = classNames( "top-bar", data.status.currentPage);
-    var barClassesSecondary = classNames( "top-bar secondary", data.status.currentPage);
-
-    var BackButton = <Button onClick={this.onClickBack}>&lt; Back</Button>;
-
-    // secondary navigation
-    if (data.status.currentPage === 'activities') {
-
-      var secondary = <Row className={barClassesSecondary}>
- 
-              <ViewSelectorButtons data={data}/>
-
-        </Row>
-
-    };
-
-    return (
-      <div className="container-fluid hidden-md hidden-lg">
+      var primary = (
         <Row className={barClasses}>
           <Col className="box solid no-padding">
             <div className="top-flex">
               <div className="top-flex-left text-left">
-                {showBackbutton[data.status.currentPage] ? BackButton : null} 
+                {data.status.showBackButton ? BackButton : null} 
               </div>
               <div className="top-flex-middle text-center">
-                <h4>{pageHeading}</h4>
+                <h4>{data.status.title}</h4>
               </div>
               <div className="top-flex-right text-right">
                 
@@ -89,6 +48,26 @@ export default React.createClass({
             </div>
           </Col>
         </Row>
+      );
+
+    };
+
+
+    // secondary navigation
+    if (data.status.secondaryNav !== null) {
+      var barClassesSecondary = classNames( "top-bar secondary", data.status.page);
+      var secondary = (
+        <Row className={barClassesSecondary}> 
+          {data.status.secondaryNav}
+        </Row>
+      );
+
+    };
+
+    return (
+      <div className="container-fluid hidden-md hidden-lg">
+
+        {primary}
 
         {secondary}
 

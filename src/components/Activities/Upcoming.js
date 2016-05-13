@@ -12,14 +12,17 @@ import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
 import UpcomingItem from './UpcomingItem';
-import TypeSelectorButton from './TypeSelectorButton';
+import TypeSelectorButton from '../General/TypeSelectorButton';
+
+import ViewSelectorButtons from './ViewSelectorButtons';
 
 export default React.createClass({
 
-  // mixins: [ Reflux.connect(StatusStore, 'status') ],
-
   componentWillMount() {
     StatusActions.setPage('activities');
+    StatusActions.showBackButton(false);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
   },
 
   onClickActivity(id) {

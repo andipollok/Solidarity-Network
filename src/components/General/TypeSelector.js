@@ -20,14 +20,19 @@ export default React.createClass({
 
   mixins: [ Reflux.connect(StatusStore, 'status') ],
 
-  componentDidMount() {
+  componentWillMount() {
     StatusActions.setPage('typeselector');
+    StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setSecondaryNav(null);
   },
 
   addType(id) {
     StatusActions.clearActivityTypes();
     StatusActions.addActivityType(id);
-    history.goBack();
+    setTimeout(function() { 
+      history.goBack();
+    }, 100);
   },
 
   removeType(id) {

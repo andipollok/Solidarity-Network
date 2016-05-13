@@ -11,7 +11,7 @@ import Start from './components/Start/Start';
 import News from './components/News/News';
 import Upcoming from './components/Activities/Upcoming';
 import Calendar from './components/Activities/Calendar';
-import TypeSelector from './components/Activities/TypeSelector';
+import TypeSelector from './components/General/TypeSelector';
 import Stories from './components/Stories/Stories';
 
 import Person from './components/Person/Person';

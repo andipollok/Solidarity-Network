@@ -10,6 +10,8 @@ export default React.createClass({
 
   componentWillMount() {
     StatusActions.setPage('start');
+    StatusActions.setTitle(null);
+    StatusActions.setSecondaryNav(null);
   },
 
   render() {

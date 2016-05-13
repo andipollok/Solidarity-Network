@@ -16,12 +16,10 @@ import Avatar from '../General/Avatar';
 export default React.createClass({
 
   componentWillMount() {
-/*    StatusActions.historyAdd({
-      title: 'Photo Detail',
-      url: '',
-      pathname: '/photos'
-    });*/
     StatusActions.setPage('stories');
+    StatusActions.showBackButton(false);
+    StatusActions.setTitle(null);
+    StatusActions.setSecondaryNav(null);
   },
 
   makeZoomable() {

@@ -14,8 +14,11 @@ import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
-  componentDidMount() {
+  componentWillMount() {
     StatusActions.setPage('stories');
+    StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='nav_photo' defaultMessage='Photo'/>);
+    StatusActions.setSecondaryNav(null);
   },
 
   onClickBack() {
