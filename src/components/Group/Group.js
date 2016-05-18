@@ -7,13 +7,9 @@ import Helpers from '../../stores/Helpers.js';
 
 export default React.createClass({
 
-  // mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(DataStore, 'data'), Reflux.connect(StatusStore, 'status') ],
-
   componentDidMount() {
-    // LanguageStore.forceTrigger();
-    // DataActions.forceTrigger();
-    // StatusActions.forceTrigger();
-    StatusActions.setPage('agenda');
+    StatusActions.setPage('group');
+    StatusActions.forceTrigger();
   },
 
   render() {

@@ -20,6 +20,7 @@ export default React.createClass({
 
   showAllTypes() {
     StatusActions.clearActivityTypes();
+    StatusActions.forceTrigger();
   },
 
   render() {

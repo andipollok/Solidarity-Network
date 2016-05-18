@@ -40,53 +40,57 @@ export default Reflux.createStore({
     setJoin: function(state) {
       cookie.save(cookieNameJoin, state, { path: '/' });
       data.join = state;
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     setArea: function(area) {
       cookie.save(cookieNameArea, area, { path: '/' });
       data.area = area;
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     setPage: function(pagename) {
       data.page = pagename;
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     setTitle: function(title) {
       data.title = title;
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     showBackButton: function(status) {
       data.showBackButton = status;
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     setSecondaryNav: function(component) {
       data.secondaryNav = component;
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     addActivityType: function(id) {
       if (data.selectedActivityTypes.indexOf(id) === -1) {
         data.selectedActivityTypes.push(id);
-        this.trigger(data);
+        // this.trigger(data);
+        return true;
       }
+      return false;
     },
 
     removeActivityType: function(id) {
       var index = data.selectedActivityTypes.indexOf(id);
       if (index === -1) {
         data.selectedActivityTypes.splice(id, 1);
-        this.trigger(data);
+        return true;
+        // this.trigger(data);
       }
+      return false;
     },
 
     clearActivityTypes: function() {
       data.selectedActivityTypes = [];
-      this.trigger(data);
+      // this.trigger(data);
     },
 
     /**
@@ -98,7 +102,7 @@ export default Reflux.createStore({
       if (data.history.length === 0 || historydata.pathname !== data.history[data.history.length-1].pathname) {
         // console.log('add', historydata, data.history, data.future);
         data.history.push(historydata);
-        this.trigger(data);
+        // this.trigger(data);
       }
     },
 

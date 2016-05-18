@@ -19,6 +19,7 @@ export default React.createClass({
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='nav_photo' defaultMessage='Photo'/>);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
   onClickBack() {

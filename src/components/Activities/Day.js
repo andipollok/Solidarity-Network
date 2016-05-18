@@ -20,6 +20,7 @@ export default React.createClass({
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='nav_activitiesday' defaultMessage='Activities Day'/>);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
   getInitialState: function() {

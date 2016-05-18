@@ -17,11 +17,8 @@ export default React.createClass({
 
   componentWillMount() {
     StatusActions.setPage('activities');
-/*    StatusActions.historyAdd({
-      title: 'Agenda',
-      url: '',
-      pathname: '/agenda'
-    });*/
+    StatusActions.showBackButton(true);
+    StatusActions.forceTrigger();
   },
 
   render() {
@@ -177,34 +174,6 @@ export default React.createClass({
               {activity.description}
             </p>
           </Col>
-        </Row>
-
-        <Row>
-          <Col sm={4}>
-
-            {componentOwner}
-
-          </Col>
-
-          <Col sm={4}>
-            <Link to={`/community/${community.id}`}>
-              <div className="box text-center">
-                <p><Avatar /></p>
-                <p><FormattedMessage id="community" defaultMessage="Community"/> {community.name}</p>
-              </div>
-            </Link>
-            <div className="box white outline text-center bottom-buffer rounded">
-              {registerToAttend}
-            </div>
-          </Col>
-
-
-          <Col sm={4}>
-
-            {componentPhoto}
-
-          </Col>
-
         </Row>
 
       </div>

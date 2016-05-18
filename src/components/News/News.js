@@ -18,6 +18,7 @@ export default React.createClass({
     StatusActions.showBackButton(false);
     StatusActions.setTitle(<FormattedMessage id='nav_news' defaultMessage='News'/>);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
   onClickSelectItem(url) {

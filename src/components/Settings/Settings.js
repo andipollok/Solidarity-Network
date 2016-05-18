@@ -21,6 +21,7 @@ export default React.createClass({
     StatusActions.setPage('settings');
     StatusActions.setTitle(<FormattedMessage id='nav_settings' defaultMessage='Settings'/>);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
   render() {

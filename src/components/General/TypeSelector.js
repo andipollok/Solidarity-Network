@@ -25,11 +25,13 @@ export default React.createClass({
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
   addType(id) {
     StatusActions.clearActivityTypes();
     StatusActions.addActivityType(id);
+    StatusActions.forceTrigger();
     setTimeout(function() { 
       history.goBack();
     }, 100);
@@ -37,6 +39,7 @@ export default React.createClass({
 
   removeType(id) {
     StatusActions.removeActivityType(id);
+    StatusActions.forceTrigger();
     history.goBack();
   },
 

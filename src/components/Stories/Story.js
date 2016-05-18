@@ -23,7 +23,10 @@ export default React.createClass({
 
   componentDidMount() {
     StatusActions.setPage('story');
-    StatusActions.setTitle('Story');
+    StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='story' defaultMessage='Story'/>);
+    StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
 

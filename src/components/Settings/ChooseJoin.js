@@ -15,7 +15,7 @@ export default React.createClass({
   },
 
   componentDidMount() {
-     StatusActions.forceTrigger();
+    StatusActions.forceTrigger();
   },
 
   render() {
