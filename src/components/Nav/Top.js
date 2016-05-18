@@ -25,6 +25,10 @@ export default React.createClass({
 
     var data = this.props.data;
 
+    if (data.status.title === '' || data.status.title === undefined) {
+      return <div></div>;
+    }
+
     // primary navigation
     if (data.status.title !== null) {
 
