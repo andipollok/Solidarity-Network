@@ -12,6 +12,11 @@ export default React.createClass({
     StatusActions.setPage('start');
     StatusActions.setTitle(null);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
+  },
+
+  onClickStart() {
+    window.location.assign('#/activities');
   },
 
   render() {
@@ -21,6 +26,7 @@ export default React.createClass({
         <Row>
           <Col sm={12} className="text-center">
             <h1>Allo!</h1>
+            <Button bsSize="large" className="startButton" onClick={this.onClickStart}>Get started!</Button>
           </Col>
         </Row>
       </div>
