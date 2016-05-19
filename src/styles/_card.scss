@@ -3,7 +3,7 @@
   padding:20px;
   border-radius:22px;
   border:2px solid $color_grey1;
-
+  background-color: white;
   &.half {
     min-height:150px;
   }
@@ -15,17 +15,10 @@
     position:relative;
     transition: 0.06s;
   }
-  &.upcoming {
+  &.fixedheight {
     height:400px;
   }
   &.linked:hover {
-    // transform: rotate(-1deg) scale(1.1);
-    z-index:99;
-    box-sizing: border-box;
-    box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25);
-    // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color1; }
-    // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color2; }
-    // &.photos   { box-shadow:inset 0px 0px 0px 10px $color3; }
 
     &.news.solid {
       background-color:$color1;
@@ -34,7 +27,7 @@
     }
     &.activities.solid {
       background-color:$color2;
-      color:$color2_font;
+      color:$color2;
       .grey { color:white; }
     }
     &.stories.solid {
@@ -59,8 +52,9 @@
   }
 
   &.activities {
-    &.solid {
-      border:2px solid color($color2 l(-10)) !important;
+    border:2px solid $color2 !important;
+    color: $color2 !important;
+    &.solid {      
       background-color: $color2 !important;
       color: $color2_font !important;
     }
@@ -82,7 +76,8 @@
 }
 .activities {
   .card.outline {
-    border-color: $color2;
+    border:2px solid #5CDAC3;
+    color: $color2;
   }
 }
 .stories {

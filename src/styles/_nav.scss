@@ -7,10 +7,6 @@ $navbar-bottom-height: 110px;
     margin-bottom: 0;
     border:0;
 
-    &.navbar-top {
-      box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
-    }
-
     &.navbar-bottom {
       width:100%;
       min-height:$navbar-bottom-height;
@@ -46,27 +42,28 @@ $navbar-bottom-height: 110px;
           font-size:24px;
           font-weight:300;
 
+          color: $color_grey2;
           background-color: $color_light;
           
           &:hover {
-            background-color: $color_grey4;
+            // background-color: $color_grey4;
           }
           &.active {
-            color:$color_light;
-            background-color: $color_dark;
             text-decoration:none;
-            // font-weight:400;
-            //box-shadow: inset 3px 3px 0px rgba(0,0,0,.125), 0px 0px 0px rgba(0,0,0,.125);
-            &.news { background-color: $color1; color: $color1_font; }
-            &.activities   { background-color: $color2; color: $color2_font; }
-            &.stories   { background-color: $color3; color: $color3_font; }
+            // &.news { background-color: $color1; color: $color1_font; }
+            // &.activities   { background-color: $color2; color: $color2_font; }
+            // &.stories   { background-color: $color3; color: $color3_font; }
+
+            &.news { color: $color1; }
+            &.activities   { color: $color2; }
+            &.stories   { color: $color3; }
           }
           &.active:hover {
-            color: $color_light;
+/*             color: $color_light;
             background-color: $color_dark;
             &.news { background-color: $color1; color: $color1_font; }
             &.activities   { background-color: $color2; color: $color2_font; }
-            &.stories   { background-color: $color3; color: $color3_font; }
+            &.stories   { background-color: $color3; color: $color3_font; } */
           }
         }
       }

@@ -1,24 +1,65 @@
-
-
 .top-container {
+
+  border-bottom:1px solid color($color_background l(-10));
+
   .top-bar {
 
-    background-color: $color_dark;
+    background-color: white;
     height:60px;
-    overflow: hidden;
     font-weight:400;
+
+
+    button {
+      &.btn {
+
+        background-color: transparent;
+        color: $color_grey1;
+        margin-top: 3px;
+        margin-left: 3px;
+
+        line-height: 1;
+        height: 51px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+
+        &.backButton {
+          height: 40px;
+        }
+
+        &:hover  {
+          // background-color: $color2;
+          // color: $color2_font;
+        }
+        &:focus  {
+        
+        }
+        &:active {
+
+        }
+
+        &.active, &.active:focus {
+          background-color: $color_background;
+          border: 1px solid color($color_background l(-10));
+          border-bottom: 1px solid transparent;
+          color: $color_dark;
+        }
+        &.active:hover {
+
+        }
+      }
+    }
 
     &.secondary {
       height:53px;
       
       &.news {
-        background-color: $color1_light;        
+        //background-color: $color1_light;        
       }
       &.activities {
-        background-color: $color2_light;
+        //background-color: $color2_light;
       }
       &.stories {
-        background-color: $color3_light;        
+        //background-color: $color3_light;        
       }
 
     }
@@ -36,10 +77,19 @@
       }
 
     }
-
+    &.activities {
+      h4 {
+       // color: $color2;
+      }
+    }
+    &.stories {
+      h4 {
+        //color: $color3;
+      }
+    }
     h4 {
-      font-weight:400;
-      color: $color_light;
+      font-weight:300;
+      color: $color_dark;
       margin:0px;
       line-height:63px;
     }

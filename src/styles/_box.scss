@@ -25,14 +25,6 @@
       transition: 0.06s;
     }
     &.linked:hover {
-      // transform: rotate(-1deg) scale(1.1);
-      z-index:99;
-      box-sizing: border-box;
-      box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25), 0px 0px 10px 0px rgba(0,0,0,0.05);
-      // box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.25);
-      // &.whatsnew { box-shadow:inset 0px 0px 0px 10px $color1; }
-      // &.agenda   { box-shadow:inset 0px 0px 0px 10px $color2; }
-      // &.photos   { box-shadow:inset 0px 0px 0px 10px $color3; }
 
       &.news.solid {
         background-color:$color1;

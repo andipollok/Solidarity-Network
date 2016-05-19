@@ -43,6 +43,8 @@ body, html, #content, .scrollable {
 body {
   font-weight:400;
   overflow:hidden;
+  background-color: $color_background;
+
 }
 
 .scrollable {
@@ -58,9 +60,11 @@ a:hover {
 }
 
 #content {
-
+  p {
+    line-height:1.8;
+  }
   p.grey, span.grey, div.grey {
-    color: $color_dark;
+    color: $color_grey2;
   }
   .height100 {
     height:100%;
@@ -70,10 +74,10 @@ a:hover {
     margin-top: 20px;
   }
   .bottom-buffer {
-    margin-bottom: 6px;
+    margin-bottom: 12px;
   }
   .top-buffer {
-    margin-top: 6px;
+    margin-top: 12px;
   }
   .padding-left {
     padding-left: 12px;

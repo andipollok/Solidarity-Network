@@ -6,9 +6,9 @@ $color_grey2: color(white l(70));
 $color_grey1: color(white l(50));
 $color_dark: color(white l(20));
 
-$color1: color(white h(4) s(80) l(50));
-$color2: color(white h(270) s(41) l(50));
-$color3: color(white h(126) s(50) l(50));
+$color1: #7D96EA;
+$color2: #1d3faf; 
+$color3: #1d3faf;
 
 $color1_font: #FFF;
 $color2_font: #FFF;
@@ -22,6 +22,8 @@ $color1_dark: color($color1 l(-10));
 $color2_dark: color($color2 l(-10));
 $color3_dark: color($color3 l(-10));
 
-$color_infobox: color(white h(190) s(80) l(60));
+$color_infobox: #5CDAC3;
 $color_infobox_font: #FFF;
-$color_infobox_dark: color($color_infobox l(-20));
+$color_infobox_dark: color($color_infobox l(-10));
+
+$color_background: color(#5CDAC3 l(+35));

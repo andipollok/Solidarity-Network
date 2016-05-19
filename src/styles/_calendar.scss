@@ -18,40 +18,44 @@
       &.weekend {
         // background-color:$color_dark;
       }
-      &.today {
-        box-sizing: border-box;
-        background-color: $color_grey4;
-        // box-shadow:inset 0px 0px 0px 10px $color2;
-      }
+
       .activity {
-        background-color: $color2;
+        // background-color: $color2;
+        border: 2px solid #5CDAC3; 
         color: $color1_font;
         border-radius:5px;
         margin-bottom: 4px;
       }
       h4 {
-        margin-bottom:12px;
-        line-height:36px;
-        font-size:18px;
+        font-weight:400;
+        line-height:42px;
+        border-radius:22px;
+        width:44px;
+        height:44px;
+        display:inline-block;
+        box-sizing: border-box;
 
         &.highlight {
-          background-color: $color2;
-          color: $color1_font;
-          border-radius:18px;
-          width:36px;
-          height:36px;
-          display:inline-block;
+          border: 2px solid #5CDAC3;
+        }
+
+        &.today {
+          border: 2px solid #5CDAC3;
+          background-color: #5CDAC3;
+          color: $color2_font;
         }
         
       }
       .number {
-        background-color: $color2;
+        // background-color: $color2;
         color: $color1_font;
+        border: 1px solid $color2; 
         border-radius:15px;
         width:30px;
         height:30px;
         display:inline-block;
         line-height:30px;
+
       }
     }
   }
@@ -61,7 +65,7 @@
 
   .row {
     &.calendar-week {
-      height:100px;
+      //height:100px;
     }
   }
 }
