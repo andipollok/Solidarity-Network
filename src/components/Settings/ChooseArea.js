@@ -17,12 +17,12 @@ export default React.createClass({
   mixins: [Reflux.connect(DataStore, 'data'), Reflux.connect(StatusStore, 'status')],
 
   componentDidMount() {
-    DataActions.forceTrigger();
     StatusActions.forceTrigger();
   },
 
   onClickSelectArea(id) {
     StatusActions.setArea(id);
+    StatusActions.forceTrigger();
   },
 
   render() {

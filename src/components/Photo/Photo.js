@@ -31,7 +31,7 @@ export default React.createClass({
     var data = this.props.data;
 
     var photoId = this.props.params.id;
-    //var photo = Helpers.getPhotoById(photoId, this);
+
     var photo = {};
     // each entry in allPhotos has an images property with an array of attachments. we need to check if any of these matches the id.
     data.photos.map(function(p) {
@@ -56,31 +56,43 @@ export default React.createClass({
     var owner = Helpers.getPersonById(photo.ownerId, data);
     var activity = Helpers.getActivityById(photo.activityId, data);
     var type = Helpers.getActivityTypeById(activity.typeId, data);
-    // console.log(this.state.data.activities.map(function(a) { return a.id }))
-    // console.log(photo.activityId, activity);
-    // xxx todo problem - activity is not found sometimes
-    var h2Description = photo.description ? <h2>{photo.description}</h2> : '';
+
+    var description = photo.description ? <h2>{photo.description}</h2> : '';
+
+    var owner = <Link to={`/person/${owner.id}`}>
+              <div className="box outline rounded bottom-buffer">
+                <Avatar imageUrl={owner.pictureUrl}/>
+                Photo by {owner.name}
+              </div>
+            </Link>
 
     return (
       <div className="container stories">
         <Row>
-          <Col md={12} className="text-center box">
+          <Col xs={12} className="text-center box">
             <ButtonGroup>
               <Button bsSize="large" className="padded" onClick={this.onClickBack}>Back to photowall</Button>  
             </ButtonGroup>
           </Col>
         </Row>
         <Row>
-          <Col md={3} sm={4}  xs={4} className="text-center">
-            <Link to={`/person/${owner.id}`}>
-              <div className="box outline rounded bottom-buffer">
-                <Avatar imageUrl={owner.pictureUrl}/>
-                Photo by {owner.name}
+
+          <Col xs={12}>
+            {description}
+            <Link to={`/photo/${photo.id}/zoom`}>
+              <div className="photo full">
+                <img className="photo zoom" src={photo.url} title={photo.description}/>          
               </div>
             </Link>
+            </Col>
+        </Row>
+        <Row>
+          <Col xs={12} className="text-center top-buffer">
+
             <Link to={`/activity/${activity.id}`}>
               <div className="card solid activities">
-                <IconActivity type={type} area='activities' fill='solid' />
+
+                <IconActivity type={type} area='activities' isOnSolid={true} />
                 <h4>{activity.name}</h4>
                 <p><FormattedDate
                           value={activity.date}
@@ -92,14 +104,6 @@ export default React.createClass({
               </div>
             </Link>
           </Col>
-          <Col md={9} sm={8} xs={8}>
-            {h2Description}
-            <Link to={`/photo/${photo.id}/zoom`}>
-              <div className="photo full">
-                <img className="photo zoom" src={photo.url} title={photo.description}/>          
-              </div>
-            </Link>
-            </Col>
         </Row>
       </div>
     );

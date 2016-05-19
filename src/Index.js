@@ -12,7 +12,10 @@ import News from './components/News/News';
 import Upcoming from './components/Activities/Upcoming';
 import Calendar from './components/Activities/Calendar';
 import TypeSelector from './components/General/TypeSelector';
-import Stories from './components/Stories/Stories';
+
+import StoriesLatest from './components/Stories/Latest';
+import StoriesCalendar from './components/Stories/Calendar';
+import Photowall from './components/Stories/Photowall';
 
 import Person from './components/Person/Person';
 import Group from './components/Group/Group';
@@ -73,7 +76,12 @@ render(
         <Route name="activities-month" path="/activities/month" component={Calendar}/>
         <Route name="activities-type" path="/activities/type" component={TypeSelector}/>
 
-        <Route name="stories" path="/stories" component={Stories}/>
+        <Route name="stories" path="/stories" component={StoriesLatest}/>
+
+        <Route name="stories-latest" path="/stories/latest" component={StoriesLatest}/>
+        <Route name="stories-month" path="/stories/month" component={StoriesCalendar}/>
+        <Route name="stories-wall" path="/stories/wall" component={Photowall}/>
+        <Route name="stories-type" path="/stories/type" component={TypeSelector}/>
 
         <Route name="day" path="/activities/:day/:month/:year" component={Day}/>
 

@@ -34,11 +34,11 @@ export default React.createClass({
 
       var barClasses = classNames( "top-bar", data.status.page);
 
-      var BackButton = <Button onClick={this.onClickBack}>&lt; Back</Button>;
+      var BackButton = <Button className="backButton" onClick={this.onClickBack}>&lt; Back</Button>;
 
       var primary = (
         <Row className={barClasses}>
-          <Col className="box solid no-padding">
+          <Col className="box no-padding">
             <div className="top-flex">
               <div className="top-flex-left text-left">
                 {data.status.showBackButton ? BackButton : null} 
@@ -59,9 +59,9 @@ export default React.createClass({
 
     // secondary navigation
     if (data.status.secondaryNav !== null) {
-      var barClassesSecondary = classNames( "top-bar secondary", data.status.page);
+      var barClassesSecondary = classNames( "top-bar secondary text-center", data.status.page);
       var secondary = (
-        <Row className={barClassesSecondary}> 
+        <Row className={barClassesSecondary}>
           {data.status.secondaryNav}
         </Row>
       );
@@ -69,7 +69,7 @@ export default React.createClass({
     };
 
     return (
-      <div className="container-fluid hidden-md hidden-lg">
+      <div className="container-fluid">
 
         {primary}
 

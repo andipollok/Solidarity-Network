@@ -18,13 +18,13 @@ export default React.createClass({
     StatusActions.setPage('stories');
     StatusActions.showBackButton(false);
     StatusActions.setTitle(<FormattedMessage id='nav_stories' defaultMessage='Stories'/>);
-    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
+    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='wall'/>);
     StatusActions.forceTrigger();
   },
 
   getInitialState: function() {
     return {
-      area: 'overview'
+      area: 'wall'
     };
   },
 

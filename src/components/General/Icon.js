@@ -10,7 +10,7 @@ var colors = {
   },
   activities: {
     backgroundColor: '#F6F6F6',
-    iconColor: '#77529D',
+    iconColor: '#5CDAC3',
     solidIconColor: '#FFF'
   },
   stories: {
@@ -24,6 +24,7 @@ var colors = {
     solidIconColor: '#FFF'
   }
 }
+var inactiveColor = '#b3b3b3';
 
 export default React.createClass({
 
@@ -37,10 +38,20 @@ export default React.createClass({
       backgroundColor = colors[this.props.area].backgroundColor;
       iconColor = colors[this.props.area].iconColor;
       // if fill parameter is solid (has solid background), then choose different icon color
-      if (this.props.isOnSolid === true || this.props.active === true) {
+      if (this.props.isOnSolid === true) {
         iconColor = colors[this.props.area].solidIconColor;
       }
     }
+    if (this.props.isNav === true) {
+      iconColor = '#1d3faf';
+    }
+    if (this.props.isActive === false) {
+      iconColor = inactiveColor;
+    }
+    if (this.props.type && this.props.type === 'activity-coffee') {
+      // iconColor = '#9D5ED7';
+    }
+
 
     var backgroundShape = this.props.shape || 'circle';
     var iconType = this.props.type || 'activity-hiking';

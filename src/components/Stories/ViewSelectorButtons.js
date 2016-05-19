@@ -14,7 +14,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      view: this.props.view === 'month' ? 'month' : 'upcoming' // upcoming or calendar
+      view: this.props.view ? this.props.view : 'latest' // upcoming or calendar
     };
   },
 
@@ -34,10 +34,10 @@ export default React.createClass({
         <Button
           bsSize="large"
           className="padded" 
-          active={ this.state.view === 'upcoming' } 
-          onClick={ this.setView.bind(this, 'upcoming') }>
+          active={ this.state.view === 'latest' } 
+          onClick={ this.setView.bind(this, 'latest') }>
 
-            Photowall
+            Latest stories
 
         </Button>  
         
@@ -48,6 +48,16 @@ export default React.createClass({
           onClick={ this.setView.bind(this, 'month') }>
 
             Monthly view
+
+        </Button>
+
+        <Button
+          bsSize="large"
+          className="padded"
+          active={ this.state.view === 'wall' }
+          onClick={ this.setView.bind(this, 'wall') }>
+
+            Photo wall
 
         </Button>
 

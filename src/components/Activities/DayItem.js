@@ -40,7 +40,7 @@ export default React.createClass({
     }
 
     if (this.props.showIcon) {
-      var componentIcon = <IconActivity type={type} area='activities' isOnSolid={true} />;
+      var componentIcon = <IconActivity type={type} area='activities' isOnSolid={false} />;
     }
 
     if (this.props.showTime) {
@@ -82,7 +82,7 @@ export default React.createClass({
 
       <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.activity.id)}>
 
-        <div className="card solid linked padded text-center solid">
+        <div className="card outline linked padded text-center">
 
           {componentIcon}
 

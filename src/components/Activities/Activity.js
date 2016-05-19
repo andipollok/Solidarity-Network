@@ -18,6 +18,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='activity' defaultMessage='Activity'/>);
     StatusActions.forceTrigger();
   },
 
@@ -146,9 +147,9 @@ export default React.createClass({
         <Row>
           <Col sm={12} className="top-buffer">
 
-            <div className="card solid text-center">
+            <div className="card outline text-center">
 
-              <IconActivity type={type} area='activities' isOnSolid={true}/>
+              <IconActivity type={type} area='activities' isOnSolid={false}/>
 
               <h1>{activity.name}</h1>
 
