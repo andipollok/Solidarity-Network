@@ -18,7 +18,6 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('stories');
     StatusActions.showBackButton(true);
-    StatusActions.setTitle(<FormattedMessage id='nav_activitiesday' defaultMessage='Stories'/>);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -49,6 +48,17 @@ export default React.createClass({
     if (!myDate.isValid()) {
       return <div>Invalid date</div>;
     }
+
+    StatusActions.setTitle(<span>
+      <FormattedMessage id='stories_from' defaultMessage='Stories from'/>
+      &nbsp;
+      <FormattedDate
+                    value={myDate}
+                    day="numeric"
+                    month="long"
+                    year="numeric" />
+      </span>);
+    StatusActions.forceTrigger();
 
     var stories = [];
     stories = data.stories.filter(
