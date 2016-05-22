@@ -8,7 +8,6 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import Listitem from './PhotoListitem';
 import TypeSelectorButton from '../General/TypeSelectorButton';
 import ViewSelectorButtons from './ViewSelectorButtons';
 
@@ -40,10 +39,6 @@ export default React.createClass({
 
     var data = this.props.data;
     var area = Helpers.getAreaById(data.status.area, data);
-
-    var photoItem = function(photo) {
-      return ( <Listitem key={photo.id} data={photo} onClickHandler={this.onClickSelectPhoto}></Listitem> );
-    }.bind(this);
 
     var myPhotos = [],
         myPhotoList = [],

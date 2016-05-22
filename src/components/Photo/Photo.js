@@ -22,10 +22,6 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
-  onClickBack() {
-    window.location.assign("#/stories/");
-  },
-
   render() {
 
     var data = this.props.data;
@@ -59,6 +55,9 @@ export default React.createClass({
 
     var description = photo.description ? <h2>{photo.description}</h2> : '';
 
+    StatusActions.setTitle(photo.description);
+    StatusActions.forceTrigger();
+
     var owner = <Link to={`/person/${owner.id}`}>
               <div className="box outline rounded bottom-buffer">
                 <Avatar imageUrl={owner.pictureUrl}/>
@@ -68,31 +67,26 @@ export default React.createClass({
 
     return (
       <div className="container stories">
-        <Row>
-          <Col xs={12} className="text-center box">
-            <ButtonGroup>
-              <Button bsSize="large" className="padded" onClick={this.onClickBack}>Back to photowall</Button>  
-            </ButtonGroup>
-          </Col>
-        </Row>
+
         <Row>
 
-          <Col xs={12}>
-            {description}
+          <Col xs={12} className="top-buffer">
+            
             <Link to={`/photo/${photo.id}/zoom`}>
               <div className="photo full">
                 <img className="photo zoom" src={photo.url} title={photo.description}/>          
               </div>
             </Link>
+            {description}
             </Col>
         </Row>
         <Row>
           <Col xs={12} className="text-center top-buffer">
 
             <Link to={`/activity/${activity.id}`}>
-              <div className="card solid activities">
+              <div className="card outline buffer activities">
 
-                <IconActivity type={type} area='activities' isOnSolid={true} />
+                <IconActivity type={type} area='activities' isOnSolid={false} />
                 <h4>{activity.name}</h4>
                 <p><FormattedDate
                           value={activity.date}

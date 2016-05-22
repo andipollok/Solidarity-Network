@@ -17,9 +17,10 @@ export default React.createClass({
 
   componentWillMount() {
     StatusActions.setPage('stories');
-    StatusActions.showBackButton(false);
-    StatusActions.setTitle(null);
+    StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='nav_photo' defaultMessage='Photo'/>);
     StatusActions.setSecondaryNav(null);
+    StatusActions.forceTrigger();
   },
 
   makeZoomable() {
@@ -27,10 +28,6 @@ export default React.createClass({
       minScale: 0.6,
       maxScale: 4,
     });
-  },
-
-  onClickBack(_id) {
-    window.location.assign(`#/photo/${_id}`);
   },
 
   render() {
@@ -63,17 +60,13 @@ export default React.createClass({
     var owner = Helpers.getPersonById(photo.ownerId, data);
     var activity = Helpers.getActivityById(photo.activityId, data);
 
+    StatusActions.setTitle(photo.description);
+    StatusActions.forceTrigger();
+
     this.makeZoomable();
 
     return (
       <div className="container-fluid stories">
-        <Row>
-          <Col md={12} className="text-center box">
-            <ButtonGroup>
-              <Button bsSize="large" className="padded" onClick={this.onClickBack.bind(this, photo.id)}>Back</Button>  
-            </ButtonGroup>
-          </Col>
-        </Row>
         <Row>
           <Col>
             <div className="photo full">
