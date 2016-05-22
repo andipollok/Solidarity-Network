@@ -19,6 +19,7 @@ export default React.createClass({
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='activity' defaultMessage='Activity'/>);
+    StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
 
@@ -142,38 +143,38 @@ export default React.createClass({
     }
 
     return (
-      <div className="container activities">
+      <div className="container activities activity">
 
         <Row>
           <Col sm={12} className="top-buffer">
 
-            <div className="card outline text-center">
+            <div className="card outline">
 
-              <IconActivity type={type} area='activities' isOnSolid={false}/>
+              <div className="text-center">
 
-              <h1>{activity.name}</h1>
+                <IconActivity type={type} area='activities' isOnSolid={false}/>
 
-              <h3><FormattedMessage id="on" defaultMessage=" "/>
-                  &nbsp;<FormattedDate
-                        value={activity.date}
-                        weekday="long"
-                        day="numeric"
-                        month="long"
-                        year="numeric" /> 
-                  &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
-              </h3>
+                <h1>{activity.name}</h1>
 
-              {componentTime}
+                <h3><FormattedMessage id="on" defaultMessage=" "/>
+                    &nbsp;<FormattedDate
+                          value={activity.date}
+                          weekday="long"
+                          day="numeric"
+                          month="long"
+                          year="numeric" /> 
+                    &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
+                </h3>
+
+                {componentTime}
+
+              </div>
+
+              <p className="content top-buffer">
+               {activity.description}
+              </p>
 
             </div>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col sm={12} className="box">
-            <p>
-              {activity.description}
-            </p>
           </Col>
         </Row>
 
