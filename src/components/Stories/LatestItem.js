@@ -16,7 +16,7 @@ export default React.createClass({
     var story = this.props.story;
 
     if (this.props.showDate) {
-      var componentDate = <p>
+      var componentDate = <p className="date">
           <FormattedMessage id="publishedon" defaultMessage="Published on"/><br />
           &nbsp;
           <FormattedDate

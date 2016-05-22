@@ -39,7 +39,7 @@ export default React.createClass({
     StatusActions.forceTrigger();
 
     return (
-      <div className="container stories">
+      <div className="container stories story">
 
         <Row>
           <Col sm={12} className="top-buffer">
@@ -52,7 +52,7 @@ export default React.createClass({
 
               </div>
 
-              <p className="top-buffer">
+              <p className="content">
                 {story.content}
               </p>
 
