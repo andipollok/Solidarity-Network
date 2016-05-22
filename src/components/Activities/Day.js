@@ -18,7 +18,6 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
-    StatusActions.setTitle(<FormattedMessage id='nav_activitiesday' defaultMessage='Activities Day'/>);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -53,6 +52,17 @@ export default React.createClass({
     if (!myDate.isValid()) {
       return <div>Invalid date</div>;
     }
+
+    StatusActions.setTitle(<span>
+      <FormattedMessage id='activities_on' defaultMessage='Activities on'/>
+      &nbsp;
+      <FormattedDate
+                    value={myDate}
+                    day="numeric"
+                    month="long"
+                    year="numeric" />
+      </span>);
+    StatusActions.forceTrigger();
 
     var activities = [];
     activities = data.activities.filter(
@@ -120,7 +130,7 @@ export default React.createClass({
         <TypeSelectorButton data={data}/>
 
         <Row>
-          <Col md={12} className="text-center box top-buffer bottom-buffer">
+          <Col md={12} className="text-center box bottom-buffer">
             <h1><FormattedDate
                     value={myDate}
                     weekday="long"
