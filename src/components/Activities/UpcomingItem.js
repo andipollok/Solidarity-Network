@@ -80,7 +80,7 @@ export default React.createClass({
 
     return (
 
-      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.activity.id)}>
+      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, activity.id)}>
 
         <div className="card outline fixedheight linked padded text-center">
 
