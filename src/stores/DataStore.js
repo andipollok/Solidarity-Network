@@ -8,16 +8,21 @@ import moment from 'moment';
 Airtable.configure({ apiKey: AirtableConfig.apiKey });
 var base = new Airtable().base(AirtableConfig.base);
 
-var data = {};
-var cookieNameArea = "community";
+import Helpers from './Helpers';
 
+var data = {};
+var cookieNameArea = "area";
+var areaId = "";
+var areaName = "";
 
 export default Reflux.createStore({
 
     listenables: [Actions],
 
     init: function() {
-      
+
+      areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
+
       data = {
         whatsnew:       [],  
         areas:          [],
@@ -43,13 +48,6 @@ export default Reflux.createStore({
       };
 
       this.loadAreas();
-      this.loadCommunities();
-      this.loadActivities();
-      this.loadActivityTypes();
-      this.loadPhotos();
-      this.loadPeople();
-      this.loadWhatsnew();
-      this.loadStories();
 
     },
 
@@ -60,7 +58,6 @@ export default Reflux.createStore({
 
     loadAreas() {
       var that = this;
-      var cookieValueArea = cookie.load(cookieNameArea) || ""; // -todo- this value should be taken from StatusStore!
 
       base('Areas').select({
         view: "Main View",
@@ -80,12 +77,19 @@ export default Reflux.createStore({
         fetchNextPage();
 
       }, function done(error) {
-        if (!cookieValueArea && Object.keys(data.communities).length > 0) {
-          // -todo- set cookie of default community via StatusStore
-//          cookie.save(cookieNameArea, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
-        }
+
         data.loaded.areas = true;
-        that.forceTrigger();
+
+        areaName = Helpers.getAreaById(areaId, data).name;
+
+        that.loadCommunities();
+        that.loadActivities();
+        that.loadActivityTypes();
+        that.loadPhotos();
+        that.loadPeople();
+        that.loadWhatsnew();
+        that.loadStories();
+
         if (error) {
           that.throwError(error);
         }
@@ -127,7 +131,8 @@ export default Reflux.createStore({
       var that = this;
       base('Communities').select({
         view: "Main View",
-        sort: [{field: "Name", direction: "asc"}]
+        sort: [{field: "Name", direction: "asc"}],
+        filterByFormula: `{Area} = "${areaName}"`
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name')) {
@@ -159,11 +164,13 @@ export default Reflux.createStore({
 
     loadActivities() {
       var that = this;
+
       base('Activities').select({
         maxRecords: 999,
         pageSize: 100,
         view: "Main View",
-        sort: [{field: "Date", direction: "asc"}]
+        sort: [{field: "Date", direction: "asc"}],
+        filterByFormula: `{Area} = "${areaName}"`
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
@@ -189,6 +196,7 @@ export default Reflux.createStore({
       }, function done(error) {
 
         data.loaded.activities = true;
+        console.log("found " + Object.keys(data.activities).length + " activities in " + areaName);
         // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
         // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
         // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
@@ -231,7 +239,8 @@ export default Reflux.createStore({
     loadPhotos() {
       var that = this;
       base('Photos').select({
-        view: "Main View"
+        view: "Main View",
+        filterByFormula: `{Area} = "${areaName}"`
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Nr') && record.get('Owner') && record.get('Activity') && record.get('Image') && record.get('Image').length > 0) {
@@ -260,7 +269,8 @@ export default Reflux.createStore({
     loadPeople() {
       var that = this;
       base('People').select({
-        view: "Main View"
+        view: "Main View",
+        filterByFormula: `{Area} = "${areaName}"`
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name')) {
@@ -295,12 +305,13 @@ export default Reflux.createStore({
 
     loadStories() {
       var that = this;
+
       base('Stories').select({
         maxRecords: 999,
         pageSize: 100,
         view: "Main View",
-        sort: [{field: "PublishDate", direction: "desc"}]
-//        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
+        sort: [{field: "PublishDate", direction: "desc"}],
+        filterByFormula: `OR({Area} = "${areaName}", {AltArea} = "${areaName}")`
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Title') && record.get('PublishDate')) {
