@@ -52,7 +52,6 @@ export default React.createClass({
       // iconColor = '#9D5ED7';
     }
 
-
     var backgroundShape = this.props.shape || 'circle';
     var iconType = this.props.type || 'activity-hiking';
 
