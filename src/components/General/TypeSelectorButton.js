@@ -59,7 +59,7 @@ export default React.createClass({
     }
 
     return (
-      <Row className="box padded infobox buffer text-center">
+      <Row className="box padded infobox top-buffer text-center">
 
         {text}
 
