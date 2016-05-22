@@ -58,7 +58,7 @@ export default React.createClass({
     activities = data.activities.filter(
       function(activity) {
 
-        // check if this activity is in a group that is in this community
+        // check if this activity is in a community that is in this area
         var community = Helpers.getCommunityById(activity.communityId, data);
         if (!community) {
           return false;
