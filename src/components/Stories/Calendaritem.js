@@ -13,11 +13,8 @@ import Icon from '../General/Icon';
 export default React.createClass({
   
   onClick() {
-    // console.log(this.props.day.stories);
     if (this.props.day.stories.length === 1) {
-      // console.log('directly to activity ' + this.props.day);
       this.props.onClickStory(this.props.day.stories[0].id);
-      // this.props.onClickDay(this.props.day.date);
     }
     if (this.props.day.stories.length > 1) {
       this.props.onClickDay(this.props.day.date);
