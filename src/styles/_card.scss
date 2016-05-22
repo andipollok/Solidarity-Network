@@ -13,11 +13,16 @@
   &.linked {
     cursor: pointer;
     position:relative;
-    transition: 0.06s;
   }
   &.fixedheight {
     height:400px;
     overflow:hidden;
+  }
+  h2 {
+    margin-bottom:30px;
+  }
+  .date {
+    line-height:1.4 !important;
   }
   &.linked:hover {
 
@@ -53,7 +58,7 @@
   }
 
   &.activities {
-    border:2px solid $color2 !important;
+    border:2px solid color($color2 l(-10)) !important;
     color: $color2 !important;
     &.solid {      
       background-color: $color2 !important;
@@ -73,17 +78,19 @@
 .news { 
   .card.outline { 
     border-color: $color1;
+    color: $color2;
   }
 }
 .activities {
   .card.outline {
-    border:2px solid #5CDAC3;
+    border:2px solid $color_activity;
     color: $color2;
   }
 }
 .stories {
   .card.outline {
-    border-color: $color3;
+    border:2px solid $color_activity;
+    color: $color2;
   }
 }
 

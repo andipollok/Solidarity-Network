@@ -27,7 +27,7 @@ export default React.createClass({
     // &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
 
     if (this.props.showDate) {
-      var componentDate = <p>
+      var componentDate = <span>
           <FormattedMessage id="on" defaultMessage="on"/>
           &nbsp;
           <FormattedDate
@@ -36,7 +36,7 @@ export default React.createClass({
                     day="numeric"
                     month="long"
                     year="numeric" />
-        </p>
+        </span>
     }
 
     if (this.props.showIcon) {
@@ -57,15 +57,15 @@ export default React.createClass({
       }
 
       // format start and end time
-      var componentTime = <p>
+      var componentTime = <span>
                     {startingAt}&nbsp;<FormattedTime
                           value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
-                          </p>
+                          </span>
 
       if (activity.dateEnd) {
-        componentTime = <p>
+        componentTime = <span>
                         From&nbsp;<FormattedTime
                           value={activity.date}
                           minute="2-digit"
@@ -74,7 +74,7 @@ export default React.createClass({
                           value={activity.dateEnd}
                           minute="2-digit"
                           hour="numeric" />
-                          </p>
+                        </span>
       }
     }
 
@@ -88,10 +88,11 @@ export default React.createClass({
 
           <h2>{activity.name}</h2>
 
-          {componentDate}
-
-          {componentTime}
-
+          <p className="date">
+            {componentDate}
+            <br />
+            {componentTime}
+          </p>
 
         </div>
       </Col>
