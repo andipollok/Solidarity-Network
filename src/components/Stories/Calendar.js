@@ -34,13 +34,11 @@ export default React.createClass({
     }
   },
 
-  onClickActivity(id) {
-    // console.log("story " + id + " selected");
+  onClickStory(id) {
     window.location.assign("#/story/" + id);
   },
 
   onClickDay(date) {
-    // console.log("onClickDay", date.format());
     window.location.assign("#/stories/" + date.format("DD/MM/YYYY"));
   },
 
@@ -63,12 +61,12 @@ export default React.createClass({
 
     for (var date = startDate.clone(); date.diff(endDate) <= 0; date.add(1, 'days')) {
       // find activities
-      var activitiesFound = data.activities.filter(
-        function(activity) {
+      var storiesFound = data.stories.filter(
+        function(story) {
           // check if activity is on that day
-          if(moment(activity.date).isSame(date, 'day')) {
+          if(moment(story.date).isSame(date, 'day')) {
 
-            // check if activity is of selected type(s)
+/*            // check if activity is of selected type(s)
             if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
               return false;
             }
@@ -81,7 +79,7 @@ export default React.createClass({
             var _area = Helpers.getAreaById(_community.areaId, data);
             if (_area.id !== data.status.area) {
               return false; // filter this entry if item is not in the community
-            }
+            }*/
 
             return true;
           }
@@ -91,7 +89,7 @@ export default React.createClass({
         id: date.format(),
         date: date.clone(),
         name: "Day " + date.format('DD'),
-        activities: activitiesFound
+        stories: storiesFound
       });
       i++;
     }
@@ -116,7 +114,7 @@ export default React.createClass({
 
     var dayItem = function(day) {
       return (
-        <Listitem key={'day'+day.id} day={day} activeMonth={this.state.month} onClickDay={this.onClickDay} onClickActivity={this.onClickActivity}/>
+        <Listitem key={'day'+day.id} day={day} activeMonth={this.state.month} onClickDay={this.onClickDay} onClickStory={this.onClickStory}/>
       );
     }.bind(this);
 
@@ -135,8 +133,6 @@ export default React.createClass({
 
     return (
       <div className="container">
-
-        <TypeSelectorButton data={data}/>
 
         <div className="calendar">
           <Row className="calendar-row">

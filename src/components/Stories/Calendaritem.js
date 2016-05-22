@@ -13,7 +13,13 @@ import Icon from '../General/Icon';
 export default React.createClass({
   
   onClick() {
-    if (this.props.day.activities.length > 0) {
+    // console.log(this.props.day.stories);
+    if (this.props.day.stories.length === 1) {
+      // console.log('directly to activity ' + this.props.day);
+      this.props.onClickStory(this.props.day.stories[0].id);
+      // this.props.onClickDay(this.props.day.date);
+    }
+    if (this.props.day.stories.length > 1) {
       this.props.onClickDay(this.props.day.date);
     }
   },
@@ -29,13 +35,13 @@ export default React.createClass({
     var divClass = classNames(['box expand white text-center agenda calendar'], {
       weekend: this.props.day.date.isoWeekday() === 6 || this.props.day.date.isoWeekday() === 7,
       today: this.props.day.date.isSame(moment(), 'day'),
-      linked: this.props.day.activities.length > 0,
+      linked: this.props.day.stories.length > 0,
       grey: !this.props.activeMonth.isSame(this.props.day.date, 'month')
     });
 
     // add class to highlight there is an activity
     var headingClass = classNames( { 
-      highlight: this.props.day.activities.length > 0,
+      highlight: this.props.day.stories.length > 0,
       today: this.props.day.date.isSame(moment(), 'day')
     });
 
