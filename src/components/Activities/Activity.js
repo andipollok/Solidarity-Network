@@ -35,7 +35,7 @@ export default React.createClass({
 
     // load photos
     activity.photoList = [];
-    activity.photos.map(function(photoId) {
+    activity.photoIds.map(function(photoId) {
       var photo = Helpers.getPhotoById(photoId, data);
       if (!photo) {
         // this can happen if the photo exists but is not served by dataStore (e.g. if the field name was not filled out, dataStore ignores it)

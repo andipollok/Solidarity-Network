@@ -9,7 +9,7 @@ Airtable.configure({ apiKey: AirtableConfig.apiKey });
 var base = new Airtable().base(AirtableConfig.base);
 
 var data = {};
-var cookieNameCommunity = "community";
+var cookieNameArea = "community";
 
 
 export default Reflux.createStore({
@@ -60,7 +60,7 @@ export default Reflux.createStore({
 
     loadAreas() {
       var that = this;
-      var cookieValueCommunity = cookie.load(cookieNameCommunity) || ""; // -todo- this value should be taken from StatusStore!
+      var cookieValueArea = cookie.load(cookieNameArea) || ""; // -todo- this value should be taken from StatusStore!
 
       base('Areas').select({
         view: "Main View",
@@ -80,9 +80,9 @@ export default Reflux.createStore({
         fetchNextPage();
 
       }, function done(error) {
-        if (!cookieValueCommunity && Object.keys(data.communities).length > 0) {
+        if (!cookieValueArea && Object.keys(data.communities).length > 0) {
           // -todo- set cookie of default community via StatusStore
-//          cookie.save(cookieNameCommunity, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
+//          cookie.save(cookieNameArea, Object.keys(data.communities)[0], { path: '/' }) // -todo- this value should be set via StatusStore!!
         }
         data.loaded.areas = true;
         that.forceTrigger();
@@ -177,7 +177,7 @@ export default Reflux.createStore({
                 dateEnd: record.get('Date End'),
                 typeId: record.get('Type') ? record.get('Type')[0] : undefined,
                 description: record.get('Description'),
-                photos: record.get('Photos') || [],
+                photoIds: record.get('Photos') || [],
                 interested: record.get('Interested') || 0,
                 attended: record.get('Attended') || 0,
                 cancelled: record.get('cancelled')
