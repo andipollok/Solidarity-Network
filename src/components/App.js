@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link }  from 'react-router';
-import createHashHistory from 'history/lib/createHashHistory';
-import withScroll from 'scroll-behavior/lib/withStandardScroll';
+// import createHashHistory from 'history/lib/createHashHistory';
+// import withScroll from 'scroll-behavior/lib/withStandardScroll';
 
 import classNames from'classnames';
 
@@ -55,7 +55,7 @@ import Nav from './Nav/Nav';
 import Top from './Nav/Top';
 import Footer from './Nav/Footer';
 
-const history = withScroll(createHashHistory());
+// const history = withScroll(createHashHistory());
 
 export default React.createClass({
 
@@ -72,14 +72,14 @@ export default React.createClass({
 
     iNoBounce.enable();
     // Listen for changes to the current location.
-    const unlisten = history.listen(location => {
+    //const unlisten = history.listen(location => {
 /*      StatusActions.historyAdd($.extend({}, location,
       {
         title: '',
         url: ''
       }));
 */
-    });
+    //});
   },
 
   render: function() {
