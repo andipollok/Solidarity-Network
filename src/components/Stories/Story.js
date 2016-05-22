@@ -22,9 +22,8 @@ export default React.createClass({
   },
 
   componentDidMount() {
-    StatusActions.setPage('story');
+    StatusActions.setPage('stories');
     StatusActions.showBackButton(true);
-    StatusActions.setTitle(<FormattedMessage id='story' defaultMessage='Story'/>);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -34,9 +33,44 @@ export default React.createClass({
 
     var data = this.props.data;
 
+    var story = Helpers.getStoryById(this.props.params.id, data);
+
+    StatusActions.setTitle(story.title);
+    StatusActions.forceTrigger();
+
     return (
       <div className="container stories">
-        Story
+
+        <Row>
+          <Col sm={12} className="top-buffer">
+
+            <div className="card outline">
+
+              <div className="text-center">
+
+                <h1>{story.title}</h1>
+
+              </div>
+
+              <p className="top-buffer">
+                {story.content}
+              </p>
+
+            </div>
+          </Col>
+          <Col sm={12} className="top-buffer">
+            <p><FormattedMessage id="publishedon" defaultMessage="Published on"/>
+                &nbsp;<FormattedDate
+                      value={story.date}
+                      weekday="long"
+                      day="numeric"
+                      month="long"
+                      year="numeric" />
+                &nbsp;<span className="grey">(<FormattedRelative value={story.date} />)</span>
+            </p>
+          </Col>
+        </Row>
+
       </div>
     );
   }

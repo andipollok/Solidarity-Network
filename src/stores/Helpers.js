@@ -121,4 +121,19 @@ module.exports = {
     return photo;
   },
 
+  getStoryById: function(id, data) {
+    if (!id || !data || !data.loaded) {
+      console.error('Could not get Story, arguments missing.', id, data);
+      return {};
+    }
+    var story = {};
+    if (data.loaded.stories) {
+      story = $.grep(data.stories, function(e){ return e.id === id; }.bind(this))[0];
+    }
+    else {
+      console.error('Could not get Story, data not loaded yet.');
+    }
+    return story;
+  },
+
 };
