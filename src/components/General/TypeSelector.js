@@ -94,7 +94,7 @@ export default React.createClass({
       });
       return (
         <Col xs={4} key={type.id} onClick={this.addType.bind(this, type.id)} className={divClass}>
-          <div><IconActivity type={type} area='activities' isOnSolid={true} active='false'/></div>
+          <div><IconActivity type={type} area='activities' isOnSolid={false} active='false'/></div>
           {type.name}
         </Col>
       );
@@ -102,9 +102,9 @@ export default React.createClass({
 
 
     return (
-        <div className="container typeselector infobox top-buffer">
+        <div className="container typeselector top-buffer">
           <Row className="box text-center padded">
-            <h3>Which activities are interesting to you?</h3>
+            <p>Which activities are interesting to you?</p>
           </Row>
           <Row>
             {types.map(typeItem)}

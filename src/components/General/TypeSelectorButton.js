@@ -27,11 +27,12 @@ export default React.createClass({
 
     var data = this.props.data;
 
-    var text = <span>
-        <p>These are activities of all types.</p>
-        <p>Are you looking for a certain kind of activity?</p>
-        </span>
-
+    var text = (
+        <p>
+          These are activities of all types.<br />
+          Are you looking for a certain kind of activity?
+        </p>
+    );
     var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>Choose activity type</Button>
 
     var activityItem = function(id) {
@@ -62,9 +63,9 @@ export default React.createClass({
 
         {text}
 
-        {selectButton}
+        <p>{selectButton}</p>
 
-        {resetButton}
+        <p>{resetButton}</p>
 
       </Row>
     );

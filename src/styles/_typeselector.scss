@@ -5,10 +5,12 @@
 
   .activity-item {
     cursor: pointer;
-    color: $color_light;
+    color: $color_dark;
+    border: 2px solid transparent;
+    border-radius:22px;
     &.selected {
       background-color: white;
-      color: $color_dark;
+      border-color: $color_activity;
     }
   }
 

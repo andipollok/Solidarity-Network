@@ -1,18 +1,22 @@
 .infobox {
-  // background-color: color(#5CDAC3 l(+35));
   color: $color_dark;
   font-size: 24px;
 
+  .icon {
+    position:relative;
+    top:20px;
+  }
+
   button.btn {
-    background-color: $color_infobox_dark;
+    background-color: $color_activity_dark;
     color: $color_light;
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
       background-color: $color_light;
-      color: $color_infobox_dark;
+      color: $color_activity_dark;
     }
     &.active, &.active:focus {
       background-color: $color_light;
-      color: $color_infobox_dark;
+      color: $color_activity_dark;
     }
   }
 }
