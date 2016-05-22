@@ -51,16 +51,6 @@ export default React.createClass({
 
         </Button>
 
-        <Button
-          bsSize="large"
-          className="padded"
-          active={ this.state.view === 'wall' }
-          onClick={ this.setView.bind(this, 'wall') }>
-
-            Photo wall
-
-        </Button>
-
       </ButtonGroup>
 
     );
