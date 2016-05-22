@@ -13,7 +13,10 @@ import Icon from '../General/Icon';
 export default React.createClass({
   
   onClick() {
-    if (this.props.day.activities.length > 0) {
+    if (this.props.day.activities.length === 1) {
+      this.props.onClickActivity(this.props.day.activities[0].id);
+    }
+    if (this.props.day.activities.length > 1) {
       this.props.onClickDay(this.props.day.date);
     }
   },
