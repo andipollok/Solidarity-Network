@@ -35,7 +35,6 @@ export default React.createClass({
   },
 
   onClickActivity(id) {
-    // console.log("activity " + id + " selected");
     window.location.assign("#/activity/" + id);
   },
 
