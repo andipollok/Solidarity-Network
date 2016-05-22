@@ -32,7 +32,7 @@
   "noactivities": "Sorry, there are no activities planned in {areaName}.",
   "noactivitiesfiltered": "Sorry, there are no {activityTypes} activities planned in {areaName}.",
   "nophotos": "Sorry, there are no photos from activities in {areaName}.",
-  "nophotos": "Sorry, there are no stories from activities in {areaName}.",
+  "nostories": "Sorry, there are no stories yet in {areaName}.",
 
   "numberofgroups": "{num, plural, =0 {No groups yet} =1 {One group} other {# groups}}",
   "numberofstories": "{num, plural, =0 {No stories yet} =1 {One story} other {# stories}}",
