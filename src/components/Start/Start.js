@@ -25,7 +25,7 @@ export default React.createClass({
       <div className="container activities">
         <Row>
           <Col sm={12} className="text-center">
-            <h1>Salü!</h1>
+            <h1>alo</h1>
             <Button bsSize="large" className="startButton" onClick={this.onClickStart}>Get started!</Button>
           </Col>
         </Row>
