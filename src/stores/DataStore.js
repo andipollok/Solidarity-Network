@@ -20,12 +20,13 @@ export default Reflux.createStore({
       
       data = {
         whatsnew:       [],  
-        areas:           [],
+        areas:          [],
         communities:    [],
         activities:     [],
         activitytypes:  [],
         photos:         [],
         people:         [],
+        stories:        [],
 
         loaded: {
           whatsnew:     false,
@@ -35,7 +36,8 @@ export default Reflux.createStore({
           activitytypes:false,
           photos:       false,
           people:       false,
-          all:          false,  
+          stories:      false,
+          all:          false,
         },
         errors: []
       };
@@ -47,6 +49,7 @@ export default Reflux.createStore({
       this.loadPhotos();
       this.loadPeople();
       this.loadWhatsnew();
+      this.loadStories();
 
     },
 
@@ -289,6 +292,43 @@ export default Reflux.createStore({
         }
       });
     },
+
+    loadStories() {
+      var that = this;
+      base('Stories').select({
+        maxRecords: 999,
+        pageSize: 100,
+        view: "Main View",
+        sort: [{field: "PublishDate", direction: "desc"}]
+//        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
+      }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+            if (record.get('Title') && record.get('PublishDate')) {
+              data.stories.push({
+                id: record.getId(),
+                title: record.get('Title'),
+                date: record.get('PublishDate'),
+                content: record.get('Story'),
+                photoIds: record.get('Photos') || [],
+                activityId: record.get('Activity') ? record.get('Activity')[0] : undefined
+              });
+            }
+        });
+        fetchNextPage();
+
+      }, function done(error) {
+
+        data.loaded.stories = true;
+        // console.log("found the following " + Object.keys(data.activities).length + " stories", data.stories);
+        // console.log("story titles ", data.stories.map(function(a) { return a.title; }).join(', '));
+        // console.log("story dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
+        that.forceTrigger();
+
+        if (error) {
+          that.throwError(error);
+        }
+      });
+    },
  
     forceTrigger: function() {
       if (this.checkData()) {
@@ -298,7 +338,7 @@ export default Reflux.createStore({
 
     checkData: function() {
       if (!data) { return false; }
-      if (data.loaded.whatsnew && data.loaded.areas && data.loaded.communities && data.loaded.activities && data.loaded.activitytypes && data.loaded.photos && data.loaded.people) {
+      if (data.loaded.whatsnew && data.loaded.areas && data.loaded.communities && data.loaded.activities && data.loaded.activitytypes && data.loaded.photos && data.loaded.people && data.loaded.stories) {
         data.loaded.all = true;
         return true;
       }

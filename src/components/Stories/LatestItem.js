@@ -13,85 +13,31 @@ export default React.createClass({
   render() {
 
     var data = this.props.data;
-    var activity = this.props.activity;
-
-    var community = Helpers.getCommunityById(activity.communityId, data);
-
-    var type = Helpers.getActivityTypeById(activity.typeId, data);
-    
-    // check if activity is in the past          
-    var isInPast = new Date(activity.date) < new Date();
-
-    // &nbsp;<span className="grey">(<FormattedRelative value={this.props.activity.date} />)</span>
-    //  <p><FormattedMessage id="group" defaultMessage="Group"/> {group.name}
-    // &nbsp;<FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
+    var story = this.props.story;
 
     if (this.props.showDate) {
       var componentDate = <p>
-          <FormattedMessage id="on" defaultMessage="on"/>
+          <FormattedMessage id="publishedon" defaultMessage="Published on"/><br />
           &nbsp;
           <FormattedDate
-                    value={activity.date}
+                    value={story.date}
                     weekday="long"
                     day="numeric"
                     month="long"
-                    year="numeric" />
+                    year="numeric" /><br />
+          &nbsp;<span className="grey">(<FormattedRelative value={story.date} />)</span>
         </p>
-    }
-
-    if (this.props.showIcon) {
-      var componentIcon = <IconActivity type={type} area='activities' isOnSolid={false} />;
-    }
-
-    if (this.props.showTime) {
-
-      var startingAt;
-
-      if (isInPast === false) {
-        // event is in the future
-        startingAt = <FormattedMessage id="startingat" defaultMessage=" "/>
-      } 
-      else {
-        // event is in the past
-        startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
-      }
-
-      // format start and end time
-      var componentTime = <p>
-                    {startingAt}&nbsp;<FormattedTime
-                          value={activity.date}
-                          minute="2-digit"
-                          hour="numeric" />
-                          </p>
-
-      if (activity.dateEnd) {
-        componentTime = <p>
-                        From&nbsp;<FormattedTime
-                          value={activity.date}
-                          minute="2-digit"
-                          hour="numeric" />
-                          &nbsp;to&nbsp;<FormattedTime
-                          value={activity.dateEnd}
-                          minute="2-digit"
-                          hour="numeric" />
-                          </p>
-      }
     }
 
     return (
 
-      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, this.props.activity.id)}>
+      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, story.id)}>
 
         <div className="card outline fixedheight linked padded text-center">
 
-          {componentIcon}
-
-          <h2>{activity.name}</h2>
+          <h2>{story.title}</h2>
 
           {componentDate}
-
-          {componentTime}
-
 
         </div>
       </Col>

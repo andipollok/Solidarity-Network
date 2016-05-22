@@ -26,69 +26,58 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
-  onClickActivity(id) {
-    window.location.assign("#/activity/" + id);
+  onClickStory(id) {
+    window.location.assign("#/story/" + id);
   },
 
   render() {
 
     var data = this.props.data;
 
-    var activities = [];
+    var stories = [];
     var area = Helpers.getAreaById(data.status.area, data);
 
-    activities = data.activities.filter(
+    stories = data.stories.filter(
       function(activity) {
 
-        // check if this activity is in a group that is in this community
-        var community = Helpers.getCommunityById(activity.communityId, data);
+        // check if this activity is in a community that is in this area
+/*        var community = Helpers.getCommunityById(activity.communityId, data);
         if (!community) {
           return false;
         }
         var area = Helpers.getAreaById(community.areaId, data);
         if (!area || area.id !== data.status.area) {
           return false;
-        }
-
-        // check if activity is in the past
-        if (moment(activity.date) < moment()) {
-          return false;
-        }
+        }*/
 
         // check if activity is of selected type(s)
-        if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
-          return false;
-        }
+        // if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
+        //   return false;
+        // }
 
         return true;
       }.bind(this)
     );
 
 
-    var activityItem = function(activity) {
-      return ( <Item key={activity.id}
-                activity={activity}
+    var storyItem = function(story) {
+      return ( <Item key={story.id}
+                story={story}
                 data={data}
                 showDate={true}
-                showTime={true}
-                showIcon={true}
-                onClickHandler={this.onClickActivity} /> );
+                onClickHandler={this.onClickStory} /> );
     }.bind(this);
   
-    if (activities.length === 0) {
+    if (stories.length === 0) {
       // no events found
-      var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: area.name}}/></h2></Col>;
+      var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='nostories' values={{areaName: area.name}}/></h2></Col>;
     }
 
     return (
 
-      <div className="container activities">
+      <div className="container activities top-buffer">
 
-        <TypeSelectorButton data={data}/>
-
-        <Row>
-          {activities.map(activityItem, this)}
-        </Row>
+        {stories.map(storyItem, this)}
 
         {NotFound}
 
