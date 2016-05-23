@@ -53,10 +53,10 @@ export default React.createClass({
     var activity = Helpers.getActivityById(photo.activityId, data);
     var type = Helpers.getActivityTypeById(activity.typeId, data);
 
-    var description = photo.description ? <h2>{photo.description}</h2> : '';
-
-    StatusActions.setTitle(photo.description);
-    StatusActions.forceTrigger();
+    if (photo.description) {
+      StatusActions.setTitle(photo.description);
+      StatusActions.forceTrigger();
+    }
 
     var owner = <Link to={`/person/${owner.id}`}>
               <div className="box outline rounded bottom-buffer">
@@ -77,7 +77,6 @@ export default React.createClass({
                 <img className="photo zoom" src={photo.url} title={photo.description}/>          
               </div>
             </Link>
-            {description}
             </Col>
         </Row>
         <Row>
