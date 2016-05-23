@@ -60,8 +60,17 @@ export default React.createClass({
           </p>
         </span>
 
-      var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>Choose other activity type</Button>
-      var resetButton = <Button bsSize="large" className="padded" onClick={ this.showAllTypes }>Show all</Button>
+      var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>
+      
+        <FormattedMessage id='typeselector_choosedifferenttype' defaultMessage='Choose a different type of activity'/>
+      
+      </Button>
+      
+      var resetButton = <Button bsSize="large" className="padded" onClick={ this.showAllTypes }>
+
+        <FormattedMessage id='typeselector_showall' defaultMessage='Show all'/>
+
+      </Button>
     }
 
     return (
