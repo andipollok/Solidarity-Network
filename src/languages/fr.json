@@ -34,11 +34,11 @@
   "nophotos": "Désolé, il n'y a pas de photos d'événements passés à {areaName}.",
   "nostories": "Désolé, il n'y a pas de récits d'événements passés à {areaName}.",
 
-  "numberofgroups": "{numGroups, plural, =0 {Pas encore les groupes} =1 {Un groupe} other {# groupes}}",
+  "numberofgroups": "{num, plural, =0 {Pas encore les groupes} =1 {Un groupe} other {# groupes}}",
   "numberofstories": "{num, plural, =0 {Pas encore de récits} =1 {Une récit} other {# récits}}",
   "numberofcommunities": "{num, plural, =0 {Pas encore de communauté} =1 {Une communauté} other {# communautés}}",
-  "numberofmembers": "{numMembers, plural, =0 {Pas encore de personnes} =1 {Une personne} other {# personnes}}",
-  "numberofphotos": "{numPhotos, plural, =0 {Pas encore de photo} =1 {Une photo} other {# photos}}",
+  "numberofmembers": "{num, plural, =0 {Pas encore de personnes} =1 {Une personne} other {# personnes}}",
+  "numberofphotos": "{num, plural, =0 {Pas encore de photo} =1 {Une photo} other {# photos}}",
 
   "on": "Le",
   "at": "À",
@@ -65,6 +65,8 @@
   "typeselector_choose": "Choisissez le type d'activité",
   "typeselector_filtered1": "Ce sont toutes les activités de ",
   "typeselector_filtered2": ".",
+  "typeselector_choosedifferenttype": "Choose a different type of activity",
+  "typeselector_showall": "Show all",  
 
   "photos_from": "Photos de {activityName}",
   "photo_from": "Photo de {activityName}",
