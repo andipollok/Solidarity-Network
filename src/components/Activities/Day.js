@@ -127,8 +127,6 @@ export default React.createClass({
     return (
       <div className="container activities">
 
-        <TypeSelectorButton data={data}/>
-
         <Row>
           <Col md={12} className="text-center box bottom-buffer">
             <h1><FormattedDate
