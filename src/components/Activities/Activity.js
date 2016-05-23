@@ -10,6 +10,7 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
+import Icon from '../General/Icon';
 import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
 
@@ -21,6 +22,11 @@ export default React.createClass({
     StatusActions.setTitle(<FormattedMessage id='activity' defaultMessage='Activity'/>);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
+  },
+
+
+  onClickSelectPhoto(id) {
+    window.location.assign("#/photo/" + id);
   },
 
   render() {
@@ -58,14 +64,48 @@ export default React.createClass({
 
     var photoItem = function(photo) {
       return (
-        <div key={photo.id}>
-          <Link to={ '/photo/' + photo.id }>
-            <img src={photo.thumbnail} className="photoThumb" title={photo.description}/>
-          </Link>
-          
-        </div>
-        );
+        <Col xs={6} sm={4} md={3} key={photo.id} className="bottom-buffer">
+          <div className="box-photo box linked">
+            <img src={photo.url} title={photo.description} onClick={this.onClickSelectPhoto.bind(this, photo.id)}/>
+          </div>
+        </Col>
+      );
     }.bind(this);
+
+    // show photos if available
+    if (activity.photoList.length > 0) {
+      var componentPhoto = <span>
+            <Col xs={12} className="top-buffer">
+              <p><FormattedMessage id="numberofphotos" values={{num: activity.photoList.length}} /></p>
+            </Col>
+            {activity.photoList.map(photoItem,this)}
+          </span>
+    }
+
+    // show one story if available
+    activity.stories = data.stories.filter(function(story) {
+      if (story && story.activityId && story.activityId === activity.id) {
+        return true;
+      }
+      return false;
+    });
+
+    if (activity.stories.length > 0) {
+     
+      var story = activity.stories[0]; // only take first story for now
+
+      var componentStory = <Row>
+            <Col xs={12} className="text-center top-buffer">
+
+              <Link to={`/story/${story.id}`}>
+                <div className="card outline buffer activities">
+                  <h4>{story.title}</h4>
+                </div>
+              </Link>
+            </Col>
+          </Row>
+      }
+
 
     // check if activity is in the past          
     var isInPast = new Date(activity.date) < new Date();
@@ -89,36 +129,6 @@ export default React.createClass({
           <p>And did you like it?</p>
           <p><Button bsStyle="primary" bsSize="large">Find similar activities</Button></p>
           </span>
-    }
-
-    // show photos if available
-    if (activity.photoList.length > 0) {
-      var componentPhoto = <span>
-            {activity.photoList.map(photoItem,this)}
-            <p><FormattedMessage id="numberofphotos" values={{numPhotos: activity.photoList.length}} /></p>
-            <div className="box white outline text-center bottom-buffer rounded">
-              <p><Button bsStyle="primary" bsSize="large">Send all photos</Button></p>
-              <p>Send all these pictures to a friend! Also you can select single photos to send or create an album.</p>
-            </div>
-          </span>
-    }
-
-    // show owner if available
-    if (owner) {
-      var componentOwner = <span>
-        <Link to={`/person/${owner.id}`}>
-          <div className="box text-center">
-            <p><Avatar imageUrl={owner.pictureUrl}/></p>
-            <p>Hosted <FormattedMessage id="by" defaultMessage="by"/> {owner.name}</p>
-          </div>
-          </Link>
-          <div className="box white outline text-center bottom-buffer rounded">
-            <h3>Do you want to talk to {owner.name}?</h3>
-            
-            <p>{owner.name} is hosting this event. You can write him an email or call him on his mobile or landline.</p>
-            <p><Button bsStyle="primary" bsSize="large">Contact {owner.name}</Button></p>
-          </div>
-        </span>
     }
 
     // format start and end time
@@ -145,10 +155,10 @@ export default React.createClass({
     return (
       <div className="container activities activity">
 
-        <Row>
-          <Col sm={12} className="top-buffer">
-
-            <div className="card outline">
+        <div className="card outline top-buffer">
+        
+          <Row>
+            <Col xs={12}>
 
               <div className="text-center">
 
@@ -168,14 +178,24 @@ export default React.createClass({
 
                 {componentTime}
 
+                <h3>{activity.location}</h3>
+
               </div>
 
               <p className="content top-buffer">
                {activity.description}
               </p>
 
-            </div>
-          </Col>
+            </Col>
+          </Row>
+
+          <Row>
+            {componentPhoto}
+          </Row>
+        </div>
+
+        <Row>
+          {componentStory}
         </Row>
 
       </div>
