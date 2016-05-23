@@ -21,6 +21,10 @@ export default React.createClass({
     }
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return false;
+  },
+
   render() {
 
     // add month name if it's the first of the month or the first day displayed

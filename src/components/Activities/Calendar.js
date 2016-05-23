@@ -51,6 +51,10 @@ export default React.createClass({
     this.setState({ month: this.state.month.add(1, 'month') });
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return false;
+  },
+
   render() {
 
     var data = this.props.data;

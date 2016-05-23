@@ -28,6 +28,10 @@ var inactiveColor = '#b3b3b3';
 
 export default React.createClass({
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return false;
+  },
+
   render() {
     
     var backgroundColor = colors['default'].backgroundColor;
