@@ -107,50 +107,25 @@ export default React.createClass({
 
 
     return (
-      <div className="container stories story top-buffer">
+      <div className="container stories story">
 
-        <div className="card outline">
+        <div className="card outline top-buffer">
 
           <Row>
-            <Col xs={12} className="top-buffer">
+            <Col xs={12}>
 
-              <div className="">
-
-                <div className="text-center">
-
-                  <h1>{story.title}</h1>
-
-                </div>
-
-                <p className="content">
-                  {story.content}
-                </p>
+              <p className="content">
+                {story.content}
+              </p>
                 
-
-              </div>
             </Col>
-            </Row>
+          </Row>
             
           <Row>
             {componentPhoto}
           </Row>
 
         </div>
-
-        <Row>
-
-          <Col sm={12} className="top-buffer">
-            <p><FormattedMessage id="publishedon" defaultMessage="Published on"/>
-                &nbsp;<FormattedDate
-                      value={story.date}
-                      weekday="long"
-                      day="numeric"
-                      month="long"
-                      year="numeric" />
-                &nbsp;<span className="grey">(<FormattedRelative value={story.date} />)</span>
-            </p>
-          </Col>
-        </Row>
 
         {componentActivity}
 
