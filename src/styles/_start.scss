@@ -1,3 +1,15 @@
-.startButton {
-  margin-top:100px;
+.start {
+
+  background-image: url('../images/app/alo_welcome_background.png');
+  background-repeat: repeat;
+  background-size: contain; 
+  height:100%;
+  width:100%;
+  padding-top:40%;
+  svg {
+    width:200px;
+  }
+  .startButton {
+    margin-top:20%;
+  }
 }

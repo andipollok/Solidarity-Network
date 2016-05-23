@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link}  from 'react-router';
-import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
+
+import SvgIcon from 'react-svg-icons';
+import { Button, Row, Col } from 'react-bootstrap';
 import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
@@ -23,15 +24,19 @@ export default React.createClass({
   render() {
 
     return (
-      <div className="container activities">
+      <div className="container-fluid start">
         <Row>
           <Col sm={12} className="text-center">
-            <h1>alo</h1>
-            <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
+            <p>
+              <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
+            </p>
+            <p>
+              <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
 
-              <FormattedMessage id='getstarted'/>
+                <FormattedMessage id='getstarted'/>
 
-            </Button>
+              </Button>
+            </p>
           </Col>
         </Row>
       </div>
