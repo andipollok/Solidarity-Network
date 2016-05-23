@@ -69,6 +69,12 @@ export default React.createClass({
       // find activities
       var activitiesFound = data.activities.filter(
         function(activity) {
+
+          // check if activity is of selected type(s)
+          if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
+            return false;
+          }
+
           // check if activity is on that day
           if(moment(activity.date).isSame(date, 'day')) {
             return true;
