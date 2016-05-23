@@ -2,6 +2,9 @@ import React from 'react';
 import { Link }  from 'react-router';
 // import createHashHistory from 'history/lib/createHashHistory';
 // import withScroll from 'scroll-behavior/lib/withStandardScroll';
+// 
+import { FormattedMessage } from 'react-intl';
+import { Col, Row } from 'react-bootstrap';
 
 import classNames from'classnames';
 
@@ -72,14 +75,15 @@ export default React.createClass({
 
     iNoBounce.enable();
     // Listen for changes to the current location.
-    //const unlisten = history.listen(location => {
-/*      StatusActions.historyAdd($.extend({}, location,
+/*    const unlisten = history.listen(location => {
+      StatusActions.historyAdd($.extend({}, location,
       {
         title: '',
         url: ''
       }));
+
+    });
 */
-    //});
   },
 
   render: function() {
@@ -116,9 +120,13 @@ export default React.createClass({
 
           {error}
 
-          <div id="pleasewait">OVERLAY</div>
+          <div id="pleasewait">
+            <Row className="box padded infobox top-buffer text-center">            
+              <FormattedMessage id="loading"/>
+            </Row>
+          </div>
 
-          <div className="main-container scrollable">
+          <div id="main-scroll" className="main-container scrollable">
   
             {React.cloneElement(this.props.children, {data: data})}
   
