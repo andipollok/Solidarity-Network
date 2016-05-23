@@ -25,6 +25,11 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
+  componentDidUpdate() {
+    var overlay = document.getElementById('pleasewait');
+    if ( overlay ) { overlay.style.display = 'none'; } else { console.log("could not find overlay in Calendar render"); }
+  },
+
   getInitialState() {
 
     var date = moment();

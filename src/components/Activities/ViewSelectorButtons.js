@@ -19,8 +19,25 @@ export default React.createClass({
   },
 
   setView(_view) {
-    this.setState({ view: _view });
-    window.location.assign("#/activities/" + _view);
+    
+    // Conditionally showing the #pleasewait overlay (if we are opening the calendar)
+    var overlay = document.getElementById('pleasewait');
+    if ( overlay ) {
+      if ( _view == 'month' ) {
+        overlay.style.display = 'block';
+      } else {
+        overlay.style.display = 'none';
+      }
+    } else {
+      console.log("could not find overlay");
+    }
+    
+    // Performing the actual view change with a zero delay (technical trick so the DOM is modified to show the #pleasewait overlay before the data update time overhead occurs)
+    setTimeout( function() {
+      this.setState({ view: _view });
+      window.location.assign("#/activities/" + _view);
+    }.bind(this), 0 );
+
   },
 
   render() {

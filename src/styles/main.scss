@@ -60,6 +60,14 @@ a:hover {
   text-decoration: none !important;
 }
 
+#pleasewait {
+  display: none;
+  z-index: 99;
+  background: #eefbf9;
+  width: 100%;
+  height: calc(100% - 225px);
+}
+
 #content {
   p {
     line-height:1.8;

@@ -116,6 +116,8 @@ export default React.createClass({
 
           {error}
 
+          <div id="pleasewait">OVERLAY</div>
+
           <div className="main-container scrollable">
   
             {React.cloneElement(this.props.children, {data: data})}
