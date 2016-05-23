@@ -44,10 +44,10 @@ export default React.createClass({
         <Button
           bsSize="large"
           className="padded"
-          active={ this.state.view === 'month' }
-          onClick={ this.setView.bind(this, 'month') }>
+          active={ this.state.view === 'wall' }
+          onClick={ this.setView.bind(this, 'wall') }>
 
-          <FormattedMessage id='monthly_view' defaultMessage='Monthly view'/>  
+          <FormattedMessage id='photowall' defaultMessage='Photowall'/>  
 
         </Button>
 
