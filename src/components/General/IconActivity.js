@@ -10,11 +10,11 @@ export default React.createClass({
     
     var icon = 'activity-default';
     if (this.props.type && this.props.type.icon) {
-      var icon = 'activity-' + this.props.type.icon;
+      var icon = this.props.type.icon;
     }
 
     return (
-      <Icon type={icon} area={this.props.area} isOnSolid={this.props.isOnSolid} size={this.props.size}>
+      <Icon type={icon} folder='activities' area={this.props.area} isOnSolid={this.props.isOnSolid} size={this.props.size}>
       </Icon>
     );
 

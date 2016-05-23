@@ -52,19 +52,19 @@ export default React.createClass({
       // iconColor = '#9D5ED7';
     }
 
-    var backgroundShape = this.props.shape || 'circle';
-    var iconType = this.props.type || 'activity-hiking';
-
     var divClass = classNames('icon', {
       small: this.props.size === 'small'
     });
 
-    var backgroundElement = <SvgIcon name={'background-' + backgroundShape} color={backgroundColor}/>;
+    var folder = this.props.folder || 'activities';
+    var size = this.props.size || 'small';
+    var iconType = this.props.type || 'hiking';
+    name = `alo_${folder}-${iconType}-${size}`;
 
 
     return (
       <span className={divClass}>
-        <SvgIcon name={iconType} color={iconColor}/>
+        <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>
       </span>
     );
   }
