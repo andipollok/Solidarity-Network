@@ -1,0 +1,460 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"vi",
+				"video2"
+			],
+			[
+				"ran",
+				"random"
+			],
+			[
+				"nb",
+				"nbVideosReady"
+			],
+			[
+				"vid",
+				"videoEvent"
+			],
+			[
+				"rand",
+				"randomInsertPointVideo2inVideo1"
+			],
+			[
+				"per",
+				"performWithDelay"
+			],
+			[
+				"cut",
+				"cutScene"
+			],
+			[
+				"cu",
+				"cutSceneEvent"
+			],
+			[
+				"is",
+				"isVisible"
+			],
+			[
+				"video",
+				"videoPlaying"
+			],
+			[
+				"total",
+				"totalTime"
+			],
+			[
+				"cen",
+				"centerY"
+			],
+			[
+				"ne",
+				"newVideo"
+			],
+			[
+				"res",
+				"resizedPageHeight"
+			],
+			[
+				"wind",
+				"windowH"
+			],
+			[
+				"cur",
+				"currentImageInfo"
+			],
+			[
+				"load",
+				"loadPage"
+			],
+			[
+				"lo",
+				"loadImage"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"in",
+				"inline-block"
+			],
+			[
+				"ma",
+				"margin-right"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"font",
+				"font-weight"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"min",
+				"min-height"
+			],
+			[
+				"vc",
+				"vcManualCode"
+			],
+			[
+				"B",
+				"BASE_NAME"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 147.0,
+		"last_filter": "insta",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 521.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/davidroulin/Documents/Web/Solidarity-Network",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Group",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Nav",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/News",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Person",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Photo",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Settings",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Start",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Stories",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/stores"
+	],
+	"file_history":
+	[
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/App.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/Index.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/index.html",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Nav/Footer.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Nav/Top.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Nav/Nav.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/stores/DataStore.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities/Calendar.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/General/Icon.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/News/NewsListitem.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/package.json",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities/Calendaritem.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities/ViewSelectorButtons.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Stories/ViewSelectorButtons.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities/Day.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/settings.sublime-project",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities/List.js",
+		"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components/Activities/Schedule.js",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/IT/Website/staff pics/easter_egg/html.html",
+		"/Users/davidroulin/Documents/Love2D/ggj16/src/sound.lua",
+		"/Users/davidroulin/Documents/Love2D/ggj16/src/main.lua",
+		"/Users/davidroulin/Documents/Corona/RandomDialogue/build.settings",
+		"/Users/davidroulin/Documents/Corona/RandomDialogue/config.lua",
+		"/Users/davidroulin/Documents/Corona/RandomDialogue/main.lua",
+		"/Applications/CoronaSDK/SampleCode/Media/NewVideo/main.lua",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/Sidekick_Datamining/query_departure_cities.sql",
+		"/Users/davidroulin/Documents/Corona/Betterbiz/Notes.txt",
+		"/Users/davidroulin/Documents/Love2D/vcdata/documents_and_annotations_20160106_1524_03_annotations.csv",
+		"/Users/davidroulin/Documents/Love2D/lsqlite3_fsl09w/README",
+		"/Users/davidroulin/Documents/Love2D/vcdata/main.lua",
+		"/Users/davidroulin/Documents/Love2D/ColorfulDarkness/modules/graphic_engine/screen_play.lua",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/Chronogram/Assets/Scripts/v2.0 january/ConfigV2.cs",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/Data_exports/documents_and_annotations_20151112_1540.csv/Annotations-Table 1.csv",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projects/Cop21/dev/COP21/sandbox/alteredbarchart/debate_legallybinding.json",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/IT/hardware/TP Link wifi/creds.txt",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/IT/Wiki/backups.html",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/IT/Wiki/main.html",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/IT/Wiki/backups.orig.html",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/IT/Wiki/main.orig.html",
+		"/Users/davidroulin/Library/Preferences/unity.EPFL + ECAL Lab.Chronogram.plist",
+		"/Users/davidroulin/Desktop/VCBuilds/newExecutable.command",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/Unity4/Oculus Test 01/detectYukiware_OSX.sh",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/resetProjectFiles.sh",
+		"/Users/davidroulin/Documents/Unity projects/MariusBranch/chronogram/Unity4/Oculus Test 01/detectYukiware.sh",
+		"/Users/davidroulin/Documents/Unity projects/MariusBranch/chronogram/Unity4/Oculus Test 01/Assembly-CSharp-Editor-vs.csproj",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/INSTALLATION NOTES.txt",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/Controller Experiments/Unity/Encoder Tests/Assets/Scripts/SerialStringReadJOYSTICK.cs",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/Controller Experiments/Unity/Encoder Tests/Assets/Scripts/EncoderInput.cs",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/vcxIndex/indexVC_20150711143847/DatasetEssaiBidon02.cs",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/vcxIndex/vcIndex.sh",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/Extracting01_cities.txt",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/Essai18_villes_navigables.sql",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/Extracting01.1_cities.sql",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/extraction_villes_dates_images_01.csv",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/extraction_villes_dates_01.cs",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/vcxIndex/vcData.sh",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/vcxIndex/vcManualCode.cs",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/extraction_villes_dates_01.csv",
+		"/Users/davidroulin/Documents/Unity projects/Chronogram/_SQL/extraction_villes_dates_01.data.txt",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projets/Chronogram/datasetTemplate.cs",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projets/Chronogram/vcData.sh",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projets/Chronogram/vcIndex.sh",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projets/Chronogram/indexVC_20150707191042/datasetEssai01.cs",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projets/Chronogram/data.sh",
+		"/Users/davidroulin/Dropbox/EPFL_ECAL_LAB/Projets/Chronogram/texturePacker.sh",
+		"/Users/davidroulin/Desktop/Projects/vacoImageFormatter/main.py"
+	],
+	"find":
+	{
+		"height": 46.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/davidroulin/Documents/Web/Solidarity-Network/src/components,*.js",
+			"/Users/davidroulin/Documents/Web/Solidarity-Network/src/component,*.js",
+			"/Users/davidroulin/Documents/Web/Solidarity-Network/src,*.js",
+			"/Users/davidroulin/Documents/Web/Solidarity-Network/src/**.js",
+			"/Users/davidroulin/Documents/Web/Solidarity-Network/src/*.js",
+			"/Users/davidroulin/Documents/Web/Solidarity-Network/src",
+			"/Users/davidroulin/Documents/Unity projects/Chronogram/Prototype POC/Archives_test_June/Assets"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"}\n",
+			"ref=",
+			"ref",
+			"ref=",
+			"ref",
+			"ref=",
+			"didmoun",
+			"routingcontext",
+			"monthly view",
+			"shouldComponentUpdate",
+			"stop",
+			"start",
+			"widget.",
+			"widget",
+			"Unity Pro 5.x, iOS Pro 5.x, Android Pro 5.x",
+			"db",
+			",",
+			"Unity Pro",
+			"     ",
+			"    ",
+			"   ",
+			".bar.item1 { fill: #FF9700; }\n",
+			"%;\n",
+			"wifipassword\"><i class=\"fa fa-barcode",
+			"B067666",
+			"\"",
+			"\n\n\n",
+			"\n\n",
+			"Update	Delete",
+			"mysql",
+			"&quot;",
+			"WPA2: biscuitcuit",
+			"wifipassword",
+			"</div>",
+			"b>",
+			"h2",
+			"<p>",
+			"</p>",
+			"</span>",
+			"<span lang=\"EN-US\" style=\"font-size: 10pt; font-family: Arial, sans-serif;\">",
+			"<p style=\"line-height:13.5pt\">",
+			"<font face=\"trebuchet ms, helvetica, sans-serif\">",
+			"href=\"\"",
+			"#content",
+			"&nbsp;",
+			"</p>",
+			"<p>",
+			"<o:p></o:p>",
+			"<span lang=\"EN-US\">",
+			"</span>",
+			"<span style=\"font-family: verdana,geneva,sans-serif;\">",
+			"\n\n  ",
+			"\n\n",
+			"\n",
+			"</p>",
+			"<p>",
+			"<span style=\"font-size",
+			"lineMaterial",
+			");",
+			"TextMeshPro",
+			"\n#",
+			"InsertRecord",
+			"\n\"",
+			"\n",
+			"\", \"",
+			",",
+			"\n",
+			",",
+			"\n,",
+			"LIKE ",
+			"\n\"",
+			"\"\"",
+			"\n",
+			"dataset",
+			"DATASET",
+			"dataset",
+			"years"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"Insert_1Doc1Location1Year_Record",
+			");\nInsertRecord (\"",
+			"\"\n\"",
+			", ",
+			"\"\n\"",
+			"\",\"",
+			",",
+			", ",
+			"\nLIKE \"",
+			"\""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 118.0
+	},
+	"pinned_build_system": "",
+	"project": "settings.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 236.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
