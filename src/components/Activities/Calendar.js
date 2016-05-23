@@ -18,11 +18,27 @@ import ViewSelectorButtons from './ViewSelectorButtons';
 export default React.createClass({
 
   componentWillMount() {
+    // var overlay = document.getElementById('pleasewait');
+    // if (overlay) { overlay.style.display = 'block'; } else { console.log("could not find overlay"); }
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
     StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
     StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='month'/>);
     StatusActions.forceTrigger();
+  },
+
+  componentDidMount() {
+    // //var canvasNode = this.refs.mainCanvas.getDOMNode();
+    // //console.log(canvasnode);
+    // //pleasewait
+    // //console.log(document.getElementById('pleasewait'));
+    // document.getElementById('pleasewait').style.display = 'none';
+    // document.getElementById('pleasewait').style.display = 'none';
+  },
+
+  componentDidUpdate() {
+    var overlay = document.getElementById('pleasewait');
+    if ( overlay ) { overlay.style.display = 'none'; } else { console.log("could not find overlay in Calendar render"); }
   },
 
   getInitialState() {
@@ -35,6 +51,7 @@ export default React.createClass({
   },
 
   onClickActivity(id) {
+    // console.log("activity " + id + " selected");
     window.location.assign("#/activity/" + id);
   },
 
@@ -51,9 +68,9 @@ export default React.createClass({
     this.setState({ month: this.state.month.add(1, 'month') });
   },
 
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return false;
-  },
+  // shouldComponentUpdate: function(nextProps, nextState) {
+  //   return false;
+  // },
 
   render() {
 
@@ -135,6 +152,9 @@ export default React.createClass({
     // unfortunately, moment.weekdaysShort() always starts with Sunday ...
     // so we need to manipulate that
     var weekdays = Helpers.rotateArray(moment.weekdaysShort(), moment.localeData().firstDayOfWeek());
+
+    // var overlay = document.getElementById('pleasewait');
+    // if ( overlay ) { overlay.style.display = 'none'; } else { console.log("could not find overlay in Calendar render"); }
 
     return (
       <div className="container">

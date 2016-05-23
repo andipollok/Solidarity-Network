@@ -21,9 +21,9 @@ export default React.createClass({
     }
   },
 
-  shouldComponentUpdate: function(nextProps, nextState) {
-    return false;
-  },
+  // shouldComponentUpdate: function(nextProps, nextState) {
+  //   return false;
+  // },
 
   render() {
 

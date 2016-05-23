@@ -19,8 +19,45 @@ export default React.createClass({
   },
 
   setView(_view) {
-    this.setState({ view: _view });
-    window.location.assign("#/activities/" + _view);
+
+    // Perf.stop();
+    // var perfmeas = Perf.getLastMeasurements();
+    // console.log("Performance to render " + this.state.view);
+    // Perf.printInclusive( perfmeas );
+    // Perf.printExclusive( perfmeas );
+    // Perf.printWasted( perfmeas );
+    // Perf.start();
+
+    // var overlay = document.getElementById('pleasewait');
+    // if ( overlay && _view == 'month' ) { overlay.style.display = 'block'; } else { console.log("could not find overlay"); }
+
+    // this.setState({ view: _view });
+    // window.location.assign("#/activities/" + _view);
+
+
+    // console.log("CLICK");
+    // console.log(this.props.children.props.route.name);
+    // if ( this.props.children.props.route.name == "activities-month" ) { console.log("should show overlay"); } else { console.log("should hide overlay"); }
+    var overlay = document.getElementById('pleasewait');
+    if ( overlay ) {
+      if ( _view == 'month' ) {
+        overlay.style.display = 'block';
+      } else {
+          overlay.style.display = 'none';
+      }
+    } else {
+      console.log("could not find overlay");
+    }
+    
+    // if ( overlay && (this.props.children.props.route.name == "activities-month") ) { overlay.style.display = 'block'; } else { console.log("could not find overlay in App render"); }
+    // if ( overlay ) { overlay.style.display = 'block'; } else { console.log("could not find overlay in App render"); }
+
+
+    setTimeout( function() {
+      this.setState({ view: _view });
+      window.location.assign("#/activities/" + _view);
+    }.bind(this), 0 );
+
   },
 
   render() {

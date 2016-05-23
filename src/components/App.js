@@ -84,6 +84,14 @@ export default React.createClass({
 
   render: function() {
 
+    // console.log("Rendering App ");
+    // console.log(this.props.children.props.route.name);
+    // if ( this.props.children.props.route.name == "activities-month" ) { console.log("should show overlay"); } else { console.log("should hide overlay"); }
+    // var overlay = document.getElementById('pleasewait');
+    // // if ( overlay && _view == 'month' ) { overlay.style.display = 'block'; } else { console.log("could not find overlay"); }
+    // if ( overlay && (this.props.children.props.route.name == "activities-month") ) { overlay.style.display = 'block'; } else { console.log("could not find overlay in App render"); }
+    // // if ( overlay ) { overlay.style.display = 'block'; } else { console.log("could not find overlay in App render"); }
+
     if (!Helpers.checkDataLoaded(this) || !Helpers.checkLanguageLoaded(this)) {
       return <div></div>
     }
@@ -115,6 +123,8 @@ export default React.createClass({
           </div>
 
           {error}
+
+          <div id="pleasewait">OVERLAY</div>
 
           <div className="main-container scrollable">
   
