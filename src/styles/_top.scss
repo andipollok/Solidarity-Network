@@ -26,6 +26,13 @@
           height: 40px;
         }
 
+        &.settingsButton {
+          width:10px;
+          position:relative;
+          top: -10px;
+          left: 10px;
+        }
+
         &:hover  {
           // background-color: $color2;
           // color: $color2_font;
