@@ -1,6 +1,7 @@
-$iconSize: 120px;
+$iconSize: 100px;
+$svgSize: 100px;
 $iconSizeMedium: 100px;
-$iconSizeSmall: 60px;
+$iconSizeSmall: 50px;
 
 #content {
 
@@ -9,16 +10,16 @@ $iconSizeSmall: 60px;
     width: $iconSize;
     height: $iconSize;
     svg {
-      width: $iconSize;
-      height: $iconSize;
+      width: $svgSize;
+      height: $svgSize;
     }
 
     &.small {
       width: $iconSizeSmall;
       height: $iconSizeSmall;
       svg {
-        width: $iconSizeSmall;
-        height: $iconSizeSmall;
+        width: $svgSize;
+        height: $svgSize;
       }
     }
 
@@ -26,8 +27,8 @@ $iconSizeSmall: 60px;
       width: $iconSizeMedium;
       height: $iconSizeMedium;
       svg {
-        width: $iconSizeMedium;
-        height: $iconSizeMedium;
+        width: $svgSize;
+        height: $svgSize;
       }
     }
     
