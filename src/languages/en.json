@@ -54,9 +54,10 @@
   "photos": "Photos",
   "story": "Story",
   "stories": "Stories",
+  "photowall": "Photo wall",
 
   "activities_upcoming": "Upcoming activities",
-  "stories_latest": "Dernières récits",
+  "stories_latest": "Latest stories",
 
   "typeselector_whichactivities": "Which activities are interesting to you?",
   "typeselector_alltypes1": "These are activities of all types.",
