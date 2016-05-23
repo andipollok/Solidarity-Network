@@ -196,7 +196,7 @@ export default Reflux.createStore({
       }, function done(error) {
 
         data.loaded.activities = true;
-        console.log("found " + Object.keys(data.activities).length + " activities in " + areaName);
+        // console.log("found " + Object.keys(data.activities).length + " activities in " + areaName);
         // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
         // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
         // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));

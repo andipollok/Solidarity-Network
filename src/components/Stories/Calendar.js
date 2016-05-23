@@ -65,22 +65,6 @@ export default React.createClass({
         function(story) {
           // check if activity is on that day
           if(moment(story.date).isSame(date, 'day')) {
-
-/*            // check if activity is of selected type(s)
-            if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
-              return false;
-            }
-
-            // check if activity is in selected community
-            var _community = Helpers.getCommunityById(activity.communityId, data);
-            if (!_community) {
-              return false;
-            }
-            var _area = Helpers.getAreaById(_community.areaId, data);
-            if (_area.id !== data.status.area) {
-              return false; // filter this entry if item is not in the community
-            }*/
-
             return true;
           }
         }.bind(this));

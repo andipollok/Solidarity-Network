@@ -29,11 +29,13 @@ export default React.createClass({
 
     var text = (
         <p>
-          These are activities of all types.<br />
-          Are you looking for a certain kind of activity?
+          <FormattedMessage id='typeselector_alltypes1' defaultMessage='These are activities of all types.'/><br />
+          <FormattedMessage id='typeselector_alltypes2' defaultMessage='Are you looking for a certain kind of activity?'/>
         </p>
     );
-    var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>Choose activity type</Button>
+    var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>
+      <FormattedMessage id='typeselector_choose' defaultMessage='Choose activity type'/>
+    </Button>
 
     var activityItem = function(id) {
       var type = Helpers.getActivityTypeById(id, data);
@@ -45,12 +47,16 @@ export default React.createClass({
         </span> );
     }.bind(this);
 
+/*            These are all 
+            { data.status.selectedActivityTypes.map(activityItem, this) }
+            activities
+*/
     if (data.status.selectedActivityTypes.length > 0) {
       text = <span>
           <p>
-            These are all 
+            <FormattedMessage id='typeselector_filtered1' defaultMessage='These are all' /> &nbsp;
             { data.status.selectedActivityTypes.map(activityItem, this) }
-            activities
+            <FormattedMessage id='typeselector_filtered2' defaultMessage='activities' />
           </p>
         </span>
 

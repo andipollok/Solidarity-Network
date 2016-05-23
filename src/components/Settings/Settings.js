@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
+import { Button, Row } from 'react-bootstrap';
 
 import Reflux from 'reflux';
 import LanguageActions from '../../stores/LanguageActions';
@@ -24,20 +25,36 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
+  goToStart() {
+    window.location.assign("#/");
+  },
+
   render() {
 
     var data = this.props.data;
 
     return (
-      <div className="container text-center">
-      
-        <h2><FormattedMessage id='wheredoyoulive'/></h2>
-        <ChooseArea data={data}/>
 
-        <h2><FormattedMessage id='whichlanguagedoyouspeak'/></h2>
-        <ChooseLanguage data={data}/>
+      <div className="container text-center">
+    
+        <Row>
+          <h2><FormattedMessage id='wheredoyoulive'/></h2>
+          <ChooseArea data={data}/>
+        </Row>
+
+        <Row>
+          <h2><FormattedMessage id='whichlanguagedoyouspeak'/></h2>
+          <ChooseLanguage data={data}/>
+        </Row>
+
+        <Row>
+          <p className="top-buffer">
+            <Button onClick={this.goToStart}>Go to start screen</Button>
+          </p>
+        </Row>
 
       </div>
+
     );
   }
 });

@@ -37,7 +37,7 @@ export default React.createClass({
           active={ this.state.view === 'upcoming' } 
           onClick={ this.setView.bind(this, 'upcoming') }>
 
-            Upcoming activities
+          <FormattedMessage id='activities_upcoming' defaultMessage='Upcoming activities'/>
 
         </Button>  
         
@@ -47,7 +47,7 @@ export default React.createClass({
           active={ this.state.view === 'month' }
           onClick={ this.setView.bind(this, 'month') }>
 
-            Monthly view
+          <FormattedMessage id='monthly_view' defaultMessage='Monthly view'/> 
 
         </Button>
 

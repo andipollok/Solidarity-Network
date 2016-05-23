@@ -51,15 +51,16 @@ export default React.createClass({
     var activities = data.activities.filter(
       function(activity) {
 
-        // check if this activity is in a group that is in this community
+        // check if this activity is in a community that is in this area
         var community = Helpers.getCommunityById(activity.communityId, data);
         if (!community) {
           return false;
         }
-        var area = Helpers.getAreaById(community.areaId, data);
-        if (!area || area.id !== data.status.area) {
-          return false;
-        }
+        // we don't need to check for area as the community table should only contain communities from this area now
+        // var area = Helpers.getAreaById(community.areaId, data);
+        // if (!area || area.id !== data.status.area) {
+        //   return false;
+        // }
 
         return true;
       }.bind(this)
@@ -74,6 +75,14 @@ export default React.createClass({
         }
       });
     }
+
+    // remove types that have no activities at all in this area
+    types = types.filter(function(n) {
+      if (n.count === 0) {
+        return false;
+      }
+      return true;
+    })
 
     // sort by count, but also sort alhpabetically if same count
     types.sort(function(a, b) {
@@ -104,7 +113,9 @@ export default React.createClass({
     return (
         <div className="container typeselector top-buffer">
           <Row className="box text-center padded">
-            <p>Which activities are interesting to you?</p>
+            <p> 
+              <FormattedMessage id='typeselector_whichactivities' defaultMessage='Which activities are interesting to you?'/>
+            </p>
           </Row>
           <Row>
             {types.map(typeItem)}

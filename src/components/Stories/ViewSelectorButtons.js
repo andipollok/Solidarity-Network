@@ -36,8 +36,8 @@ export default React.createClass({
           className="padded" 
           active={ this.state.view === 'latest' } 
           onClick={ this.setView.bind(this, 'latest') }>
-
-            Latest stories
+          
+          <FormattedMessage id='stories_latest' defaultMessage='Latest stories'/>  
 
         </Button>  
         
@@ -47,7 +47,7 @@ export default React.createClass({
           active={ this.state.view === 'month' }
           onClick={ this.setView.bind(this, 'month') }>
 
-            Monthly view
+          <FormattedMessage id='monthly_view' defaultMessage='Monthly view'/>  
 
         </Button>
 
