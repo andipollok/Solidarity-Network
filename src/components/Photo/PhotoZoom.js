@@ -60,8 +60,10 @@ export default React.createClass({
     var owner = Helpers.getPersonById(photo.ownerId, data);
     var activity = Helpers.getActivityById(photo.activityId, data);
 
-    StatusActions.setTitle(photo.description);
-    StatusActions.forceTrigger();
+    if (photo.description) {
+      StatusActions.setTitle(photo.description);
+      StatusActions.forceTrigger();
+    }
 
     this.makeZoomable();
 
