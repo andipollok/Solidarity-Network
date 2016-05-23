@@ -184,6 +184,7 @@ export default Reflux.createStore({
                 dateEnd: record.get('Date End'),
                 typeId: record.get('Type') ? record.get('Type')[0] : undefined,
                 description: record.get('Description'),
+                location: record.get('Location'),
                 photoIds: record.get('Photos') || [],
                 interested: record.get('Interested') || 0,
                 attended: record.get('Attended') || 0,
