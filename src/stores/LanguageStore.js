@@ -25,6 +25,7 @@ export default Reflux.createStore({
 
     init: function() {
       var cookieValue = cookie.load(cookieName);
+
       var that = this;
       data = {
         languages: {},
