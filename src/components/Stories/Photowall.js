@@ -44,25 +44,12 @@ export default React.createClass({
         myPhotoList = [],
         foundPhotos = false;
 
-    myPhotos = data.photos.filter(
+/*    myPhotos = data.photos.filter(
       function(photo) {
-        // find photos in this community
-        var activity = Helpers.getActivityById(photo.activityId, data);
-        if (!activity) {
-          // in some cases if the Airtable is not filled out correctly, it can occur that an activity is not valid
-          // (e.g. no date, no name) and thus the DataStore does not provide it
-          return false;
-        }
-        var _community = Helpers.getCommunityById(activity.communityId, data);
-        if (!_community) {
-          return false;
-        }
-        var _area = Helpers.getAreaById(_community.areaId, data);
-        if (!_area || _area.id !== data.status.area) {
-          return false; // filter this photo if it is not in the community
-        }
         return true;
-      }.bind(this));
+      }.bind(this));*/
+
+    myPhotos = data.photos; // for now, we don't need to filter photos by activity type
 
     // load photos with url into array myPhotoList
     myPhotos.reverse().map(function(photo) {
@@ -107,9 +94,7 @@ export default React.createClass({
     }
 
     return (
-      <div className="container stories">
-
-        <TypeSelectorButton data={data}/>
+      <div className="container stories top-buffer">
 
         {listPhotos}
       
