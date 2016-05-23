@@ -61,7 +61,14 @@ const history = createHashHistory();
 
 render(
   (
-    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+    <Router history={history} onUpdate={
+      function() { 
+        var mainScrollElement = document.getElementById('main-scroll');
+        if (mainScrollElement) {
+          mainScrollElement.scrollTop = 0;
+        }
+      }
+    }>
       <Route name="home" path="/" component={App}>
 
         <IndexRoute component={Start}/>
