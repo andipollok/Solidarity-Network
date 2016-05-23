@@ -1,34 +1,42 @@
 {
   "loading": "Un instant s'il vous plaît…",
+  "getstarted": "Commencer!",
 
+  "nav_home": "Start",
   "nav_news": "Quoi de neuf?",
   "nav_activities": "Activités",
   "nav_stories": "Récit",
-
   "nav_settings": "Paramètres",
+
   "nav_openmenu": "Ouvrir le menu",
   "nav_closemenu": "Fermer menu",
 
   "welcome": "Bienvenue!",
-  "welcome_in": "Bienvenue à {communityName}!",
-  "whatsnew_in": "Ce qui est nouveau à {communityName}",
-  "agenda_in": "Agenda à {communityName}",
-  "photos_in": "Photos de {communityName}",
+  "welcome_in": "Bienvenue à {areaName}!",
+  "whatsnew_in": "Ce qui est nouveau à {areaName}",
+  "agenda_in": "Agenda à {areaName}",
+  "photos_in": "Photos de {areaName}",
+  "stories_in": "Récits de {areaName}",
 
   "wheredoyoulive": "Où habites-tu?",
   "whichlanguagedoyouspeak": "Quelle langue parlez vous?",
 
   "seewhatsnew": "Découvrez ce qui est nouveau depuis que vous étiez ici la dernière fois",
-  "seeagenda": "Voir toutes les activités à {communityName}",
-  "seephotos": "Parcourir les photos d'activités passées à {communityName}",
+  "seeagenda": "Voir toutes les activités à {areaName}",
+  "seephotos": "Parcourir les photos d'activités passées à {areaName}",
+  "seestories": "Parcourir les récits à {areaName}",
 
   "organisedby": "Organisé par {name}",
 
-  "nowhatsnew": "Désolé, il n'y a pas de nouvelles dans {communityName} à ce moment.",
-  "noactivities": "Désolé, il n'y a pas d'activités prévues à {communityName}.",
-  "nophotos": "Désolé, il n'y a pas de photos d'événements passés à {communityName}.",
+  "nowhatsnew": "Désolé, il n'y a pas de nouvelles dans {areaName} à ce moment.",
+  "noactivities": "Désolé, il n'y a pas d'activités prévues à {areaName}.",
+  "noactivitiesfiltered": "Désolé, il n'y a pas d'activités {activityTypes} prévues à {areaName}.",
+  "nophotos": "Désolé, il n'y a pas de photos d'événements passés à {areaName}.",
+  "nostories": "Désolé, il n'y a pas de récits d'événements passés à {areaName}.",
 
   "numberofgroups": "{numGroups, plural, =0 {Pas encore les groupes} =1 {Un groupe} other {# groupes}}",
+  "numberofstories": "{num, plural, =0 {Pas encore de récits} =1 {Une récit} other {# récits}}",
+  "numberofcommunities": "{num, plural, =0 {Pas encore de communauté} =1 {Une communauté} other {# communautés}}",
   "numberofmembers": "{numMembers, plural, =0 {Pas encore de personnes} =1 {Une personne} other {# personnes}}",
   "numberofphotos": "{numPhotos, plural, =0 {Pas encore de photo} =1 {Une photo} other {# photos}}",
 
@@ -38,10 +46,24 @@
   "startingat": "À partir de",
   "startedat": "Commencé à",
 
+  "community": "Communauté",
+  "communities": "Communautés",
   "group": "Groupe",
   "groups": "Groupes",
   "photo": "Photo",
   "photos": "Photos",
+  "story": "Récit",
+  "stories": "Récits",
+
+  "activities_upcoming": "Activités à venir",
+  "stories_latest": "Dernières récits",
+
+  "typeselector_whichactivities": "Quelles sont les activités intéressantes pour vous?",
+  "typeselector_alltypes1": "Ce sont les activités de tous les types.",
+  "typeselector_alltypes2": "Est-ce que vous cherchez un certain type d'activité?",
+  "typeselector_choose": "Choisissez le type d'activité",
+  "typeselector_filtered1": "Ce sont toutes les activités de ",
+  "typeselector_filtered2": ".",
 
   "photos_from": "Photos de {activityName}",
   "photo_from": "Photo de {activityName}",
@@ -56,4 +78,7 @@
   "news-createdactivity": "Grande! {personName} a créé l'activité {activityName}.",
 
   "today": "Aujourd'hui",
+  "tomorrow": "",
+
+  "monthly_view": "Voir le mois",
 }
