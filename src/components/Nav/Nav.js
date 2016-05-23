@@ -46,14 +46,14 @@ export default React.createClass({
              <ul className="nav navbar-nav">
               <li>
                 <Link className={activitiesClasses} activeClassName="active" to="/activities">
-                  <div><Icon type='nav-activities' area='activities' size='small' isNav={true} isActive={data.status && data.status.page === 'activities'}/></div>
-                  <FormattedMessage id='nav_activities' defaultMessage='Activities'/>
+                  <div><Icon type='activity' folder='service' area='activities' size='medium' isNav={true} isActive={data.status && data.status.page === 'activities'}/></div>
+                  <span className="text"><FormattedMessage id='nav_activities' defaultMessage='Activities'/></span>
                 </Link>
               </li>
               <li>
                 <Link className={storiesClasses} activeClassName="active" to="/stories">
-                  <div><Icon type='nav-stories' area='stories' size='small' isNav={true} isActive={data.status && data.status.page === 'stories'}/></div>
-                  <FormattedMessage id='nav_stories' defaultMessage='Stories'/>
+                  <div><Icon type='photos' folder='service' area='stories' size='medium' isNav={true} isActive={data.status && data.status.page === 'stories'}/></div>
+                  <span className="text"><FormattedMessage id='nav_stories' defaultMessage='Stories'/></span>
                 </Link>
               </li>
             </ul>

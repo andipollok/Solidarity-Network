@@ -42,8 +42,8 @@ export default React.createClass({
 
       return (
         <span key={id}>
-          <IconActivity type={type} area="activities" isOnSolid="true" size="small"/>
-          {type.name}&nbsp;
+          <IconActivity type={type} area="activities" isOnSolid="true" size="medium"/>
+          {type.name}
         </span> );
     }.bind(this);
 
@@ -54,7 +54,7 @@ export default React.createClass({
     if (data.status.selectedActivityTypes.length > 0) {
       text = <span>
           <p>
-            <FormattedMessage id='typeselector_filtered1' defaultMessage='These are all' /> &nbsp;
+            <FormattedMessage id='typeselector_filtered1' defaultMessage='These are all' />
             { data.status.selectedActivityTypes.map(activityItem, this) }
             <FormattedMessage id='typeselector_filtered2' defaultMessage='activities' />
           </p>

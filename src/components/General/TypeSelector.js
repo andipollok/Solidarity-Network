@@ -101,12 +101,10 @@ export default React.createClass({
       var divClass = classNames('text-center activity-item', {
         'selected': data.status.selectedActivityTypes.indexOf(type.id) !== -1
       });
-      console.log(type);
       return (
         <Col xs={4} key={type.id} onClick={this.addType.bind(this, type.id)} className={divClass}>
           <div><IconActivity type={type} area='activities' isOnSolid={false} active='false'/></div>
           {type.name}
-          {type.id}
         </Col>
       );
     }.bind(this);

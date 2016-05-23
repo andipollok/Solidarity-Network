@@ -1,4 +1,5 @@
 $iconSize: 120px;
+$iconSizeMedium: 100px;
 $iconSizeSmall: 60px;
 
 #content {
@@ -18,6 +19,15 @@ $iconSizeSmall: 60px;
       svg {
         width: $iconSizeSmall;
         height: $iconSizeSmall;
+      }
+    }
+
+    &.medium {
+      width: $iconSizeMedium;
+      height: $iconSizeMedium;
+      svg {
+        width: $iconSizeMedium;
+        height: $iconSizeMedium;
       }
     }
     

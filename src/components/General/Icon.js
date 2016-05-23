@@ -48,19 +48,16 @@ export default React.createClass({
     if (this.props.isActive === false) {
       iconColor = inactiveColor;
     }
-    if (this.props.type && this.props.type === 'activity-coffee') {
-      // iconColor = '#9D5ED7';
-    }
 
     var divClass = classNames('icon', {
-      small: this.props.size === 'small'
+      small: this.props.size === 'small',
+      medium: this.props.size === 'medium'
     });
 
     var folder = this.props.folder || 'activities';
-    var size = this.props.size || 'small';
+    var size = this.props.size || 'large';
     var iconType = this.props.type || 'hiking';
     name = `alo_${folder}-${iconType}-${size}`;
-
 
     return (
       <span className={divClass}>
