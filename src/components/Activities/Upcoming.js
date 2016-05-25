@@ -21,7 +21,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
-    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
     StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
     StatusActions.forceTrigger();
   },
