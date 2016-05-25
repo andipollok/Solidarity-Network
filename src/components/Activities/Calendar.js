@@ -20,7 +20,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
-    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
     StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='month'/>);
     StatusActions.forceTrigger();
   },
@@ -114,9 +114,9 @@ export default React.createClass({
       );
     }.bind(this);
 
-    var dayHeader = function(dayName) {
+    var dayHeader = function(dayName, i) {
       return (
-        <Col key={'header'+dayName} className="calendar-sm-1 calendar-header bottom-buffer grey text-center">
+        <Col key={'header' + i} className="calendar-sm-1 calendar-header bottom-buffer grey text-center">
           {dayName}
         </Col>
       );
@@ -126,6 +126,11 @@ export default React.createClass({
     // unfortunately, moment.weekdaysShort() always starts with Sunday ...
     // so we need to manipulate that
     var weekdays = Helpers.rotateArray(moment.weekdaysShort(), moment.localeData().firstDayOfWeek());
+
+    // remove dots at end of day names (added for french by react-intl, e.g. 'lun.' - we only want 'lun')
+    weekdays.forEach(function(item, i) {
+      weekdays[i] = item.replace(/\./g, '');
+    });
 
     return (
       <div className="container">
