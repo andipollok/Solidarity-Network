@@ -19,7 +19,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
-    StatusActions.setTitle(<FormattedMessage id='activity' defaultMessage='Activity'/>);
+    StatusActions.setTitle(<FormattedMessage id='activity' />);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -115,24 +115,15 @@ export default React.createClass({
     if (isInPast === false) {
       // event is in the future
       startingAt = <FormattedMessage id="startingat" defaultMessage=" "/>
-      registerToAttend = <span>
-          <h3>Do you want attend?</h3>
-          <p>Register your interest in this activity.</p>
-          <p><Button bsStyle="primary" bsSize="large">Register to attend</Button></p>
-          </span>
     } 
     else {
       // event is in the past
       startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
-      registerToAttend = <span>
-          <h3>Did you attend?</h3>
-          <p>And did you like it?</p>
-          <p><Button bsStyle="primary" bsSize="large">Find similar activities</Button></p>
-          </span>
     }
 
     // format start and end time
     var componentTime = <h3>
+                  <Icon type='time' folder='service' size='small' area='secondaryinfo'/>
                   {startingAt}&nbsp;<FormattedTime
                         value={activity.date}
                         minute="2-digit"
@@ -141,16 +132,35 @@ export default React.createClass({
 
     if (activity.dateEnd) {
       componentTime = <h3>
-                      <FormattedMessage id="from" />&nbsp;<FormattedTime
-                        value={activity.date}
-                        minute="2-digit"
-                        hour="numeric" />
-                        &nbsp;<FormattedMessage id="to" />&nbsp;<FormattedTime
-                        value={activity.dateEnd}
-                        minute="2-digit"
-                        hour="numeric" />
-                        </h3>
+                    <Icon type='time' folder='service' size='small' area='secondaryinfo'/>
+                    <FormattedMessage id="from" />&nbsp;<FormattedTime
+                      value={activity.date}
+                      minute="2-digit"
+                      hour="numeric" />
+                      &nbsp;<FormattedMessage id="to" />&nbsp;<FormattedTime
+                      value={activity.dateEnd}
+                      minute="2-digit"
+                      hour="numeric" />
+                      </h3>
     }
+
+    var componentDate = <h3>
+                    <Icon type='calendar' folder='service' size='small' area='secondaryinfo'/>
+                    <FormattedMessage id="on" defaultMessage=" "/>
+                        &nbsp;<FormattedDate
+                              value={activity.date}
+                              weekday="long"
+                              day="numeric"
+                              month="long"
+                              year="numeric" /> 
+                        &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
+                    </h3>
+
+    var componentLocation = <h3>
+                    <Icon type='location' folder='service' size='small' area='secondaryinfo'/>
+                    {activity.location}
+                    </h3>
+
 
     return (
       <div className="container activities activity">
@@ -166,19 +176,11 @@ export default React.createClass({
 
                 <h1>{activity.name}</h1>
 
-                <h3><FormattedMessage id="on" defaultMessage=" "/>
-                    &nbsp;<FormattedDate
-                          value={activity.date}
-                          weekday="long"
-                          day="numeric"
-                          month="long"
-                          year="numeric" /> 
-                    &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
-                </h3>
+                {componentDate}
 
                 {componentTime}
 
-                <h3>{activity.location}</h3>
+                {componentLocation}
 
               </div>
 
