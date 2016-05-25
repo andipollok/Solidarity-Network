@@ -141,11 +141,11 @@ export default React.createClass({
 
     if (activity.dateEnd) {
       componentTime = <h3>
-                      From&nbsp;<FormattedTime
+                      <FormattedMessage id="from" />&nbsp;<FormattedTime
                         value={activity.date}
                         minute="2-digit"
                         hour="numeric" />
-                        &nbsp;to&nbsp;<FormattedTime
+                        &nbsp;<FormattedMessage id="to" />&nbsp;<FormattedTime
                         value={activity.dateEnd}
                         minute="2-digit"
                         hour="numeric" />

@@ -83,5 +83,8 @@
   "today": "Aujourd'hui",
   "tomorrow": "",
 
-  "monthly_view": "Au calendrier"
+  "monthly_view": "Au calendrier",
+
+  "from": "De",
+  "to": "à"
 }
