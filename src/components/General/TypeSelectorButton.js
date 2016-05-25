@@ -47,10 +47,6 @@ export default React.createClass({
         </span> );
     }.bind(this);
 
-/*            These are all 
-            { data.status.selectedActivityTypes.map(activityItem, this) }
-            activities
-*/
     if (data.status.selectedActivityTypes.length > 0) {
       text = <span>
           <p>
