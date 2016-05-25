@@ -22,6 +22,9 @@ var colors = {
     backgroundColor: '#F6F6F6',
     iconColor: '#999',
     solidIconColor: '#FFF'
+  },
+  secondaryinfo: {
+    iconColor: '#b3b3b3'    
   }
 }
 var inactiveColor = '#b3b3b3';
