@@ -48,24 +48,6 @@ export default React.createClass({
     var data = this.props.data;
     var types = data.activitytypes;
 
-    var activities = data.activities.filter(
-      function(activity) {
-
-        // check if this activity is in a community that is in this area
-        var community = Helpers.getCommunityById(activity.communityId, data);
-        if (!community) {
-          return false;
-        }
-        // we don't need to check for area as the community table should only contain communities from this area now
-        // var area = Helpers.getAreaById(community.areaId, data);
-        // if (!area || area.id !== data.status.area) {
-        //   return false;
-        // }
-
-        return true;
-      }.bind(this)
-    );
-
     for (var type of types) {
       type.count = 0;
       activities.map(function(activity) {
@@ -76,7 +58,7 @@ export default React.createClass({
       });
     }
 
-    // remove types that have no activities at all in this area
+    // remove types that have no activities at all
     types = types.filter(function(n) {
       if (n.count === 0) {
         return false;
