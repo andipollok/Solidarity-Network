@@ -50,8 +50,8 @@ export default React.createClass({
     if (data.status.selectedActivityTypes.length > 0) {
       text = <span>
           <p>
-            <FormattedMessage id='typeselector_filtered1' defaultMessage='These are all' />
-            { data.status.selectedActivityTypes.map(activityItem, this) }
+            <FormattedMessage id='typeselector_filtered1' defaultMessage='These are all' />&nbsp;
+            { data.status.selectedActivityTypes.map(activityItem, this) }&nbsp;
             <FormattedMessage id='typeselector_filtered2' defaultMessage='activities' />
           </p>
         </span>
