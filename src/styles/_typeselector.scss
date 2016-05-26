@@ -12,6 +12,7 @@
     color: $color_dark;
     border: 2px solid transparent;
     border-radius:22px;
+    height:180px;
     &.selected {
       background-color: white;
       border-color: $color_activity;
