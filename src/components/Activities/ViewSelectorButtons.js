@@ -14,7 +14,7 @@ export default React.createClass({
 
   getInitialState: function() {
     return {
-      view: this.props.view === 'month' ? 'month' : 'upcoming' // upcoming or calendar
+      view: this.props.view // upcoming or month
     };
   },
 
@@ -23,7 +23,7 @@ export default React.createClass({
     // Conditionally showing the #pleasewait overlay (if we are opening the calendar)
     var overlay = document.getElementById('pleasewait');
     if ( overlay ) {
-      if ( _view == 'month' ) {
+      if ( _view === 'month' ) {
         overlay.style.display = 'block';
       } else {
         overlay.style.display = 'none';
@@ -31,16 +31,22 @@ export default React.createClass({
     } else {
       console.log("could not find overlay");
     }
+
+    this.setState({ view: _view });
     
     // Performing the actual view change with a zero delay (technical trick so the DOM is modified to show the #pleasewait overlay before the data update time overhead occurs)
     setTimeout( function() {
-      this.setState({ view: _view });
       window.location.assign("#/activities/" + _view);
     }.bind(this), 0 );
 
   },
 
   render() {
+
+    // in case the props are set again by parent component, we need to update state
+    if (this.props.view !== this.state.view) {
+      this.setState({ view: this.props.view });
+    }
 
     var data = this.props.data;
 
