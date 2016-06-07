@@ -50,7 +50,7 @@ export default React.createClass({
 
     for (var type of types) {
       type.count = 0;
-      activities.map(function(activity) {
+      data.activities.map(function(activity) {
         // check if has selected type
         if (type.id === activity.typeId) {
           type.count++;
