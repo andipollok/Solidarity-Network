@@ -58,12 +58,14 @@ export default React.createClass({
       StatusActions.forceTrigger();
     }
 
-    var owner = <Link to={`/person/${owner.id}`}>
+    if (owner && owner.id) {
+      var owner = <Link to={`/person/${owner.id}`}>
               <div className="box outline rounded bottom-buffer">
                 <Avatar imageUrl={owner.pictureUrl}/>
                 Photo by {owner.name}
               </div>
             </Link>
+    }
 
     return (
       <div className="container stories">
