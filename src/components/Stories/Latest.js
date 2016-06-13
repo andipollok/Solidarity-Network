@@ -40,21 +40,6 @@ export default React.createClass({
     stories = data.stories.filter(
       function(activity) {
 
-        // check if this activity is in a community that is in this area
-/*        var community = Helpers.getCommunityById(activity.communityId, data);
-        if (!community) {
-          return false;
-        }
-        var area = Helpers.getAreaById(community.areaId, data);
-        if (!area || area.id !== data.status.area) {
-          return false;
-        }*/
-
-        // check if activity is of selected type(s)
-        // if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
-        //   return false;
-        // }
-
         return true;
       }.bind(this)
     );

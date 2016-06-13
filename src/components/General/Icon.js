@@ -22,6 +22,9 @@ var colors = {
     backgroundColor: '#F6F6F6',
     iconColor: '#999',
     solidIconColor: '#FFF'
+  },
+  secondaryinfo: {
+    iconColor: '#b3b3b3'    
   }
 }
 var inactiveColor = '#b3b3b3';
@@ -52,23 +55,20 @@ export default React.createClass({
     if (this.props.isActive === false) {
       iconColor = inactiveColor;
     }
-    if (this.props.type && this.props.type === 'activity-coffee') {
-      // iconColor = '#9D5ED7';
-    }
-
-    var backgroundShape = this.props.shape || 'circle';
-    var iconType = this.props.type || 'activity-hiking';
 
     var divClass = classNames('icon', {
-      small: this.props.size === 'small'
+      small: this.props.size === 'small',
+      medium: this.props.size === 'medium'
     });
 
-    var backgroundElement = <SvgIcon name={'background-' + backgroundShape} color={backgroundColor}/>;
-
+    var folder = this.props.folder || 'activities';
+    var size = this.props.size || 'large';
+    var iconType = this.props.type || 'hiking';
+    name = `alo_${folder}-${iconType}-${size}`;
 
     return (
       <span className={divClass}>
-        <SvgIcon name={iconType} color={iconColor}/>
+        <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>
       </span>
     );
   }

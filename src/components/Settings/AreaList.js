@@ -21,7 +21,11 @@ export default React.createClass({
     var ownersName = [];
 
     area.ownersId.map(function(ownerId) {
-      ownersName.push(Helpers.getPersonById(ownerId, data).name);
+      var owner = Helpers.getPersonById(ownerId, data);
+      if (owner !== undefined) {
+        ownersName.push(Helpers.getPersonById(ownerId, data).name);
+      }
+
     });
 
     var buttonClass = classNames( 'padded top-buffer',

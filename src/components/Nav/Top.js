@@ -13,12 +13,15 @@ const history = createHashHistory();
 export default React.createClass({
 
   onClickBack() {
-    // StatusActions.historyBack();
     history.goBack();
   },
 
   onClickForward() {
     StatusActions.historyForward();
+  },
+
+  onClickSettings() {
+    window.location.assign("#/settings");
   },
 
   render() {
@@ -47,7 +50,7 @@ export default React.createClass({
                 <h4>{data.status.title}</h4>
               </div>
               <div className="top-flex-right text-right">
-                
+                <Button className="settingsButton" size="bsLarge" onClick={this.onClickSettings}></Button>
               </div>
             </div>
           </Col>

@@ -12,6 +12,7 @@ export default React.createClass({
 
   onClickSetLanguage(id) {
     LanguageActions.setLanguage(id);
+    window.location.assign("#/");
   },
 
   render() {
@@ -31,19 +32,11 @@ export default React.createClass({
         </Button> );
     }.bind(this);
 
-    var selectLanguage = <FormattedMessage id='loading'/>;
-    if (data.language && data.language.languages) {
-      selectLanguage = <span>{Object.keys(data.language.languages).map(languageItem, this)}</span>;
-    }
 
     return (
-      <div className="container">
-        <Row>
-          <ButtonGroup>
-            {selectLanguage}        
-          </ButtonGroup>
-        </Row>
-      </div>
+      <ButtonGroup>
+        {Object.keys(data.language.languages).map(languageItem, this)}      
+      </ButtonGroup>
     );
   }
 });

@@ -18,6 +18,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' />); // will be overwritten with date later
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -126,8 +127,6 @@ export default React.createClass({
 
     return (
       <div className="container activities">
-
-        <TypeSelectorButton data={data}/>
 
         <Row>
           <Col md={12} className="text-center box bottom-buffer">

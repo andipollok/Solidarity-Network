@@ -48,32 +48,23 @@ export default React.createClass({
     var data = this.props.data;
     var types = data.activitytypes;
 
-    var activities = data.activities.filter(
-      function(activity) {
-
-        // check if this activity is in a group that is in this community
-        var community = Helpers.getCommunityById(activity.communityId, data);
-        if (!community) {
-          return false;
-        }
-        var area = Helpers.getAreaById(community.areaId, data);
-        if (!area || area.id !== data.status.area) {
-          return false;
-        }
-
-        return true;
-      }.bind(this)
-    );
-
     for (var type of types) {
       type.count = 0;
-      activities.map(function(activity) {
+      data.activities.map(function(activity) {
         // check if has selected type
         if (type.id === activity.typeId) {
           type.count++;
         }
       });
     }
+
+    // remove types that have no activities at all
+    types = types.filter(function(n) {
+      if (n.count === 0) {
+        return false;
+      }
+      return true;
+    })
 
     // sort by count, but also sort alhpabetically if same count
     types.sort(function(a, b) {
@@ -104,7 +95,9 @@ export default React.createClass({
     return (
         <div className="container typeselector top-buffer">
           <Row className="box text-center padded">
-            <p>Which activities are interesting to you?</p>
+            <p> 
+              <FormattedMessage id='typeselector_whichactivities' defaultMessage='Which activities are interesting to you?'/>
+            </p>
           </Row>
           <Row>
             {types.map(typeItem)}

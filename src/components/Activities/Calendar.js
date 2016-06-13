@@ -22,7 +22,7 @@ export default React.createClass({
     // if (overlay) { overlay.style.display = 'block'; } else { console.log("could not find overlay"); }
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
-    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
     StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='month'/>);
     StatusActions.forceTrigger();
   },
@@ -85,24 +85,14 @@ export default React.createClass({
       // find activities
       var activitiesFound = data.activities.filter(
         function(activity) {
+
+          // check if activity is of selected type(s)
+          if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
+            return false;
+          }
+
           // check if activity is on that day
           if(moment(activity.date).isSame(date, 'day')) {
-
-            // check if activity is of selected type(s)
-            if (data.status.selectedActivityTypes.length > 0 && data.status.selectedActivityTypes.indexOf(activity.typeId) === -1) {
-              return false;
-            }
-
-            // check if activity is in selected community
-            var _community = Helpers.getCommunityById(activity.communityId, data);
-            if (!_community) {
-              return false;
-            }
-            var _area = Helpers.getAreaById(_community.areaId, data);
-            if (_area.id !== data.status.area) {
-              return false; // filter this entry if item is not in the community
-            }
-
             return true;
           }
         }.bind(this));
@@ -140,9 +130,9 @@ export default React.createClass({
       );
     }.bind(this);
 
-    var dayHeader = function(dayName) {
+    var dayHeader = function(dayName, i) {
       return (
-        <Col key={'header'+dayName} className="calendar-sm-1 calendar-header bottom-buffer grey text-center">
+        <Col key={'header' + i} className="calendar-sm-1 calendar-header bottom-buffer grey text-center">
           {dayName}
         </Col>
       );
@@ -153,8 +143,10 @@ export default React.createClass({
     // so we need to manipulate that
     var weekdays = Helpers.rotateArray(moment.weekdaysShort(), moment.localeData().firstDayOfWeek());
 
-    // var overlay = document.getElementById('pleasewait');
-    // if ( overlay ) { overlay.style.display = 'none'; } else { console.log("could not find overlay in Calendar render"); }
+    // remove dots at end of day names (added for french by react-intl, e.g. 'lun.' - we only want 'lun')
+    weekdays.forEach(function(item, i) {
+      weekdays[i] = item.replace(/\./g, '');
+    });
 
     return (
       <div className="container">

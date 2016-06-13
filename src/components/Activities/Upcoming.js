@@ -21,7 +21,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
-    StatusActions.setTitle(<FormattedMessage id='nav_activities' defaultMessage='Activities'/>);
+    StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
     StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
     StatusActions.forceTrigger();
   },
@@ -40,17 +40,7 @@ export default React.createClass({
     activities = data.activities.filter(
       function(activity) {
 
-        // check if this activity is in a community that is in this area
-        var community = Helpers.getCommunityById(activity.communityId, data);
-        if (!community) {
-          return false;
-        }
-        var area = Helpers.getAreaById(community.areaId, data);
-        if (!area || area.id !== data.status.area) {
-          return false;
-        }
-
-        // check if activity is in the past
+        // check if activity is in the future
         if (moment(activity.date) < moment()) {
           return false;
         }

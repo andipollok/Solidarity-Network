@@ -53,17 +53,19 @@ export default React.createClass({
     var activity = Helpers.getActivityById(photo.activityId, data);
     var type = Helpers.getActivityTypeById(activity.typeId, data);
 
-    var description = photo.description ? <h2>{photo.description}</h2> : '';
+    if (photo.description) {
+      StatusActions.setTitle(photo.description);
+      StatusActions.forceTrigger();
+    }
 
-    StatusActions.setTitle(photo.description);
-    StatusActions.forceTrigger();
-
-    var owner = <Link to={`/person/${owner.id}`}>
+    if (owner && owner.id) {
+      var owner = <Link to={`/person/${owner.id}`}>
               <div className="box outline rounded bottom-buffer">
                 <Avatar imageUrl={owner.pictureUrl}/>
                 Photo by {owner.name}
               </div>
             </Link>
+    }
 
     return (
       <div className="container stories">
@@ -77,7 +79,6 @@ export default React.createClass({
                 <img className="photo zoom" src={photo.url} title={photo.description}/>          
               </div>
             </Link>
-            {description}
             </Col>
         </Row>
         <Row>

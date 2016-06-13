@@ -23,6 +23,7 @@ export default React.createClass({
   onClickSelectArea(id) {
     StatusActions.setArea(id);
     StatusActions.forceTrigger();
+    DataActions.init();
   },
 
   render() {
@@ -39,14 +40,8 @@ export default React.createClass({
           );
     }.bind(this);
 
-    var selectArea = <span>{data.areas.map(areaItem, this)}</span>
-
     return (
-      <div className="container">
-        <Row>
-          {selectArea}
-        </Row>
-      </div>
+      <span>{data.areas.map(areaItem, this)}</span>
     );
   }
 });

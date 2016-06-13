@@ -29,33 +29,44 @@ export default React.createClass({
 
     var text = (
         <p>
-          These are activities of all types.<br />
-          Are you looking for a certain kind of activity?
+          <FormattedMessage id='typeselector_alltypes1' defaultMessage='These are activities of all types.'/><br />
+          <FormattedMessage id='typeselector_alltypes2' defaultMessage='Are you looking for a certain kind of activity?'/>
         </p>
     );
-    var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>Choose activity type</Button>
+    var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>
+      <FormattedMessage id='typeselector_choose' defaultMessage='Choose activity type'/>
+    </Button>
 
     var activityItem = function(id) {
       var type = Helpers.getActivityTypeById(id, data);
 
       return (
         <span key={id}>
-          <IconActivity type={type} area="activities" isOnSolid="true" size="small"/>
-          {type.name}&nbsp;
+          <IconActivity type={type} area="activities" isOnSolid="true" size="medium"/>
+          {type.name}
         </span> );
     }.bind(this);
 
     if (data.status.selectedActivityTypes.length > 0) {
       text = <span>
           <p>
-            These are all 
-            { data.status.selectedActivityTypes.map(activityItem, this) }
-            activities
+            <FormattedMessage id='typeselector_filtered1' defaultMessage='These are all' />&nbsp;
+            { data.status.selectedActivityTypes.map(activityItem, this) }&nbsp;
+            <FormattedMessage id='typeselector_filtered2' defaultMessage='activities' />
           </p>
         </span>
 
-      var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>Choose other activity type</Button>
-      var resetButton = <Button bsSize="large" className="padded" onClick={ this.showAllTypes }>Show all</Button>
+      var selectButton = <Button bsSize="large" className="padded" onClick={ this.showTypeSelector }>
+      
+        <FormattedMessage id='typeselector_choosedifferenttype' defaultMessage='Choose a different type of activity'/>
+      
+      </Button>
+      
+      var resetButton = <Button bsSize="large" className="padded" onClick={ this.showAllTypes }>
+
+        <FormattedMessage id='typeselector_showall' defaultMessage='Show all'/>
+
+      </Button>
     }
 
     return (

@@ -1,6 +1,8 @@
 {
-
   "loading": "Just a moment please…",
+  "getstarted": "Get started!",
+  "logmein": "Log me in",
+  "loginrequired": "You need to log in.",
 
   "nav_home": "Start",
   "nav_news": "News",
@@ -45,7 +47,10 @@
   "by": "by",
   "startingat": "Starting at",
   "startedat": "Started at",
+  "publishedon": "Published on",
 
+  "activity": "Activity",
+  "activities": "Activities",
   "community": "Community",
   "communities": "Communities",
   "group": "Group",
@@ -54,6 +59,19 @@
   "photos": "Photos",
   "story": "Story",
   "stories": "Stories",
+  "photowall": "Photo wall",
+
+  "activities_upcoming": "Upcoming activities",
+  "stories_latest": "Latest stories",
+
+  "typeselector_whichactivities": "Which activities are interesting to you?",
+  "typeselector_alltypes1": "These are activities of all types.",
+  "typeselector_alltypes2": "Are you looking for a certain kind of activity?",
+  "typeselector_choose": "Choose activity type",
+  "typeselector_filtered1": "These are all",
+  "typeselector_filtered2": "activities",
+  "typeselector_choosedifferenttype": "Choose a different type of activity",
+  "typeselector_showall": "Show all",  
 
   "photos_from": "Photos from {activityName}",
   "photo_from": "Photo from {activityName}",
@@ -62,11 +80,16 @@
 
   "news-uploadedphoto": "{personName} shared 8 photos from {activityName}!",
   "news-changedtime": "Careful, {personName} changed the starting time of {activityName}!",
-  "news-createdcommunity": "There is a new community in your area! Check out {communityName}.",
+  "news-createdcommunity": "There is a new community in your area! Check out {areaName}.",
   "news-cancelled": "Bummer! {personName} cancelled the activity {activityName}.",
-  "news-joinedcommunity": "Hooray! {personName} joined the community {communityName}.",
+  "news-joined": "Hooray! {personName} joined your area {areaName}.",
   "news-createdactivity": "Oh yeah, {personName} created the activity {activityName}.",
 
   "today": "Today",
   "tomorrow": "Tomorrow",
+
+  "monthly_view": "Monthly view",
+
+  "from": "From",
+  "to": "to"
 }

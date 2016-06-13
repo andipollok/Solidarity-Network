@@ -25,6 +25,7 @@ export default Reflux.createStore({
 
     init: function() {
       var cookieValue = cookie.load(cookieName);
+
       var that = this;
       data = {
         languages: {},
@@ -66,7 +67,9 @@ export default Reflux.createStore({
     },
  
     setLanguage: function(languageID) {
-      cookie.save(cookieName, languageID, { path: '/' });
+      var nextyear = new Date();
+      nextyear.setFullYear(nextyear.getFullYear() + 1)
+      cookie.save(cookieName, languageID, { path: '/', expires: nextyear });
       data.selectedID = languageID;
       if (data.languages[languageID]) {
         data.selected = data.languages[languageID].short;
