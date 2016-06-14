@@ -99,7 +99,7 @@ render(
 
         <Route name="photos" path="/stories/wall" component={Photowall}/>
         
-        <Route name="groups" path="/groups/" component={Groups}/>
+        <Route name="groups" path="/groups" component={Groups}/>
         <Route name="group" path="/group/:id" component={Group}/>
 
         <Route name="person" path="/person/:id" component={Person}/>
