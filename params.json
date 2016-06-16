@@ -1,0 +1,6 @@
+{
+  "name": "Solidarity-network",
+  "tagline": "Prototype for the Solidarity Network project at EPFL+ECAL Lab",
+  "body": "# Solidarity Network prototype\r\n\r\nPrototype developed for the Solidarity Network project at EPFL+ECAL Lab.\r\n\r\n## Tech stack\r\n\r\nUsing React, Reflux, Airtable, and gulp, bower, sass for development.\r\nInitially based on [React Starterify](https://github.com/Granze/react-starterify)\r\n\r\n## Usage\r\n\r\n__Install the dependencies:__\r\n\r\n`npm install`\r\n\r\n\r\n__Development mode with livereload:__\r\n\r\n`npm run watch`\r\n\r\n__When you are done, create a production ready version of the JS bundle:__\r\n\r\n`npm run build`\r\n\r\n__Deploy on Github pages with one command:__\r\n\r\n`npm run deploy`\r\n\r\n## License\r\n\r\n[MIT License](http://opensource.org/licenses/MIT)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
