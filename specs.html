@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Solidarity-network by andreaskoller</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Solidarity-network</h1>
+        <p>Prototype for the Solidarity Network project at EPFL+ECAL Lab</p>
+
+        <p class="view">Specifications<small>Business rules, Terminology...</small></p>
+        
+        <p class="view"><a href="https://github.com/andreaskoller/Solidarity-Network">View the Project on GitHub <small>andreaskoller/Solidarity-Network</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/andreaskoller/Solidarity-Network/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/andreaskoller/Solidarity-Network/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/andreaskoller/Solidarity-Network">View On <strong>GitHub</strong></a></li>
+        </ul>
+
+
+
+      </header>
+      <section>
+        <h1>
+<a id="solidarity-network-prototype" class="anchor" href="#solidarity-network-prototype" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Specs</h1>
+
+<h2>
+<a id="business-objects" class="anchor" href="#business-objects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Business Objects</h2>
+
+Users
+Groups
+Activities
+Stories
+Photos
+
+<h2>
+<a id="rules" class="anchor" href="#rules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Business Rules</h2>
+
+== User profiles
+
+- Only Users can modify their profile's personal details.
+
+== Groups ownership and membership
+
+- Groups have one or more owners (Users).
+
+- The first Group owner is the User who created the Group.
+
+- Group ownership can be transferred to another User.
+
+- Users can be members of Groups.
+
+- Group owners are also obviously members.
+
+- Group owners can revoke any User's membership from their Group.
+
+- Users' Group membership must be approved by the Group owner.
+
+== Activities
+
+- All Activities are public (you don't need to be logged in to see them).
+
+- An Activity always belong to a Group.
+
+- Only members of a Group can publish Activities in it.
+
+- Activity publishing in a Group does not require owner's approval.
+
+- An Activity can be deleted by the User who created it, and by the owner of the containing Group.
+
+- Users can register to any Activity in the Groups they are members of.
+
+- Being registered to an Activity means a User will receive notifications* specific to that Activity.
+
+== Messaging
+
+- Users can send individual direct messages to the other members of the Groups they are members of.
+
+- Group owners can send bulk messages (mailing list) to all their members at once.
+
+== Stories
+
+- Users can post stories in the Groups they are members of.
+
+- Story publishing in a Group does not require owner's approval.
+
+- A Story can be deleted by the User who created it, and by the owner of the containing Group.
+
+== Photos
+
+- Users can post photos in the Groups they are members of.
+
+- Photo publishing in a Group does not require owner's approval.
+
+- A Photo can be deleted by the User who created it, and by the owner of the containing Group.
+
+
+* Alerts? News?
+
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/andreaskoller">andreaskoller</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
