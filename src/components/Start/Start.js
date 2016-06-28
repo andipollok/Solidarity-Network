@@ -10,11 +10,11 @@ import StatusStore from '../../stores/StatusStore';
 
 export default React.createClass({
 
-  getInitialState() {
-    return {
-       loggedIn: false,
-    };
-  },
+  // getInitialState() {
+  //   return {
+  //      loggedIn: false,
+  //   };
+  // },
 
   componentWillMount() {
     StatusActions.setPage('start');
@@ -28,12 +28,12 @@ export default React.createClass({
   },
 
   onClickLogin() {
-    this.setState({ loggedIn: true });
+    // this.setState({ loggedIn: true });
   },
 
   render() {
 
-    if (this.state.loggedIn) {
+    // if (this.props.loggedIn) {
 
       return (
       <div className="container-fluid start">
@@ -42,6 +42,7 @@ export default React.createClass({
             <p>
               <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
             </p>
+            {this.props.loggedIn}            
             <p>
               <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
 
@@ -54,32 +55,32 @@ export default React.createClass({
       </div>
     );
 
-    } else {
+   //  } else {
 
-	  return (
-      <div className="container-fluid start">
-        <Row>
-          <Col sm={12} className="text-center">
-            <p>
-              <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
-            </p>
-            <p>
-				<FormattedMessage id='loginrequired'/>
-			</p>
-			<p>
-              <Button bsSize="large" className="loginButton" onClick={this.onClickLogin}>
+	  // return (
+   //    <div className="container-fluid start">
+   //      <Row>
+   //        <Col sm={12} className="text-center">
+   //          <p>
+   //            <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
+   //          </p>
+   //          <p>
+			// 	<FormattedMessage id='loginrequired'/>
+			// </p>
+			// <p>
+   //            <Button bsSize="large" className="loginButton" onClick={this.onClickLogin}>
 
-                <FormattedMessage id='logmein'/>
+   //              <FormattedMessage id='logmein'/>
 
-              </Button>
-            </p>
-          </Col>
-        </Row>
-      </div>
-    );
+   //            </Button>
+   //          </p>
+   //        </Col>
+   //      </Row>
+   //    </div>
+   //  );
 
       
-    }
+    // }
 
   }
 });

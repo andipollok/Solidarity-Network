@@ -16,6 +16,7 @@ import StatusStore from '../stores/StatusStore';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
 import Helpers from '../stores/Helpers';
+import LoginStore from '../stores/LoginStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/lib/locale-data/en';
@@ -54,6 +55,8 @@ moment.locale('en', {
 });
 
 
+import Login from './Login/Login';
+
 import Nav from './Nav/Nav';
 import Top from './Nav/Top';
 import Footer from './Nav/Footer';
@@ -67,6 +70,16 @@ export default React.createClass({
   setLanguage: function(lang) {
     LanguageActions.setLanguage(lang);
   },
+
+  // propTypes: {
+  //   loggedIn: React.PropTypes.bool.isRequired
+  // },
+
+  // getInitialState() {
+  //   return {
+  //      loggedIn: LoginStore.isLoggedIn(this)
+  //   };
+  // },
 
   componentDidMount() {
     LanguageActions.forceTrigger();
@@ -98,6 +111,12 @@ export default React.createClass({
 
     if (!Helpers.checkDataLoaded(this) || !Helpers.checkLanguageLoaded(this)) {
       return <div></div>
+    }
+
+    // console.log(this.props);
+    // if (!this.props.loggedIn) {
+    if (!LoginStore.isLoggedIn(this)) {
+      return <Login></Login>
     }
 
     if (this.state.language && this.state.language.selected) {
@@ -136,7 +155,7 @@ export default React.createClass({
 
           <div className="main-container scrollable">
   
-            {React.cloneElement(this.props.children, {data: data})}
+            {React.cloneElement(this.props.children, {data: data, loggedIn: LoginStore.isLoggedIn(this)})}
   
           </div>
 
