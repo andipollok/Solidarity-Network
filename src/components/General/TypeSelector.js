@@ -102,7 +102,6 @@ export default React.createClass({
       );
     }.bind(this);
 
-
     return (
         <div className="container typeselector top-buffer">
           <Row className="box text-center padded">
@@ -113,7 +112,7 @@ export default React.createClass({
           <Row>
 
             <Col xs={4} key="all" onClick={this.addType.bind(this, -1)} className='text-center activity-item'>
-              <div><IconActivity type="all" area='activities' isOnSolid={false} active='false'/></div>
+              <div><IconActivity type={{ icon: "all" }} area='activities' isOnSolid={false} active='false'/></div>
               <FormattedMessage id='allActivities' />
             </Col>
 
