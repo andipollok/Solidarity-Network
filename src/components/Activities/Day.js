@@ -145,19 +145,27 @@ export default React.createClass({
       <div className="container activities">
 
         <Row>
-          <Col md={1} className="text-center box bottom-buffer" onClick={gotoPrevDay}>
-            PREV
+
+          <Col sm={1} className="text-center box" style={{ marginTop: '34px' }}>
+            <Button onClick={gotoPrevDay}>
+              &lt;
+            </Button>
           </Col>
-          <Col md={10} className="text-center box bottom-buffer">
+
+          <Col sm={10} className="text-center box bottom-buffer">
             <h1><FormattedDate
                     value={myDate}
                     weekday="long"
                     day="numeric"
                     month="long"
-                    year="numeric" /> </h1>
+                    year="numeric" />
+            </h1>
           </Col>
-          <Col md={1} className="text-center box bottom-buffer" onClick={gotoNextDay}>
-            NEXT
+
+          <Col sm={1} className="text-center box"  style={{ marginTop: '34px' }}>
+            <Button onClick={gotoNextDay}>
+              &gt;
+            </Button>
           </Col>
         </Row>
 
