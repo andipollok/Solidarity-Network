@@ -37,14 +37,17 @@ export default React.createClass({
 
       var barClasses = classNames( "top-bar", data.status.page);
 
-      var BackButton = <Button className="backButton" onClick={this.onClickBack}>&lt; Back</Button>;
+      var BackButton = <Button className="backButton" onClick={this.onClickBack}>
+        &lt;&nbsp;
+        <FormattedMessage id='back' />
+      </Button>;
 
       var primary = (
         <Row className={barClasses}>
           <Col className="box no-padding">
             <div className="top-flex">
               <div className="top-flex-left text-left">
-                {data.status.showBackButton ? BackButton : null} 
+                {BackButton} 
               </div>
               <div className="top-flex-middle text-center">
                 <h4>{data.status.title}</h4>

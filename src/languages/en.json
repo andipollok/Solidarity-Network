@@ -16,6 +16,9 @@
   "nav_openmenu": "Open menu",
   "nav_closemenu": "Close menu",
 
+  "back": "Back",
+  "next": "Next",
+
   "welcome": "Welcome",
   "welcome_in": "Welcome in {areaName}",
   "whatsnew_in": "What's new in {areaName}",
@@ -30,6 +33,10 @@
   "seeagenda": "See all activities in {areaName}",
   "seephotos": "Browse photos of activities in {areaName}",
   "seestories": "Browse stories in {areaName}",
+
+  "read_story": "Read story",
+  "see_photos": "See photos",
+  "goto_activity": "Go to activity",
 
   "organisedby": "Organised by {name}",
 
@@ -65,6 +72,7 @@
   "photowall": "Photo wall",
 
   "activities_upcoming": "Upcoming activities",
+  "activities_on": "Activities on",
   "stories_latest": "Latest stories",
 
   "typeselector_whichactivities": "Which activities are interesting to you?",
