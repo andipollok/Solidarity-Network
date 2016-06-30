@@ -41,12 +41,14 @@ export default React.createClass({
 
   },
 
-  render() {
-
+  componentWillReceiveProps: function(nextProps) {
     // in case the props are set again by parent component, we need to update state
-    if (this.props.view !== this.state.view) {
-      this.setState({ view: this.props.view });
+    if (nextProps.view !== this.state.view) {
+      this.setState({ view: nextProps.view });
     }
+  },
+
+  render() {
 
     var data = this.props.data;
 
