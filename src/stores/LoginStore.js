@@ -22,6 +22,7 @@ var loggedIn = false;
 //var currentUser = null;
 
 var usernameFieldInAirtable = "Name";
+var sessionExpiryHours = 24;
 
 export default Reflux.createStore({
 
@@ -58,7 +59,7 @@ export default Reflux.createStore({
   // private
   startNewSession: function( userid ) {
     let expiryDate =  new Date();
-    expiryDate.setHours( expiryDate.getHours() + 24 ); // sessions expire in +24 hours
+    expiryDate.setHours( expiryDate.getHours() + sessionExpiryHours ); // sessions expire in +24 hours
     let pseudoRandomSessionID = md5( userid + expiryDate );
     // save session id on airtable side
     base('People').update(userid, {
