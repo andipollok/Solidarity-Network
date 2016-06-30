@@ -20,9 +20,9 @@ import LoginActions from '../stores/LoginActions';
 import LoginStore from '../stores/LoginStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
-import enLocaleData from 'react-intl/lib/locale-data/en';
-import frLocaleData from 'react-intl/lib/locale-data/fr';
-import deLocaleData from 'react-intl/lib/locale-data/de';
+import enLocaleData from 'react-intl/locale-data/en';
+import frLocaleData from 'react-intl/locale-data/fr';
+import deLocaleData from 'react-intl/locale-data/de';
 import moment from 'moment';
 import moment_locale_en from 'moment/locale/en-gb.js';
 import moment_locale_fr from 'moment/locale/fr.js';
