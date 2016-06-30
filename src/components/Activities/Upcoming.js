@@ -51,10 +51,23 @@ export default React.createClass({
     date_endOfThisWeek.setDate( date_endOfThisWeek.getDate() + 7 - date_endOfThisWeek.getDay() );
     date_endOfThisWeek.setHours(23,59,59,999);    
 
+    var date_endOfNextWeek = new Date();
+    // set to Sunday (reminder: Sunday = 0 of next week)
+    date_endOfNextWeek.setDate( date_endOfNextWeek.getDate() + 14 - date_endOfNextWeek.getDay() );
+    date_endOfNextWeek.setHours(23,59,59,999);    
+
     var date_endOfThisMonth = new Date();
     date_endOfThisMonth.setMonth( date_endOfThisMonth.getMonth() + 1 );
     date_endOfThisMonth.setDate( 0 );
     date_endOfThisMonth.setHours(23,59,59,999);
+
+    var date_endOfNextMonth = new Date();
+    date_endOfNextMonth.setMonth( date_endOfNextMonth.getMonth() + 2 );
+    date_endOfNextMonth.setDate( 0 );
+    date_endOfNextMonth.setHours(23,59,59,999);
+
+    var date_endOfTime = new Date();
+    date_endOfTime.setFullYear(3000);
 
     // console.log( date_endOfToday );
     // console.log( date_endOfTomorrow );
@@ -62,10 +75,13 @@ export default React.createClass({
     // console.log( date_endOfThisMonth );
 
     var groups = [
-      { id : "today"      , label : "Today"       , before : date_endOfToday },
-      { id : "tomorrow"   , label : "Tomorrow"    , before : date_endOfTomorrow },
-      { id : "thisweek"   , label : "This week"   , before : date_endOfThisWeek },
-      { id : "thismonth"  , label : "This month"  , before : date_endOfThisMonth },
+      { id : "today"      , label : "Aujourd'hui"           , before : date_endOfToday },
+      { id : "tomorrow"   , label : "Demain"                , before : date_endOfTomorrow },
+      { id : "thisweek"   , label : "Cette semaine"         , before : date_endOfThisWeek },
+      { id : "nextweek"   , label : "La semaine prochaine"  , before : date_endOfNextWeek },
+      { id : "thismonth"  , label : "Avant la fin du mois"  , before : date_endOfThisMonth },
+      { id : "nextmonth"  , label : "Le mois prochain"      , before : date_endOfNextMonth },
+      { id : "after"      , label : "Plus tard"             , before : date_endOfTime },
     ];
 
     // Reinit grouping status
