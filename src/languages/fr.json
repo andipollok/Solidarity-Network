@@ -11,6 +11,9 @@
   "nav_openmenu": "Ouvrir le menu",
   "nav_closemenu": "Fermer le menu",
 
+  "back": "Retour",
+  "next": "Suivant",
+
   "welcome": "Bienvenue!",
   "welcome_in": "Bienvenue à {areaName}!",
   "whatsnew_in": "Quoi de neuf à {areaName}",
@@ -60,6 +63,7 @@
   "photowall": "Galerie d'images",
 
   "activities_upcoming": "A venir",
+  "activities_on": "Activités du",
   "stories_latest": "Derniers récits",
 
   "typeselector_whichactivities": "Quelles activités vous intéressent?",

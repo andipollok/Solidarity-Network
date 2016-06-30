@@ -55,13 +55,13 @@ export default React.createClass({
     }
 
     StatusActions.setTitle(<span>
-      <FormattedMessage id='activities_on' defaultMessage='Activities on'/>
+      <FormattedMessage id='activities_on'/>
       &nbsp;
       <FormattedDate
                     value={myDate}
-                    day="numeric"
-                    month="long"
-                    year="numeric" />
+                    day='numeric'
+                    month='long'
+                    year='numeric' />
       </span>);
     StatusActions.forceTrigger();
 
