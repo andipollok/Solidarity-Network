@@ -1,8 +1,11 @@
 {
   "loading": "Just a moment please…",
   "getstarted": "Get started!",
-  "logmein": "Log me in",
-  "loginrequired": "You need to log in.",
+
+  // "logmein": "Log me in",
+  // "loginrequired": "You need to log in.",
+  "takemetoactivities" : "Take me to Activities",
+  "takemetoatories" : "Show me to Stories",
 
   "nav_home": "Start",
   "nav_news": "News",

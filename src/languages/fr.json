@@ -1,8 +1,11 @@
 {
   "loading": "Un instant s'il vous plaît…",
   "getstarted": "Allons-y!",
-  "logmein": "M'identifier",
-  "loginrequired": "Vous devez vous identifier.",
+
+  // "logmein": "M'identifier",
+  // "loginrequired": "Vous devez vous identifier.",
+  "takemetoactivities" : "Emmenez moi vers les activités",
+  "takemetostories" : "Montrez moi des récits",
 
   "nav_home": "Start",
   "nav_news": "Quoi de neuf?",

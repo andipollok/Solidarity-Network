@@ -45,7 +45,7 @@ export default React.createClass({
             <div id="navbar">
              <ul className="nav navbar-nav">
               <li>
-                <Link className={activitiesClasses} activeClassName="active" to="/activities/type">
+                <Link className={activitiesClasses} activeClassName="active" to="/activities">
                   <Icon type='activity' folder='service' size='medium' isNav={true} isActive={data.status && data.status.page === 'activities'}/>
                   <br />
                   <span className="text"><FormattedMessage id='nav_activities' defaultMessage='Activities'/></span>

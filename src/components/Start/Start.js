@@ -2,6 +2,7 @@ import React from 'react';
 
 import SvgIcon from 'react-svg-icons';
 import { Button, Row, Col } from 'react-bootstrap';
+import {Link}  from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
@@ -10,12 +11,6 @@ import StatusStore from '../../stores/StatusStore';
 
 export default React.createClass({
 
-  // getInitialState() {
-  //   return {
-  //      loggedIn: false,
-  //   };
-  // },
-
   componentWillMount() {
     StatusActions.setPage('start');
     StatusActions.setTitle(null);
@@ -23,64 +18,63 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
-  onClickStart() {
-    window.location.assign('#/activities');
+  // onClickStart() {
+  //   window.location.assign('#/activities/type');
+  // },
+
+  onClickActivities() {
+    window.location.assign('#/activities/type');
   },
 
-  onClickLogin() {
-    // this.setState({ loggedIn: true });
+  onClickStories() {
+    window.location.assign('#/stories');
   },
+
 
   render() {
 
-    // if (this.props.loggedIn) {
-
-      return (
+    return (
       <div className="container-fluid start">
         <Row>
           <Col sm={12} className="text-center">
             <p>
               <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
             </p>
-            {this.props.loggedIn}            
             <p>
-              <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
 
-                <FormattedMessage id='getstarted'/>
-
+              <Button bsSize="large" className="showActivities" onClick={this.onClickActivities}>
+                <FormattedMessage id='takemetoactivities'/>
               </Button>
+
+              <Button bsSize="large" className="showStories" onClick={this.onClickStories}>
+                <FormattedMessage id='takemetostories'/>
+              </Button>
+        
             </p>
           </Col>
         </Row>
       </div>
     );
 
-   //  } else {
+    // return (
+    //   <div className="container-fluid start">
+    //     <Row>
+    //       <Col sm={12} className="text-center">
+    //         <p>
+    //           <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
+    //         </p>
+    //         <p>
+    //           <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
 
-	  // return (
-   //    <div className="container-fluid start">
-   //      <Row>
-   //        <Col sm={12} className="text-center">
-   //          <p>
-   //            <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
-   //          </p>
-   //          <p>
-			// 	<FormattedMessage id='loginrequired'/>
-			// </p>
-			// <p>
-   //            <Button bsSize="large" className="loginButton" onClick={this.onClickLogin}>
+    //             <FormattedMessage id='getstarted'/>
 
-   //              <FormattedMessage id='logmein'/>
-
-   //            </Button>
-   //          </p>
-   //        </Col>
-   //      </Row>
-   //    </div>
-   //  );
-
-      
-    // }
+    //           </Button>
+    //         </p>
+    //       </Col>
+    //     </Row>
+    //   </div>
+    // );
 
   }
+
 });
