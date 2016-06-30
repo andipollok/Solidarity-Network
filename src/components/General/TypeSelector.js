@@ -31,7 +31,9 @@ export default React.createClass({
   addType(id) {
     var data = this.props.data;
     StatusActions.clearActivityTypes();
-    StatusActions.addActivityType(id);
+    if (id !== -1) {
+      StatusActions.addActivityType(id);
+    }
     StatusActions.forceTrigger();
     setTimeout(function() {
       if (data.status.goto !== null) {
@@ -109,6 +111,12 @@ export default React.createClass({
             </p>
           </Row>
           <Row>
+
+            <Col xs={4} key="all" onClick={this.addType.bind(this, -1)} className='text-center activity-item'>
+              <div><IconActivity type="all" area='activities' isOnSolid={false} active='false'/></div>
+              <FormattedMessage id='allActivities' />
+            </Col>
+
             {types.map(typeItem)}
           </Row>
         </div>
