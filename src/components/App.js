@@ -16,6 +16,7 @@ import StatusStore from '../stores/StatusStore';
 import LanguageActions from '../stores/LanguageActions';
 import LanguageStore from '../stores/LanguageStore';
 import Helpers from '../stores/Helpers';
+import LoginActions from '../stores/LoginActions';
 import LoginStore from '../stores/LoginStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
@@ -80,6 +81,10 @@ export default React.createClass({
   //      loggedIn: LoginStore.isLoggedIn(this)
   //   };
   // },
+
+  componentWillMount() {
+    LoginActions.checkSessionIsValid();
+  },
 
   componentDidMount() {
     LanguageActions.forceTrigger();
