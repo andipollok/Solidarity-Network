@@ -32,6 +32,10 @@ export default React.createClass({
     };
   },
 
+  onClickOtherDay(date) {
+    window.location.assign("#/activities/" + date.format("DD/MM/YYYY"));
+  },
+
   onClickActivity(id) {
     window.location.assign("#/activity/" + id);
   },
@@ -50,6 +54,10 @@ export default React.createClass({
       day: this.props.params.day
       }
     );
+
+    var prevDay = myDate.clone().add(-1, 'days');
+    var nextDay = myDate.clone().add( 1, 'days');
+
     if (!myDate.isValid()) {
       return <div>Invalid date</div>;
     }
@@ -96,6 +104,14 @@ export default React.createClass({
     var activityItem = function(activity) {
       return ( <Listitem key={activity.id} activity={activity} data={data} showTime={true} showIcon={true} onClickHandler={this.onClickActivity}></Listitem> );
     }.bind(this);
+
+    var gotoPrevDay = function() {
+      this.onClickOtherDay(prevDay);
+    }.bind(this);
+  
+    var gotoNextDay = function() {
+      this.onClickOtherDay(nextDay);
+    }.bind(this);
   
     var Component = {};
     
@@ -129,13 +145,19 @@ export default React.createClass({
       <div className="container activities">
 
         <Row>
-          <Col md={12} className="text-center box bottom-buffer">
+          <Col md={1} className="text-center box bottom-buffer" onClick={gotoPrevDay}>
+            PREV
+          </Col>
+          <Col md={10} className="text-center box bottom-buffer">
             <h1><FormattedDate
                     value={myDate}
                     weekday="long"
                     day="numeric"
                     month="long"
                     year="numeric" /> </h1>
+          </Col>
+          <Col md={1} className="text-center box bottom-buffer" onClick={gotoNextDay}>
+            NEXT
           </Col>
         </Row>
 
