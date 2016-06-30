@@ -23,6 +23,7 @@ export default React.createClass({
   // },
 
   onClickActivities() {
+    StatusActions.setGotoDestination("#/activities");
     window.location.assign('#/activities/type');
   },
 

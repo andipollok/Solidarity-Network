@@ -29,7 +29,8 @@ export default Reflux.createStore({
         showBackButton: false,
         selectedActivityTypes: [],
         history: [],
-        future: []
+        future: [],
+        goto: null
       };
       // save join and community state
       // -todo- this actually only should be done if default value for cookie has been set
@@ -125,5 +126,12 @@ export default Reflux.createStore({
       this.trigger(data);
     },
 
+    setGotoDestination: function(pagename) {
+      data.goto = pagename;
+    },
+
+    clearGotoDestination: function() {
+      data.goto = null;
+    },
 
 });

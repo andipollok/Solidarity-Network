@@ -2,10 +2,13 @@
   "loading": "Just a moment please…",
   "getstarted": "Get started!",
 
+  "logmein": "L",
   // "logmein": "Log me in",
   // "loginrequired": "You need to log in.",
   "takemetoactivities" : "Take me to Activities",
   "takemetoatories" : "Show me to Stories",
+
+  "allActivities" : "All",
 
   "nav_home": "Start",
   "nav_news": "News",

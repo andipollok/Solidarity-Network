@@ -29,6 +29,8 @@ import Story from './components/Stories/Story';
 import Photo from './components/Photo/Photo';
 import PhotoZoom from './components/Photo/PhotoZoom';
 
+import Login from './components/Login/Login';
+
 
 // polyfill for Safari (see https://github.com/iam4x/isomorphic-flux-boilerplate/issues/97)
 // -todo- this should be loaded conditionally, but require.ensure didn't work
@@ -71,6 +73,9 @@ render(
         }
       }
     }>
+
+      <Route name="login" path="/login" component={Login}/>
+
       <Route name="home" path="/" component={App}>
 
         <IndexRoute component={Start}/>
