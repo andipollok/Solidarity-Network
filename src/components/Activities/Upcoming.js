@@ -76,8 +76,6 @@ export default React.createClass({
 
       var group = o;
 
-      console.log(group);
-
       group.activities = data.activities.filter(
 
         function(activity) {
@@ -109,6 +107,7 @@ export default React.createClass({
 
       );
 
+      // debugging groups
       // console.log(group);
 
     });
@@ -124,20 +123,34 @@ export default React.createClass({
     }.bind(this);
 
     var groupItem = function(group) {
-      return ( <Row key={group.id}>
-                <div>
-                  {group.label}
-                </div>
-                {group.activities.map(activityItem, this)}
-               </Row>
-      );
+      if (group.activities.length === 0) {
+        // in case of no events we simply don't render the block
+
+        // if you want you can render the block title and say there is no event inside
+        /*
+        return ( <Row key={group.id}>
+                  <div>
+                    {group.label}
+                  </div>
+                 </Row>
+        );
+        */
+
+      } else {
+        return ( <Row key={group.id}>
+                  <div>
+                    {group.label}
+                  </div>
+                  {group.activities.map(activityItem, this)}
+                 </Row>
+        );
+      }
     }.bind(this);
   
-    // if (activities.length === 0) {
-    //   // no events found
-    //   var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: area.name}}/></h2></Col>;
-    // }
-        // {NotFound}
+
+    if (data.activities.length === 0) {
+      var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: area.name}}/></h2></Col>;
+    }
 
     return (
 
@@ -146,6 +159,8 @@ export default React.createClass({
         <TypeSelectorButton data={data}/>
 
         {groups.map(groupItem, this)}
+
+        {NotFound}
 
       </div>
 
