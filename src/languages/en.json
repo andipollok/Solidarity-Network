@@ -29,6 +29,10 @@
   "seephotos": "Browse photos of activities in {areaName}",
   "seestories": "Browse stories in {areaName}",
 
+  "read_story": "Read story",
+  "see_photos": "See photos",
+  "goto_activity": "Go to activity",
+
   "organisedby": "Organised by {name}",
 
   "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",

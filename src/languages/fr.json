@@ -29,6 +29,10 @@
   "seephotos": "Parcourir les photos d'activités de {areaName}",
   "seestories": "Parcourir les récits de {areaName}",
 
+  "read_story": "Lire le récit",
+  "see_photos": "voir les photos",
+  "goto_activity": "Aller à l'activité",
+
   "organisedby": "Organisé par {name}",
 
   "nowhatsnew": "Désolé, il n'y a pas de nouveautés à {areaName} présentement.",

@@ -26,7 +26,7 @@ export default React.createClass({
 
 
   onClickSelectPhoto(id) {
-    window.location.assign("#/photo/" + id);
+    window.location.assign(`#/photo/${id}/zoom`);
   },
 
   render() {
@@ -64,21 +64,23 @@ export default React.createClass({
 
     var photoItem = function(photo) {
       return (
-        <Col xs={6} sm={4} md={3} key={photo.id} className="bottom-buffer">
-          <div className="box-photo box linked">
+        <Row key={photo.id} className="bottom-buffer">
+          <div className="photo fullsize-photo">
             <img src={photo.url} title={photo.description} onClick={this.onClickSelectPhoto.bind(this, photo.id)}/>
+            <br />
+            {photo.description}
           </div>
-        </Col>
+        </Row>
       );
     }.bind(this);
 
     // show photos if available
+    // <p><FormattedMessage id="numberofphotos" values={{num: activity.photoList.length}} /></p>
     if (activity.photoList.length > 0) {
       var componentPhoto = <span>
             <Col xs={12} className="top-buffer">
-              <p><FormattedMessage id="numberofphotos" values={{num: activity.photoList.length}} /></p>
+              {activity.photoList.map(photoItem,this)}
             </Col>
-            {activity.photoList.map(photoItem,this)}
           </span>
     }
 
@@ -95,13 +97,12 @@ export default React.createClass({
       var story = activity.stories[0]; // only take first story for now
 
       var componentStory = <Row>
-            <Col xs={12} className="text-center top-buffer">
+            <Col xs={12} className="text-center buffer">
 
-              <Link to={`/story/${story.id}`}>
-                <div className="card outline buffer activities">
-                  <h4>{story.title}</h4>
-                </div>
-              </Link>
+              <Button bsSize="large" onClick={function() { window.location.assign(`#/story/${story.id}`); }}>
+                <FormattedMessage id='read_story'/>
+              </Button>
+            
             </Col>
           </Row>
       }
