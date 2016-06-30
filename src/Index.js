@@ -6,6 +6,7 @@ import createHashHistory from 'history/lib/createHashHistory';
 
 import App from './components/App';
 import Settings from './components/Settings/Settings';
+import Splash from './components/Start/Splash';
 import Start from './components/Start/Start';
 
 import News from './components/News/News';
@@ -78,9 +79,9 @@ render(
 
       <Route name="home" path="/" component={App}>
 
-        <IndexRoute component={Start}/>
+        <IndexRoute component={Splash}/>
 
-        <Route name="home" path="/home" component={Start}/>
+        <Route name="start" path="/start" component={Start}/>
 
         <Route name="settings" path="/settings" component={Settings}/>
 

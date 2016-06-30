@@ -2,12 +2,17 @@ import React from 'react';
 
 import SvgIcon from 'react-svg-icons';
 import { Button, Row, Col } from 'react-bootstrap';
-import {Link}  from 'react-router';
+import { Link }  from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
+
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
+
+import Icon from '../General/Icon';
 
 export default React.createClass({
 
@@ -17,10 +22,6 @@ export default React.createClass({
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
-
-  // onClickStart() {
-  //   window.location.assign('#/activities/type');
-  // },
 
   onClickActivities() {
     StatusActions.setGotoDestination("#/activities");
@@ -39,42 +40,38 @@ export default React.createClass({
         <Row>
           <Col sm={12} className="text-center">
             <p>
-              <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
+              <ReactCSSTransitionGroup transitionName="move-up" transitionAppear={true} transitionEnterTimeout={0} transitionLeaveTimeout={0}
+                  transitionAppearTimeout={2000}>
+                  <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
+              </ReactCSSTransitionGroup>
             </p>
-            <p>
 
-              <Button bsSize="large" className="showActivities" onClick={this.onClickActivities}>
-                <FormattedMessage id='takemetoactivities'/>
-              </Button>
+              <ReactCSSTransitionGroup transitionName="fade-in1" transitionAppear={true} transitionEnterTimeout={0} transitionLeaveTimeout={0}
+                transitionAppearTimeout={5000}>
+                <p className="item">
+                  <Icon type='activity' folder='service' size='large' area='splash'/>
+                  <br />
+                  <Button bsSize="large" className="showActivities" onClick={this.onClickActivities}>
+                    <FormattedMessage id='takemetoactivities'/>
+                  </Button>
+                </p>
+              </ReactCSSTransitionGroup>
 
-              <Button bsSize="large" className="showStories" onClick={this.onClickStories}>
-                <FormattedMessage id='takemetostories'/>
-              </Button>
-        
-            </p>
+              <ReactCSSTransitionGroup transitionName="fade-in2" transitionAppear={true} transitionEnterTimeout={0} transitionLeaveTimeout={0}
+                transitionAppearTimeout={5000}>
+                <p className="item">
+                  <Icon type='story' folder='activities' size='large' area='splash'/>
+                  <br />
+                  <Button bsSize="large" className="showStories" onClick={this.onClickStories}>
+                    <FormattedMessage id='takemetostories'/>
+                  </Button>
+                </p>
+              </ReactCSSTransitionGroup>
           </Col>
         </Row>
       </div>
     );
 
-    // return (
-    //   <div className="container-fluid start">
-    //     <Row>
-    //       <Col sm={12} className="text-center">
-    //         <p>
-    //           <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
-    //         </p>
-    //         <p>
-    //           <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
-
-    //             <FormattedMessage id='getstarted'/>
-
-    //           </Button>
-    //         </p>
-    //       </Col>
-    //     </Row>
-    //   </div>
-    // );
 
   }
 

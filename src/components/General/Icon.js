@@ -3,6 +3,11 @@ import SvgIcon from 'react-svg-icons';
 import classNames from 'classnames';
 
 var colors = {
+  splash: {
+    backgroundColor: '#F6F6F6',
+    iconColor: '#FFF',
+    solidIconColor: '#FFF'
+  },
   news: {
     backgroundColor: '#F6F6F6',
     iconColor: '#e62719',
@@ -24,7 +29,7 @@ var colors = {
     solidIconColor: '#FFF'
   },
   secondaryinfo: {
-    iconColor: '#b3b3b3'    
+    iconColor: '#b3b3b3'
   }
 }
 var inactiveColor = '#b3b3b3';

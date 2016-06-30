@@ -5,12 +5,48 @@
   background-size: contain; 
   height:100%;
   width:100%;
-  padding-top: 40vh;
+  
 
   svg {
     width:200px;
+    margin-bottom: 5vh;
   }
-  .startButton {
-    margin-top: 10vh;
+
+  .item {
+    margin-bottom: 130px;
+    .icon {
+      margin-bottom: 30px;
+    }
   }
+
+  .move-up-appear {
+    margin-top: 30vh;
+  }
+
+  .move-up-appear.move-up-appear-active {
+    margin-top: 0vh;
+    transition: margin-top 400ms ease-in-out;
+  }
+
+  .fade-in1-appear {
+    opacity: 0.01;
+  }
+
+  .fade-in1-appear.fade-in1-appear-active {
+    opacity: 1;
+    transition-duration: 200ms;
+    transition-delay: 500ms;
+  }
+
+  .fade-in2-appear {
+    opacity: 0.01;
+  }
+
+  .fade-in2-appear.fade-in2-appear-active {
+    opacity: 1;
+    transition-duration: 200ms;
+    transition-delay: 700ms;
+  }
+
+  
 }
