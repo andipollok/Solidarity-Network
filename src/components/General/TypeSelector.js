@@ -29,18 +29,27 @@ export default React.createClass({
   },
 
   addType(id) {
+    var data = this.props.data;
     StatusActions.clearActivityTypes();
     StatusActions.addActivityType(id);
     StatusActions.forceTrigger();
-    setTimeout(function() { 
-      history.goBack();
+    setTimeout(function() {
+      if (data.status.goto !== null) {
+        window.location.assign(data.status.goto);
+      } else {
+        history.goBack();
+      }
     }, 100);
   },
 
   removeType(id) {
     StatusActions.removeActivityType(id);
     StatusActions.forceTrigger();
-    history.goBack();
+    if (data.status.goto !== null) {
+      window.location.assign(data.status.goto);
+    } else {
+      history.goBack();
+    }
   },
 
   render() {
