@@ -118,11 +118,10 @@ export default React.createClass({
       return <div></div>
     }
 
-    // console.log(this.props);
-    // if (!this.props.loggedIn) {
-    if (!LoginStore.isLoggedIn(this)) {
-      return <Login></Login>
-    }
+    // // if you wanted to restrict access to content
+    // if (!LoginStore.isLoggedIn(this)) {
+    //   return <Login></Login>
+    // }
 
     if (this.state.language && this.state.language.selected) {
       intldata.locale = this.state.language.selected;
