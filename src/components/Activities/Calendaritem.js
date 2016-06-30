@@ -19,6 +19,9 @@ export default React.createClass({
     if (this.props.day.activities.length > 1) {
       this.props.onClickDay(this.props.day.date);
     }
+    if (this.props.day.activities.length === 0) {
+      this.props.onClickDay(this.props.day.date);
+    }
   },
 
   // shouldComponentUpdate: function(nextProps, nextState) {
@@ -36,7 +39,7 @@ export default React.createClass({
     var divClass = classNames(['box expand white text-center agenda calendar'], {
       weekend: this.props.day.date.isoWeekday() === 6 || this.props.day.date.isoWeekday() === 7,
       today: this.props.day.date.isSame(moment(), 'day'),
-      linked: this.props.day.activities.length > 0,
+      linked: true, // this.props.day.activities.length > 0,
       grey: !this.props.activeMonth.isSame(this.props.day.date, 'month')
     });
 
