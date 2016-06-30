@@ -24,6 +24,10 @@ export default React.createClass({
     window.location.assign("#/settings");
   },
 
+  onClickLogin() {
+    window.location.assign("#/login");
+  },
+
   render() {
 
     var data = this.props.data;
@@ -54,6 +58,9 @@ export default React.createClass({
               </div>
               <div className="top-flex-right text-right">
                 <Button className="settingsButton" size="bsLarge" onClick={this.onClickSettings}></Button>
+                <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
+                  <FormattedMessage id='login' />
+                </Button>
               </div>
             </div>
           </Col>

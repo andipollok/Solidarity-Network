@@ -17,6 +17,9 @@ module.exports = Reflux.createActions([
   "historyBack",
   "historyForward",
 
-  "forceTrigger"
+  "forceTrigger",
+
+  "setGotoDestination",
+  "clearGotoDestination"
 
 ]);

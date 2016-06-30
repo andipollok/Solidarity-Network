@@ -26,7 +26,8 @@
           height: 40px;
         }
 
-        &.settingsButton {
+        &.settingsButton,
+        &.loginButton {
           width:10px;
           position:relative;
           top: -10px;
