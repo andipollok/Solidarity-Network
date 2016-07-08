@@ -15,6 +15,7 @@ export default React.createClass({
   mixins: [ Reflux.connect(StatusStore, 'status') ],
 
   showTypeSelector() {
+    StatusActions.setGotoDestination( "dca" );
     window.location.assign("#/activities/type");
   },
 
@@ -69,6 +70,12 @@ export default React.createClass({
       </Button>
     }
 
+    var createButton = <Button bsSize="large" className="padded" onClick={ this.createNew }>
+
+      <FormattedMessage id='create_new_activity' defaultMessage='Create new'/>
+
+    </Button>
+
     return (
       <Row className="box padded infobox top-buffer text-center">
 
@@ -77,6 +84,8 @@ export default React.createClass({
         <p>{selectButton}</p>
 
         <p>{resetButton}</p>
+
+        <p>{createButton}</p>
 
       </Row>
     );
