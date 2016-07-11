@@ -34,7 +34,7 @@ export default Reflux.createStore({
 
   redirectAfterLogin: function() {
     // not sure this is very React-ish but hey it works
-    window.location.assign('#/home');
+    window.location.assign('#/');
   },
 
   setCurrentUser: function(userid) {
