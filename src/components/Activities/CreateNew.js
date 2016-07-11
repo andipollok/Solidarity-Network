@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
+import DataActions from '../../stores/DataActions';
+import DataStore from '../../stores/DataStore';
 import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
@@ -13,6 +15,12 @@ import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import Icon from '../General/Icon';
 import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
+
+var fieldsInOrder = [
+  { name: "activity_title", type: "text", required: true },
+  { name: "activity_street", type: "text", required: true },
+  { name: "activity_description", type: "text", required: true },
+];
 
 export default React.createClass({
 
@@ -23,89 +31,92 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    StatusActions.setPage('activities');
+    StatusActions.setPage('activities-new');
     StatusActions.showBackButton(true);
-    StatusActions.setTitle(<FormattedMessage id='activity' />);
+    StatusActions.setTitle(<FormattedMessage id='activity-new' />); // TODO
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
 
+  onChangeVar( event ) {
+    console.log(this.state);
+    this.setState( { [event.target.name]: event.target.value } );
+  },
 
-  // onClickSelectPhoto(id) {
-  //   window.location.assign(`#/photo/${id}/zoom`);
+  // onDateChange( event ) {
+  //   this.setState( { date: event.target.value } );
   // },
 
-  onNameChange( event ) {
-    this.setState( { name: event.target.value } );
-  },
+  // onAddressChange( event ) {
+  //   this.setState( { address: event.target.value } );
+  // },
 
-  onDateChange( event ) {
-    this.setState( { date: event.target.value } );
-  },
-
-  onAddressChange( event ) {
-    this.setState( { address: event.target.value } );
-  },
-
-  onClickSubmit_0() {
-
+  onClickSubmit( event ) {
+    DataActions.createActivity(
+      this.state
+    );
   },
   
-  renderStep_0() {
-    return(
-      <form role="form">
-        <input
-          type="text"
-          value={this.state.name}
-          onChange={this.onNameChange}
-        />
-        <input
-          type="date"
-          value={this.state.date}
-          onChange={this.onDateChange}
-        />
-        <input
-          type="address"
-          value={this.state.address}
-          onChange={this.onAddressChange}
-        />
-          <button type="submit" onClick={this.onClickSubmit_0}>Next</button>
-      </form>
-    );
+  onClickNext( event ) {
+    this.setState( { step: this.state.step + 1 } );
   },
+  
+  renderStep( number ) {
 
-  renderStep_1() {
-    return(
-      <form role="form">
-        <input
-          type="text"
-          value={this.state.joinusername}
-          onChange={this.onJoinUsernameChange}
-        />
-        <input
-          type="password"
-          value={this.state.joinpassword}
-          onChange={this.onJoinPasswordChange}
-        />
-        <input
-          type="text"
-          value={this.state.jointelephone}
-          onChange={this.onJoinTelephoneChange}
-        />
-          <button type="submit" onClick={this.onClickJoin}>Join</button>
-      </form>
-    );
+    let field = fieldsInOrder[ number ];
+
+    console.log(fieldsInOrder);
+
+    let last = ( number === fieldsInOrder.length - 1 );
+
+    // let field = (
+    //   <input
+    //     type={field.type}
+    //     name={field.name}
+    //     value={this.state[field.name]}
+    //     onChange={this.onChangeVar}
+    //   />
+    // );
+
+    if (last) {
+      return(
+        <form role="form">
+          <input
+            type={field.type}
+            name={field.name}
+            value={this.state[field.name]}
+            onChange={this.onChangeVar}
+          />
+            <button type="button" onClick={this.onClickSubmit}>Create</button>
+        </form>
+      );
+    } else {
+      return(
+        <form role="form">
+          <input
+            type={field.type}
+            name={field.name}
+            value={this.state[field.name]}
+            onChange={this.onChangeVar}
+          />
+            <button type="button" onClick={this.onClickNext}>Next</button>
+        </form>
+      );
+    }
+
   },
 
   render() {
 
-    switch (this.sate.step) {
-    case 0:
-      renderStep_0();
-    case 1:
-      renderStep_1();
-      break;
-    }
+    return this.renderStep( this.state.step );
+
+    // switch (this.sate.step) {
+    // case 0:
+    //   renderStep_0();
+    // case 1:
+    //   renderStep_1();
+    //   break;
+    // }
     
   }
 

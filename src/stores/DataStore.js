@@ -1,4 +1,5 @@
 import Reflux from 'reflux';
+import StatusActions from './StatusActions';
 import Actions from './DataActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
@@ -160,6 +161,28 @@ export default Reflux.createStore({
           that.throwError(error);
         }
       });
+    },
+
+    createActivity( varvals ) {
+      var that = this;
+      console.log("TODO create in airtable with received data:");
+      console.log(varvals);
+      // base('People').create({
+      //   "Name": desiredUsername,
+      //   "Phone": desiredTelephone,
+      //   "Hash": desiredPasswordHash
+      // }, function (error, record) {
+      //   if (error) {
+      //     console.log( error );
+      //   } else {
+      //     console.log( record );        
+      //     that.setCurrentUser( record.id );
+      //     that.redirectAfterLogin();
+      //   }
+      // });
+      StatusActions.clearActivityTypes();
+      StatusActions.forceTrigger();
+      window.location.assign('#/activities');
     },
 
     loadActivities() {

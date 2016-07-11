@@ -24,6 +24,11 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
+  createNew() {
+    // StatusActions.setGotoDestination( "dca" );
+    window.location.assign("#/activities/create");
+  },
+
   render() {
 
     var data = this.props.data;
