@@ -18,6 +18,9 @@
 
   "nav_openmenu": "Ouvrir le menu",
   "nav_closemenu": "Fermer le menu",
+  
+  "cards_layout": "Cards",
+  "list_layout": "List",
 
   "back": "Retour",
   "next": "Suivant",

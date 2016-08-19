@@ -14,6 +14,7 @@ export default React.createClass({
 
     var data = this.props.data;
     var activity = this.props.activity;
+    var layout = this.props.layout;
 
     var community = Helpers.getCommunityById(activity.communityId, data);
 
@@ -78,25 +79,56 @@ export default React.createClass({
       }
     }
 
-    return (
+    switch (layout) {
 
-      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, activity.id)}>
+      case "list":
+        
+        return (
 
-        <div className="card outline fixedheight linked padded text-center">
+          <div className="listItem     card        outline linked text-center" onClick={this.props.onClickHandler.bind(null, activity.id)}>
 
-          {componentIcon}
+            {componentIcon}
 
-          <h2>{activity.name}</h2>
+            <h2>{activity.name}</h2>
 
-          <p className="date">
-            {componentDate}
-            <br />
-            {componentTime}
-          </p>
+            <p className="date">
+              {componentDate}
+              <br />
+              {componentTime}
+            </p>
 
+          </div>
 
-        </div>
-      </Col>
-    );
+        );
+
+      break;
+
+      case "cards":
+      default:
+        
+        return (
+
+          <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, activity.id)}>
+
+            <div className="card outline fixedheight linked padded text-center">
+
+              {componentIcon}
+
+              <h2>{activity.name}</h2>
+
+              <p className="date">
+                {componentDate}
+                <br />
+                {componentTime}
+              </p>
+
+            </div>
+          </Col>
+        );
+        
+      break;
+
+    }
+
   }
 });
