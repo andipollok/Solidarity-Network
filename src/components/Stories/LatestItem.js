@@ -14,6 +14,7 @@ export default React.createClass({
 
     var data = this.props.data;
     var story = this.props.story;
+    var layout = this.props.layout;
 
     if (this.props.showDate) {
       var componentDate = <p className="date">
@@ -29,18 +30,43 @@ export default React.createClass({
         </p>
     }
 
-    return (
+    switch (layout) {
 
-      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, story.id)}>
+      case "list":
+        
+        return (
 
-        <div className="card outline fixedheight linked padded text-center">
+          <div className="        card       listElem outline linked padded text-center" onClick={this.props.onClickHandler.bind(null, story.id)}>
 
-          <h2>{story.title}</h2>
+            <h2>{story.title}</h2>
 
-          {componentDate}
+            {componentDate}
 
-        </div>
-      </Col>
-    );
+          </div>
+
+        );
+        break;
+        
+      case "cards":
+      default:
+        
+        return (
+
+          <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, story.id)}>
+
+            <div className="card outline fixedheight linked padded text-center">
+
+              <h2>{story.title}</h2>
+
+              {componentDate}
+
+            </div>
+          </Col>
+
+        );
+        break;
+
+    }
+
   }
 });
