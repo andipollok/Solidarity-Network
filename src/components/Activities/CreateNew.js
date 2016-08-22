@@ -18,16 +18,23 @@ import Avatar from '../General/Avatar';
 
 var fieldsInOrder = [
   { name: "activity_title", type: "text", required: true },
+  { name: "activity_date", type: "date", required: true },
+  { name: "activity_start_time", type: "time", required: true }, // TODO default day after tomorrow
+  { name: "activity_end_time", type: "time", required: true }, // TODO test date picker in device
   { name: "activity_street", type: "text", required: true },
-  { name: "activity_description", type: "text", required: true },
+  { name: "activity_description", type: "text", required: true }, // TODO make it a textarea
 ];
 
 export default React.createClass({
 
   getInitialState() {
-    return {
-       step: 0
+    let tmpState = {
+      step: 0
     };
+    fieldsInOrder.forEach(function(fieldItem) {
+      tmpState[fieldItem.name] = '';
+    });
+    return tmpState;
   },
 
   componentWillMount() {
@@ -65,8 +72,6 @@ export default React.createClass({
 
     let field = fieldsInOrder[ number ];
 
-    console.log(fieldsInOrder);
-
     let last = ( number === fieldsInOrder.length - 1 );
 
     // let field = (
@@ -81,6 +86,7 @@ export default React.createClass({
     if (last) {
       return(
         <form role="form">
+          <FormattedMessage id={[field.name + '_label']} />
           <input
             type={field.type}
             name={field.name}
@@ -93,6 +99,7 @@ export default React.createClass({
     } else {
       return(
         <form role="form">
+          <FormattedMessage id={[field.name + '_label']} />
           <input
             type={field.type}
             name={field.name}

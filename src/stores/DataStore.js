@@ -167,19 +167,81 @@ export default Reflux.createStore({
       var that = this;
       console.log("TODO create in airtable with received data:");
       console.log(varvals);
-      // base('People').create({
-      //   "Name": desiredUsername,
-      //   "Phone": desiredTelephone,
-      //   "Hash": desiredPasswordHash
-      // }, function (error, record) {
-      //   if (error) {
-      //     console.log( error );
-      //   } else {
-      //     console.log( record );        
-      //     that.setCurrentUser( record.id );
-      //     that.redirectAfterLogin();
-      //   }
-      // });
+  //     base('Activities').create({
+  // { name: "activity_title", type: "text", required: true },
+  // { name: "activity_date", type: "date", required: true },
+  // { name: "activity_start_time", type: "time", required: true },
+  // { name: "activity_end_time", type: "time", required: true },
+  // { name: "activity_street", type: "text", required: true },
+  // { name: "activity_description", type: "text", required: true },
+
+  //       name: record.get('Name'),
+  //       communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+  //       ownersId: record.get('Owners'),
+  //       date: record.get('Date'),
+  //       dateEnd: record.get('Date End'),
+  //       typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+  //       description: record.get('Description'),
+  //       location: record.get('Location'),
+  //       photoIds: record.get('Photos') || [],
+  //       interested: record.get('Interested') || 0,
+  //       attended: record.get('Attended') || 0,
+  //       cancelled: record.get('cancelled')
+
+  //       "Name": desiredUsername,
+  //       "Phone": desiredTelephone,
+  //       "Hash": desiredPasswordHash
+  //     }, function (error, record) {
+  //       if (error) {
+  //         console.log( error );
+  //       } else {
+  //         console.log( record );        
+  //         that.setCurrentUser( record.id );
+  //         that.redirectAfterLogin();
+  //       }
+  //     });
+
+      // let startDateTime = undefined;
+      let startDateTime = new Date(
+        varvals.activity_date.getFullYear(),
+        varvals.activity_date.getMonth(),
+        varvals.activity_date.getDate(),
+        varvals.activity_start_time.getHours(),
+        varvals.activity_start_time.getMinutes(),
+        varvals.activity_start_time.getSeconds()
+      );
+      let stopDateTime = undefined;
+      // varvals.activity_date
+      // varvals.activity_start_time
+      // varvals.activity_end_time
+
+      base('Activities').create({
+
+
+        name: varvals.activity_title,
+        ownersId: undefined, // TODO
+        communityId: undefined, // TODO
+        date: startDateTime,
+        dateEnd: stopDateTime,
+        typeId: undefined, // TODO
+        location: varvals.activity_street,
+        description: varvals.activity_description,
+
+        // photoIds: record.get('Photos') || [],
+        // interested: record.get('Interested') || 0,
+        // attended: record.get('Attended') || 0,
+        // cancelled: record.get('cancelled')
+
+      }, function (error, record) {
+        if (error) {
+          console.log( error );
+        } else {
+          console.log( record );        
+          that.setCurrentUser( record.id );
+          that.redirectAfterLogin();
+        }
+      });
+
       StatusActions.clearActivityTypes();
       StatusActions.forceTrigger();
       window.location.assign('#/activities');
@@ -318,6 +380,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         data.loaded.people = true;
+        // console.log("People loaded");
         // console.log(JSON.stringify(data.people, null, 2));
         // console.log("found the following " + Object.keys(data.people).length + " people", data.people);
         that.forceTrigger();
