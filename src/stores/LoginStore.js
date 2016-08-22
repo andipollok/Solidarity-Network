@@ -74,43 +74,57 @@ export default Reflux.createStore({
 
   // logs out if not
   checkSessionIsValid: function() {
-    let sessionCookie = localStorage.getItem('sessionCookie');
-    if (sessionCookie === null) { return false; }
-    let valid = false;
+    
+    let validSession = false;
     let validUserID = undefined;
     let that = this;
-    base('People').select({
-      view: "Authentication",
-      filterByFormula: "SessionID=\"" + sessionCookie + "\"",
-    }).firstPage(function (error, records) {
 
-      if (error) {
-      
-        console.log( "Error occured during login of '" + username + "'" );
-        that.throwError(error);
-      
-      } else {
-      
-        if (records.length > 0) {
-          let nowDate = new Date();
-          records.forEach(function(record) {
-            let expiry = record.get('SessionExpires');
-            if ( expiry != null ) {
-              let expiryDate = new Date( expiry );
-              if (nowDate < expiryDate) {
-                console.log("Session is still valid.");
-                validUserID = record.id;
-                valid = true;
-              } else {
-                console.log("Session expired.");
+    let sessionCookie = localStorage.getItem('sessionCookie');
+
+    if (sessionCookie === null) {
+
+      // no session cookie
+
+    } else {
+
+      base('People').select({
+        view: "Authentication",
+        filterByFormula: "SessionID=\"" + sessionCookie + "\"",
+      }).firstPage(function (error, records) {
+
+        if (error) {
+        
+          console.log( "Error occured during login of '" + username + "'" );
+          that.throwError(error);
+        
+        } else {
+
+          if (records.length > 0) {
+            let nowDate = new Date();
+            records.forEach(function(record) {
+              let expiry = record.get('SessionExpires');
+              if ( expiry != null ) {
+                let expiryDate = new Date( expiry );
+                if (nowDate < expiryDate) {
+                  console.log("Session is still valid.");
+                  validUserID = record.id;
+                  validSession = true;
+                } else {
+                  console.log("Session expired.");
+                }
               }
-            }
-          });
+            });
+          } else {
+            // found no matching session in the database, will consider the user is logged out
+          }
+        
         }
-      
-      }
 
-    if (!valid) {
+      });
+
+    }
+
+    if (!validSession) {
       // log out
       that.setLoggedOut();
     } else {
@@ -118,45 +132,54 @@ export default Reflux.createStore({
       that.setLoggedIn( validUserID );
     }
 
-    });
-
   },
 
   // if we go here it means we need to log in (if here is a session it is not valid)
   logIn: function( username, candidateHash ) {
-    // console.log( "logging in" );
+    console.log( "logging in" );
     loggedIn = false;
     var that = this;
-    base('People').select({
-      view: "Authentication",
-      filterByFormula: usernameFieldInAirtable + "=\"" + username + "\"",
+    var sel = base('People').select({
+      view: "Authentication"
+      //,
+      // filterByFormula: usernameFieldInAirtable + "=\"" + username + "\"",
       // sort: [{field: "Date", direction: "desc"}]
-    }).firstPage(function (error, records) {
+    });
+    
+    console.log( "mh" );
+    console.log( sel.firstPage );
 
-      if (error) {
-        console.log( "Error occured during login of '" + username + "'" );
-        that.throwError(error);
-      } else {
-        if (records.length == 0) {
-          console.log( "Unknown user '" + username + "'" );
-        } else {
-          records.forEach(function(record) {
-            if ( candidateHash == record.get('Hash') ) {
-              console.log( "User '" + username + "' successfully logged in" );
-              // that.setCurrentUser( record.id );
-              // // that.trigger(); // that does nothing
-              // that.redirectAfterLogin();
-              that.startNewSession( record.id );
-              that.setLoggedIn( record.id );
-            }
-          });
-          if (!loggedIn) {
-            console.log( "Login of '" + username + "' unsuccessful" );
-          }
-        }
-      }
+    sel.firstPage(function (error, records) {
+
+      console.log( "first page" );
+
+      // if (error) {
+      //   console.log( "Error occured during login of '" + username + "'" );
+      //   that.throwError(error);
+      // } else {
+      //   if (records.length == 0) {
+      //     console.log( "Unknown user '" + username + "'" );
+      //   } else {
+      //     records.forEach(function(record) {
+      //       if ( candidateHash == record.get('Hash') ) {
+      //         console.log( "User '" + username + "' successfully logged in" );
+      //         // that.setCurrentUser( record.id );
+      //         // // that.trigger(); // that does nothing
+      //         // that.redirectAfterLogin();
+      //         that.startNewSession( record.id );
+      //         that.setLoggedIn( record.id );
+      //       }
+      //     });
+      //     if (!loggedIn) {
+      //       console.log( "Login of '" + username + "' unsuccessful" );
+      //     }
+      //   }
+      // }
 
     });
+
+    console.log( "nope" );
+
   },
 
   join: function( desiredUsername, desiredTelephone, desiredPasswordHash ) {
