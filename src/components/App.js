@@ -58,6 +58,7 @@ moment.locale('en', {
 
 import Login from './Login/Login';
 
+import MainMenu from './Nav/MainMenu';
 import Nav from './Nav/Nav';
 import Top from './Nav/Top';
 import Footer from './Nav/Footer';
@@ -65,12 +66,6 @@ import Footer from './Nav/Footer';
 // const history = withScroll(createHashHistory());
 
 export default React.createClass({
-
-  getInitialState() {
-    return {
-      mainMenuOpened: true
-    }
-  },
 
   mixins: [ Reflux.connect(LanguageStore, 'language'), Reflux.connect(StatusStore, 'status'), Reflux.connect(DataStore, 'data') ],
 
@@ -110,10 +105,6 @@ export default React.createClass({
 */
   },
 
-  onClickOutsideMainMenu() {
-    this.setState({ mainMenuOpened: false });
-  },
-
   render: function() {
 
     // console.log("Rendering App ");
@@ -150,24 +141,13 @@ export default React.createClass({
     data.area = Helpers.getAreaFromStatus(data);
 
 
-    var mainMenuClasses = classNames({
-      'opened': this.state.mainMenuOpened
-    });
-    
     return (
 
       <IntlProvider {...intldata}>
 
         <div className="flex-container">
 
-          <div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
-            <div id="menu">
-                <Button className="settingsButton" size="bsLarge" onClick={this.onClickSettings}>
-                  <FormattedMessage id='settings' />
-                </Button>
-
-            </div>
-          </div>
+          <MainMenu />
 
           <div className="top-container">
             <Top data={data}/>

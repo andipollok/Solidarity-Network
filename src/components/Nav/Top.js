@@ -57,17 +57,15 @@ export default React.createClass({
                 <h4>{data.status.title}</h4>
               </div>
               <div className="top-flex-right text-right">
-                <Button className="settingsButton" size="bsLarge" onClick={this.onClickSettings}></Button>
-
+               <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
+                 <FormattedMessage id='login' />
+               </Button>
               </div>
             </div>
           </Col>
         </Row>
       );
 
-//                <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
-//                  <FormattedMessage id='login' />
-//                </Button>
 
     };
 
