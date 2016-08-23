@@ -12,12 +12,13 @@ const history = createHashHistory();
 
 export default React.createClass({
 
-  onClickSettings() {
+  onClickSettings( event ) {
     window.location.assign("#/settings");
   },
 
-  onClickMenuFrame() {
+  onClickMenuFrame( event ) {
     // do nothing but catch the click
+    event.stopPropagation();
   },
 
   render() {
@@ -25,7 +26,7 @@ export default React.createClass({
     //var data = this.props.data;
 
     return (
-        <div id="menu" onClickCapture={this.onClickMenuFrame}>
+        <div id="menu" onClick={this.onClickMenuFrame}>
 
             <Button className="settingsButton" size="bsLarge" onClickCapture={this.onClickSettings}>
               <FormattedMessage id='settings' />
