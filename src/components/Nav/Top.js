@@ -4,6 +4,8 @@ import createHashHistory from 'history/lib/createHashHistory';
 import classNames from 'classnames';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
+import MainMenu from './MainMenu';
+
 import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
@@ -11,6 +13,20 @@ import { FormattedMessage } from 'react-intl';
 const history = createHashHistory();
 
 export default React.createClass({
+
+  getInitialState() {
+    return {
+      mainMenuOpened: true
+    }
+  },
+
+  onClickOutsideMainMenu() {
+    this.setState({ mainMenuOpened: false });
+  },
+
+  onClickMainMenuIcon() {
+    this.setState({ mainMenuOpened: true });
+  },
 
   onClickBack() {
     history.goBack();
@@ -35,6 +51,7 @@ export default React.createClass({
     if (data.status.title === '' || data.status.title === undefined) {
       return <div></div>;
     }
+
 
     // primary navigation
     if (data.status.title !== null) {
@@ -81,10 +98,26 @@ export default React.createClass({
 
     };
 
+
+    var MainMenuIcon = <div className="divLink" onClick={this.onClickMainMenuIcon}>
+        <Icon type='activity' folder='service' size='medium' isNav={false} isActive={true} />
+      </div>
+
+    var mainMenuClasses = classNames({
+      'opened': this.state.mainMenuOpened
+    });
+
+
     return (
       <div className="container-fluid">
 
+        <div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
+          <MainMenu/>
+        </div>
+
         {primary}
+
+        {MainMenuIcon}
 
         {secondary}
 

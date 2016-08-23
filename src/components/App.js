@@ -58,7 +58,6 @@ moment.locale('en', {
 
 import Login from './Login/Login';
 
-import MainMenu from './Nav/MainMenu';
 import Nav from './Nav/Nav';
 import Top from './Nav/Top';
 import Footer from './Nav/Footer';
@@ -140,15 +139,15 @@ export default React.createClass({
     data.status = this.state.status;
     data.area = Helpers.getAreaFromStatus(data);
 
+    
+    
 
     return (
 
       <IntlProvider {...intldata}>
 
         <div className="flex-container">
-
-          <MainMenu />
-
+    
           <div className="top-container">
             <Top data={data}/>
           </div>
