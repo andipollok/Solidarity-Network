@@ -16,17 +16,21 @@ export default React.createClass({
     window.location.assign("#/settings");
   },
 
+  onClickMenuFrame() {
+    // do nothing but catch the click
+  },
+
   render() {
 
     //var data = this.props.data;
 
     return (
-        <div id="menu">
+        <div id="menu" onClickCapture={this.onClickMenuFrame}>
 
-            <Button className="settingsButton" size="bsLarge" onClick={this.onClickSettings}>
+            <Button className="settingsButton" size="bsLarge" onClickCapture={this.onClickSettings}>
               <FormattedMessage id='settings' />
             </Button>
-            
+
         </div>
     );
   }
