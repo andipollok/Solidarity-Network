@@ -13,6 +13,7 @@ const history = createHashHistory();
 export default React.createClass({
 
   onClickSettings( event ) {
+    this.props.closeMenuCallback();
     window.location.assign("#/settings");
   },
 

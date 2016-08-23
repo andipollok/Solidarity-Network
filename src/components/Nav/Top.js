@@ -20,14 +20,25 @@ export default React.createClass({
     }
   },
 
-  onClickOutsideMainMenu() {
-    console.log("out");
+  openMenu() {
+    this.setState({ mainMenuOpened: true });
+  },
+
+  closeMenu() {
     this.setState({ mainMenuOpened: false });
   },
 
-  onClickMainMenuIcon() {
-    this.setState({ mainMenuOpened: true });
+  onClickOutsideMainMenu() {
+    this.closeMenu();
   },
+
+  onClickMainMenuIcon() {
+    this.openMenu();
+  },
+
+  // onClickMenuLink() {
+  //   this.openMenu();
+  // },
 
   onClickBack() {
     history.goBack();
@@ -117,7 +128,7 @@ export default React.createClass({
       <div className="container-fluid">
 
         <div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
-          <MainMenu/>
+          <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} />
         </div>
 
         {primary}
