@@ -21,6 +21,7 @@ export default React.createClass({
   },
 
   onClickOutsideMainMenu() {
+    console.log("out");
     this.setState({ mainMenuOpened: false });
   },
 
@@ -99,13 +100,17 @@ export default React.createClass({
     };
 
 
-    var MainMenuIcon = <div className="divLink" onClick={this.onClickMainMenuIcon}>
-        <Icon type='activity' folder='service' size='medium' isNav={false} isActive={true} />
-      </div>
-
     var mainMenuClasses = classNames({
       'opened': this.state.mainMenuOpened
     });
+
+    var mainMenuIconClasses = classNames( 'divLink', {
+      'active': !this.state.mainMenuOpened
+    });
+
+    var MainMenuIcon = <div className={mainMenuIconClasses} onClick={this.onClickMainMenuIcon}>
+        <Icon type='activity' folder='service' size='medium' isNav={false} isActive={true} />
+      </div>
 
 
     return (

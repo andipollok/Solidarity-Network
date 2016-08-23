@@ -92,7 +92,16 @@ a:hover {
 }
 
 .divLink {
+  
+/*  position: absolute;
+  left: 100px;
+*/
   cursor: pointer;
+  display: none;
+}
+
+.divLink.active {
+  display: block;
 }
 
 #content {
