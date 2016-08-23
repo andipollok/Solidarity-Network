@@ -16,7 +16,7 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      mainMenuOpened: true
+      mainMenuOpened: false
     }
   },
 
