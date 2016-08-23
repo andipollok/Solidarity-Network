@@ -22,6 +22,7 @@ export default Reflux.createStore({
 
     init: function() {
 
+      // allAreas
       areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
 
       data = {
@@ -48,8 +49,12 @@ export default Reflux.createStore({
         errors: []
       };
 
-      this.loadAreas();
+      this.loadAreaData();
 
+    },
+
+    onAreaChange: function() {
+      this.init();
     },
 
     throwError: function(error) {
@@ -57,8 +62,10 @@ export default Reflux.createStore({
       this.forceTrigger();
     },
 
-    loadAreas() {
+    loadAreaData() {
       var that = this;
+
+      // TODO filter only by the active area
 
       base('Areas').select({
         view: "Main View",
@@ -160,6 +167,17 @@ export default Reflux.createStore({
         if (error) {
           that.throwError(error);
         }
+      });
+    },
+
+    updateArea( userID, newArea ) {
+      // TODO check the area is really different
+      base('People').update(userID, {
+        "Area": newArea
+      }, function(err, record) {
+          if (err) { console.log(err); return; }
+          console.log(record);
+          this.onAreaChange(); // TODO - only if it actually changed
       });
     },
 
@@ -388,6 +406,50 @@ export default Reflux.createStore({
           that.throwError(error);
         }
       });
+    },
+
+    loadUserProfile() {
+      var that = this;
+      base('People').find('recv71CYpQUlg4KdI', function(err, record) {
+        if (err) { console.log(err); return; }
+        console.log('loaded user profile');
+        console.log(record);
+        //areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
+      });
+      // select({
+      //   view: "Main View",
+      //   filterByFormula: `{Area} = "${areaName}"`
+      // }).eachPage(function page(records, fetchNextPage) {
+      //   records.forEach(function(record) {
+      //       if (record.get('Name')) {
+      //         var pictureFullsizeUrl = '', pictureUrl = '';
+      //         if (record.get('Picture') && record.get('Picture').length > 0) {
+      //           pictureFullsizeUrl = record.get('Picture')[0].url;
+      //           pictureUrl = record.get('Picture')[0].thumbnails.large.url;
+      //         }
+      //         data.people.push({
+      //           id: record.getId(),
+      //           name: record.get('Name'),
+      //           surname: record.get('Surname'),
+      //           phone: record.get('Phone'),
+      //           email: record.get('Email'),
+      //           pictureFullsizeUrl: pictureFullsizeUrl,
+      //           pictureUrl: pictureUrl
+      //         });
+      //       }
+      //   });
+      //   fetchNextPage();
+
+      // }, function done(error) {
+      //   data.loaded.people = true;
+      //   // console.log("People loaded");
+      //   // console.log(JSON.stringify(data.people, null, 2));
+      //   // console.log("found the following " + Object.keys(data.people).length + " people", data.people);
+      //   that.forceTrigger();
+      //   if (error) {
+      //     that.throwError(error);
+      //   }
+      // });
     },
 
     loadStories() {

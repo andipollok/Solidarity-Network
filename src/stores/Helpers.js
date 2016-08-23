@@ -36,6 +36,8 @@ module.exports = {
     return area;
   },
 
+  // TODO: do not extract just the first area, extract all of them
+  // then run a search in files to see what components call this method and update their behaviour
   getAreaById: function(id, data) {
     if (!id || !data || !data.loaded) {
       console.error('Could not get Area, arguments missing.', id, data);

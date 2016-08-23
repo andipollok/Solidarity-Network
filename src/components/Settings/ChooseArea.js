@@ -8,6 +8,7 @@ import DataActions from '../../stores/DataActions';
 import DataStore from '../../stores/DataStore';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
+import LoginStore from '../../stores/LoginStore';
 
 import AreaList from './AreaList';
 
@@ -23,7 +24,9 @@ export default React.createClass({
   onClickSelectArea(id) {
     StatusActions.setArea(id);
     StatusActions.forceTrigger();
-    DataActions.init();
+    console.log("current user");
+    console.log(LoginStore.getCurrentUser());
+    // DataActions.updateArea(  );
   },
 
   render() {

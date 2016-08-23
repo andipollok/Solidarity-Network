@@ -43,6 +43,10 @@ export default Reflux.createStore({
     localStorage.setItem("currentUser", userid);
   },
 
+  getCurrentUser: function() {
+    return localStorage.getItem("currentUser");
+  },
+
   // private
   setLoggedOut: function() {
     this.setCurrentUser( null );
