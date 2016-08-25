@@ -9,11 +9,14 @@ import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 
+import StepBullets from '../General/StepBullets';
+
 export default React.createClass({
 
   componentWillMount() {
     StatusActions.setPage('start');
     StatusActions.setTitle(null);
+    StatusActions.showPrimaryNav(false);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -26,6 +29,7 @@ export default React.createClass({
 
   return (
       <div className="container-fluid splash">
+        <StepBullets small={false} amount={2} />
         <Row>
           <Col sm={12} className="text-center">
             <p>

@@ -139,14 +139,16 @@ export default React.createClass({
     data.status = this.state.status;
     data.area = Helpers.getAreaFromStatus(data);
 
-    
+    var flexContainerClasses = classNames( 'flex-container', {
+      'colorBg' : data.status.page === 'start'
+    } );
     
 
     return (
 
       <IntlProvider {...intldata}>
 
-        <div className="flex-container">
+        <div className={flexContainerClasses}>
     
           <div className="top-container">
             <Top data={data}/>

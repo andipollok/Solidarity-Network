@@ -11,7 +11,7 @@ import StatusStore from '../../stores/StatusStore';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-
+import StepBullets from '../General/StepBullets';
 import Icon from '../General/Icon';
 
 export default React.createClass({
@@ -25,6 +25,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('start');
     StatusActions.setTitle(null);
+    StatusActions.showPrimaryNav(true);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
@@ -47,33 +48,24 @@ export default React.createClass({
               <Row>
                 <Col sm={12} className="text-center">
                   <p>
-                    <ReactCSSTransitionGroup transitionName="move-up" transitionAppear={true} transitionEnterTimeout={0} transitionLeaveTimeout={0}
-                        transitionAppearTimeout={2000}>
-                        <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
-                    </ReactCSSTransitionGroup>
+                    <FormattedMessage id='chooseAreaTitle'/>
                   </p>
-
-                    <ReactCSSTransitionGroup transitionName="fade-in1" transitionAppear={true} transitionEnterTimeout={0} transitionLeaveTimeout={0}
-                      transitionAppearTimeout={5000}>
-                      <p className="item">
-                        <Icon type='activity' folder='service' size='large' area='splash'/>
-                        <br />
-                        <Button bsSize="large" className="showActivities" onClick={this.onClickActivities}>
-                          <FormattedMessage id='takemetoactivities'/>
-                        </Button>
-                      </p>
-                    </ReactCSSTransitionGroup>
-
-                    <ReactCSSTransitionGroup transitionName="fade-in2" transitionAppear={true} transitionEnterTimeout={0} transitionLeaveTimeout={0}
-                      transitionAppearTimeout={5000}>
-                      <p className="item">
-                        <Icon type='story' folder='activities' size='large' area='splash'/>
-                        <br />
-                        <Button bsSize="large" className="showStories" onClick={this.onClickStories}>
-                          <FormattedMessage id='takemetostories'/>
-                        </Button>
-                      </p>
-                    </ReactCSSTransitionGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={2} className="text-center">
+                  <StepBullets />
+                </Col>
+                <Col sm={8} className="text-center">
+                  <p>
+                    <FormattedMessage id='chooseAreaSubtitle'/>
+                  </p>
+                </Col>
+                <Col sm={2} className="text-center">
+                </Col>
+              </Row>
+              <Row>
+                <Col sm={12} className="text-center">
                 </Col>
               </Row>
             </div>

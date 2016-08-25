@@ -25,6 +25,7 @@ export default Reflux.createStore({
         area: cookieValueArea,
         page: '',
         title: '',
+        showPrimaryNav: true,
         secondaryNav: null,
         showBackButton: false,
         selectedActivityTypes: [],
@@ -64,6 +65,11 @@ export default Reflux.createStore({
 
     showBackButton: function(status) {
       data.showBackButton = status;
+      // this.trigger(data);
+    },
+
+    showPrimaryNav: function(status) {
+      data.showPrimaryNav = status;
       // this.trigger(data);
     },
 

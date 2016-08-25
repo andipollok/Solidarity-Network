@@ -25,6 +25,11 @@
   "back": "Retour",
   "next": "Suivant",
 
+  "goback": "Retour",
+
+  "chooseAreaTitle" : "Which Area would you like to look for Communities?",
+  "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",
+
   "welcome": "Bienvenue!",
   "welcome_in": "Bienvenue à {areaName}!",
   "whatsnew_in": "Quoi de neuf à {areaName}",

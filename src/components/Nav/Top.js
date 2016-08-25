@@ -65,15 +65,31 @@ export default React.createClass({
     }
 
 
-    // primary navigation
-    if (data.status.title !== null) {
+    // Primary navigation
+    
+    // if (data.status.title !== null) {
+    if (data.status.showPrimaryNav) {
 
       var barClasses = classNames( "top-bar", data.status.page);
+
+      // Back button
 
       var BackButton = <Button className="backButton" onClick={this.onClickBack}>
         &lt;&nbsp;
         <FormattedMessage id='back' />
       </Button>;
+
+      // Main menu icon
+
+      var mainMenuIconClasses = classNames( 'divLink', {
+        'active': !this.state.mainMenuOpened
+      });
+
+      var MainMenuIcon = ( <div className={mainMenuIconClasses} onClick={this.onClickMainMenuIcon}>
+        <Icon type='activity' folder='service' size='medium' isNav={false} isActive={true} />
+      </div> );
+
+      // Rendering the nav
 
       var primary = (
         <Row className={barClasses}>
@@ -83,7 +99,7 @@ export default React.createClass({
                 {BackButton} 
               </div>
               <div className="top-flex-middle text-center">
-                <h4>{data.status.title}</h4>
+                {MainMenuIcon}
               </div>
               <div className="top-flex-right text-right">
                <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
@@ -94,12 +110,13 @@ export default React.createClass({
           </Col>
         </Row>
       );
-
+      // <h4>{data.status.title}</h4>
 
     };
 
 
-    // secondary navigation
+    // Secondary navigation
+
     if (data.status.secondaryNav !== null) {
       var barClassesSecondary = classNames( "top-bar secondary text-center", data.status.page);
       var secondary = (
@@ -110,30 +127,23 @@ export default React.createClass({
 
     };
 
+    // Main menu
 
     var mainMenuClasses = classNames({
       'opened': this.state.mainMenuOpened
     });
 
-    var mainMenuIconClasses = classNames( 'divLink', {
-      'active': !this.state.mainMenuOpened
-    });
-
-    var MainMenuIcon = <div className={mainMenuIconClasses} onClick={this.onClickMainMenuIcon}>
-        <Icon type='activity' folder='service' size='medium' isNav={false} isActive={true} />
-      </div>
+    var mainMenu = (<div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
+      <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} />
+    </div>);
 
 
     return (
       <div className="container-fluid">
 
-        <div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
-          <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} />
-        </div>
+        {mainMenu}
 
         {primary}
-
-        {MainMenuIcon}
 
         {secondary}
 
