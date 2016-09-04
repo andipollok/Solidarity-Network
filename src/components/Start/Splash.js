@@ -29,7 +29,6 @@ export default React.createClass({
 
   return (
       <div className="container-fluid splash">
-        <StepBullets small={false} amount={2} />
         <Row>
           <Col sm={12} className="text-center">
             <p>

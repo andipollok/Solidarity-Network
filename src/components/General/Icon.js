@@ -8,6 +8,11 @@ var colors = {
     iconColor: '#FFF',
     solidIconColor: '#FFF'
   },
+  start: {
+    // backgroundColor: '#F6F6F6',
+    iconColor: '#FFF',
+    solidIconColor: '#FFF'
+  },
   news: {
     backgroundColor: '#F6F6F6',
     iconColor: '#e62719',
@@ -62,8 +67,10 @@ export default React.createClass({
     }
 
     var divClass = classNames('icon', {
+      tiny: this.props.size === 'tiny',
       small: this.props.size === 'small',
-      medium: this.props.size === 'medium'
+      medium: this.props.size === 'medium',
+      large: this.props.size === 'large',
     });
 
     var folder = this.props.folder || 'activities';

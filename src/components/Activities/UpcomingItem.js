@@ -33,10 +33,7 @@ export default React.createClass({
           &nbsp;
           <FormattedDate
                     value={activity.date}
-                    weekday="long"
-                    day="numeric"
-                    month="long"
-                    year="numeric" />
+                    format="hhmm" />
         </span>
     }
 
@@ -58,8 +55,7 @@ export default React.createClass({
       }
 
       // format start and end time
-      var componentTime = <span>
-                    {startingAt}&nbsp;<FormattedTime
+      var componentTime = <span><FormattedTime
                           value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
@@ -67,11 +63,12 @@ export default React.createClass({
 
       if (activity.dateEnd) {
         componentTime = <span>
-                          <FormattedMessage id="from" />&nbsp;<FormattedTime
+                          <FormattedTime
                           value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
-                          &nbsp;<FormattedMessage id="to" />&nbsp;<FormattedTime
+                          &nbsp;-&nbsp;
+                          <FormattedTime
                           value={activity.dateEnd}
                           minute="2-digit"
                           hour="numeric" />
@@ -83,11 +80,10 @@ export default React.createClass({
 
       case "list":
         
+        // {componentIcon}
         return (
 
-          <div className="listItem     card        outline linked text-center" onClick={this.props.onClickHandler.bind(null, activity.id)}>
-
-            {componentIcon}
+          <div className="listItem outline linked text-center" onClick={this.props.onClickHandler.bind(null, activity.id)}>
 
             <h2>{activity.name}</h2>
 

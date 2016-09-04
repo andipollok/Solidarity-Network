@@ -29,6 +29,9 @@
 
   "chooseAreaTitle" : "Which Area would you like to look for Communities?",
   "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",
+  "chooseSectionTitle" : "What would you like to discover first?",
+  "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
+  "startNextChooseSection" : "Choose a Section",
 
   "welcome": "Bienvenue!",
   "welcome_in": "Bienvenue à {areaName}!",

@@ -46,11 +46,16 @@ export default Reflux.createStore({
     },
 
     setArea: function(area) {
+      
       var nextyear = new Date();
       nextyear.setFullYear(nextyear.getFullYear() + 1)
       cookie.save(cookieNameArea, area, { path: '/', expires: nextyear });
+      
       data.area = area;
       // this.trigger(data);
+
+      areaName = Helpers.getAreaById(area.id, data).name;
+
     },
 
     setPage: function(pagename) {

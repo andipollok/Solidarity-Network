@@ -12,14 +12,34 @@ const history = createHashHistory();
 
 export default React.createClass({
 
-  onClickSettings( event ) {
-    this.props.closeMenuCallback();
-    window.location.assign("#/settings");
-  },
-
   onClickMenuFrame( event ) {
     // do nothing but catch the click
     event.stopPropagation();
+  },
+
+  onClickUpcoming( event ) {
+    this.props.closeMenuCallback();
+    window.location.assign("#/activities/upcoming");
+  },
+
+  onClickCalendar( event ) {
+    this.props.closeMenuCallback();
+    window.location.assign("#/calendar");
+  },
+
+  onClickJournal( event ) {
+    this.props.closeMenuCallback();
+    window.location.assign("#/journal");
+  },
+
+  onClickPhoto( event ) {
+    this.props.closeMenuCallback();
+    window.location.assign("#/photo");
+  },
+
+  onClickSettings( event ) {
+    this.props.closeMenuCallback();
+    window.location.assign("#/settings");
   },
 
   render() {
@@ -29,7 +49,28 @@ export default React.createClass({
     return (
         <div id="menu" onClick={this.onClickMenuFrame}>
 
-            <Button className="settingsButton" size="bsLarge" onClickCapture={this.onClickSettings}>
+            <Button className="UpcomingButton" size="bsLarge" onClickCapture={this.onClickUpcoming}>
+              <Icon type='upcoming' folder='service' size='large' isNav={true} isActive={true}/>
+              <FormattedMessage id='upcoming' />
+            </Button>
+
+            <Button className="CalendarButton" size="bsLarge" onClickCapture={this.onClickCalendar}>
+              <Icon type='calendar' folder='service' size='large' isNav={true} isActive={true}/>
+              <FormattedMessage id='calendar' />
+            </Button>
+
+            <Button className="JournalButton" size="bsLarge" onClickCapture={this.onClickJournal}>
+              <Icon type='journal' folder='service' size='large' isNav={true} isActive={true}/>
+              <FormattedMessage id='journal' />
+            </Button>
+
+            <Button className="PhotoButton" size="bsLarge" onClickCapture={this.onClickPhoto}>
+              <Icon type='photo' folder='service' size='large' isNav={true} isActive={true}/>
+              <FormattedMessage id='photo' />
+            </Button>
+
+            <Button className="SettingsButton" size="bsLarge" onClickCapture={this.onClickSettings}>
+              <Icon type='settings' folder='service' size='large' isNav={true} isActive={true}/>
               <FormattedMessage id='settings' />
             </Button>
 

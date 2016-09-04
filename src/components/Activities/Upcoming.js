@@ -88,7 +88,9 @@ export default React.createClass({
     // console.log( date_endOfThisWeek );
     // console.log( date_endOfThisMonth );
 
-    var groups = [
+    var groupsResults = [];
+
+    var groupsQueries = [
       { id : "today"      , label : "Aujourd'hui"           , before : date_endOfToday },
       { id : "tomorrow"   , label : "Demain"                , before : date_endOfTomorrow },
       { id : "thisweek"   , label : "Cette semaine"         , before : date_endOfThisWeek },
@@ -101,14 +103,16 @@ export default React.createClass({
     // Reinit grouping status
     data.activities.forEach( function ( a ) { a.inAGroup = false; });
 
-    groups.forEach( function( o )
+    groupsQueries.forEach( function( o )
     {
 
       var group = o;
 
+
       group.activities = data.activities.filter(
 
         function(activity) {
+          console.log(moment(activity.date));
 
           // check if activity is in the future
           if (moment(activity.date) < moment()) {
@@ -147,14 +151,14 @@ export default React.createClass({
                 activity={activity}
                 data={data}
                 layout={this.state.layout}
-                showDate={true}
+                showDate={false}
                 showTime={true}
                 showIcon={true}
                 onClickHandler={this.onClickActivity} /> );
     }.bind(this);
 
     var groupItem = function(group) {
-      if (group.activities.length === 0) {
+      if (groupsQueries.activities.length === 0) {
         // in case of no events we simply don't render the block
 
         // if you want you can render the block title and say there is no event inside

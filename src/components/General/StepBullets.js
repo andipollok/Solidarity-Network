@@ -1,5 +1,8 @@
 import React from 'react';
-// import SvgIcon from 'react-svg-icons';
+
+// Example
+// <StepBullets small={false} amount={4} active={[false, true, true, false]} height={100} />
+
 import classNames from 'classnames';
 
 // A component used to represent steps or linked elements
@@ -9,38 +12,6 @@ import classNames from 'classnames';
 // - numbered bullets / not
 // - linked bullets / not
 // - with labels / not
-
-// var colors = {
-//   splash: {
-//     backgroundColor: '#F6F6F6',
-//     iconColor: '#FFF',
-//     solidIconColor: '#FFF'
-//   },
-//   news: {
-//     backgroundColor: '#F6F6F6',
-//     iconColor: '#e62719',
-//     solidIconColor: '#FFF'
-//   },
-//   activities: {
-//     backgroundColor: '#F6F6F6',
-//     iconColor: '#5CDAC3',
-//     solidIconColor: '#FFF'
-//   },
-//   stories: {
-//     backgroundColor: '#F6F6F6',
-//     iconColor: '#40bf4d',
-//     solidIconColor: '#FFF'
-//   },
-//   default: {
-//     backgroundColor: '#F6F6F6',
-//     iconColor: '#999',
-//     solidIconColor: '#FFF'
-//   },
-//   secondaryinfo: {
-//     iconColor: '#b3b3b3'
-//   }
-// }
-// var inactiveColor = '#b3b3b3';
 
 const bulletSizeRadius_Small = 3;
 const bulletSizeRadius_Big = 5.2;
@@ -52,6 +23,10 @@ const labelFontSize_Small = 3;
 const labelFontSize_Big = 4.5;
 const defaultColor = "white";
 const activeColor = "#8A42CD";
+const defaultStrokeWidth = 0.5;
+
+// const componentBackgroundColor = "rgba(255,255,255,.1)"; // For debugging
+const componentBackgroundColor = "transparent"; // For production
 
 export default React.createClass({
 
@@ -59,33 +34,60 @@ export default React.createClass({
   //   return false;
   // },
 
-  // getInitialState() {
-  //   return {
-  //     step: 1
-  //   };
-  // },
+  drawBullet( x, y, active, showLabel, label, radius, bulletFontSize, labelFontSize, labelPadding ) {
 
-  bullet( x, y, active, showLabel, radius, bulletFontSize, labelFontSize, labelPadding ) {
     if (showLabel) {
       
       return <g>
-        <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth="0.5" fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">1</text>
+        <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
+        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
         <text x={x + radius + labelPadding} y={y} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">Part</text>
       </g>
 
     } else {
       
       return <g>
-        <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth="0.5" fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">1</text>
+        <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
+        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
       </g>
 
     }
+
+  },
+
+  createBulletItem( bullet ) {        
+    return this.drawBullet(
+      bullet[0],
+      bullet[1],
+      bullet[2],
+      bullet[3],
+      bullet[4],
+      bullet[5],
+      bullet[6],
+      bullet[7],
+      bullet[8]
+    );
+  },
+
+  drawLine( x1, y1, x2, y2 ) {
+    return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
+  },
+
+  createLineItem( line ) {        
+    return this.drawLine(
+      line[0],
+      line[1],
+      line[2],
+      line[3]
+    );
   },
 
   render() {
     
+    //
+    // Collecting the Props
+    //
+
     // NB the size of the bullets is automatic, big or small, you cannot change it with a props...
     // ... but you can provide a width and height for the rendered svg.
     // Please note though that it will affect:
@@ -97,10 +99,11 @@ export default React.createClass({
     let horizontal = this.props.horizontal || false;
     let numbered = this.props.numbered || true;
     let linked = this.props.linked || true;
-    let labels = this.props.labels || false;
+    let showLabel = this.props.labels || false;
 
     let numberOfBullets = this.props.amount || 2;
     
+    // Format [ true, false, false ] = 3 bullets, the first one is active
     let activeBullets = this.props.active || [];
 
     let radius = small ? bulletSizeRadius_Small : bulletSizeRadius_Big;
@@ -108,62 +111,82 @@ export default React.createClass({
     let labelPadding = small ? labelPadding_Small : labelPadding_Big;
     let labelFontSize = small ? labelFontSize_Small : labelFontSize_Big;
 
+    //
+    // Starting the math
+    //
 
+    let width = this.props.width || 40;
+    let height = this.props.height || 100;
 
-    // var backgroundColor = colors['default'].backgroundColor;
-    // var iconColor = colors['default'].iconColor;
+    let svgDimensions = "0 0 " + width + " " + height;
 
-    // // select background color and iconColor based on area (whatsnew, agenda or photos)
-    // if (this.props.area && colors[this.props.area]) {
-    //   backgroundColor = colors[this.props.area].backgroundColor;
-    //   iconColor = colors[this.props.area].iconColor;
-    //   // if fill parameter is solid (has solid background), then choose different icon color
-    //   if (this.props.isOnSolid === true) {
-    //     iconColor = colors[this.props.area].solidIconColor;
-    //   }
+    let numberOfBulletRows = horizontal ? 1 : numberOfBullets;
+    let numberOfBulletCols = horizontal ? numberOfBullets : 1;
+
+    let bulletXIncr =  width / ( numberOfBulletCols + 1 )
+    let bulletYIncr = height / ( numberOfBulletRows + 1 )
+    let bulletX0 = bulletXIncr;
+    let bulletY0 = bulletYIncr;
+
+    // let bullets = "";
+    // for (var i = 0; i < numberOfBullets; i++) {
+    //   let bulletX = bulletX0 + ( horizontal ? ( i * bulletXIncr ) : 0 );
+    //   let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
+    //   let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
+    //   bullets += this.bullet( bulletX, bulletY, bulletActive, showLabel, radius, bulletFontSize, labelFontSize, labelPadding );
+    //   console.log(bulletX, bulletY, bulletActive, showLabel, radius, bulletFontSize, labelFontSize, labelPadding);
     // }
-    // if (this.props.isNav === true) {
-    //   iconColor = '#1d3faf';
-    // }
-    // if (this.props.isActive === false) {
-    //   iconColor = inactiveColor;
-    // }
 
-    // var divClass = classNames('icon', {
-    //   small: this.props.size === 'small',
-    //   medium: this.props.size === 'medium'
-    // });
+    let bulletsArray = [];
+    let linesArray = [];
 
-    // var folder = this.props.folder || 'activities';
-    // var size = this.props.size || 'large';
-    // var iconType = this.props.type || 'hiking';
-    // name = `alo_${folder}-${iconType}-${size}`;
+    var prevBulletX, prevBulletY = undefined, undefined;
 
-    // return (
-    //   <span className={divClass}>
-    //     <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>
-    //   </span>
-    // );
+    for (let i = 0; i < numberOfBullets; i++) {
+      
+      // Bullet
+      let bulletX = bulletX0 + ( horizontal ? ( i * bulletXIncr ) : 0 );
+      let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
+      let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
+      let bulletLabel = i + 1;
+      bulletsArray.push( [
+        bulletX,
+        bulletY,
+        bulletActive,
+        showLabel,
+        bulletLabel,
+        radius,
+        bulletFontSize,
+        labelFontSize,
+        labelPadding
+      ] );
 
-    
+      // Line if not first bullet (because we need coordinates of bullet N and N+1)
+      if (i > 0) {
+        let x1 = horizontal ? ( prevBulletX + radius ) : prevBulletX;
+        let y1 = horizontal ? prevBulletY : ( prevBulletY + radius );
+        let x2 = horizontal ? ( bulletX - radius ) : bulletX;
+        let y2 = horizontal ? bulletY : ( bulletY - radius );
+        linesArray.push( [
+          x1, y1, x2, y2
+        ] );
+      }
 
-    let bullets = this.bullet( 20, 20, true, true, radius, bulletFontSize, labelFontSize, labelPadding );
+      prevBulletX = bulletX;
+      prevBulletY = bulletY;
 
-    var width = this.props.width || 0;
-    var height = this.props.width || 0;
-
-    var svgDimensions = "0 0 40 100";
+    }
 
     return (
       <span>
         <svg preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium" viewBox={svgDimensions}>
           <title>alo_service</title>
           
-          <rect x="0" y="0" width="40" height="200" fill="rgba(255,255,255,.1)"></rect>
+          <rect x="0" y="0" width="40" height="200" fill={componentBackgroundColor}></rect>
           
-          <line x1="20" y1={20 + radius} x2="20" y2={40 - radius} stroke="white" strokeWidth="0.5"></line>
+          {linesArray.map( this.createLineItem, this )}
 
-          {bullets}
+          {bulletsArray.map( this.createBulletItem, this )}
           
           </svg>
       </span>

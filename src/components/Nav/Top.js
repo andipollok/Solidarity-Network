@@ -66,7 +66,7 @@ export default React.createClass({
 
 
     // Primary navigation
-    
+
     // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
 
@@ -81,12 +81,18 @@ export default React.createClass({
 
       // Main menu icon
 
-      var mainMenuIconClasses = classNames( 'divLink', {
+      var mainMenuIconClasses = classNames( 'mainMenuIcon', 'divLink', {
         'active': !this.state.mainMenuOpened
       });
 
+      let menuIconType = 'upcoming';
+      let menuIconFolder = 'service';
+
       var MainMenuIcon = ( <div className={mainMenuIconClasses} onClick={this.onClickMainMenuIcon}>
-        <Icon type='activity' folder='service' size='medium' isNav={false} isActive={true} />
+        <svg preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium">
+          <circle cx="30" cy="30" r="30" fill="transparent" stroke="white" strokeWidth="3"></circle>
+        </svg>
+        <Icon type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={true} />
       </div> );
 
       // Rendering the nav

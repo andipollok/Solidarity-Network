@@ -61,6 +61,17 @@ a:hover {
   text-decoration: none !important;
 }
 
+.mainMenuIcon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  display: block;
+}
+
+.mainMenuIcon svg {
+  position: absolute;
+}
+
 #pleasewait {
   display: none;
   z-index: 99;
@@ -90,10 +101,31 @@ a:hover {
   background: white;
   /*z-index: 99999;*/
   width: 200px;
-  height: 600px;
+  /*height: 600px;*/
   margin: 200px auto 60px;
   padding: 100px 0;
   border-radius: 200px;
+}
+
+#mainmenu #menu button.btn-default {
+  background-color: transparent;
+}
+
+#mainmenu #menu button span {
+  display: block;
+}
+
+.countries,
+.areas {
+  display: block;
+  clear: both;
+}
+
+.country,
+.area {
+  display: inline-block;
+  float: left;
+  margin: 40px 60px;
 }
 
 .divLink {
@@ -141,6 +173,38 @@ a:hover {
   }
 
 }
+
+
+
+
+
+
+
+.listItem {
+  border: 2px solid #5cdac3;
+  color: #1d3faf;
+  background-color: white;
+  border-radius: 14px;
+  padding: 0;
+  margin: 0 0 8px 0;
+}
+
+.listItem h2 {
+  font-size: 24px;
+  text-align: left;
+  margin: 0 0 0 16px;
+}
+
+#content .listItem p {
+  font-size: 16px;
+  margin: 0 0 8px 16px;
+  line-height: normal;
+  text-align: left;
+}
+
+
+
+
 
 /* Extra small devices (phones, below @screen-sm-min 768px) */
 @media (max-width: 767px) {

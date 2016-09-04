@@ -22,11 +22,15 @@ export default Reflux.createStore({
 
     init: function() {
 
-      areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
+      // TODO
+      areaId = cookie.load(cookieNameArea) || "recGlKnzjzZTFT0h3"; // Pully Nord
+      // areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // Ecublens
 
       data = {
         whatsnew:       [],  
+        // areas:          {},
         areas:          [],
+        countries:      [],
         communities:    [],
         activities:     [],
         activitytypes:  [],
@@ -37,6 +41,7 @@ export default Reflux.createStore({
         loaded: {
           whatsnew:     false,
           areas:        false,
+          countries:    false, 
           communities:  false,
           activities:   false,
           activitytypes:false,
@@ -48,6 +53,7 @@ export default Reflux.createStore({
         errors: []
       };
 
+      this.loadCountries();
       this.loadAreas();
 
     },
@@ -55,6 +61,18 @@ export default Reflux.createStore({
     throwError: function(error) {
       data.errors.push(error);
       this.forceTrigger();
+    },
+
+    loadCurrentAreaContent() {
+
+        this.loadCommunities();
+        this.loadActivities();
+        this.loadActivityTypes();
+        this.loadPhotos();
+        this.loadPeople();
+        this.loadWhatsnew();
+        this.loadStories();
+
     },
 
     loadAreas() {
@@ -66,6 +84,17 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
           if (record.get('Name')) {
+
+            console.log( record.getId(), record.get('Name') );
+
+            // data.areas[record.getId()] = {
+            //   id: record.getId(),
+            //   name: record.get('Name'),
+            //   ownersId: record.get('Owners'),
+            //   communitiesId: record.get('Communities'),
+            //   countMembers: record.get('CountMembers')
+            // };
+
             data.areas.push({
               id: record.getId(),
               name: record.get('Name'),
@@ -73,6 +102,7 @@ export default Reflux.createStore({
               communitiesId: record.get('Communities'),
               countMembers: record.get('CountMembers')
             });
+
           }
         });
         fetchNextPage();
@@ -83,17 +113,47 @@ export default Reflux.createStore({
 
         areaName = Helpers.getAreaById(areaId, data).name;
 
-        that.loadCommunities();
-        that.loadActivities();
-        that.loadActivityTypes();
-        that.loadPhotos();
-        that.loadPeople();
-        that.loadWhatsnew();
-        that.loadStories();
+        that.loadCurrentAreaContent();
 
         if (error) {
           that.throwError(error);
         }
+      });
+    },
+
+    loadCountries() {
+      var that = this;
+
+      base('Countries').select({
+        view: "Main View"
+      }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+          if (record.get('Name')) {
+
+            let areasObjects = [];
+            let areasIds = record.get('Areas');
+            areasIds.map(function(areaID) { base('Areas').find(areaID, function(err, record) {
+                if (err) { console.log(err); return; }
+                // console.log(record.fields.Name);
+                areasObjects.push( record );
+              });
+            });
+
+            data.countries.push({
+              id: record.getId(),
+              name: record.get('Name'),
+              iconName: record.get('Icon Name'),
+              areas: areasObjects
+            });
+
+          }
+        });
+        fetchNextPage();
+
+      }, function done(error) {
+
+        data.loaded.countries = true;
+
       });
     },
 

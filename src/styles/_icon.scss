@@ -30,8 +30,8 @@ $iconSizeSmall: 50px;
       margin-bottom: calc(-$iconSizeMedium);
 
       svg {
-        width: $iconSize;
-        height: $iconSize;
+        width: $iconSizeMedium;
+        height: $iconSizeMedium;
         position:relative;
         top: calc(-$iconSizeMedium / 2 );
         left: calc(-$iconSizeMedium / 2);
@@ -47,8 +47,8 @@ $iconSizeSmall: 50px;
       margin-bottom: calc(-$iconSizeSmall);
       
       svg {
-        width: $iconSize;
-        height: $iconSize;
+        width: $iconSizeSmall;
+        height: $iconSizeSmall;
         position:relative;
         top: calc(-$iconSizeSmall / 2 - 4 );
         left: calc(-$iconSizeSmall / 2);
