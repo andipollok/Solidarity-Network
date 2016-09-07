@@ -61,9 +61,9 @@ export default React.createClass({
       step: 3
     });
 
-    // StatusActions.setArea(area.id);
-    // StatusActions.forceTrigger();
-    // DataActions.init();
+    StatusActions.setArea(area.id);
+    StatusActions.forceTrigger();
+    DataActions.init();
 
   },
 

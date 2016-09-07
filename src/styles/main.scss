@@ -115,6 +115,12 @@ a:hover {
   display: block;
 }
 
+.layoutToggle {
+  position: fixed; /* absolute; */
+  top: 0;
+  right: 100px;	
+}
+
 .countries,
 .areas {
   display: block;

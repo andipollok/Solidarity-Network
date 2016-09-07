@@ -18,6 +18,8 @@ import LanguageStore from '../stores/LanguageStore';
 import Helpers from '../stores/Helpers';
 import LoginActions from '../stores/LoginActions';
 import LoginStore from '../stores/LoginStore';
+import SessionActions from '../stores/SessionActions';
+import SessionStore from '../stores/SessionStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';

@@ -24,17 +24,17 @@ export default React.createClass({
 
   onClickCalendar( event ) {
     this.props.closeMenuCallback();
-    window.location.assign("#/calendar");
+    window.location.assign("#/activities/month");
   },
 
   onClickJournal( event ) {
     this.props.closeMenuCallback();
-    window.location.assign("#/journal");
+    window.location.assign("#/stories/latest");
   },
 
   onClickPhoto( event ) {
     this.props.closeMenuCallback();
-    window.location.assign("#/photo");
+    window.location.assign("#/stories/wall");
   },
 
   onClickSettings( event ) {

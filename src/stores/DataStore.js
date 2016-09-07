@@ -320,24 +320,81 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name') && record.get('Date')) {
-              data.activities.push({
+
+              // Common values of all occurrences
+              var activityBase = {
                 id: record.getId(),
                 name: record.get('Name'),
                 communityId: record.get('Community') ? record.get('Community')[0] : undefined,
                 ownersId: record.get('Owners'),
                 date: record.get('Date'),
                 dateEnd: record.get('Date End'),
+                frequency: record.get('Frequency'),
+                frequencyCustomValue: record.get('Frequency Custom Value'),
+                frequencyCustomdimension: record.get('Frequency Custom Dimension'),
                 typeId: record.get('Type') ? record.get('Type')[0] : undefined,
                 description: record.get('Description'),
                 location: record.get('Location'),
-                photoIds: record.get('Photos') || [],
-                interested: record.get('Interested') || 0,
-                attended: record.get('Attended') || 0,
-                cancelled: record.get('cancelled')
+                paid: record.get('Paid'),
+                price: record.get('Price'),
+                currency: record.get('Price Currency')
+              };
+
+              // TODO reconciliate when some occurrence data is expected but not present
+              // TODO reconciliate when there is occurrence data that does not match the recurring event settings
+
+              // Retrieve now the additional occurrence values 
+              base('ActivitiesOccurrences').find(record.getId(), function(err, occurrenceRecord) {
+
+                if (err) {
+                  that.throwError(error);
+                }
+                
+                // Copy the common values
+                var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
+                
+                // Add this occurrence's values
+				activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
+				activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
+				activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
+				activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
+                
+                // Push the activity and activity occurrence unified data as a single "activity"
+                // record in the data array, so the display code doesn't need to change much.
+                data.activities.push( activityOccurrence );
+
               });
+              
             }
         });
         fetchNextPage();
+
+        //
+        // BEFORE RECURRING EVENTS:
+        //
+        // records.forEach(function(record) {
+        //     if (record.get('Name') && record.get('Date')) {
+        //       data.activities.push({
+        //         id: record.getId(),
+        //         name: record.get('Name'),
+        //         communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+        //         ownersId: record.get('Owners'),
+        //         date: record.get('Date'),
+        //         dateEnd: record.get('Date End'),
+        //         typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+        //         description: record.get('Description'),
+        //         location: record.get('Location'),
+
+        //         photoIds: record.get('Photos') || [],
+        //         interested: record.get('Interested') || 0,
+        //         attended: record.get('Attended') || 0,
+        //         cancelled: record.get('cancelled')
+
+        //       });
+        //     }
+        // });
+        // fetchNextPage();
+        //
 
       }, function done(error) {
 
