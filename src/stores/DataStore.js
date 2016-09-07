@@ -340,30 +340,55 @@ export default Reflux.createStore({
                 currency: record.get('Price Currency')
               };
 
+              // TODO take into account Date Limit and Number Limit
+
               // TODO reconciliate when some occurrence data is expected but not present
+              	// Probably by keeping a "Date" field
               // TODO reconciliate when there is occurrence data that does not match the recurring event settings
 
+              // TODO change Date into First Begin Date and Date End into First End Date
+
+              // TODO determine if we want to let the fields Location, Min, Max be modifiable for each occurrence (or event Description but I highly discourage it)
+
+              // TODO use the Whatsnew field
+
               // Retrieve now the additional occurrence values 
-              base('ActivitiesOccurrences').find(record.getId(), function(err, occurrenceRecord) {
+              base('ActivitiesOccurrences').select({
+		        maxRecords: 999,
+		        pageSize: 100,
+		        view: "Main View",
+		        sort: [{field: "Date", direction: "asc"}],
+		        filterByFormula: `{Base Activity} = "${record.getId()}"`
+		      }).eachPage(function page(occurrenceRecords, fetchNextPageOccurrences) {
 
-                if (err) {
-                  that.throwError(error);
-                }
-                
-                // Copy the common values
-                var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
-                
-                // Add this occurrence's values
-				activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
-				activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
-				activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
-				activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
-                
-                // Push the activity and activity occurrence unified data as a single "activity"
-                // record in the data array, so the display code doesn't need to change much.
-                data.activities.push( activityOccurrence );
+		      	occurrenceRecords.forEach(function(occurrenceRecord) {
+            		if (occurrenceRecord.get('Name') && occurrenceRecord.get('Date')) {
 
-              });
+                
+		                // Copy the common values
+		                var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
+		                
+		                // Add this occurrence's values
+						activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
+						activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
+						activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
+						activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
+		                
+		                // Push the activity and activity occurrence unified data as a single "activity"
+		                // record in the data array, so the display code doesn't need to change much.
+		                data.activities.push( activityOccurrence );
+
+					}
+        		});
+        		fetchNextPageOccurrences();
+
+		      }, function doneOccurrence(error) {
+
+		        if (error) {
+		          that.throwError(error);
+		        }
+
+		      });
               
             }
         });
