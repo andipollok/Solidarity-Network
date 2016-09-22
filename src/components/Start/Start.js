@@ -19,9 +19,15 @@ import Icon from '../General/Icon';
 export default React.createClass({
 
   // Step 1: must select country
-  // Step 2: country selected, must select area
-  // Step 3: area selected, must press button
+  // Step 2: country selected & must select area
+  // Step 3: area selected & must press button
   // Step 4: button pressed, select section (in main menu)
+
+  // NB in the design of the interface, we don't reflect those 4 steps
+  // graphically. Instead we have 2 stepbullets.
+  // First stepbullet is for steps 1
+  // Second stepbullet is for steps 2 and 3
+  // during step 4 we hide the stepbullets
 
   getInitialState() {
     return {
@@ -52,8 +58,8 @@ export default React.createClass({
   onClickArea( area ) {
     
     // debug
-    console.log(area.fields.Name);
-    console.log(area.id);
+    //console.log(area.fields.Name);
+    //console.log(area.id);
 
     this.setState({
       anAreaIsSelected: true,
@@ -197,6 +203,23 @@ export default React.createClass({
 
     }
 
+    var stepBullets = undefined;
+
+    switch ( this.state.step ) {
+      
+      case 1:
+      case 2:
+      case 3:
+        stepBullets = <StepBullets small={false} amount={2} active={[ (this.state.step == 1), (this.state.step == 2 || this.state.step == 3) ]} height={160} />;
+        break;
+
+      case 4:
+        stepBullets = null;
+        break;
+
+    }
+
+
     return (
       <div className="container-fluid start">
         <Row>
@@ -204,7 +227,7 @@ export default React.createClass({
         </Row>
         <Row>
           <Col sm={2} className="text-center">
-            <StepBullets small={false} amount={3} active={[ (this.state.step == 1), (this.state.step == 2), (this.state.step == 3) ]} height={160} />
+            {stepBullets}
           </Col>
           {mainContent}
           <Col sm={2} className="text-center">
