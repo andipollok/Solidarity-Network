@@ -1,4 +1,11 @@
 {
+              
+  "upcoming": "A venir",
+  "calendar": "Calendrier",
+  "journal": "Journal",
+  "photo": "Photos",
+  "settings": "Réglages",
+
   "loading": "Un instant s'il vous plaît…",
   "getstarted": "Allons-y!",
 

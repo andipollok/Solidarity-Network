@@ -103,17 +103,30 @@ a:hover {
   width: 200px;
   /*height: 600px;*/
   margin: 200px auto 60px;
-  padding: 100px 0;
+  padding: 60px 0;
   border-radius: 200px;
 }
 
 #mainmenu #menu button.btn-default {
   background-color: transparent;
+  color: white;
+  margin: 0 0 20px 0;
+}
+
+#mainmenu #menu button span.icon {
+  margin-bottom: 10px;
 }
 
 #mainmenu #menu button span {
   display: block;
+  font-weight: 400;
 }
+
+/* Special version of the main menu for startup screen - Begin */
+
+/*.colorBg*/
+
+/* Special version of the main menu for startup screen - End */
 
 .countries,
 .areas {
