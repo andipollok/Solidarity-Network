@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import MainMenu from './MainMenu';
-
+import IconButton from '../General/IconButton';
 import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
@@ -95,6 +95,21 @@ export default React.createClass({
         <Icon type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={true} />
       </div> );
 
+
+      // Contextual icons (on top, left and right from main menu icon)
+
+      let contextualIconClasses = classNames( 'contextualTopIcon', 'divLink', {
+        'active': true
+      });
+
+      var ContextualIconLeft = ( <div className={contextualIconClasses} onClick={this.onClickMainMenuIcon}>
+        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='left' label='LEFT' />
+      </div> );
+
+      var ContextualIconRight = ( <div className={contextualIconClasses} onClick={this.onClickMainMenuIcon}>
+        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label='RIGHT' />
+      </div> );
+
       // Rendering the nav
 
       var primary = (
@@ -105,7 +120,9 @@ export default React.createClass({
                 {BackButton} 
               </div>
               <div className="top-flex-middle text-center">
+                {ContextualIconLeft}
                 {MainMenuIcon}
+                {ContextualIconRight}
               </div>
               <div className="top-flex-right text-right">
                <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
