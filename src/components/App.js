@@ -168,8 +168,6 @@ export default React.createClass({
   
           </div>
 
-          <Nav data={data}/>
-
           <Footer />
 
         </div>
@@ -177,4 +175,8 @@ export default React.createClass({
       </IntlProvider>
     )
   }
+
+//          <Nav data={data}/>
+
+
 });
