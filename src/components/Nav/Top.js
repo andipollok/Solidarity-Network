@@ -125,9 +125,6 @@ export default React.createClass({
                 {ContextualIconRight}
               </div>
               <div className="top-flex-right text-right">
-               <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
-                 <FormattedMessage id='login' />
-               </Button>
               </div>
             </div>
           </Col>
@@ -136,6 +133,10 @@ export default React.createClass({
       // <h4>{data.status.title}</h4>
 
     };
+
+    // <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
+    //   <FormattedMessage id='login' />
+    // </Button>
 
 
     // Secondary navigation
