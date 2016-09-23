@@ -211,7 +211,7 @@ export default React.createClass({
           </Button>
         </div>        
 
-        {groups.map(groupItem, this)}
+        {groupsResults.map(groupItem, this)}
 
         {NotFound}
 
