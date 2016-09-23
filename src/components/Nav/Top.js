@@ -103,11 +103,11 @@ export default React.createClass({
       });
 
       var ContextualIconLeft = ( <div className={contextualIconClasses} onClick={this.onClickMainMenuIcon}>
-        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='left' label='LEFT' />
+        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label='LEFT BUTTON' />
       </div> );
 
       var ContextualIconRight = ( <div className={contextualIconClasses} onClick={this.onClickMainMenuIcon}>
-        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label='RIGHT' />
+        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label='RIGHT CARDS' />
       </div> );
 
       // Rendering the nav
