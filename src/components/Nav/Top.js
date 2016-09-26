@@ -10,7 +10,7 @@ import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
 
-const noTopButton = {
+const noButton = {
   icon: null,
   label: null
 };
@@ -78,7 +78,7 @@ export default React.createClass({
     switch (data.status.page) {
 
       case 'start':
-        return noTopButton;
+        return noButton;
         break;
 
       case 'activities':
@@ -109,7 +109,7 @@ export default React.createClass({
     switch (data.status.page) {
 
       case 'start':
-        return noTopButton;
+        return noButton;
         break;
 
       case 'activities':
@@ -125,6 +125,30 @@ export default React.createClass({
           icon: '',
           label: 'RIGHT BUTTON',
         };
+        break;
+
+    }
+
+  },
+
+  getFiltersButtonData() {
+
+    var setSessionVar = this.props.setSessionVar;
+
+    var data = this.props.data;
+
+    switch (data.status.page) {
+
+      case 'activities':
+        return {
+          icon: 'filters',
+          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+        };
+        break;
+
+      case 'start':
+      default:
+        return noButton;
         break;
 
     }
@@ -173,10 +197,10 @@ export default React.createClass({
       </div> );
 
 
-      // Contextual icons (on top, left and right from main menu icon)
+      // Contextual icons (on top center, left and right from main menu icon)
 
       let contextualIconClasses = classNames( 'contextualTopIcon', 'divLink', {
-        'active': true
+        'active': true // TODO clarify whether that means highlighted or enabled
       });
 
       let leftButtonData = this.getLeftTopButtonData();
@@ -194,12 +218,31 @@ export default React.createClass({
         rightIcon = undefined;
       }
 
-      var ContextualIconLeft = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
+      var ContextualIconLeftComponent = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
 
-      var ContextualIconRight = ( <div className={contextualIconClasses} id="rightContextualTopIcon" onClick={rightButtonData.callback}>
+      var ContextualIconRightComponent = ( <div className={contextualIconClasses} id="rightContextualTopIcon" onClick={rightButtonData.callback}>
         {rightIcon}
+      </div> );
+
+      // Filters button (top right corner)
+      // can have four states: enabled and passive (=clickable), enabled and active (=highlighted), disabled but visible (=grayed, not clickable), invisible (=not displayed at all)
+
+      let filtersIconClasses = classNames( 'filtersIcon', 'divLink', {
+        'active': true // TODO clarify whether that means highlighted or enabled
+      });
+
+      let filtersButtonData = this.getFiltersButtonData();
+
+      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
+      
+      if (filtersButtonData.icon === null) {
+        filtersIcon = undefined;
+      }
+
+      var FiltersIconComponent = ( <div className={filtersIconClasses} id="filtersIcon" onClick={filtersButtonData.callback}>
+        {filtersIcon}
       </div> );
 
       // Rendering the nav
@@ -214,13 +257,14 @@ export default React.createClass({
               <div className="top-flex-middle text-center">
                 <div className="topNavWidget">
                   <div className="topNavWidgetIcons">
-                    {ContextualIconLeft}
-                    {ContextualIconRight}
+                    {ContextualIconLeftComponent}
+                    {ContextualIconRightComponent}
                   </div>
                   {MainMenuIcon}
                 </div>
               </div>
               <div className="top-flex-right text-right">
+                {FiltersIconComponent}
               </div>
             </div>
           </Col>
