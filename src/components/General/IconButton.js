@@ -82,7 +82,7 @@ export default React.createClass({
     // Starting the math
     //
 
-    let svgPadding = 5;
+    let svgPadding = defaultStrokeWidth;
     let svgWidth = labelWidth + iconFrameCircleRadius + 2 * defaultStrokeWidth;
     let svgHeight = Math.max( labelHeight, 2 * iconFrameCircleRadius ) + 2 * defaultStrokeWidth;
     let svgWidthWithPadding = svgWidth + 2 * svgPadding;
@@ -99,8 +99,8 @@ export default React.createClass({
         break;
       case 'left':
       default:
-        // TODO if ever labelFrameCornerRadius and iconFrameCircleRadius became different
         //rectX = svgPadding + iconFrameCircleRadius;
+        rectX = svgWidth - svgPadding - labelWidth;
         break;
     }
 

@@ -10,6 +10,11 @@ import Icon from '../General/Icon';
 
 import { FormattedMessage } from 'react-intl';
 
+const noTopButton = {
+  icon: null,
+  label: null
+};
+
 const history = createHashHistory();
 
 export default React.createClass({
@@ -56,6 +61,51 @@ export default React.createClass({
     window.location.assign("#/login");
   },
 
+  // returns a simple array with:
+  // [0] : icon path
+  // [1] : label
+  getLeftTopButtonData() {
+
+    var data = this.props.data;
+
+    switch (data.status.page) {
+
+      case 'start':
+      return noTopButton;
+        break;
+
+      default:
+        return {
+          icon: '',
+          label: 'LEFT BUTTON'
+        };
+        break;
+
+    }
+
+  },
+
+  getRightTopButtonData() {
+
+    var data = this.props.data;
+
+    switch (data.status.page) {
+
+      case 'start':
+      return noTopButton;
+        break;
+
+      default:
+        return {
+          icon: '',
+          label: 'RIGHT BUTTON'
+        };
+        break;
+
+    }
+
+  },
+
   render() {
 
     var data = this.props.data;
@@ -88,9 +138,9 @@ export default React.createClass({
       let menuIconType = 'upcoming';
       let menuIconFolder = 'service';
 
-      var MainMenuIcon = ( <div className={mainMenuIconClasses} onClick={this.onClickMainMenuIcon}>
-        <svg preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium">
-          <circle cx="30" cy="30" r="30" fill="transparent" stroke="white" strokeWidth="3"></circle>
+      var MainMenuIcon = ( <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium">
+          <circle cx="50" cy="50" r="46" fill="transparent" stroke="white" strokeWidth="4"></circle>
         </svg>
         <Icon type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={true} />
       </div> );
@@ -102,12 +152,27 @@ export default React.createClass({
         'active': true
       });
 
-      var ContextualIconLeft = ( <div className={contextualIconClasses} onClick={this.onClickMainMenuIcon}>
-        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label='LEFT BUTTON' />
+      let leftButtonData = this.getLeftTopButtonData();
+      let rightButtonData = this.getRightTopButtonData();
+
+      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      
+      if (leftButtonData.icon === null && leftButtonData.label === null) {
+        leftIcon = undefined;
+      }
+
+      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      
+      if (rightButtonData.icon === null && rightButtonData.label === null) {
+        rightIcon = undefined;
+      }
+
+      var ContextualIconLeft = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={this.onClickMainMenuIcon}>
+        {leftIcon}
       </div> );
 
-      var ContextualIconRight = ( <div className={contextualIconClasses} onClick={this.onClickMainMenuIcon}>
-        <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label='RIGHT CARDS' />
+      var ContextualIconRight = ( <div className={contextualIconClasses} id="rightContextualTopIcon" onClick={this.onClickMainMenuIcon}>
+        {rightIcon}
       </div> );
 
       // Rendering the nav
@@ -120,9 +185,13 @@ export default React.createClass({
                 {BackButton} 
               </div>
               <div className="top-flex-middle text-center">
-                {ContextualIconLeft}
-                {MainMenuIcon}
-                {ContextualIconRight}
+                <div className="topNavWidget">
+                  <div className="topNavWidgetIcons">
+                    {ContextualIconLeft}
+                    {ContextualIconRight}
+                  </div>
+                  {MainMenuIcon}
+                </div>
               </div>
               <div className="top-flex-right text-right">
               </div>
