@@ -46,7 +46,12 @@ export default React.createClass({
   // },
 
   onClickBack() {
-    history.goBack();
+    var data = this.props.data;
+    if (data.status.page === 'start') {
+
+    } else {
+      history.goBack();
+    }
   },
 
   onClickForward() {
