@@ -175,11 +175,11 @@ export default React.createClass({
 
           <div className="main-container scrollable">
 
-            { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), session: this.state.session } ) }
+            { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), setSessionVar: this.setSessionVar, session: this.state.session } ) }
   
           </div>
 
-          <Footer />
+          <Footer data={data} setSessionVar={this.setSessionVar}  />
 
         </div>
 
