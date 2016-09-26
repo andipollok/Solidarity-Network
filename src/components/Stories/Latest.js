@@ -18,12 +18,6 @@ import ViewSelectorButtons from './ViewSelectorButtons';
 
 export default React.createClass({
 
-  getInitialState() {
-    return {
-      layout: "cards"
-    };
-  },
-
   componentWillMount() {
     StatusActions.setPage('stories');
     StatusActions.showBackButton(false);
@@ -36,16 +30,10 @@ export default React.createClass({
     window.location.assign("#/story/" + id);
   },
 
-  onToggleLayoutToCards() {
-    this.setState({ layout: "cards" });
-  },
-
-  onToggleLayoutToList() {
-    this.setState({ layout: "list" });
-  },
-
   render() {
 
+    var session = this.props.session;
+    
     var data = this.props.data;
 
     var stories = [];
@@ -63,7 +51,7 @@ export default React.createClass({
       return ( <Item key={story.id}
                 story={story}
                 data={data}
-                layout={this.state.layout}
+                layout={session.preferredLayout}
                 showDate={true}
                 onClickHandler={this.onClickStory} /> );
     }.bind(this);
@@ -73,26 +61,9 @@ export default React.createClass({
       var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='nostories' values={{areaName: area.name}}/></h2></Col>;
     }
 
-    var toggleToCardsClasses = classNames( 'toggle', 'toggleToCards', {
-      'active': this.state.layout === 'cards'
-    });
-
-    var toggleToListClasses = classNames( 'toggle', 'toggleToList', {
-      'active': this.state.layout === 'list'
-    });
-
     return (
 
       <div className="container activities top-buffer">
-
-        <div className="layoutToggle">
-          <Button className={toggleToCardsClasses} size="bsLarge" onClick={this.onToggleLayoutToCards}>
-            <FormattedMessage id='cards_layout' />
-          </Button>
-          <Button className={toggleToListClasses} size="bsLarge" onClick={this.onToggleLayoutToList}>
-            <FormattedMessage id='list_layout' />
-          </Button>
-        </div>
 
         {stories.map(storyItem, this)}
 

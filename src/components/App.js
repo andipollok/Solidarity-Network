@@ -78,11 +78,20 @@ export default React.createClass({
   //   loggedIn: React.PropTypes.bool.isRequired
   // },
 
-  // getInitialState() {
-  //   return {
+  getInitialState() {
+    return {
   //      loggedIn: LoginStore.isLoggedIn(this)
-  //   };
-  // },
+      session: {
+        preferredLayout: "cards"
+      }
+    };
+  },
+
+  setSessionVar( variable, value) {
+    let modifiedState = { session: {} };
+    modifiedState.session[variable] = value;
+    this.setState(modifiedState);
+  },
 
   componentWillMount() {
     LoginActions.checkSessionIsValid();
@@ -153,7 +162,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data}/>
+            <Top data={data} setSessionVar={this.setSessionVar} />
           </div>
 
           {error}
@@ -166,7 +175,7 @@ export default React.createClass({
 
           <div className="main-container scrollable">
 
-            {React.cloneElement(this.props.children, {data: data, loggedIn: LoginStore.isLoggedIn(this)})}
+            { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), session: this.state.session } ) }
   
           </div>
 

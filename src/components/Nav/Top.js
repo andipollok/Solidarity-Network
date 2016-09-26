@@ -71,18 +71,28 @@ export default React.createClass({
   // [1] : label
   getLeftTopButtonData() {
 
+    var setSessionVar = this.props.setSessionVar;
+
     var data = this.props.data;
 
     switch (data.status.page) {
 
       case 'start':
-      return noTopButton;
+        return noTopButton;
+        break;
+
+      case 'activities':
+        return {
+          icon: '',
+          label: 'Cards',
+          callback: setSessionVar.bind(null, "preferredLayout", "cards"),
+        };
         break;
 
       default:
         return {
           icon: '',
-          label: 'LEFT BUTTON'
+          label: 'LEFT BUTTON',
         };
         break;
 
@@ -92,18 +102,28 @@ export default React.createClass({
 
   getRightTopButtonData() {
 
+    var setSessionVar = this.props.setSessionVar;
+
     var data = this.props.data;
 
     switch (data.status.page) {
 
       case 'start':
-      return noTopButton;
+        return noTopButton;
+        break;
+
+      case 'activities':
+        return {
+          icon: '',
+          label: 'List',
+          callback: setSessionVar.bind(null, "preferredLayout", "list"),
+        };
         break;
 
       default:
         return {
           icon: '',
-          label: 'RIGHT BUTTON'
+          label: 'RIGHT BUTTON',
         };
         break;
 
@@ -112,6 +132,8 @@ export default React.createClass({
   },
 
   render() {
+
+    var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
 
@@ -172,11 +194,11 @@ export default React.createClass({
         rightIcon = undefined;
       }
 
-      var ContextualIconLeft = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={this.onClickMainMenuIcon}>
+      var ContextualIconLeft = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
 
-      var ContextualIconRight = ( <div className={contextualIconClasses} id="rightContextualTopIcon" onClick={this.onClickMainMenuIcon}>
+      var ContextualIconRight = ( <div className={contextualIconClasses} id="rightContextualTopIcon" onClick={rightButtonData.callback}>
         {rightIcon}
       </div> );
 

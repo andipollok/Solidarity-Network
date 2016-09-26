@@ -20,12 +20,6 @@ import ViewSelectorButtons from './ViewSelectorButtons';
 
 export default React.createClass({
 
-  getInitialState() {
-    return {
-      layout: "cards"
-    };
-  },
-
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
@@ -38,15 +32,9 @@ export default React.createClass({
     window.location.assign("#/activity/" + id);
   },
 
-  onToggleLayoutToCards() {
-    this.setState({ layout: "cards" });
-  },
-
-  onToggleLayoutToList() {
-    this.setState({ layout: "list" });
-  },
-
   render() {
+
+    var session = this.props.session;
 
     var data = this.props.data;
 
@@ -187,7 +175,7 @@ export default React.createClass({
       return ( <UpcomingItem key={activity.id}
                 activity={activity}
                 data={data}
-                layout={this.state.layout}
+                layout={session.preferredLayout}
                 showDate={false}
                 showTime={true}
                 showIcon={true}
@@ -223,30 +211,12 @@ export default React.createClass({
     if (data.activities.length === 0) {
       var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: area.name}}/></h2></Col>;
     }
-    
-    
-    var toggleToCardsClasses = classNames( 'toggle', 'toggleToCards', {
-      'active': this.state.layout === 'cards'
-    });
-
-    var toggleToListClasses = classNames( 'toggle', 'toggleToList', {
-      'active': this.state.layout === 'list'
-    });
 
     return (
 
       <div className="container activities">
 
         <TypeSelectorButton data={data}/>
-
-        <div className="layoutToggle">
-          <Button className={toggleToCardsClasses} size="bsLarge" onClick={this.onToggleLayoutToCards}>
-            <FormattedMessage id='cards_layout' />
-          </Button>
-          <Button className={toggleToListClasses} size="bsLarge" onClick={this.onToggleLayoutToList}>
-            <FormattedMessage id='list_layout' />
-          </Button>
-        </div>        
 
         {groupsResults.map(groupItem, this)}
 
