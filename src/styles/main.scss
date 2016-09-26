@@ -27,7 +27,7 @@
 
 body, html, #content, .scrollable {
   height:100%;
-//  font-family: 'Roboto', sans-serif;
+/*  font-family: 'Roboto', sans-serif; */
   font-family: -apple-system, "San Francisco Display", Helvetica, Arial, sans-serif;
 }
 
@@ -61,16 +61,7 @@ a:hover {
   text-decoration: none !important;
 }
 
-.mainMenuIcon {
-  width: 60px;
-  height: 60px;
-  margin: 0 auto;
-  display: block;
-}
 
-.mainMenuIcon svg {
-  position: absolute;
-}
 
 #pleasewait {
   display: none;
@@ -78,6 +69,58 @@ a:hover {
   background: #eefbf9;
   width: 100%;
   height: calc(100% - 225px);
+}
+
+
+
+.topNavWidget {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.top-bar {
+  padding-top: 15px
+}
+
+
+
+.contextualTopIcon {
+}
+
+#leftContextualTopIcon {
+  display: inline-block;
+  float: left;
+  width: 250px;
+}
+
+#rightContextualTopIcon {
+  display: inline-block;
+  float: right;
+  width: 250px;
+}
+
+#leftContextualTopIcon svg {
+  display: block;
+  float: right;
+}
+
+#rightContextualTopIcon svg {
+  display: block;
+  float: left;
+}
+
+
+
+#mainMenuIcon {
+  width: 60px;
+  height: 60px;
+  display: block;
+  position: relative;
+  left: calc( 250 - 60/2 )px;
+}
+
+.mainMenuIcon svg {
+  position: absolute;
 }
 
 #mainmenu.opened {
@@ -122,17 +165,17 @@ a:hover {
   font-weight: 400;
 }
 
-/* Special version of the main menu for startup screen - Begin */
 
-/*.colorBg*/
-
-/* Special version of the main menu for startup screen - End */
 
 .layoutToggle {
-  position: fixed; /* absolute; */
+  position: fixed;
   top: 0;
   right: 100px;	
 }
+
+
+
+/* Start screen */
 
 .countries,
 .areas {
@@ -146,6 +189,8 @@ a:hover {
   float: left;
   margin: 40px 60px;
 }
+
+
 
 .divLink {
   
