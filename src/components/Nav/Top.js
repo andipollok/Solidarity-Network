@@ -12,7 +12,8 @@ import { FormattedMessage } from 'react-intl';
 
 const noButton = {
   icon: null,
-  label: null
+  label: null,
+  callback: undefined,
 };
 
 const history = createHashHistory();
@@ -298,7 +299,7 @@ export default React.createClass({
     });
 
     var mainMenu = (<div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
-      <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} />
+      <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} data={data} />
     </div>);
 
 
