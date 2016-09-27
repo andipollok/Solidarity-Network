@@ -12,9 +12,13 @@ export default React.createClass({
 
   render() {
 
+    console.log("FVREDSHBGTF");
+
     var data = this.props.data;
     var activity = this.props.activity;
     var layout = this.props.layout;
+
+    console.log("boioh");
 
     var community = Helpers.getCommunityById(activity.communityId, data);
 

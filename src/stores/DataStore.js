@@ -249,34 +249,75 @@ export default Reflux.createStore({
     });
   },
 
-  createActivity( varvals ) {
-    var that = this;
-    console.log("TODO create in airtable with received data:");
-    console.log(varvals);
+//   createActivity( varvals ) {
+//     var that = this;
+//     console.log("TODO create in airtable with received data:");
+//     console.log(varvals);
+// //     base('Activities').create({
+// // { name: "activity_title", type: "text", required: true },
+// // { name: "activity_date", type: "date", required: true },
+// // { name: "activity_start_time", type: "time", required: true },
+// // { name: "activity_end_time", type: "time", required: true },
+// // { name: "activity_street", type: "text", required: true },
+// // { name: "activity_description", type: "text", required: true },
+
+// //       name: record.get('Name'),
+// //       communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+// //       ownersId: record.get('Owners'),
+// //       date: record.get('Date'),
+// //       dateEnd: record.get('Date End'),
+// //       typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+// //       description: record.get('Description'),
+// //       location: record.get('Location'),
+// //       photoIds: record.get('Photos') || [],
+// //       interested: record.get('Interested') || 0,
+// //       attended: record.get('Attended') || 0,
+// //       cancelled: record.get('cancelled')
+
+// //       "Name": desiredUsername,
+// //       "Phone": desiredTelephone,
+// //       "Hash": desiredPasswordHash
+// //     }, function (error, record) {
+// //       if (error) {
+// //         console.log( error );
+// //       } else {
+// //         console.log( record );        
+// //         that.setCurrentUser( record.id );
+// //         that.redirectAfterLogin();
+// //       }
+// //     });
+
+//     // let startDateTime = undefined;
+//     let startDateTime = new Date(
+//       varvals.activity_date.getFullYear(),
+//       varvals.activity_date.getMonth(),
+//       varvals.activity_date.getDate(),
+//       varvals.activity_start_time.getHours(),
+//       varvals.activity_start_time.getMinutes(),
+//       varvals.activity_start_time.getSeconds()
+//     );
+//     let stopDateTime = undefined;
+//     // varvals.activity_date
+//     // varvals.activity_start_time
+//     // varvals.activity_end_time
+
 //     base('Activities').create({
-// { name: "activity_title", type: "text", required: true },
-// { name: "activity_date", type: "date", required: true },
-// { name: "activity_start_time", type: "time", required: true },
-// { name: "activity_end_time", type: "time", required: true },
-// { name: "activity_street", type: "text", required: true },
-// { name: "activity_description", type: "text", required: true },
 
-//       name: record.get('Name'),
-//       communityId: record.get('Community') ? record.get('Community')[0] : undefined,
-//       ownersId: record.get('Owners'),
-//       date: record.get('Date'),
-//       dateEnd: record.get('Date End'),
-//       typeId: record.get('Type') ? record.get('Type')[0] : undefined,
-//       description: record.get('Description'),
-//       location: record.get('Location'),
-//       photoIds: record.get('Photos') || [],
-//       interested: record.get('Interested') || 0,
-//       attended: record.get('Attended') || 0,
-//       cancelled: record.get('cancelled')
 
-//       "Name": desiredUsername,
-//       "Phone": desiredTelephone,
-//       "Hash": desiredPasswordHash
+//       name: varvals.activity_title,
+//       ownersId: undefined, // TODO
+//       communityId: undefined, // TODO
+//       date: startDateTime,
+//       dateEnd: stopDateTime,
+//       typeId: undefined, // TODO
+//       location: varvals.activity_street,
+//       description: varvals.activity_description,
+
+//       // photoIds: record.get('Photos') || [],
+//       // interested: record.get('Interested') || 0,
+//       // attended: record.get('Attended') || 0,
+//       // cancelled: record.get('cancelled')
+
 //     }, function (error, record) {
 //       if (error) {
 //         console.log( error );
@@ -287,51 +328,10 @@ export default Reflux.createStore({
 //       }
 //     });
 
-    // let startDateTime = undefined;
-    let startDateTime = new Date(
-      varvals.activity_date.getFullYear(),
-      varvals.activity_date.getMonth(),
-      varvals.activity_date.getDate(),
-      varvals.activity_start_time.getHours(),
-      varvals.activity_start_time.getMinutes(),
-      varvals.activity_start_time.getSeconds()
-    );
-    let stopDateTime = undefined;
-    // varvals.activity_date
-    // varvals.activity_start_time
-    // varvals.activity_end_time
-
-    base('Activities').create({
-
-
-      name: varvals.activity_title,
-      ownersId: undefined, // TODO
-      communityId: undefined, // TODO
-      date: startDateTime,
-      dateEnd: stopDateTime,
-      typeId: undefined, // TODO
-      location: varvals.activity_street,
-      description: varvals.activity_description,
-
-      // photoIds: record.get('Photos') || [],
-      // interested: record.get('Interested') || 0,
-      // attended: record.get('Attended') || 0,
-      // cancelled: record.get('cancelled')
-
-    }, function (error, record) {
-      if (error) {
-        console.log( error );
-      } else {
-        console.log( record );        
-        that.setCurrentUser( record.id );
-        that.redirectAfterLogin();
-      }
-    });
-
-    StatusActions.clearActivityTypes();
-    StatusActions.forceTrigger();
-    window.location.assign('#/activities');
-  },
+//     StatusActions.clearActivityTypes();
+//     StatusActions.forceTrigger();
+//     window.location.assign('#/activities');
+//   },
 
   getFilteredActivities() {
     var that = this;
@@ -356,7 +356,7 @@ export default Reflux.createStore({
       maxRecords: maxRecords.activities || maxRecords.default,
       pageSize: pageSize.activities || pageSize.default,
       view: "Main View",
-      sort: [{field: "Date", direction: "asc"}],
+      sort: [{field: "Date Begin", direction: "asc"}],
       filterByFormula: airtableFormula
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
     }).eachPage(function page(records, fetchNextPage) {
@@ -365,77 +365,37 @@ export default Reflux.createStore({
           if (record.get('Name')) {
 
             // Common values of all occurrences
-            var activityBase = {
+            var activity = {
               id: record.getId(),
               name: record.get('Name'),
+              date: record.get('Date Begin'),
+              dateEnd: record.get('Date End'),
               communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+              activityGroup: record.get('Activity Group'),
               ownersId: record.get('Owners'),
-              // date: record.get('Date Begin'),
-              // dateEnd: record.get('Date End'),
               // frequency: record.get('Frequency'),
               // frequencyCustomValue: record.get('Frequency Custom Value'),
               // frequencyCustomdimension: record.get('Frequency Custom Dimension'),
               typeId: record.get('Type') ? record.get('Type')[0] : undefined,
-              // description: record.get('Description'),
-              // location: record.get('Location'),
-              // paid: record.get('Paid'),
-              // price: record.get('Price'),
-              // currency: record.get('Price Currency')
+              description: record.get('Description'),
+              location: record.get('Location'),
+              photoIds: record.get('Photos') || [],
+              min: record.get('Min'),
+              max: record.get('Max'),
+              interested: record.get('Interested') || 0,
+              attended: record.get('Attended') || 0,
+              // whatsnew: record.get('Whatsnew'),
+              cancelled: record.get('Cancelled') || 0,
+              storyIds: record.get('Stories'),
+              paid: record.get('Paid'),
+              price: record.get('Price'),
+              currency: record.get('Price Currency')
+              // occurrences: record.get('ActivitiesOccurrences')
             };
 
-            that.data.activities.push( activityBase );
-
-            // TODO retrieve field Activities Occurrences
-
-            // TODO take into account Date Limit and Number Limit
-
-            // TODO reconciliate when some occurrence data is expected but not present
-              // Probably by keeping a "Date" field
-            // TODO reconciliate when there is occurrence data that does not match the recurring event settings
-
-            // TODO change Date into First Begin Date and Date End into First End Date
-
-            // TODO determine if we want to let the fields Location, Min, Max be modifiable for each occurrence (or event Description but I highly discourage it)
+            that.data.activities.push( activity );
 
             // TODO use the Whatsnew field
-
-   //          // Retrieve now the additional occurrence values 
-   //          base('ActivitiesOccurrences').select({
-     //      maxRecords: 999,
-     //      pageSize: 100,
-     //      view: "Main View",
-     //      sort: [{field: "Date", direction: "asc"}],
-     //      filterByFormula: `{Base Activity} = "${record.getId()}"`
-     //    }).eachPage(function page(occurrenceRecords, fetchNextPageOccurrences) {
-
-     //     occurrenceRecords.forEach(function(occurrenceRecord) {
-   //           if (occurrenceRecord.get('Name') && occurrenceRecord.get('Date')) {
-
-              
-     //              // Copy the common values
-     //              var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
-                  
-     //              // Add this occurrence's values
-        //  activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
-        //  activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
-        //  activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
-        //  activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
-                  
-     //              // Push the activity and activity occurrence unified data as a single "activity"
-     //              // record in the data array, so the display code doesn't need to change much.
-     //              data.activities.push( activityOccurrence );
-
-        // }
-   //       });
-   //       fetchNextPageOccurrences();
-
-     //    }, function doneOccurrence(error) {
-
-     //      if (error) {
-     //        that.throwError(error);
-     //      }
-
-     //    });
             
           }
       });
@@ -484,143 +444,143 @@ export default Reflux.createStore({
     });
   },
 
-  loadActivities() {
-    var that = this;
+//   loadActivities() {
+//     var that = this;
 
-    var airtableFilters = [];
-    airtableFilters.push( `{Area} = "${StatusStore.data.areaName}"` );
+//     var airtableFilters = [];
+//     airtableFilters.push( `{Area} = "${StatusStore.data.areaName}"` );
 
-    var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';
+//     var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';
 
-    base('Activities').select({
-      maxRecords: maxRecords.activities || maxRecords.default,
-      pageSize: pageSize.activities || pageSize.default,
-      view: "Main View",
-      sort: [{field: "Date", direction: "asc"}],
-      filterByFormula: airtableFormula
-//        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
-    }).eachPage(function page(records, fetchNextPage) {
-      records.forEach(function(record) {
-          if (record.get('Name')) {
+//     base('Activities').select({
+//       maxRecords: maxRecords.activities || maxRecords.default,
+//       pageSize: pageSize.activities || pageSize.default,
+//       view: "Main View",
+//       sort: [{field: "Date", direction: "asc"}],
+//       filterByFormula: airtableFormula
+// //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
+//     }).eachPage(function page(records, fetchNextPage) {
+//       records.forEach(function(record) {
+//           if (record.get('Name')) {
 
-            // Common values of all occurrences
-            var activityBase = {
-              id: record.getId(),
-              name: record.get('Name'),
-              communityId: record.get('Community') ? record.get('Community')[0] : undefined,
-              ownersId: record.get('Owners'),
-              // date: record.get('Date Begin'),
-              // dateEnd: record.get('Date End'),
-              // frequency: record.get('Frequency'),
-              // frequencyCustomValue: record.get('Frequency Custom Value'),
-              // frequencyCustomdimension: record.get('Frequency Custom Dimension'),
-              typeId: record.get('Type') ? record.get('Type')[0] : undefined,
-              // description: record.get('Description'),
-              // location: record.get('Location'),
-              // paid: record.get('Paid'),
-              // price: record.get('Price'),
-              // currency: record.get('Price Currency')
-            };
+//             // Common values of all occurrences
+//             var activityBase = {
+//               id: record.getId(),
+//               name: record.get('Name'),
+//               communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+//               ownersId: record.get('Owners'),
+//               // date: record.get('Date Begin'),
+//               // dateEnd: record.get('Date End'),
+//               // frequency: record.get('Frequency'),
+//               // frequencyCustomValue: record.get('Frequency Custom Value'),
+//               // frequencyCustomdimension: record.get('Frequency Custom Dimension'),
+//               typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+//               // description: record.get('Description'),
+//               // location: record.get('Location'),
+//               // paid: record.get('Paid'),
+//               // price: record.get('Price'),
+//               // currency: record.get('Price Currency')
+//             };
 
-            // TODO retrieve field Activities Occurrences
+//             // TODO retrieve field Activities Occurrences
 
-            // TODO take into account Date Limit and Number Limit
+//             // TODO take into account Date Limit and Number Limit
 
-            // TODO reconciliate when some occurrence data is expected but not present
-            	// Probably by keeping a "Date" field
-            // TODO reconciliate when there is occurrence data that does not match the recurring event settings
+//             // TODO reconciliate when some occurrence data is expected but not present
+//             	// Probably by keeping a "Date" field
+//             // TODO reconciliate when there is occurrence data that does not match the recurring event settings
 
-            // TODO change Date into First Begin Date and Date End into First End Date
+//             // TODO change Date into First Begin Date and Date End into First End Date
 
-            // TODO determine if we want to let the fields Location, Min, Max be modifiable for each occurrence (or event Description but I highly discourage it)
+//             // TODO determine if we want to let the fields Location, Min, Max be modifiable for each occurrence (or event Description but I highly discourage it)
 
-            // TODO use the Whatsnew field
+//             // TODO use the Whatsnew field
 
-   //          // Retrieve now the additional occurrence values 
-   //          base('ActivitiesOccurrences').select({
-	   //      maxRecords: 999,
-	   //      pageSize: 100,
-	   //      view: "Main View",
-	   //      sort: [{field: "Date", direction: "asc"}],
-	   //      filterByFormula: `{Base Activity} = "${record.getId()}"`
-	   //    }).eachPage(function page(occurrenceRecords, fetchNextPageOccurrences) {
+//    //          // Retrieve now the additional occurrence values 
+//    //          base('ActivitiesOccurrences').select({
+// 	   //      maxRecords: 999,
+// 	   //      pageSize: 100,
+// 	   //      view: "Main View",
+// 	   //      sort: [{field: "Date", direction: "asc"}],
+// 	   //      filterByFormula: `{Base Activity} = "${record.getId()}"`
+// 	   //    }).eachPage(function page(occurrenceRecords, fetchNextPageOccurrences) {
 
-	   //    	occurrenceRecords.forEach(function(occurrenceRecord) {
-   //        		if (occurrenceRecord.get('Name') && occurrenceRecord.get('Date')) {
+// 	   //    	occurrenceRecords.forEach(function(occurrenceRecord) {
+//    //        		if (occurrenceRecord.get('Name') && occurrenceRecord.get('Date')) {
 
               
-	   //              // Copy the common values
-	   //              var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
+// 	   //              // Copy the common values
+// 	   //              var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
 	                
-	   //              // Add this occurrence's values
-				// 	activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
-				// 	activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
-				// 	activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
-				// 	activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
+// 	   //              // Add this occurrence's values
+// 				// 	activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
+// 				// 	activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
+// 				// 	activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
+// 				// 	activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
 	                
-	   //              // Push the activity and activity occurrence unified data as a single "activity"
-	   //              // record in the data array, so the display code doesn't need to change much.
-     //              data.activities.push( activityOccurrence );
+// 	   //              // Push the activity and activity occurrence unified data as a single "activity"
+// 	   //              // record in the data array, so the display code doesn't need to change much.
+//      //              data.activities.push( activityOccurrence );
 	   
 
-				// }
-   //    		});
-   //    		fetchNextPageOccurrences();
+// 				// }
+//    //    		});
+//    //    		fetchNextPageOccurrences();
 
-	   //    }, function doneOccurrence(error) {
+// 	   //    }, function doneOccurrence(error) {
 
-	   //      if (error) {
-	   //        that.throwError(error);
-	   //      }
+// 	   //      if (error) {
+// 	   //        that.throwError(error);
+// 	   //      }
 
-	   //    });
+// 	   //    });
             
-          }
-      });
-      fetchNextPage();
+//           }
+//       });
+//       fetchNextPage();
 
-      //
-      // BEFORE RECURRING EVENTS:
-      //
-      // records.forEach(function(record) {
-      //     if (record.get('Name') && record.get('Date')) {
-      //       data.activities.push({
-      //         id: record.getId(),
-      //         name: record.get('Name'),
-      //         communityId: record.get('Community') ? record.get('Community')[0] : undefined,
-      //         ownersId: record.get('Owners'),
-      //         date: record.get('Date'),
-      //         dateEnd: record.get('Date End'),
-      //         typeId: record.get('Type') ? record.get('Type')[0] : undefined,
-      //         description: record.get('Description'),
-      //         location: record.get('Location'),
+//       //
+//       // BEFORE RECURRING EVENTS:
+//       //
+//       // records.forEach(function(record) {
+//       //     if (record.get('Name') && record.get('Date')) {
+//       //       data.activities.push({
+//       //         id: record.getId(),
+//       //         name: record.get('Name'),
+//       //         communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+//       //         ownersId: record.get('Owners'),
+//       //         date: record.get('Date'),
+//       //         dateEnd: record.get('Date End'),
+//       //         typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+//       //         description: record.get('Description'),
+//       //         location: record.get('Location'),
 
-      //         photoIds: record.get('Photos') || [],
-      //         interested: record.get('Interested') || 0,
-      //         attended: record.get('Attended') || 0,
-      //         cancelled: record.get('cancelled')
+//       //         photoIds: record.get('Photos') || [],
+//       //         interested: record.get('Interested') || 0,
+//       //         attended: record.get('Attended') || 0,
+//       //         cancelled: record.get('cancelled')
 
-      //       });
-      //     }
-      // });
-      // fetchNextPage();
-      //
+//       //       });
+//       //     }
+//       // });
+//       // fetchNextPage();
+//       //
 
-    }, function done(error) {
+//     }, function done(error) {
 
-      that.data.loaded.activities = true;
-      // console.log(that.data);
-      console.log("found " + Object.keys(that.data.activities).length + " activities");
-      // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
-      // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
-      // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
-      that.forceTrigger();
+//       that.data.loaded.activities = true;
+//       // console.log(that.data);
+//       console.log("found " + Object.keys(that.data.activities).length + " activities");
+//       // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
+//       // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
+//       // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
+//       that.forceTrigger();
 
-      if (error) {
-        that.throwError(error);
-      }
-    });
-  },
+//       if (error) {
+//         that.throwError(error);
+//       }
+//     });
+//   },
 
   loadActivityTypes() {
     var that = this;

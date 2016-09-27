@@ -39,7 +39,7 @@ export default React.createClass({
     var data = this.props.data;
 
     var activities = [];
-    var area = Helpers.getAreaById(data.status.area, data);
+    var area = Helpers.getAreaById(data.status.areaId, data);
 
     var nowDate = new Date();
     
@@ -98,42 +98,40 @@ export default React.createClass({
 
       var group = o;
 
-
       group.activities = data.activities.filter(
 
         function(activity) {
-          console.log(moment(activity.date));
 
-          // ----------------------------
-          // User filtering (implicit)
-          // ----------------------------
+          // // ----------------------------
+          // // User filtering (implicit)
+          // // ----------------------------
 
-          if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
+          // if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
           	
-          	// Filter by type if user value is defined
-          	// TODO: support multiple types
-          	if (SessionStore.currentFilters.activity.typeId) {
-          		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
-          			return false;
-          		}
-          	}
+          // 	// Filter by type if user value is defined
+          // 	// TODO: support multiple types
+          // 	if (SessionStore.currentFilters.activity.typeId) {
+          // 		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
+          // 			return false;
+          // 		}
+          // 	}
 
-          	// Filter by price if user value is defined
-          	if (SessionStore.currentFilters.activity.paid) {
-          		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
-          			return false;
-          		}
-          	}
+          // 	// Filter by price if user value is defined
+          // 	if (SessionStore.currentFilters.activity.paid) {
+          // 		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
+          // 			return false;
+          // 		}
+          // 	}
 
-          	// Filter by status if user value is defined
-          	// TODO: define what "New" means (cf. design) and add it to this filter
-          	if (SessionStore.currentFilters.activity.cancelled) {
-          		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
-          			return false;
-          		}
-          	}
+          // 	// Filter by status if user value is defined
+          // 	// TODO: define what "New" means (cf. design) and add it to this filter
+          // 	if (SessionStore.currentFilters.activity.cancelled) {
+          // 		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
+          // 			return false;
+          // 		}
+          // 	}
 
-          }
+          // }
 
           // ----------------------------
           // Component filtering
@@ -158,6 +156,7 @@ export default React.createClass({
           if (activity.inAGroup) {
             return false;
           }
+
           activity.inAGroup = true;
 
           return true;
@@ -168,6 +167,8 @@ export default React.createClass({
 
       // debugging groups
       // console.log(group);
+
+      groupsResults.push( group );
 
     });
 
@@ -182,8 +183,8 @@ export default React.createClass({
                 onClickHandler={this.onClickActivity} /> );
     }.bind(this);
 
-    var groupItem = function(group) {
-      if (groupsQueries.activities.length === 0) {
+    var groupItem = function( group ) {
+      if (group.activities.length === 0) {
         // in case of no events we simply don't render the block
 
         // if you want you can render the block title and say there is no event inside
@@ -197,13 +198,14 @@ export default React.createClass({
         */
 
       } else {
-        return ( <Row key={group.id}>
+
+        return (<Row key={group.id}>
                   <div>
                     {group.label}
                   </div>
-                  {group.activities.map(activityItem, this)}
-                 </Row>
-        );
+                    {group.activities.map(activityItem, this)}
+                </Row>);
+
       }
     }.bind(this);
   
@@ -212,6 +214,9 @@ export default React.createClass({
       var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: area.name}}/></h2></Col>;
     }
 
+    // DEBUG
+    // console.log("layout:" + session.preferredLayout);
+    
     return (
 
       <div className="container activities">

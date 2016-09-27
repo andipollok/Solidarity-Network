@@ -4,7 +4,7 @@ module.exports = Reflux.createActions([
   
   "init",
   "onAreaIsSet",
-  "createActivity",
+  // "createActivity",
   "forceTrigger"
   
 ]);

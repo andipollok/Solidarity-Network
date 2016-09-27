@@ -59,9 +59,9 @@ export default React.createClass({
   // },
 
   onClickSubmit( event ) {
-    DataActions.createActivity(
-      this.state
-    );
+    // DataActions.createActivity(
+    //   this.state
+    // );
   },
   
   onClickNext( event ) {
