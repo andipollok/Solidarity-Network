@@ -69,7 +69,6 @@ export default React.createClass({
 
     StatusActions.setArea(area.id);
     StatusActions.forceTrigger();
-    DataActions.init();
 
   },
 
