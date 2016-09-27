@@ -15,6 +15,16 @@ import Helpers from './Helpers';
 
 var cookieNameArea = "area";
 
+const maxRecords = {
+  activities: 50,
+  default: 999
+};
+
+const pageSize = {
+  activities: 50,
+  default: 100
+};
+
 export default Reflux.createStore({
 
   data: {},
@@ -64,13 +74,14 @@ export default Reflux.createStore({
 
   loadCurrentAreaContent() {
 
-      StatusStore.data.areaName = Helpers.getAreaById(StatusStore.data.areaId, this.data).name;
-
       console.log("New area id: " + StatusStore.data.areaId);
       console.log("New area name: " + StatusStore.data.areaName);
 
       this.loadCommunities();
-      this.loadActivities();
+
+      // this.loadActivities();
+      this.getFilteredActivities();
+
       this.loadActivityTypes();
       this.loadPhotos();
       this.loadPeople();
@@ -83,6 +94,7 @@ export default Reflux.createStore({
 
   onAreaIsSet() {
 
+    StatusStore.data.areaName = Helpers.getAreaById(StatusStore.data.areaId, this.data).name;
     this.loadCurrentAreaContent();
 
   },
@@ -127,7 +139,7 @@ export default Reflux.createStore({
       that.data.loaded.areas = true;
 
       // Possible only once the areas have been loaded so we get their names
-      that.loadCurrentAreaContent();
+      that.onAreaIsSet();
 
       if (error) {
         that.throwError(error);
@@ -321,19 +333,36 @@ export default Reflux.createStore({
     window.location.assign('#/activities');
   },
 
-  loadActivities() {
+  getFilteredActivities() {
     var that = this;
 
+    // // TODO clarify if filters are a session var or a StatusStore var
+    // var currentUserFilters = StatusStore.filters.activities || [];
+
+    var currentUserFilters = [
+      `{Paid} = 1`,
+    ];
+
+    var airtableFilters = [];
+    airtableFilters.push( `{Area} = "${StatusStore.data.areaName}"` );
+
+    for (const filter of currentUserFilters) {
+      airtableFilters.push( filter );
+    }
+
+    var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';
+
     base('Activities').select({
-      maxRecords: 999,
-      pageSize: 100,
+      maxRecords: maxRecords.activities || maxRecords.default,
+      pageSize: pageSize.activities || pageSize.default,
       view: "Main View",
       sort: [{field: "Date", direction: "asc"}],
-      filterByFormula: `{Area} = "${StatusStore.data.areaName}"`
+      filterByFormula: airtableFormula
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
     }).eachPage(function page(records, fetchNextPage) {
       records.forEach(function(record) {
-          if (record.get('Name') && record.get('Date')) {
+          console.log( record );
+          if (record.get('Name')) {
 
             // Common values of all occurrences
             var activityBase = {
@@ -341,17 +370,156 @@ export default Reflux.createStore({
               name: record.get('Name'),
               communityId: record.get('Community') ? record.get('Community')[0] : undefined,
               ownersId: record.get('Owners'),
-              date: record.get('Date'),
-              dateEnd: record.get('Date End'),
-              frequency: record.get('Frequency'),
-              frequencyCustomValue: record.get('Frequency Custom Value'),
-              frequencyCustomdimension: record.get('Frequency Custom Dimension'),
+              // date: record.get('Date Begin'),
+              // dateEnd: record.get('Date End'),
+              // frequency: record.get('Frequency'),
+              // frequencyCustomValue: record.get('Frequency Custom Value'),
+              // frequencyCustomdimension: record.get('Frequency Custom Dimension'),
               typeId: record.get('Type') ? record.get('Type')[0] : undefined,
-              description: record.get('Description'),
-              location: record.get('Location'),
-              paid: record.get('Paid'),
-              price: record.get('Price'),
-              currency: record.get('Price Currency')
+              // description: record.get('Description'),
+              // location: record.get('Location'),
+              // paid: record.get('Paid'),
+              // price: record.get('Price'),
+              // currency: record.get('Price Currency')
+            };
+
+            that.data.activities.push( activityBase );
+
+            // TODO retrieve field Activities Occurrences
+
+            // TODO take into account Date Limit and Number Limit
+
+            // TODO reconciliate when some occurrence data is expected but not present
+              // Probably by keeping a "Date" field
+            // TODO reconciliate when there is occurrence data that does not match the recurring event settings
+
+            // TODO change Date into First Begin Date and Date End into First End Date
+
+            // TODO determine if we want to let the fields Location, Min, Max be modifiable for each occurrence (or event Description but I highly discourage it)
+
+            // TODO use the Whatsnew field
+
+   //          // Retrieve now the additional occurrence values 
+   //          base('ActivitiesOccurrences').select({
+     //      maxRecords: 999,
+     //      pageSize: 100,
+     //      view: "Main View",
+     //      sort: [{field: "Date", direction: "asc"}],
+     //      filterByFormula: `{Base Activity} = "${record.getId()}"`
+     //    }).eachPage(function page(occurrenceRecords, fetchNextPageOccurrences) {
+
+     //     occurrenceRecords.forEach(function(occurrenceRecord) {
+   //           if (occurrenceRecord.get('Name') && occurrenceRecord.get('Date')) {
+
+              
+     //              // Copy the common values
+     //              var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
+                  
+     //              // Add this occurrence's values
+        //  activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
+        //  activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
+        //  activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
+        //  activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
+                  
+     //              // Push the activity and activity occurrence unified data as a single "activity"
+     //              // record in the data array, so the display code doesn't need to change much.
+     //              data.activities.push( activityOccurrence );
+
+        // }
+   //       });
+   //       fetchNextPageOccurrences();
+
+     //    }, function doneOccurrence(error) {
+
+     //      if (error) {
+     //        that.throwError(error);
+     //      }
+
+     //    });
+            
+          }
+      });
+      fetchNextPage();
+
+      //
+      // BEFORE RECURRING EVENTS:
+      //
+      // records.forEach(function(record) {
+      //     if (record.get('Name') && record.get('Date')) {
+      //       data.activities.push({
+      //         id: record.getId(),
+      //         name: record.get('Name'),
+      //         communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+      //         ownersId: record.get('Owners'),
+      //         date: record.get('Date'),
+      //         dateEnd: record.get('Date End'),
+      //         typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+      //         description: record.get('Description'),
+      //         location: record.get('Location'),
+
+      //         photoIds: record.get('Photos') || [],
+      //         interested: record.get('Interested') || 0,
+      //         attended: record.get('Attended') || 0,
+      //         cancelled: record.get('cancelled')
+
+      //       });
+      //     }
+      // });
+      // fetchNextPage();
+      //
+
+    }, function done(error) {
+
+      that.data.loaded.activities = true;
+      // console.log("found " + Object.keys(data.activities).length + " activities in " + data.areaName);
+      // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
+      console.log("found " + Object.keys(that.data.activities).length + " activities");
+      // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
+      // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
+      that.forceTrigger();
+
+      if (error) {
+        that.throwError(error);
+      }
+    });
+  },
+
+  loadActivities() {
+    var that = this;
+
+    var airtableFilters = [];
+    airtableFilters.push( `{Area} = "${StatusStore.data.areaName}"` );
+
+    var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';
+
+    base('Activities').select({
+      maxRecords: maxRecords.activities || maxRecords.default,
+      pageSize: pageSize.activities || pageSize.default,
+      view: "Main View",
+      sort: [{field: "Date", direction: "asc"}],
+      filterByFormula: airtableFormula
+//        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
+    }).eachPage(function page(records, fetchNextPage) {
+      records.forEach(function(record) {
+          if (record.get('Name')) {
+
+            // Common values of all occurrences
+            var activityBase = {
+              id: record.getId(),
+              name: record.get('Name'),
+              communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+              ownersId: record.get('Owners'),
+              // date: record.get('Date Begin'),
+              // dateEnd: record.get('Date End'),
+              // frequency: record.get('Frequency'),
+              // frequencyCustomValue: record.get('Frequency Custom Value'),
+              // frequencyCustomdimension: record.get('Frequency Custom Dimension'),
+              typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+              // description: record.get('Description'),
+              // location: record.get('Location'),
+              // paid: record.get('Paid'),
+              // price: record.get('Price'),
+              // currency: record.get('Price Currency')
             };
 
             // TODO retrieve field Activities Occurrences
@@ -392,7 +560,8 @@ export default Reflux.createStore({
 	                
 	   //              // Push the activity and activity occurrence unified data as a single "activity"
 	   //              // record in the data array, so the display code doesn't need to change much.
-	   //              data.activities.push( activityOccurrence );
+     //              data.activities.push( activityOccurrence );
+	   
 
 				// }
    //    		});
@@ -440,7 +609,8 @@ export default Reflux.createStore({
     }, function done(error) {
 
       that.data.loaded.activities = true;
-      // console.log("found " + Object.keys(data.activities).length + " activities in " + data.areaName);
+      // console.log(that.data);
+      console.log("found " + Object.keys(that.data.activities).length + " activities");
       // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
       // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
       // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
@@ -552,8 +722,8 @@ export default Reflux.createStore({
     var that = this;
 
     base('Stories').select({
-      maxRecords: 999,
-      pageSize: 100,
+      maxRecords: maxRecords.stories || maxRecords.default,
+      pageSize: pageSize.stories || pageSize.default,
       view: "Main View",
       sort: [{field: "PublishDate", direction: "desc"}],
       filterByFormula: `OR({Area} = "${StatusStore.data.areaName}", {AltArea} = "${StatusStore.data.areaName}")`
