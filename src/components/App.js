@@ -18,6 +18,8 @@ import LanguageStore from '../stores/LanguageStore';
 import Helpers from '../stores/Helpers';
 import LoginActions from '../stores/LoginActions';
 import LoginStore from '../stores/LoginStore';
+import SessionActions from '../stores/SessionActions';
+import SessionStore from '../stores/SessionStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
@@ -56,7 +58,7 @@ moment.locale('en', {
 });
 
 
-// import Login from './Login/Login';
+import Login from './Login/Login';
 
 import Nav from './Nav/Nav';
 import Top from './Nav/Top';
@@ -76,11 +78,20 @@ export default React.createClass({
   //   loggedIn: React.PropTypes.bool.isRequired
   // },
 
-  // getInitialState() {
-  //   return {
+  getInitialState() {
+    return {
   //      loggedIn: LoginStore.isLoggedIn(this)
-  //   };
-  // },
+      session: {
+        preferredLayout: "cards"
+      }
+    };
+  },
+
+  setSessionVar( variable, value) {
+    let modifiedState = { session: {} };
+    modifiedState.session[variable] = value;
+    this.setState(modifiedState);
+  },
 
   componentWillMount() {
     LoginActions.checkSessionIsValid();
@@ -138,15 +149,20 @@ export default React.createClass({
     data.language = this.state.language;
     data.status = this.state.status;
     data.area = Helpers.getAreaFromStatus(data);
+
+    var flexContainerClasses = classNames( 'flex-container', {
+      'colorBg' : data.status.page === 'start'
+    } );
     
+
     return (
 
       <IntlProvider {...intldata}>
 
-        <div className="flex-container">
-
+        <div className={flexContainerClasses}>
+    
           <div className="top-container">
-            <Top data={data}/>
+            <Top data={data} setSessionVar={this.setSessionVar} />
           </div>
 
           {error}
@@ -158,18 +174,20 @@ export default React.createClass({
           </div>
 
           <div className="main-container scrollable">
-  
-            {React.cloneElement(this.props.children, {data: data, loggedIn: LoginStore.isLoggedIn(this)})}
+
+            { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), setSessionVar: this.setSessionVar, session: this.state.session } ) }
   
           </div>
 
-          <Nav data={data}/>
-
-          <Footer />
+          <Footer data={data} setSessionVar={this.setSessionVar}  />
 
         </div>
 
       </IntlProvider>
     )
   }
+
+//          <Nav data={data}/>
+
+
 });

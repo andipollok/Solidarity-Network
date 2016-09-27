@@ -9,6 +9,8 @@ import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
+import SessionActions from '../../stores/SessionActions';
+import SessionStore from '../../stores/SessionStore';
 import Helpers from '../../stores/Helpers.js';
 
 import UpcomingItem from './UpcomingItem';
@@ -31,6 +33,8 @@ export default React.createClass({
   },
 
   render() {
+
+    var session = this.props.session;
 
     var data = this.props.data;
 
@@ -74,7 +78,9 @@ export default React.createClass({
     // console.log( date_endOfThisWeek );
     // console.log( date_endOfThisMonth );
 
-    var groups = [
+    var groupsResults = [];
+
+    var groupsQueries = [
       { id : "today"      , label : "Aujourd'hui"           , before : date_endOfToday },
       { id : "tomorrow"   , label : "Demain"                , before : date_endOfTomorrow },
       { id : "thisweek"   , label : "Cette semaine"         , before : date_endOfThisWeek },
@@ -87,14 +93,51 @@ export default React.createClass({
     // Reinit grouping status
     data.activities.forEach( function ( a ) { a.inAGroup = false; });
 
-    groups.forEach( function( o )
+    groupsQueries.forEach( function( o )
     {
 
       var group = o;
 
+
       group.activities = data.activities.filter(
 
         function(activity) {
+          console.log(moment(activity.date));
+
+          // ----------------------------
+          // User filtering (implicit)
+          // ----------------------------
+
+          if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
+          	
+          	// Filter by type if user value is defined
+          	// TODO: support multiple types
+          	if (SessionStore.currentFilters.activity.typeId) {
+          		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
+          			return false;
+          		}
+          	}
+
+          	// Filter by price if user value is defined
+          	if (SessionStore.currentFilters.activity.paid) {
+          		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
+          			return false;
+          		}
+          	}
+
+          	// Filter by status if user value is defined
+          	// TODO: define what "New" means (cf. design) and add it to this filter
+          	if (SessionStore.currentFilters.activity.cancelled) {
+          		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
+          			return false;
+          		}
+          	}
+
+          }
+
+          // ----------------------------
+          // Component filtering
+          // ----------------------------
 
           // check if activity is in the future
           if (moment(activity.date) < moment()) {
@@ -132,14 +175,15 @@ export default React.createClass({
       return ( <UpcomingItem key={activity.id}
                 activity={activity}
                 data={data}
-                showDate={true}
+                layout={session.preferredLayout}
+                showDate={false}
                 showTime={true}
                 showIcon={true}
                 onClickHandler={this.onClickActivity} /> );
     }.bind(this);
 
     var groupItem = function(group) {
-      if (group.activities.length === 0) {
+      if (groupsQueries.activities.length === 0) {
         // in case of no events we simply don't render the block
 
         // if you want you can render the block title and say there is no event inside
@@ -174,7 +218,7 @@ export default React.createClass({
 
         <TypeSelectorButton data={data}/>
 
-        {groups.map(groupItem, this)}
+        {groupsResults.map(groupItem, this)}
 
         {NotFound}
 

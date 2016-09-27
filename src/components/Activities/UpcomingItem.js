@@ -14,6 +14,7 @@ export default React.createClass({
 
     var data = this.props.data;
     var activity = this.props.activity;
+    var layout = this.props.layout;
 
     var community = Helpers.getCommunityById(activity.communityId, data);
 
@@ -32,10 +33,7 @@ export default React.createClass({
           &nbsp;
           <FormattedDate
                     value={activity.date}
-                    weekday="long"
-                    day="numeric"
-                    month="long"
-                    year="numeric" />
+                    format="hhmm" />
         </span>
     }
 
@@ -57,8 +55,7 @@ export default React.createClass({
       }
 
       // format start and end time
-      var componentTime = <span>
-                    {startingAt}&nbsp;<FormattedTime
+      var componentTime = <span><FormattedTime
                           value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
@@ -66,11 +63,12 @@ export default React.createClass({
 
       if (activity.dateEnd) {
         componentTime = <span>
-                          <FormattedMessage id="from" />&nbsp;<FormattedTime
+                          <FormattedTime
                           value={activity.date}
                           minute="2-digit"
                           hour="numeric" />
-                          &nbsp;<FormattedMessage id="to" />&nbsp;<FormattedTime
+                          &nbsp;-&nbsp;
+                          <FormattedTime
                           value={activity.dateEnd}
                           minute="2-digit"
                           hour="numeric" />
@@ -78,25 +76,55 @@ export default React.createClass({
       }
     }
 
-    return (
+    switch (layout) {
 
-      <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, activity.id)}>
+      case "list":
+        
+        // {componentIcon}
+        return (
 
-        <div className="card outline fixedheight linked padded text-center">
+          <div className="listItem outline linked text-center" onClick={this.props.onClickHandler.bind(null, activity.id)}>
 
-          {componentIcon}
+            <h2>{activity.name}</h2>
 
-          <h2>{activity.name}</h2>
+            <p className="date">
+              {componentDate}
+              <br />
+              {componentTime}
+            </p>
 
-          <p className="date">
-            {componentDate}
-            <br />
-            {componentTime}
-          </p>
+          </div>
 
+        );
 
-        </div>
-      </Col>
-    );
+      break;
+
+      case "cards":
+      default:
+        
+        return (
+
+          <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, activity.id)}>
+
+            <div className="card outline fixedheight linked padded text-center">
+
+              {componentIcon}
+
+              <h2>{activity.name}</h2>
+
+              <p className="date">
+                {componentDate}
+                <br />
+                {componentTime}
+              </p>
+
+            </div>
+          </Col>
+        );
+        
+      break;
+
+    }
+
   }
 });

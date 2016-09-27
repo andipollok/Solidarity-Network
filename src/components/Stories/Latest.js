@@ -32,6 +32,8 @@ export default React.createClass({
 
   render() {
 
+    var session = this.props.session;
+    
     var data = this.props.data;
 
     var stories = [];
@@ -49,6 +51,7 @@ export default React.createClass({
       return ( <Item key={story.id}
                 story={story}
                 data={data}
+                layout={session.preferredLayout}
                 showDate={true}
                 onClickHandler={this.onClickStory} /> );
     }.bind(this);

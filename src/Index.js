@@ -12,6 +12,7 @@ import Start from './components/Start/Start';
 import News from './components/News/News';
 import Upcoming from './components/Activities/Upcoming';
 import Calendar from './components/Activities/Calendar';
+import CreateNew from './components/Activities/CreateNew';
 import TypeSelector from './components/General/TypeSelector';
 
 import StoriesLatest from './components/Stories/Latest';
@@ -92,6 +93,7 @@ render(
         <Route name="activities-upcoming" path="/activities/upcoming" component={Upcoming}/>
         <Route name="activities-month" path="/activities/month" component={Calendar}/>
         <Route name="activities-type" path="/activities/type" component={TypeSelector}/>
+        <Route name="activities-new" path="/activities/create" component={CreateNew}/>
         <Route name="day" path="/activities/:day/:month/:year" component={Day}/>
         <Route name="activity" path="/activity/:id" component={Activity}/>
 

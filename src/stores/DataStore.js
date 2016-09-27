@@ -1,4 +1,5 @@
 import Reflux from 'reflux';
+import StatusActions from './StatusActions';
 import Actions from './DataActions';
 import cookie from 'react-cookie';
 import Airtable from 'airtable';
@@ -21,11 +22,15 @@ export default Reflux.createStore({
 
     init: function() {
 
-      areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // -todo- default community is Ecublens, here it's hardcoded but we should let this set by DataStore
+      // TODO
+      areaId = cookie.load(cookieNameArea) || "recGlKnzjzZTFT0h3"; // Pully Nord
+      // areaId = cookie.load(cookieNameArea) || "reckyIsF1Np63HlRc"; // Ecublens
 
       data = {
         whatsnew:       [],  
+        // areas:          {},
         areas:          [],
+        countries:      [],
         communities:    [],
         activities:     [],
         activitytypes:  [],
@@ -36,6 +41,7 @@ export default Reflux.createStore({
         loaded: {
           whatsnew:     false,
           areas:        false,
+          countries:    false, 
           communities:  false,
           activities:   false,
           activitytypes:false,
@@ -47,6 +53,7 @@ export default Reflux.createStore({
         errors: []
       };
 
+      this.loadCountries();
       this.loadAreas();
 
     },
@@ -54,6 +61,18 @@ export default Reflux.createStore({
     throwError: function(error) {
       data.errors.push(error);
       this.forceTrigger();
+    },
+
+    loadCurrentAreaContent() {
+
+        this.loadCommunities();
+        this.loadActivities();
+        this.loadActivityTypes();
+        this.loadPhotos();
+        this.loadPeople();
+        this.loadWhatsnew();
+        this.loadStories();
+
     },
 
     loadAreas() {
@@ -65,6 +84,17 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
           if (record.get('Name')) {
+
+            console.log( record.getId(), record.get('Name') );
+
+            // data.areas[record.getId()] = {
+            //   id: record.getId(),
+            //   name: record.get('Name'),
+            //   ownersId: record.get('Owners'),
+            //   communitiesId: record.get('Communities'),
+            //   countMembers: record.get('CountMembers')
+            // };
+
             data.areas.push({
               id: record.getId(),
               name: record.get('Name'),
@@ -72,6 +102,7 @@ export default Reflux.createStore({
               communitiesId: record.get('Communities'),
               countMembers: record.get('CountMembers')
             });
+
           }
         });
         fetchNextPage();
@@ -82,17 +113,47 @@ export default Reflux.createStore({
 
         areaName = Helpers.getAreaById(areaId, data).name;
 
-        that.loadCommunities();
-        that.loadActivities();
-        that.loadActivityTypes();
-        that.loadPhotos();
-        that.loadPeople();
-        that.loadWhatsnew();
-        that.loadStories();
+        that.loadCurrentAreaContent();
 
         if (error) {
           that.throwError(error);
         }
+      });
+    },
+
+    loadCountries() {
+      var that = this;
+
+      base('Countries').select({
+        view: "Main View"
+      }).eachPage(function page(records, fetchNextPage) {
+        records.forEach(function(record) {
+          if (record.get('Name')) {
+
+            let areasObjects = [];
+            let areasIds = record.get('Areas');
+            areasIds.map(function(areaID) { base('Areas').find(areaID, function(err, record) {
+                if (err) { console.log(err); return; }
+                // console.log(record.fields.Name);
+                areasObjects.push( record );
+              });
+            });
+
+            data.countries.push({
+              id: record.getId(),
+              name: record.get('Name'),
+              iconName: record.get('Icon Name'),
+              areas: areasObjects
+            });
+
+          }
+        });
+        fetchNextPage();
+
+      }, function done(error) {
+
+        data.loaded.countries = true;
+
       });
     },
 
@@ -162,6 +223,90 @@ export default Reflux.createStore({
       });
     },
 
+    createActivity( varvals ) {
+      var that = this;
+      console.log("TODO create in airtable with received data:");
+      console.log(varvals);
+  //     base('Activities').create({
+  // { name: "activity_title", type: "text", required: true },
+  // { name: "activity_date", type: "date", required: true },
+  // { name: "activity_start_time", type: "time", required: true },
+  // { name: "activity_end_time", type: "time", required: true },
+  // { name: "activity_street", type: "text", required: true },
+  // { name: "activity_description", type: "text", required: true },
+
+  //       name: record.get('Name'),
+  //       communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+  //       ownersId: record.get('Owners'),
+  //       date: record.get('Date'),
+  //       dateEnd: record.get('Date End'),
+  //       typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+  //       description: record.get('Description'),
+  //       location: record.get('Location'),
+  //       photoIds: record.get('Photos') || [],
+  //       interested: record.get('Interested') || 0,
+  //       attended: record.get('Attended') || 0,
+  //       cancelled: record.get('cancelled')
+
+  //       "Name": desiredUsername,
+  //       "Phone": desiredTelephone,
+  //       "Hash": desiredPasswordHash
+  //     }, function (error, record) {
+  //       if (error) {
+  //         console.log( error );
+  //       } else {
+  //         console.log( record );        
+  //         that.setCurrentUser( record.id );
+  //         that.redirectAfterLogin();
+  //       }
+  //     });
+
+      // let startDateTime = undefined;
+      let startDateTime = new Date(
+        varvals.activity_date.getFullYear(),
+        varvals.activity_date.getMonth(),
+        varvals.activity_date.getDate(),
+        varvals.activity_start_time.getHours(),
+        varvals.activity_start_time.getMinutes(),
+        varvals.activity_start_time.getSeconds()
+      );
+      let stopDateTime = undefined;
+      // varvals.activity_date
+      // varvals.activity_start_time
+      // varvals.activity_end_time
+
+      base('Activities').create({
+
+
+        name: varvals.activity_title,
+        ownersId: undefined, // TODO
+        communityId: undefined, // TODO
+        date: startDateTime,
+        dateEnd: stopDateTime,
+        typeId: undefined, // TODO
+        location: varvals.activity_street,
+        description: varvals.activity_description,
+
+        // photoIds: record.get('Photos') || [],
+        // interested: record.get('Interested') || 0,
+        // attended: record.get('Attended') || 0,
+        // cancelled: record.get('cancelled')
+
+      }, function (error, record) {
+        if (error) {
+          console.log( error );
+        } else {
+          console.log( record );        
+          that.setCurrentUser( record.id );
+          that.redirectAfterLogin();
+        }
+      });
+
+      StatusActions.clearActivityTypes();
+      StatusActions.forceTrigger();
+      window.location.assign('#/activities');
+    },
+
     loadActivities() {
       var that = this;
 
@@ -175,24 +320,106 @@ export default Reflux.createStore({
       }).eachPage(function page(records, fetchNextPage) {
         records.forEach(function(record) {
             if (record.get('Name') && record.get('Date')) {
-              data.activities.push({
+
+              // Common values of all occurrences
+              var activityBase = {
                 id: record.getId(),
                 name: record.get('Name'),
                 communityId: record.get('Community') ? record.get('Community')[0] : undefined,
                 ownersId: record.get('Owners'),
                 date: record.get('Date'),
                 dateEnd: record.get('Date End'),
+                frequency: record.get('Frequency'),
+                frequencyCustomValue: record.get('Frequency Custom Value'),
+                frequencyCustomdimension: record.get('Frequency Custom Dimension'),
                 typeId: record.get('Type') ? record.get('Type')[0] : undefined,
                 description: record.get('Description'),
                 location: record.get('Location'),
-                photoIds: record.get('Photos') || [],
-                interested: record.get('Interested') || 0,
-                attended: record.get('Attended') || 0,
-                cancelled: record.get('cancelled')
-              });
+                paid: record.get('Paid'),
+                price: record.get('Price'),
+                currency: record.get('Price Currency')
+              };
+
+              // TODO take into account Date Limit and Number Limit
+
+              // TODO reconciliate when some occurrence data is expected but not present
+              	// Probably by keeping a "Date" field
+              // TODO reconciliate when there is occurrence data that does not match the recurring event settings
+
+              // TODO change Date into First Begin Date and Date End into First End Date
+
+              // TODO determine if we want to let the fields Location, Min, Max be modifiable for each occurrence (or event Description but I highly discourage it)
+
+              // TODO use the Whatsnew field
+
+              // Retrieve now the additional occurrence values 
+              base('ActivitiesOccurrences').select({
+		        maxRecords: 999,
+		        pageSize: 100,
+		        view: "Main View",
+		        sort: [{field: "Date", direction: "asc"}],
+		        filterByFormula: `{Base Activity} = "${record.getId()}"`
+		      }).eachPage(function page(occurrenceRecords, fetchNextPageOccurrences) {
+
+		      	occurrenceRecords.forEach(function(occurrenceRecord) {
+            		if (occurrenceRecord.get('Name') && occurrenceRecord.get('Date')) {
+
+                
+		                // Copy the common values
+		                var activityOccurrence = ( JSON.parse( JSON.stringify( activityBase ) ) );
+		                
+		                // Add this occurrence's values
+						activityOccurrence.photoIds = occurrenceRecord.get('Photos') || [];
+						activityOccurrence.interested = occurrenceRecord.get('Interested') || 0;
+						activityOccurrence.attended = occurrenceRecord.get('Attended') || 0;
+						activityOccurrence.cancelled = occurrenceRecord.get('cancelled');
+		                
+		                // Push the activity and activity occurrence unified data as a single "activity"
+		                // record in the data array, so the display code doesn't need to change much.
+		                data.activities.push( activityOccurrence );
+
+					}
+        		});
+        		fetchNextPageOccurrences();
+
+		      }, function doneOccurrence(error) {
+
+		        if (error) {
+		          that.throwError(error);
+		        }
+
+		      });
+              
             }
         });
         fetchNextPage();
+
+        //
+        // BEFORE RECURRING EVENTS:
+        //
+        // records.forEach(function(record) {
+        //     if (record.get('Name') && record.get('Date')) {
+        //       data.activities.push({
+        //         id: record.getId(),
+        //         name: record.get('Name'),
+        //         communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+        //         ownersId: record.get('Owners'),
+        //         date: record.get('Date'),
+        //         dateEnd: record.get('Date End'),
+        //         typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+        //         description: record.get('Description'),
+        //         location: record.get('Location'),
+
+        //         photoIds: record.get('Photos') || [],
+        //         interested: record.get('Interested') || 0,
+        //         attended: record.get('Attended') || 0,
+        //         cancelled: record.get('cancelled')
+
+        //       });
+        //     }
+        // });
+        // fetchNextPage();
+        //
 
       }, function done(error) {
 
@@ -295,6 +522,7 @@ export default Reflux.createStore({
 
       }, function done(error) {
         data.loaded.people = true;
+        // console.log("People loaded");
         // console.log(JSON.stringify(data.people, null, 2));
         // console.log("found the following " + Object.keys(data.people).length + " people", data.people);
         that.forceTrigger();

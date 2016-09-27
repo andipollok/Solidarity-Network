@@ -6,6 +6,7 @@ module.exports = Reflux.createActions([
   
   "setTitle",
   "setPage",
+  "showPrimaryNav",
   "setSecondaryNav",
   "showBackButton",
 

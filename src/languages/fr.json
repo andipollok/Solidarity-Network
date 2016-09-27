@@ -1,4 +1,11 @@
 {
+              
+  "upcoming": "A venir",
+  "calendar": "Calendrier",
+  "journal": "Journal",
+  "photo": "Photos",
+  "settings": "Réglages",
+
   "loading": "Un instant s'il vous plaît…",
   "getstarted": "Allons-y!",
 
@@ -18,9 +25,20 @@
 
   "nav_openmenu": "Ouvrir le menu",
   "nav_closemenu": "Fermer le menu",
+  
+  "cards_layout": "Cards",
+  "list_layout": "List",
 
   "back": "Retour",
   "next": "Suivant",
+
+  "goback": "Retour",
+
+  "chooseAreaTitle" : "Which Area would you like to look for Communities?",
+  "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",
+  "chooseSectionTitle" : "What would you like to discover first?",
+  "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
+  "startNextChooseSection" : "Choose a Section",
 
   "welcome": "Bienvenue!",
   "welcome_in": "Bienvenue à {areaName}!",
@@ -63,6 +81,7 @@
   "publishedon": "Publié le",
 
   "activity": "Activité",
+  "activity-new": "Créer une nouvelle Activité",
   "activities": "Activités",
   "community": "Communauté",
   "communities": "Communautés",
@@ -73,6 +92,19 @@
   "story": "Récit",
   "stories": "Récits",
   "photowall": "Galerie d'images",
+
+  "activity_title_label": "Enter name of the activity",
+  "activity_title_default": "Activity name",
+  "activity_date_label": "When is it happening?",
+  // "activity_date_default": "Activity name",
+  "activity_start_time_label": "When does it start?",
+  // "activity_start_time_default": "Activity name",
+  "activity_end_time_label": "when does it end?",
+  //"activity_end_time_default": "Activity name",
+  "activity_street_label": "Where will it be / Where will you meet?",
+  // "activity_street_default": "Activity name",
+  "activity_description_label": "Description",
+  "activity_description_default": "Activity description",
 
   "activities_upcoming": "A venir",
   "activities_on": "Activités du",
