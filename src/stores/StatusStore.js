@@ -56,7 +56,7 @@ export default Reflux.createStore({
 
   // On startup restore the status from cookies
   awakeStatusFromCookies() {
-    
+
     let savedArea = this.loadCookie( cookieNameArea, areaId_Ecublens ); // Default is Ecublens
     this.setArea( savedArea );
 
@@ -79,7 +79,7 @@ export default Reflux.createStore({
     this.saveCookie( cookieNameArea, areaId );
     
     this.data.areaId = areaId;
-    DataActions.onAreaIsSet( areaId )
+    DataActions.onAreaIsSet();
     // this.trigger(data);
 
   },

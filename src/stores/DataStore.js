@@ -66,6 +66,7 @@ export default Reflux.createStore({
 
       StatusStore.data.areaName = Helpers.getAreaById(StatusStore.data.areaId, this.data).name;
 
+      console.log("New area id: " + StatusStore.data.areaId);
       console.log("New area name: " + StatusStore.data.areaName);
 
       this.loadCommunities();
@@ -82,7 +83,7 @@ export default Reflux.createStore({
 
   onAreaIsSet() {
 
-      this.loadCurrentAreaContent();
+    this.loadCurrentAreaContent();
 
   },
 
@@ -124,6 +125,9 @@ export default Reflux.createStore({
     }, function done(error) {
 
       that.data.loaded.areas = true;
+
+      // Possible only once the areas have been loaded so we get their names
+      that.loadCurrentAreaContent();
 
       if (error) {
         that.throwError(error);
@@ -349,6 +353,8 @@ export default Reflux.createStore({
               price: record.get('Price'),
               currency: record.get('Price Currency')
             };
+
+            // TODO retrieve field Activities Occurrences
 
             // TODO take into account Date Limit and Number Limit
 
