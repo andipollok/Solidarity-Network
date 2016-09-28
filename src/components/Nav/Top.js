@@ -16,6 +16,8 @@ const noButton = {
   callback: undefined,
 };
 
+const solidarityPurple = "#823FC2";
+
 const history = createHashHistory();
 
 export default React.createClass({
@@ -65,6 +67,46 @@ export default React.createClass({
 
   onClickLogin() {
     window.location.assign("#/login");
+  },
+
+  // returns a simple array with:
+  // [0] : icon path
+  // [1] : label
+  // [2] : stroke color for circle and icon
+  getMainMenuButtonData() {
+
+    var setSessionVar = this.props.setSessionVar;
+
+    var data = this.props.data;
+
+    switch (data.status.page) {
+
+      case 'start':
+        return [
+          'navigation',
+          '',
+          'white'
+        ];
+        break;
+
+      case 'activities':
+        return [
+          'upcoming',
+          '',
+          solidarityPurple
+        ];
+        break;
+
+      default:
+        return [
+          'upcoming',
+          '',
+          'white'
+        ];
+        break;
+
+    }
+
   },
 
   // returns a simple array with:
@@ -134,7 +176,7 @@ export default React.createClass({
 
   getFiltersButtonData() {
 
-    var showFiltersPopup = this.props.showFiltersPopup;
+    var toggleFiltersPopup = this.props.toggleFiltersPopup;
 
     var setSessionVar = this.props.setSessionVar;
 
@@ -145,7 +187,7 @@ export default React.createClass({
       case 'activities':
         return {
           icon: 'filters',
-          callback: showFiltersPopup, //.bind(null, "preferredLayout", "list"),
+          callback: toggleFiltersPopup, //.bind(null, "preferredLayout", "list"),
         };
         break;
 
@@ -189,12 +231,19 @@ export default React.createClass({
         'active': !this.state.mainMenuOpened
       });
 
-      let menuIconType = 'upcoming';
+      let menuIconData = this.getMainMenuButtonData();
+
+      let menuIconType = menuIconData[0];
       let menuIconFolder = 'service';
+
+      // TODO display the label
+      // let menuIconLabel = menuIconData[1];
+
+      let menuIconcolor = menuIconData[2];
 
       var MainMenuIcon = ( <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
         <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium">
-          <circle cx="50" cy="50" r="46" fill="transparent" stroke="white" strokeWidth="4"></circle>
+          <circle cx="50" cy="50" r="46" fill="transparent" stroke={menuIconcolor} strokeWidth="4"></circle>
         </svg>
         <Icon type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={true} />
       </div> );

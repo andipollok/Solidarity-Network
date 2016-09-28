@@ -31,6 +31,8 @@ import moment_locale_fr from 'moment/locale/fr.js';
 import moment_locale_de from 'moment/locale/de.js';
 import ErrorMessage from './General/ErrorMessage';
 
+import ActivityFilters from './Filters/ActivityFilters'
+
 import iNoBounce from 'inobounce';
 
 import attachFastClick from 'fastclick';
@@ -88,10 +90,14 @@ export default React.createClass({
     };
   },
 
-  showFiltersPopup() {
-    console.log("OUCH");
-    document.getElementById('popup').style.display = 'block';
-    this.setState({ popup: 'Filters'});
+  toggleFiltersPopup() {
+    if (this.state.popup) {
+      document.getElementById('popup').style.display = 'none';
+      this.setState({ popup: null});
+    } else {
+      document.getElementById('popup').style.display = 'block';
+      this.setState({ popup: 'Filters'});
+    }
   },
 
   setSessionVar( variable, value) {
@@ -161,6 +167,16 @@ export default React.createClass({
       'colorBg' : data.status.page === 'start'
     } );
     
+    // POPUP
+
+    var popupComponent = '';
+    if (this.state.popup) {
+      switch (this.state.popup) {
+        case 'Filters':
+          popupComponent = <ActivityFilters />;
+          break;
+      }
+    }
 
     return (
 
@@ -169,7 +185,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} showFiltersPopup={this.showFiltersPopup} />
+            <Top data={data} setSessionVar={this.setSessionVar} toggleFiltersPopup={this.toggleFiltersPopup} />
           </div>
 
           {error}
@@ -184,7 +200,7 @@ export default React.createClass({
 
             <div id="popup">
               <Row className="box padded infobox top-buffer text-center">            
-                
+                {popupComponent}
               </Row>
             </div>
 
