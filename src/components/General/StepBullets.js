@@ -38,7 +38,7 @@ export default React.createClass({
 
     if (showLabel) {
       
-      return <g>
+      return <g key={x+y}>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
         <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
         <text x={x + radius + labelPadding} y={y} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">Part</text>
@@ -46,7 +46,7 @@ export default React.createClass({
 
     } else {
       
-      return <g>
+      return <g key={x+y}>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
         <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
       </g>
@@ -70,7 +70,7 @@ export default React.createClass({
   },
 
   drawLine( x1, y1, x2, y2 ) {
-    return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
+    return <line key={x1+x2+y1+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
   },
 
   createLineItem( line ) {        
