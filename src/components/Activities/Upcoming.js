@@ -24,7 +24,7 @@ export default React.createClass({
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
     StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
-    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
+    //StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
     StatusActions.forceTrigger();
   },
 
@@ -217,11 +217,12 @@ export default React.createClass({
     // DEBUG
     // console.log("layout:" + session.preferredLayout);
     
+        // <TypeSelectorButton data={data}/>
+
     return (
 
       <div className="container activities">
 
-        <TypeSelectorButton data={data}/>
 
         {groupsResults.map(groupItem, this)}
 
