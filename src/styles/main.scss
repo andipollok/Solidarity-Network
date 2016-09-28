@@ -65,10 +65,24 @@ a:hover {
 
 #pleasewait {
   display: none;
-  z-index: 99;
+  z-index: 80;
   background: #eefbf9;
   width: 100%;
   height: calc(100% - 225px);
+}
+
+#popup {
+  display: none;
+  position: absolute;
+  z-index: 90;
+  background: rgba( 255, 255, 255, 0.75 );
+  width: 100%;
+  height: 100%;
+}
+
+
+.helpIcon {
+  z-index: 99;
 }
 
 

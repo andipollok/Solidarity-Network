@@ -83,8 +83,15 @@ export default React.createClass({
   //      loggedIn: LoginStore.isLoggedIn(this)
       session: {
         preferredLayout: "cards"
-      }
+      },
+      popup: null,
     };
+  },
+
+  showFiltersPopup() {
+    console.log("OUCH");
+    document.getElementById('popup').style.display = 'block';
+    this.setState({ popup: 'Filters'});
   },
 
   setSessionVar( variable, value) {
@@ -162,7 +169,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} />
+            <Top data={data} setSessionVar={this.setSessionVar} showFiltersPopup={this.showFiltersPopup} />
           </div>
 
           {error}
@@ -174,6 +181,12 @@ export default React.createClass({
           </div>
 
           <div className="main-container scrollable">
+
+            <div id="popup">
+              <Row className="box padded infobox top-buffer text-center">            
+                
+              </Row>
+            </div>
 
             { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), setSessionVar: this.setSessionVar, session: this.state.session } ) }
   

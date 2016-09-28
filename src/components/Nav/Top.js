@@ -134,6 +134,8 @@ export default React.createClass({
 
   getFiltersButtonData() {
 
+    var showFiltersPopup = this.props.showFiltersPopup;
+
     var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
@@ -143,7 +145,7 @@ export default React.createClass({
       case 'activities':
         return {
           icon: 'filters',
-          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+          callback: showFiltersPopup, //.bind(null, "preferredLayout", "list"),
         };
         break;
 
