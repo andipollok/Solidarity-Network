@@ -187,7 +187,13 @@ export default React.createClass({
 
     return (
       <div className="container">
-        YO
+
+        <div className="filtersBackground">
+
+          FILTERS
+
+        </div>
+
       </div>
     );
         // <TypeSelectorButton data={data}/>

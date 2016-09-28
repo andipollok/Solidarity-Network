@@ -1,0 +1,16 @@
+#popup {
+
+  .container {
+    height: calc(100% - 70px - 75px);
+  }
+
+  .filtersBackground {
+    background-color: $color_nav;
+    margin-top: 38px;
+    margin-bottom: 12px;
+    height: calc(100% - 50px);
+    border-radius: 20px;
+    color: white;
+  }
+  
+}
