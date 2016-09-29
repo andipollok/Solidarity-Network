@@ -27,6 +27,7 @@ export default Reflux.createStore({
   init: function() {
     
     this.data = {
+      filters: {},
       join: undefined,
       area: undefined,
       page: '',
@@ -82,6 +83,42 @@ export default Reflux.createStore({
     DataActions.onAreaIsSet();
     // this.trigger(data);
 
+  },
+
+
+  resetFilterActivityType: function() {
+    this.data.filters.activityType = [];
+    // this.trigger(data);
+  },
+
+  addToFilterActivityType: function(typeId) {
+
+  },
+
+  removeFromFilterActivityType: function(typeId) {
+
+  },
+
+
+  resetFilterPaid: function() {
+    this.data.filters.paid = undefined;
+    // this.trigger(data);
+  },
+
+  setFilterPaid: function(value) {
+    this.data.filters.paid = value;
+    DataActions.onFilterChange();
+  },
+
+
+  resetFilterStatus: function() {
+    this.data.filters.status = undefined;
+    // this.trigger(data);
+  },
+
+  setFilterStatus: function(value) {
+    this.data.filters.status = value;
+    // this.trigger(data);
   },
 
   setPage: function(pagename) {

@@ -92,10 +92,25 @@ export default Reflux.createStore({
 
   },
 
+  onFilterChange() {
+
+    this.reloadActivities();
+
+  },
+
   onAreaIsSet() {
 
     StatusStore.data.areaName = Helpers.getAreaById(StatusStore.data.areaId, this.data).name;
     this.loadCurrentAreaContent();
+
+  },
+
+  reloadActivities() {
+
+    this.data.activities=  [];
+    this.data.loaded.activities = false;
+
+    this.getFilteredActivities();
 
   },
 
@@ -333,24 +348,32 @@ export default Reflux.createStore({
 //     window.location.assign('#/activities');
 //   },
 
+  convertFilterToAirtable( key, value ) {
+    switch (key) {
+      case 'paid':
+        return `{Paid} = ` + value;
+        break;
+    }
+  },
+
   getFilteredActivities() {
     var that = this;
 
-    // // TODO clarify if filters are a session var or a StatusStore var
-    // var currentUserFilters = StatusStore.filters.activities || [];
-
-    var currentUserFilters = [
-      `{Paid} = 1`,
-    ];
+    // TODO clarify if filters are a session var or a StatusStore var
+    var currentUserFilters = StatusStore.data.filters || {};
 
     var airtableFilters = [];
     airtableFilters.push( `{Area} = "${StatusStore.data.areaName}"` );
 
-    for (const filter of currentUserFilters) {
-      airtableFilters.push( filter );
+    for (var key of Object.keys(currentUserFilters)) {
+      var value = currentUserFilters[key];
+      airtableFilters.push( this.convertFilterToAirtable( key, value ) );
     }
 
     var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';
+
+    console.log("airtableFormula");
+    console.log(airtableFormula);
 
     base('Activities').select({
       maxRecords: maxRecords.activities || maxRecords.default,
@@ -361,7 +384,7 @@ export default Reflux.createStore({
 //        filterByFormula: "IS_BEFORE({date}, TODAY()) = 0",
     }).eachPage(function page(records, fetchNextPage) {
       records.forEach(function(record) {
-          console.log( record );
+          //console.log( record );
           if (record.get('Name')) {
 
             // Common values of all occurrences
