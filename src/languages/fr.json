@@ -26,22 +26,30 @@
   "nav_openmenu": "Ouvrir le menu",
   "nav_closemenu": "Fermer le menu",
   
-  "cards_layout": "Cards",
-  "list_layout": "List",
+  "cards_layout": "TODOFR Cards",
+  "list_layout": "TODOFR List",
 
   "back": "Retour",
   "next": "Suivant",
 
   "goback": "Retour",
 
-  "chooseAreaTitle" : "Which Area would you like to look for Communities?",
-  "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",
-  "chooseSectionTitle" : "What would you like to discover first?",
-  "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
-  "startNextChooseSection" : "Choose a Section",
+  "chooseAreaTitle" : "TODOFR Which Area would you like to look for Communities?",
+  "chooseAreaSubtitle" : "TODOFR Any pick can be easily changed afterwards in the Settings Section.",
+  "chooseSectionTitle" : "TODOFR What would you like to discover first?",
+  "chooseSectionSubtitle" : "TODOFR Choose from the Menu above what you wish to explore in the Community!",
+  "startNextChooseSection" : "TODOFR Choose a Section",
 
-  "filtersTitleMain" : "In here, you can refine your search!",
-  "filtersTitleActivities" : "Choose one or more Activities that fits your interests!",
+  "filtersTitleMain" : "TODOFR In here, you can refine your search!",
+  "filtersTitleActivities" : "TODOFR Choose one or more Activities that fits your interests!",
+
+  "filterPaidAny": "TODOFR Any",
+  "filterPaidFree": "TODOFR Free",
+  "filterPaidExpenses": "TODOFR Expenses",
+
+  "filterStatusAny": "TODOFR Any",
+  "filterStatusNew": "TODOFR New",
+  "filterStatusCancelled": "TODOFR Cancelled",
 
   "welcome": "Bienvenue!",
   "welcome_in": "Bienvenue à {areaName}!",

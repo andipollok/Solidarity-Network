@@ -43,6 +43,14 @@
   "filtersTitleMain" : "In here, you can refine your search!",
   "filtersTitleActivities" : "Choose one or more Activities that fits your interests!",
 
+  "filterPaidAny": "Any",
+  "filterPaidFree": "Free",
+  "filterPaidExpenses": "Expenses",
+
+  "filterStatusAny": "Any",
+  "filterStatusNew": "New",
+  "filterStatusCancelled": "Cancelled",
+
   "welcome": "Welcome",
   "welcome_in": "Welcome in {areaName}",
   "whatsnew_in": "What's new in {areaName}",
