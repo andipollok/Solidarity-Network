@@ -13,7 +13,7 @@ import Helpers from '../../stores/Helpers.js';
 import StepBullets from '../General/StepBullets';
 import Icon from '../General/Icon';
 
-import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 // import Listitem from './Calendaritem';
 // import TypeSelectorButton from '../General/TypeSelectorButton';
@@ -21,6 +21,10 @@ import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } fro
 
 
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   // componentWillMount() {
   //   // var overlay = document.getElementById('pleasewait');
@@ -86,7 +90,11 @@ export default React.createClass({
 
     var data = this.props.data;
 
-    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ "Any", "Free", "Expenses" ]} />;
+    let option1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
+    let option2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
+    let option3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
+
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} />;
 
     // topStepBullets = <StepBullets small={false} amount={1} active={[ false ]} height={40} />;
     
