@@ -2,7 +2,10 @@ import React from 'react';
 
 // Example
 // <StepBullets small={true} amount={4} numbered={false} active={[false, true, true, false]} height={20} width={300} horizontal={true} linked={false} />
+//
 // <StepBullets small={false} amount={3} numbered={true} active={[false, false, true]} height={100} width={40} horizontal={false} linked={false} labels={["Step 1", "Step 2", "Step 3"]} />
+//
+// <StepBullets small={false} amount={3} numbered={true} active={[false, false, true]} height={100} width={40} horizontal={false} linked={false} labels={["Step 1", "Step 2", "Step 3"]} callbalcks={[this.resetFilter, this.resetFilter, this.resetFilter]} />
 
 import classNames from 'classnames';
 
@@ -39,9 +42,15 @@ export default React.createClass({
   //   return false;
   // },
 
+  logg() {
+    console.log("Hello");
+  },
+
   // with inner label
   // TODO with inner icon
-  drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding ) {
+  drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback ) {
+
+    var bullet = null;
 
     if (outerLabel) {
       
@@ -59,7 +68,7 @@ export default React.createClass({
           break;
       }
 
-      return <g key={x+y}>
+      bullet = <g>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
         <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>
         <text x={outerLabelX} y={outerLabelY} textAnchor={outerLabelTextAnchor} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">{outerLabel}</text>
@@ -67,12 +76,23 @@ export default React.createClass({
 
     } else {
       
-      return <g key={x+y}>
+      bullet = <g>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
         <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>
       </g>
 
     }
+
+    if (callback) {
+      return <g key={x+y} onClick={callback} cursor="pointer">
+          {bullet}
+        </g>
+    } else {
+      return <g key={x+y}>
+          {bullet}
+        </g>
+    }
+
 
   },
 
@@ -88,7 +108,8 @@ export default React.createClass({
       bullet[7],
       bullet[8],
       bullet[9],
-      bullet[10]
+      bullet[10],
+      bullet[11]
     );
   },
 
@@ -122,14 +143,16 @@ export default React.createClass({
     let horizontal = this.props.horizontal || false;
     let numbered = this.props.numbered || true;
     let linked = this.props.linked || true;
-    
-    // array of labels or false
-    let outerLabels = this.props.labels || false;
-
     let numberOfBullets = this.props.amount || 2;
     
     // Format [ true, false, false ] = 3 bullets, the first one is active
     let activeBullets = this.props.active || [];
+    
+    // array of labels or false
+    let outerLabels = this.props.labels || false;
+
+    // array of callbacks or false
+    let callbacks = this.props.callbacks || false;
 
     let radius = small ? bulletSizeRadius_Small : bulletSizeRadius_Big;
     let bulletFontSize = small ? bulletFontSize_Small : bulletFontSize_Big;
@@ -175,8 +198,9 @@ export default React.createClass({
       let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
       let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
       let bulletLabel = i + 1;
-      let outerLabel = ( i < outerLabels.length ) ? outerLabels[i] : false; // text or false
+      let outerLabel = ( outerLabels && i < outerLabels.length ) ? outerLabels[i] : false; // text or false
       let outerLabelSlot = horizontal ? 'bottom' : 'right';
+      let callback = ( callbacks && i < callbacks.length ) ? callbacks[i] : false; // function or false
       bulletsArray.push( [
         bulletX,
         bulletY,
@@ -188,7 +212,8 @@ export default React.createClass({
         bulletFontSize,
         labelFontSize,
         labelHPadding,
-        labelVPadding
+        labelVPadding,
+        callback
       ] );
 
       // Line if not first bullet (because we need coordinates of bullet N and N+1)
