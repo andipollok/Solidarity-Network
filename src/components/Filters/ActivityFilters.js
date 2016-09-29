@@ -6,8 +6,6 @@ import { Col, Row } from 'react-bootstrap';
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
-import SessionActions from '../../stores/SessionActions';
-import SessionStore from '../../stores/SessionStore';
 import Helpers from '../../stores/Helpers.js';
 
 import StepBullets from '../General/StepBullets';
@@ -86,6 +84,20 @@ export default React.createClass({
   // //   return false;
   // // },
 
+  renderFilter_Activities_CurrentSelection() {
+
+    var data = this.props.data;
+
+    let option1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
+    let option2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
+    let option3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
+
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} />;
+    
+    return bullets;
+
+  },
+
   renderFilter_Fees() {
 
     var data = this.props.data;
@@ -95,8 +107,20 @@ export default React.createClass({
     let option3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
 
     var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} />;
+    
+    return bullets;
 
-    // topStepBullets = <StepBullets small={false} amount={1} active={[ false ]} height={40} />;
+  },
+
+  renderFilter_Status() {
+
+    var data = this.props.data;
+
+    let option1 = this.context.intl.formatMessage({ id: 'filterStatusAny' });
+    let option2 = this.context.intl.formatMessage({ id: 'filterStatusNew' });
+    let option3 = this.context.intl.formatMessage({ id: 'filterStatusCancelled' });
+
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} />;
     
     return bullets;
 
@@ -115,37 +139,6 @@ export default React.createClass({
     //   // find activities
     //   var activitiesFound = data.activities.filter(
     //     function(activity) {
-
-    //       // ----------------------------
-    //       // User filtering (implicit)
-    //       // ----------------------------
-
-    //       if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
-          	
-    //       	// Filter by type if user value is defined
-    //       	// TODO: support multiple types
-    //       	if (SessionStore.currentFilters.activity.typeId) {
-    //       		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
-    //       			return false;
-    //       		}
-    //       	}
-
-    //       	// Filter by price if user value is defined
-    //       	if (SessionStore.currentFilters.activity.paid) {
-    //       		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
-    //       			return false;
-    //       		}
-    //       	}
-
-    //       	// Filter by status if user value is defined
-    //       	// TODO: define what "New" means (cf. design) and add it to this filter
-    //       	if (SessionStore.currentFilters.activity.cancelled) {
-    //       		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
-    //       			return false;
-    //       		}
-    //       	}
-
-    //       }
 
     //       // ----------------------------
     //       // Component filtering
@@ -265,7 +258,39 @@ export default React.createClass({
 
     var mainContent = undefined;
 
-    mainContent = this.renderFilter_Fees();
+    switch ( this.state.screen ) {
+      
+      case 'main':
+        var filterActivities = this.renderFilter_Fees();
+        var filterFees = this.renderFilter_Fees();
+        var filterStatus = this.renderFilter_Status();
+        mainContent = <Col sm={10} className="text-center">
+          <p>
+            {filterActivities}
+          </p>
+          <p>
+            {filterFees}
+          </p>
+          <p>
+            {filterStatus}
+          </p>
+        </Col>;
+        break;
+
+      case 'activities':
+        mainTitle = <Col sm={12} className="text-center">
+          <p>
+            <FormattedMessage id='filtersTitleActivities'/>
+          </p>
+        </Col>;
+        break;
+
+      default:
+        mainTitle = undefined;
+        break;
+
+    }
+
 
     // switch ( this.state.step ) {
 
