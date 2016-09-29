@@ -10,6 +10,9 @@ import SessionActions from '../../stores/SessionActions';
 import SessionStore from '../../stores/SessionStore';
 import Helpers from '../../stores/Helpers.js';
 
+import StepBullets from '../General/StepBullets';
+import Icon from '../General/Icon';
+
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 // import Listitem from './Calendaritem';
@@ -43,14 +46,19 @@ export default React.createClass({
   //   if ( overlay ) { overlay.style.display = 'none'; } else { console.log("could not find overlay in Calendar render"); }
   // },
 
-  // getInitialState() {
+  getInitialState() {
 
-  //   var date = moment();
+    return {
+      screen: 'main',
+      // screen: 'activities',
+    };
 
-  //   return {
-  //     month: moment().startOf('month'), // stores first of month
-  //   }
-  // },
+    // var date = moment();
+
+    // return {
+    //   month: moment().startOf('month'), // stores first of month
+    // }
+  },
 
   // onClickActivity(id) {
   //   // console.log("activity " + id + " selected");
@@ -73,6 +81,18 @@ export default React.createClass({
   // // shouldComponentUpdate: function(nextProps, nextState) {
   // //   return false;
   // // },
+
+  renderFilter_Fees() {
+
+    var data = this.props.data;
+
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ "Any", "Free", "Expenses" ]} />;
+
+    // topStepBullets = <StepBullets small={false} amount={1} active={[ false ]} height={40} />;
+    
+    return bullets;
+
+  },
 
   render() {
 
@@ -185,12 +205,178 @@ export default React.createClass({
     //   weekdays[i] = item.replace(/\./g, '');
     // });
 
+          // <div className="container-fluid start">
+          // </div>
+    
+    
+    var data = this.props.data;
+    
+    // var countryItem = function(country) {
+    //   return ( <div key={country.id} className="country" onClick={this.onClickCountry.bind(this, country)}>
+    //       <Icon type={country.iconName} folder='countries' size='large' isNav={true} isActive={false}/>
+    //       <br />
+    //       <span className="text">{country.name}</span>
+    //     </div> );
+    // }.bind(this);
+    
+    // var areaItem = function(area) {
+    //   return ( <div key={area.id} className="area" onClick={this.onClickArea.bind(this, area)}>
+    //       <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={false}/>
+    //       <br />
+    //       <span className="text">{area.fields.Name}</span>
+    //     </div> );
+    // }.bind(this);
+
+
+    var mainTitle = undefined;
+
+    switch ( this.state.screen ) {
+      
+      case 'main':
+        mainTitle = <Col sm={12} className="text-center">
+          <p>
+            <FormattedMessage id='filtersTitleMain'/>
+          </p>
+        </Col>;
+        break;
+
+      case 'activities':
+        mainTitle = <Col sm={12} className="text-center">
+          <p>
+            <FormattedMessage id='filtersTitleActivities'/>
+          </p>
+        </Col>;
+        break;
+
+      default:
+        mainTitle = undefined;
+        break;
+
+    }
+
+
+    var mainContent = undefined;
+
+    mainContent = this.renderFilter_Fees();
+
+    // switch ( this.state.step ) {
+
+    //   case 1:
+    //   case 2:
+    //   case 3:
+
+    //     mainContent = <Col sm={8} className="text-center">
+    //       <div>
+    //         <FormattedMessage id='chooseAreaSubtitle'/>
+    //         <div className="countries">
+    //           {countries.map(countryItem, this)}
+    //         </div>
+    //       </div>
+    //       <div>
+    //         <div className="areas">
+    //           {areasOfSelectedCountry.map(areaItem, this)}
+    //         </div>
+    //       </div>
+    //     </Col>;
+
+    //     break;
+
+    //   case 4:
+        
+    //     mainContent = <Col sm={8} className="text-center"></Col>;
+        
+    //     break;
+
+    // }
+
+
+    var buttonApply = undefined;
+
+    // switch ( this.state.step ) {
+      
+    //   case 1:
+    //   case 2:
+    //     buttonApply = <Col sm={12} className="text-center">
+    //       <p>
+    //         <Button className="next" size="bsLarge" onClick={this.onClickButtonNext} disabled>
+    //           <FormattedMessage id='startNextChooseSection' />
+    //         </Button>
+    //       </p>
+    //     </Col>;
+    //     break;
+
+    //   case 3:
+    //     buttonApply = <Col sm={12} className="text-center">
+    //       <p>
+    //         <Button className="next" size="bsLarge" onClick={this.onClickButtonNext}>
+    //           <FormattedMessage id='startNextChooseSection' />
+    //         </Button>
+    //       </p>
+    //     </Col>;
+    //     break;
+
+    //   case 4:
+    //     buttonApply = <Col sm={12} className="text-center">
+    //     </Col>;
+    //     break;
+
+    // }
+
+
+    var topStepBullets = undefined;
+
+    switch ( this.state.screen ) {
+      
+      case 'main':
+      default:
+        topStepBullets = null;
+        break;
+
+      case 'activities':
+        topStepBullets = <StepBullets small={false} amount={1} active={[ false ]} height={40} />;
+        break;
+
+    }
+
+
+    var sideStepBullets = undefined;
+
+    switch ( this.state.screen ) {
+      
+      case 'main':
+      default:
+        sideStepBullets = <StepBullets small={false} amount={3} linked={false} active={[ false, false, false ]} height={240} />;
+        break;
+
+      case 'activities':
+        sideStepBullets = null;
+        break;
+
+    }
+
+
     return (
       <div className="container">
 
         <div className="filtersBackground">
 
-          FILTERS
+            <Row>
+              {topStepBullets}
+              {mainTitle}
+            </Row>
+            <Row>
+              <Col sm={2} className="text-center">
+                {sideStepBullets}
+              </Col>
+              <Col sm={8} className="text-center">
+                {mainContent}
+              </Col>
+              <Col sm={2} className="text-center">
+              </Col>
+            </Row>
+            <Row>
+              {buttonApply}
+            </Row>
 
         </div>
 

@@ -1,7 +1,8 @@
 import React from 'react';
 
 // Example
-// <StepBullets small={false} amount={4} active={[false, true, true, false]} height={100} />
+// <StepBullets small={true} amount={4} numbered={false} active={[false, true, true, false]} height={20} width={300} horizontal={true} linked={false} />
+// <StepBullets small={false} amount={3} numbered={true} active={[false, false, true]} height={100} width={40} horizontal={false} linked={false} labels={["Step 1", "Step 2", "Step 3"]} />
 
 import classNames from 'classnames';
 
@@ -12,13 +13,17 @@ import classNames from 'classnames';
 // - numbered bullets / not
 // - linked bullets / not
 // - with labels / not
+// - which have what icon (NB if icons are provided then "numbered" property is ignored)
+// - which are active
 
 const bulletSizeRadius_Small = 3;
 const bulletSizeRadius_Big = 5.2;
 const bulletFontSize_Small = 3;
 const bulletFontSize_Big = 5;
-const labelPadding_Small = 2;
-const labelPadding_Big = 4;
+const labelHPadding_Small = 2;
+const labelHPadding_Big = 4;
+const labelVPadding_Small = 3;
+const labelVPadding_Big = 6;
 const labelFontSize_Small = 3;
 const labelFontSize_Big = 4.5;
 const defaultColor = "white";
@@ -34,21 +39,37 @@ export default React.createClass({
   //   return false;
   // },
 
-  drawBullet( x, y, active, showLabel, label, radius, bulletFontSize, labelFontSize, labelPadding ) {
+  // with inner label
+  // TODO with inner icon
+  drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding ) {
 
-    if (showLabel) {
+    if (outerLabel) {
       
+      let outerLabelX = x;
+      let outerLabelY = y;
+      let outerLabelTextAnchor = 'left';
+      switch (outerLabelSlot) {
+        case 'right':
+        default:
+          outerLabelX = x + radius + labelHPadding;
+          break;
+        case 'bottom':
+          outerLabelY = y + radius + labelVPadding;
+          outerLabelTextAnchor = 'middle';
+          break;
+      }
+
       return <g key={x+y}>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
-        <text x={x + radius + labelPadding} y={y} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">Part</text>
+        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>
+        <text x={outerLabelX} y={outerLabelY} textAnchor={outerLabelTextAnchor} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">{outerLabel}</text>
       </g>
 
     } else {
       
       return <g key={x+y}>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
+        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>
       </g>
 
     }
@@ -65,7 +86,9 @@ export default React.createClass({
       bullet[5],
       bullet[6],
       bullet[7],
-      bullet[8]
+      bullet[8],
+      bullet[9],
+      bullet[10]
     );
   },
 
@@ -99,7 +122,9 @@ export default React.createClass({
     let horizontal = this.props.horizontal || false;
     let numbered = this.props.numbered || true;
     let linked = this.props.linked || true;
-    let showLabel = this.props.labels || false;
+    
+    // array of labels or false
+    let outerLabels = this.props.labels || false;
 
     let numberOfBullets = this.props.amount || 2;
     
@@ -108,7 +133,8 @@ export default React.createClass({
 
     let radius = small ? bulletSizeRadius_Small : bulletSizeRadius_Big;
     let bulletFontSize = small ? bulletFontSize_Small : bulletFontSize_Big;
-    let labelPadding = small ? labelPadding_Small : labelPadding_Big;
+    let labelHPadding = small ? labelHPadding_Small : labelHPadding_Big;
+    let labelVPadding = small ? labelVPadding_Small : labelVPadding_Big;
     let labelFontSize = small ? labelFontSize_Small : labelFontSize_Big;
 
     //
@@ -133,8 +159,8 @@ export default React.createClass({
     //   let bulletX = bulletX0 + ( horizontal ? ( i * bulletXIncr ) : 0 );
     //   let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
     //   let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
-    //   bullets += this.bullet( bulletX, bulletY, bulletActive, showLabel, radius, bulletFontSize, labelFontSize, labelPadding );
-    //   console.log(bulletX, bulletY, bulletActive, showLabel, radius, bulletFontSize, labelFontSize, labelPadding);
+    //   bullets += this.bullet( bulletX, bulletY, bulletActive, showOuterLabel, radius, bulletFontSize, labelFontSize, labelPadding );
+    //   console.log(bulletX, bulletY, bulletActive, showOuterLabel, radius, bulletFontSize, labelFontSize, labelPadding);
     // }
 
     let bulletsArray = [];
@@ -149,16 +175,20 @@ export default React.createClass({
       let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
       let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
       let bulletLabel = i + 1;
+      let outerLabel = ( i < outerLabels.length ) ? outerLabels[i] : false; // text or false
+      let outerLabelSlot = horizontal ? 'bottom' : 'right';
       bulletsArray.push( [
         bulletX,
         bulletY,
         bulletActive,
-        showLabel,
         bulletLabel,
+        outerLabel,
+        outerLabelSlot,
         radius,
         bulletFontSize,
         labelFontSize,
-        labelPadding
+        labelHPadding,
+        labelVPadding
       ] );
 
       // Line if not first bullet (because we need coordinates of bullet N and N+1)
@@ -176,13 +206,14 @@ export default React.createClass({
       prevBulletY = bulletY;
 
     }
+          
+          // <rect x="0" y="0" width="40" height="200" fill={componentBackgroundColor}></rect>
 
     return (
       <span>
         <svg preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium" viewBox={svgDimensions}>
           <title>alo_service</title>
           
-          <rect x="0" y="0" width="40" height="200" fill={componentBackgroundColor}></rect>
           
           {linesArray.map( this.createLineItem, this )}
 

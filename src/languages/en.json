@@ -40,6 +40,9 @@
   "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
   "startNextChooseSection" : "Choose a Section",
 
+  "filtersTitleMain" : "In here, you can refine your search!",
+  "filtersTitleActivities" : "Choose one or more Activities that fits your interests!",
+
   "welcome": "Welcome",
   "welcome_in": "Welcome in {areaName}",
   "whatsnew_in": "What's new in {areaName}",
