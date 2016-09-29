@@ -9,8 +9,6 @@ import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
-import SessionActions from '../../stores/SessionActions';
-import SessionStore from '../../stores/SessionStore';
 import Helpers from '../../stores/Helpers.js';
 
 import UpcomingItem from './UpcomingItem';
@@ -101,37 +99,6 @@ export default React.createClass({
       group.activities = data.activities.filter(
 
         function(activity) {
-
-          // // ----------------------------
-          // // User filtering (implicit)
-          // // ----------------------------
-
-          // if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
-          	
-          // 	// Filter by type if user value is defined
-          // 	// TODO: support multiple types
-          // 	if (SessionStore.currentFilters.activity.typeId) {
-          // 		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
-          // 			return false;
-          // 		}
-          // 	}
-
-          // 	// Filter by price if user value is defined
-          // 	if (SessionStore.currentFilters.activity.paid) {
-          // 		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
-          // 			return false;
-          // 		}
-          // 	}
-
-          // 	// Filter by status if user value is defined
-          // 	// TODO: define what "New" means (cf. design) and add it to this filter
-          // 	if (SessionStore.currentFilters.activity.cancelled) {
-          // 		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
-          // 			return false;
-          // 		}
-          // 	}
-
-          // }
 
           // ----------------------------
           // Component filtering
