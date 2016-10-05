@@ -11,17 +11,66 @@ import classNames from 'classnames';
 
 const iconFrameCircleRadius = 20;
 
-const labelWidth = 180;
+const labelWidth = 150;
 const labelHeight = 40;
 const labelFrameCornerRadius = 20;
 
 const labelFontSize = 16;
 const textHorizMargin = 10;
 
-const solidarityPurple = "#823FC2";
+const color1 = "#823FC2";
+const color2 = "#5CDAC3";
+const color_light = "#FFFFFF"; 
+const color_transparent = "transparent"; 
 
-const defaultPassiveIconStrokeColor = solidarityPurple;
-const defaultPassiveIconBackground = "white";
+var colors = {
+
+  // White
+  // buttons on gradient background in start
+  white: {
+    iconStroke: color_light,
+    iconBackground: color_transparent,
+    labelText: color_light,
+    labelBackground: color_transparent,
+    labelStroke: color_light 
+  },
+  // Green
+  // back button
+  green: {
+    iconStroke: color2,
+    iconBackground: color_transparent,
+    labelText: color2,
+    labelBackground: color_transparent,
+    labelStroke: color2 
+  },
+  // Purple
+  // buttons on all screens in navigation
+  default: {
+    iconStroke: color1,
+    iconBackground: color_transparent,
+    labelText: color1,
+    labelBackground: color_transparent,
+    labelStroke: color1 
+  },
+  active: {
+    iconStroke: color_light,
+    iconBackground: color1,
+    labelText: color_light,
+    labelBackground: color1,
+    labelStroke: color1 
+  },
+  passive: {
+    iconStroke: color_light,
+    iconBackground: color1,
+    labelText: color_light,
+    labelBackground: color1,
+    labelStroke: color1 
+  }
+}
+
+
+/*const defaultPassiveIconStrokeColor = solidarityPurple;
+const defaultPassiveIconBackground = "transparent";
 const defaultPassiveLabelTextColor = solidarityPurple;
 const defaultPassiveLabelBackground = "transparent";
 const defaultPassiveFramesColor = solidarityPurple;
@@ -32,10 +81,20 @@ const defaultActiveLabelTextColor = "white";
 const defaultActiveLabelBackground = solidarityPurple;
 const defaultActiveFramesColor = solidarityPurple;
 
-const defaultStrokeWidth = 2;
 
-// const componentBackgroundColor = "rgba(255,255,255,.1)"; // For debugging
-const componentBackgroundColor = "transparent"; // For production
+const gradientBgActiveIconStrokeColor = "white";
+const gradientBgActiveIconBackground = "transparent";
+const gradientBgActiveLabelTextColor = "white";
+const gradientBgActiveLabelBackground = "transparent";
+const gradientBgActiveFramesColor = "transparent";
+
+const gradientBgPassiveIconStrokeColor = "#A6A6A6";
+const gradientBgPassiveIconBackground = "transparent";
+const gradientBgPassiveLabelTextColor = "#A6A6A6";
+const gradientBgPassiveLabelBackground = "transparent";
+const gradientBgPassiveFramesColor = "transparent";*/
+
+const defaultStrokeWidth = 2;
 
 export default React.createClass({
 
@@ -76,15 +135,16 @@ export default React.createClass({
     let labelAlignment = this.props.labelAlignment || 'left';
     let iconPosition = this.props.iconPosition || 'left';
     let isActive = this.props.isActive || false;
+    let color = this.props.color || "default";
     let label = this.props.label || "";
 
     //
     // Starting the math
     //
 
-    let svgPadding = defaultStrokeWidth;
-    let svgWidth = labelWidth + iconFrameCircleRadius + 2 * defaultStrokeWidth;
-    let svgHeight = Math.max( labelHeight, 2 * iconFrameCircleRadius ) + 2 * defaultStrokeWidth;
+    let svgPadding = defaultStrokeWidth / 2;
+    let svgWidth = labelWidth + defaultStrokeWidth;
+    let svgHeight = Math.max( labelHeight, 2 * iconFrameCircleRadius ) + defaultStrokeWidth;
     let svgWidthWithPadding = svgWidth + 2 * svgPadding;
     let svgHeightWithPadding = svgHeight + 2 * svgPadding;
 
@@ -92,17 +152,6 @@ export default React.createClass({
 
     let rectX = svgPadding;
     let rectY = svgPadding;
-
-    switch (iconPosition) {
-      case 'right':
-        // you're good
-        break;
-      case 'left':
-      default:
-        //rectX = svgPadding + iconFrameCircleRadius;
-        rectX = svgWidth - svgPadding - labelWidth;
-        break;
-    }
 
     let labelTextAnchor = "middle";
     let textX = rectX + 0.5 * labelWidth;
@@ -143,11 +192,14 @@ export default React.createClass({
     // Styling
     //
 
-    let currentIconStrokeColor = isActive ? defaultActiveIconStrokeColor : defaultPassiveIconStrokeColor;
-    let currentIconBackground = isActive ? defaultActiveIconBackground : defaultPassiveIconBackground;
-    let currentLabelTextColor = isActive ? defaultActiveLabelTextColor : defaultPassiveLabelTextColor;
-    let currentLabelBackground = isActive ? defaultActiveLabelBackground : defaultPassiveLabelBackground;
-    let currentFramesColor = isActive ? defaultActiveFramesColor : defaultPassiveFramesColor;
+    var colorData = colors[color];
+
+    // let currentIconStrokeColor = isActive ? defaultActiveIconStrokeColor : defaultPassiveIconStrokeColor;
+    // let currentIconBackground = isActive ? defaultActiveIconBackground : defaultPassiveIconBackground;
+    // let currentLabelTextColor = isActive ? defaultActiveLabelTextColor : defaultPassiveLabelTextColor;
+    // let currentLabelBackground = isActive ? defaultActiveLabelBackground : defaultPassiveLabelBackground;
+    // let currentLabelStroke = isActive ? defaultActiveFramesColor : defaultPassiveFramesColor;
+
 
     //
     // Rendering
@@ -156,13 +208,14 @@ export default React.createClass({
     return (
       <span>
         <svg preserveAspectRatio="xMidYMid meet" name="button" viewBox={svgDimensions} width={svgWidthWithPadding} height={svgHeightWithPadding}>
+
           <title>button</title>
           
-          <rect x={rectX} y={rectY} width={labelWidth} height={labelHeight} rx={labelFrameCornerRadius} fill={currentLabelBackground} stroke={currentFramesColor} strokeWidth={defaultStrokeWidth}></rect>
+          <rect x={rectX} y={rectY} width={labelWidth} height={labelHeight} rx={labelFrameCornerRadius} fill={colorData.labelBackground} stroke={colorData.labelStroke} strokeWidth={defaultStrokeWidth}></rect>
           
-          <text x={textX} y={textY} textAnchor={labelTextAnchor} fill={currentLabelTextColor} fontSize={labelFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
+          <text x={textX} y={textY} textAnchor={labelTextAnchor} fill={colorData.labelText} fontSize={labelFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
 
-          <circle cx={iconX} cy={iconY} r={iconFrameCircleRadius} stroke={currentIconStrokeColor} strokeWidth={defaultStrokeWidth} fill={currentIconBackground} />
+          <circle cx={iconX} cy={iconY} r={iconFrameCircleRadius} stroke={colorData.iconStroke} strokeWidth={defaultStrokeWidth} fill={colorData.iconBackground} />
 
         </svg>
       </span>
