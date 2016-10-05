@@ -164,7 +164,7 @@ export default React.createClass({
     data.area = Helpers.getAreaFromStatus(data);
 
     var flexContainerClasses = classNames( 'flex-container', {
-      'colorBg' : data.status.page === 'start'
+      'backgroundGradient' : data.status.page === 'start'
     } );
     
     // POPUP
