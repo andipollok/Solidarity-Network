@@ -100,7 +100,7 @@ export default React.createClass({
 
     var countryItem = function(country) {
       return ( <div key={country.id} className="country" onClick={this.onClickCountry.bind(this, country)}>
-          <Icon type={country.iconName} folder='countries' size='large' isNav={true} isActive={false}/>
+          <Icon type={country.iconName} folder='countries' size='large' isNav={true} isActive={false} data={data}/>
           <br />
           <span className="text">{country.name}</span>
         </div> );
@@ -108,7 +108,7 @@ export default React.createClass({
     
     var areaItem = function(area) {
       return ( <div key={area.id} className="area" onClick={this.onClickArea.bind(this, area)}>
-          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={false}/>
+          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={false}  data={data}/>
           <br />
           <span className="text">{area.fields.Name}</span>
         </div> );
