@@ -30,8 +30,9 @@ export default React.createClass({
   // during step 4 we hide the stepbullets
 
   getInitialState() {
+    this.props.setSessionVar( "startStep", 1 );
     return {
-      step: 1,
+      // step: 1,
       aCountryIsSelected: false,
       currentlySelectedCountry: undefined,
       anAreaIsSelected: false,
@@ -48,10 +49,11 @@ export default React.createClass({
   },
 
   onClickCountry( country ) {
+    this.props.setSessionVar( "startStep", 2 );
     this.setState({
       aCountryIsSelected: true,
       currentlySelectedCountry: country,
-      step: 2
+      // step: 2
     });
   },
 
@@ -61,10 +63,12 @@ export default React.createClass({
     //console.log(area.fields.Name);
     //console.log(area.id);
 
+    this.props.setSessionVar( "startStep", 3 );
+
     this.setState({
       anAreaIsSelected: true,
       currentlySelectedArea: area,
-      step: 3
+      // step: 3
     });
 
     StatusActions.setArea(area.id);
@@ -73,9 +77,10 @@ export default React.createClass({
   },
 
   onClickButtonNext() {
-    this.setState({
-      step: 4
-    });
+    this.props.setSessionVar( "startStep", 4 );
+    // this.setState({
+    //   step: 4
+    // });
   },
 
   // onClickActivities() {
@@ -92,7 +97,10 @@ export default React.createClass({
     var data = this.props.data;
     var countries = data.countries;
 
-    var areasOfSelectedCountry = this.state.aCountryIsSelected ? this.state.currentlySelectedCountry.areas : [];
+    var step = this.props.session.startStep;
+
+    var areasOfSelectedCountry = step > 1 && this.state.aCountryIsSelected ? this.state.currentlySelectedCountry.areas : [];
+    // var areasOfSelectedCountry = this.props.session.startCountryIsSelected ? this.props.session.startCurrentlySelectedCountry.areas : [];
 
     var buttonNextClasses = {
 
@@ -116,7 +124,7 @@ export default React.createClass({
 
     var mainTitle = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
       
       case 1:
       case 2:
@@ -140,7 +148,7 @@ export default React.createClass({
 
     var mainContent = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
 
       case 1:
       case 2:
@@ -172,7 +180,7 @@ export default React.createClass({
 
     var buttonNext = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
       
       case 1:
       case 2:
@@ -204,12 +212,12 @@ export default React.createClass({
 
     var stepBullets = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
       
       case 1:
       case 2:
       case 3:
-        stepBullets = <StepBullets small={false} amount={2} active={[ (this.state.step == 1), (this.state.step == 2 || this.state.step == 3) ]} height={160} />;
+        stepBullets = <StepBullets small={false} amount={2} active={[ (step == 1), (step == 2 || step == 3) ]} height={160} />;
         break;
 
       case 4:
