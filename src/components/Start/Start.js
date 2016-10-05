@@ -107,16 +107,18 @@ export default React.createClass({
     };
 
     var countryItem = function(country) {
+      var active = this.props.session.startStep > 1 && this.state.currentlySelectedCountry && this.state.currentlySelectedCountry.id && this.state.currentlySelectedCountry.id == country.id;
       return ( <div key={country.id} className="country" onClick={this.onClickCountry.bind(this, country)}>
-          <Icon type={country.iconName} folder='countries' size='large' isNav={true} isActive={false}/>
+          <Icon type={country.iconName} folder='countries' size='large' isNav={true} isActive={active}/>
           <br />
           <span className="text">{country.name}</span>
         </div> );
     }.bind(this);
     
     var areaItem = function(area) {
+      var active = this.props.session.startStep > 2 && this.state.currentlySelectedArea && this.state.currentlySelectedArea.id && this.state.currentlySelectedArea.id == area.id;
       return ( <div key={area.id} className="area" onClick={this.onClickArea.bind(this, area)}>
-          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={false}/>
+          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={active}/>
           <br />
           <span className="text">{area.fields.Name}</span>
         </div> );
