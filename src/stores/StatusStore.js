@@ -102,7 +102,7 @@ export default Reflux.createStore({
 
   resetFilterPaid: function() {
     this.data.filters.paid = undefined;
-    // this.trigger(data);
+    DataActions.onFilterChange();
   },
 
   setFilterPaid: function(value) {

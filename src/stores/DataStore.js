@@ -367,7 +367,9 @@ export default Reflux.createStore({
 
     for (var key of Object.keys(currentUserFilters)) {
       var value = currentUserFilters[key];
-      airtableFilters.push( this.convertFilterToAirtable( key, value ) );
+      if (value !== undefined) {
+        airtableFilters.push( this.convertFilterToAirtable( key, value ) );
+      }
     }
 
     var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';

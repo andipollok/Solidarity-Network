@@ -106,9 +106,7 @@ export default React.createClass({
     let option2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
     let option3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
 
-    //StatusStore.setFilterPaid.bind(StatusStore, 1);
-
-    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} callbacks={[ StatusStore.setFilterPaid.bind(StatusStore, 1), undefined, undefined ]} />;
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} callbacks={[ StatusStore.resetFilterPaid.bind(StatusStore), StatusStore.setFilterPaid.bind(StatusStore, 0), StatusStore.setFilterPaid.bind(StatusStore, 1) ]} />;
     
     return bullets;
 

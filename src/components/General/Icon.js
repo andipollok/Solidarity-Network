@@ -7,42 +7,48 @@ var colors = {
   start: {
     hasBackground: false,
     iconColor: '#FFF',
-    solidIconColor: '#FFF'
+    solidIconColor: '#FFF',
+    inactiveColor: '#b3b3b3',
+    navColor: '#1d3faf'
   },
 
   default: {
     hasBackground: true,
     iconColor: '#823FC2',
-    solidIconColor: '#823FC2'
-  }
+    solidIconColor: '#823FC2',
+    inactiveColor: '#b3b3b3',
+    navColor: '#1d3faf'
+  },
 
 }
-var inactiveColor = '#b3b3b3';
 
 export default React.createClass({
 
   render() {
     
     var data = this.props.data;
-
-    var hasBackground = colors['default'].hasBackground;
-    var iconColor = colors['default'].iconColor;
     
     // select background color and iconColor based on area (whatsnew, agenda or photos)
+    var colorPalette = colors['default'];
     if (data && data.status && data.status.page && colors[data.status.page]) {
+      colorPalette = colors[data.status.page];
+    }
 
-      hasBackground = colors[data.status.page].hasBackground;
-      iconColor = colors[data.status.page].iconColor;
-      // if fill parameter is solid (has solid background), then choose different icon color
-      if (this.props.isOnSolid === true) {
-        iconColor = colors[data.status.page].solidIconColor;
-      }
+    var hasBackground = colorPalette.hasBackground;
+    //var backgroundColor = colorPalette.backgroundColor;
+    var iconColor = colorPalette.iconColor;
+
+    // if fill parameter is solid (has solid background), then choose different icon color
+    if (this.props.isOnSolid === true) {
+      iconColor = colorPalette.solidIconColor;
     }
+
     if (this.props.isNav === true) {
-      iconColor = '#1d3faf';
+      iconColor = colorPalette.navColor;
     }
+
     if (this.props.isActive === false) {
-      iconColor = inactiveColor;
+      iconColor = colorPalette.inactiveColor;
     }
 
     var divClass = classNames('icon', {

@@ -50,6 +50,15 @@ export default React.createClass({
     var data = this.props.data;
     if (data.status.page === 'start') {
 
+      var step = this.props.session.startStep;
+      if (step && Number.isInteger(step)) {
+        if (step == 1) {
+          history.goBack();
+        } else {
+          let newStep = step - 1;
+          this.props.setSessionVar( "startStep", newStep );
+        }
+      }
     } else {
       history.goBack();
     }
@@ -212,6 +221,16 @@ export default React.createClass({
     }
 
 
+    // Main menu
+
+    var mainMenuClasses = classNames({
+      'opened': this.state.mainMenuOpened
+    });
+
+    var mainMenu = (<div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
+      <MainMenu ref="mainMenuRef" openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} data={data} />
+    </div>);
+
     // Primary navigation
 
     // if (data.status.title !== null) {
@@ -243,7 +262,8 @@ export default React.createClass({
       // Main menu icon
 
       var mainMenuIconClasses = classNames( 'mainMenuIcon', 'divLink', {
-        'active': !this.state.mainMenuOpened
+        'active': !this.state.mainMenuOpened,
+        'hidden': (data.status.page == 'start') && (this.props.session.startStep < 4)
       });
 
       let menuIconType = menuIconData.iconType;
@@ -354,16 +374,6 @@ export default React.createClass({
       );
 
     };
-
-    // Main menu
-
-    var mainMenuClasses = classNames({
-      'opened': this.state.mainMenuOpened
-    });
-
-    var mainMenu = (<div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
-      <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} data={data} />
-    </div>);
 
 
     return (

@@ -18,8 +18,6 @@ import LanguageStore from '../stores/LanguageStore';
 import Helpers from '../stores/Helpers';
 import LoginActions from '../stores/LoginActions';
 import LoginStore from '../stores/LoginStore';
-import SessionActions from '../stores/SessionActions';
-import SessionStore from '../stores/SessionStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
@@ -101,7 +99,7 @@ export default React.createClass({
   },
 
   setSessionVar( variable, value) {
-    let modifiedState = { session: {} };
+    let modifiedState = { session: this.state.session };
     modifiedState.session[variable] = value;
     this.setState(modifiedState);
   },
@@ -185,7 +183,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} toggleFiltersPopup={this.toggleFiltersPopup} />
+            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} toggleFiltersPopup={this.toggleFiltersPopup} />
           </div>
 
           {error}
