@@ -11,7 +11,9 @@ var colors = {
   start: {
     backgroundColor: 'transparent',
     iconColor: '#FFF',
-    solidIconColor: '#FFF'
+    solidIconColor: '#FFF',
+    inactiveColor: '#b3b3b3',
+    navColor: '#1d3faf'
   },
   // news: {
   //   backgroundColor: '#F6F6F6',
@@ -31,13 +33,15 @@ var colors = {
   default: {
     backgroundColor: 'transparent',
     iconColor: '#823FC2',
-    solidIconColor: '#823FC2'
+    solidIconColor: '#823FC2',
+    inactiveColor: '#b3b3b3',
+    navColor: '#1d3faf'
   },
   // secondaryinfo: {
   //   iconColor: '#b3b3b3'
   // }
 }
-var inactiveColor = '#b3b3b3';
+// var inactiveColor = '#b3b3b3';
 
 export default React.createClass({
 
@@ -48,24 +52,27 @@ export default React.createClass({
   render() {
     
     var data = this.props.data;
-
-    var backgroundColor = colors['default'].backgroundColor;
-    var iconColor = colors['default'].iconColor;
-
+    
     // select background color and iconColor based on area (whatsnew, agenda or photos)
+    var colorPalette = colors['default'];
     if (data && data.status && data.status.page && colors[data.status.page]) {
-      backgroundColor = colors[data.status.page].backgroundColor;
-      iconColor = colors[data.status.page].iconColor;
-      // if fill parameter is solid (has solid background), then choose different icon color
-      if (this.props.isOnSolid === true) {
-        iconColor = colors[data.status.page].solidIconColor;
-      }
+      colorPalette = colors[data.status.page];
     }
+
+    var backgroundColor = colorPalette.backgroundColor;
+    var iconColor = colorPalette.iconColor;
+
+    // if fill parameter is solid (has solid background), then choose different icon color
+    if (this.props.isOnSolid === true) {
+      iconColor = colorPalette.solidIconColor;
+    }
+
     if (this.props.isNav === true) {
-      iconColor = '#1d3faf';
+      iconColor = colorPalette.navColor;
     }
+
     if (this.props.isActive === false) {
-      iconColor = inactiveColor;
+      iconColor = colorPalette.inactiveColor;
     }
 
     // iconColor = "#823FC2";
