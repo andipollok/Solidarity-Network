@@ -16,8 +16,6 @@ const noButton = {
   callback: undefined,
 };
 
-const solidarityPurple = "#823FC2";
-
 const history = createHashHistory();
 
 export default React.createClass({
@@ -69,11 +67,11 @@ export default React.createClass({
     window.location.assign("#/login");
   },
 
-  // returns a simple array with:
-  // [0] : icon path
-  // [1] : label
-  // [2] : stroke color for circle and icon
-  getMainMenuButtonData() {
+  // returns a hash with:
+  //  iconType
+  //  label
+  //  buttonColor: color for IconButton component (white|green|default|active|passive)
+  getButtonData() {
 
     var setSessionVar = this.props.setSessionVar;
 
@@ -82,27 +80,30 @@ export default React.createClass({
     switch (data.status.page) {
 
       case 'start':
-        return [
-          'navigation',
-          '',
-          'white'
-        ];
+        return {
+          iconType: 'navigation',
+          label: '',
+          buttonColor: 'white',
+          backButtonColor: 'white'
+        };
         break;
 
       case 'activities':
-        return [
-          'upcoming',
-          '',
-          solidarityPurple
-        ];
+        return {
+          iconType: 'upcoming',
+          label: '',
+          buttonColor: 'default',
+          backButtonColor: 'green'
+        };
         break;
 
       default:
-        return [
-          'upcoming',
-          '',
-          'white'
-        ];
+        return {
+          iconType: 'upcoming',
+          label: '',
+          buttonColor: 'default',
+          backButtonColor: 'green'
+        };
         break;
 
     }
@@ -216,14 +217,28 @@ export default React.createClass({
     // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
 
+      let menuIconData = this.getButtonData();
+
       var barClasses = classNames( "top-bar", data.status.page);
 
       // Back button
 
-      var BackButton = <Button className="backButton" onClick={this.onClickBack}>
-        &lt;&nbsp;
-        <FormattedMessage id='back' />
-      </Button>;
+      // var BackButton = <Button className="backButton" onClick={this.onClickBack}>
+      //   &lt;&nbsp;
+      //   <FormattedMessage id='back' />
+      // </Button>;
+
+      // Back button (top left corner)
+
+      let backIconClasses = classNames( 'backIcon', 'divLink', {
+        'active': true // TODO clarify whether that means highlighted or enabled
+      });
+
+      let backIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconData.backButtonColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='left' label="Go Back" />;
+      
+      var BackComponent = ( <div className={backIconClasses} id="backIcon" onClick={this.onClickBack}>
+        {backIcon}
+      </div> );
 
       // Main menu icon
 
@@ -231,22 +246,19 @@ export default React.createClass({
         'active': !this.state.mainMenuOpened
       });
 
-      let menuIconData = this.getMainMenuButtonData();
-
-      let menuIconType = menuIconData[0];
+      let menuIconType = menuIconData.iconType;
       let menuIconFolder = 'service';
 
       // TODO display the label
-      // let menuIconLabel = menuIconData[1];
+      // let menuIconLabel = menuIconData.label;
 
-      let menuIconcolor = menuIconData[2];
+      let menuIconColor = menuIconData.buttonColor;
 
-      var MainMenuIcon = ( <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
-        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium">
-          <circle cx="50" cy="50" r="46" fill="transparent" stroke={menuIconcolor} strokeWidth="4"></circle>
-        </svg>
-        <Icon type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={true} />
-      </div> );
+      var MainMenuIcon = ( 
+          <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
+            <Icon type={menuIconType} folder={menuIconFolder} size='small' isNav={false} isActive={true} data={data}/>
+          </div>
+      );
 
 
       // Contextual icons (on top center, left and right from main menu icon)
@@ -258,13 +270,13 @@ export default React.createClass({
       let leftButtonData = this.getLeftTopButtonData();
       let rightButtonData = this.getRightTopButtonData();
 
-      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
@@ -287,7 +299,7 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
+      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;
@@ -304,7 +316,7 @@ export default React.createClass({
           <Col className="box no-padding">
             <div className="top-flex">
               <div className="top-flex-left text-left">
-                {BackButton} 
+                {BackComponent} 
               </div>
               <div className="top-flex-middle text-center">
                 <div className="topNavWidget">
