@@ -65,6 +65,9 @@
   "organisedby": "Organisé par {name}",
 
   "filterOptionOverall": "Tout",
+  "filtersTitleMain": "TODO filtersTitleMain",
+  "filtersTitleActivities": "TODO filtersTitleActivities",
+  "filtersButtonApply": "TODO filtersButtonApply",
 
   "nowhatsnew": "Désolé, il n'y a pas de nouveautés à {areaName} présentement.",
   "noactivities": "Désolé, il n'y a pas d'activités prévues à {areaName}.",

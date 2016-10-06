@@ -189,7 +189,7 @@ export default React.createClass({
 
   getFiltersButtonData() {
 
-    var toggleFiltersPopup = this.props.toggleFiltersPopup;
+    var togglePopup = this.props.togglePopup;
 
     var setSessionVar = this.props.setSessionVar;
 
@@ -200,7 +200,7 @@ export default React.createClass({
       case 'activities':
         return {
           icon: 'filters',
-          callback: toggleFiltersPopup, //.bind(null, "preferredLayout", "list"),
+          callback: togglePopup, //.bind(null, "preferredLayout", "list"),
         };
         break;
 
@@ -224,7 +224,10 @@ export default React.createClass({
     }
 
 
+
+    //
     // Main menu
+    //
 
     var mainMenuClasses = classNames({
       'opened': this.state.mainMenuOpened
@@ -234,7 +237,11 @@ export default React.createClass({
       <MainMenu ref="mainMenuRef" openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} data={data} />
     </div>);
 
+
+
+    //
     // Primary navigation
+    //
 
     // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
@@ -243,14 +250,14 @@ export default React.createClass({
 
       var barClasses = classNames( "top-bar", data.status.page);
 
-      // Back button
+      //
+      // Back button (top left corner)
+      //
 
       // var BackButton = <Button className="backButton" onClick={this.onClickBack}>
       //   &lt;&nbsp;
       //   <FormattedMessage id='back' />
       // </Button>;
-
-      // Back button (top left corner)
 
       let backIconClasses = classNames( 'backIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
@@ -262,7 +269,9 @@ export default React.createClass({
         {backIcon}
       </div> );
 
+      //
       // Main menu icon
+      //
 
       var mainMenuIconClasses = classNames( 'mainMenuIcon', 'divLink', {
         'active': !this.state.mainMenuOpened,
@@ -283,8 +292,9 @@ export default React.createClass({
           </div>
       );
 
-
+      //
       // Contextual icons (on top center, left and right from main menu icon)
+      //
 
       let contextualIconClasses = classNames( 'contextualTopIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
@@ -315,8 +325,9 @@ export default React.createClass({
         {rightIcon}
       </div> );
 
+      //
       // Filters button (top right corner)
-      // can have four states: enabled and passive (=clickable), enabled and active (=highlighted), disabled but visible (=grayed, not clickable), invisible (=not displayed at all)
+      //
 
       let filtersIconClasses = classNames( 'filtersIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
@@ -334,7 +345,9 @@ export default React.createClass({
         {filtersIcon}
       </div> );
 
-      // Rendering the nav
+      //
+      // Rendering of the primary nav
+      //
 
       var primary = (
         <Row className={barClasses}>
@@ -363,12 +376,21 @@ export default React.createClass({
 
     };
 
+
+
+    //
+    // Login button
+    //
+
     // <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
     //   <FormattedMessage id='login' />
     // </Button>
 
 
+
+    //
     // Secondary navigation
+    //
 
     if (data.status.secondaryNav !== null) {
       var barClassesSecondary = classNames( "top-bar secondary text-center", data.status.page);
@@ -380,6 +402,11 @@ export default React.createClass({
 
     };
 
+
+
+    // 
+    // Rendering of the whole component
+    //
 
     return (
       <div className="container-fluid">
