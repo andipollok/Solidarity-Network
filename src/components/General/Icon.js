@@ -27,6 +27,8 @@ export default React.createClass({
   render() {
     
     var data = this.props.data;
+
+    var noHTML = this.props.noHTML || false;
     
     // select background color and iconColor based on area (whatsnew, agenda or photos)
     var colorPalette = colors['default'];
@@ -64,11 +66,19 @@ export default React.createClass({
     var iconType = this.props.type || 'hiking';
     name = `alo_${folder}-${iconType}-${size}`;
 
-    return (
-      <span className={divClass}>
-        <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>
-      </span>
-    );
+    if (noHTML) {
+
+      return ( <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/> );
+
+    } else {
+      
+      return (
+        <span className={divClass}>
+          <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>
+        </span>
+      );
+
+    }
   }
 });
 

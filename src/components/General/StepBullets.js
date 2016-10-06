@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Icon from '../General/Icon';
+
 // Example
 // <StepBullets small={true} amount={4} numbered={false} active={[false, true, true, false]} height={20} width={300} horizontal={true} linked={false} />
 //
@@ -46,14 +48,38 @@ export default React.createClass({
     console.log("Hello");
   },
 
+  // drawBulletInterior( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
+
   // with inner label
-  // TODO with inner icon
-  drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback ) {
+  drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
 
     var bullet = null;
 
+    var bulletContent = "";
+
+
+    // // // TODO remove "true" that is here for debugging purposes
+    // if (true || icon) {
+    if (icon) {
+
+
+      let translate = "translate(" + x + ", " + y + ")";
+      // TODO scale the icon
+      let scale = "scale(" + 0.25 + ", " + 0.25 + ")";
+      // TODO either remove the icon's border or do not draw the circle in the StepBullet component
+      bulletContent = <g transform={translate}>
+        <g transform={scale}>
+          <Icon type='upcoming' folder='service' size='small' isActive={false} noHTML={true} />
+        </g>
+      </g>;
+    } else {
+      bulletContent = <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>;
+    }
+
     if (outerLabel) {
       
+      // Icon + Exterior label
+
       let outerLabelX = x;
       let outerLabelY = y;
       let outerLabelTextAnchor = 'left';
@@ -68,17 +94,23 @@ export default React.createClass({
           break;
       }
 
+      // TODO if icon, maybe do not draw the circle (see above if we can draw icons without borders)
+
       bullet = <g>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>
+        {bulletContent}
         <text x={outerLabelX} y={outerLabelY} textAnchor={outerLabelTextAnchor} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">{outerLabel}</text>
       </g>
 
     } else {
+
+      // Icon without exterior label
       
+      // TODO if icon, maybe do not draw the circle (see above if we can draw icons without borders)
+
       bullet = <g>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>
+        {bulletContent}
       </g>
 
     }
@@ -96,9 +128,56 @@ export default React.createClass({
 
   },
 
+  // // with inner icon
+  // drawBulletExterior( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
+
+  //   var bullet = null;
+
+  //   var bulletExterior = "";
+  //   if (true) {
+  //     bulletExterior = <Icon type='upcoming' folder='service' size='small' isActive={false} />;
+  //   }
+
+  //   let position = {
+  //     position: "absolute",
+  //     left: x + "px",
+  //     top: y + "px"
+  //   };
+  //   let style = position;
+    
+  //   bullet = <span>
+  //       {bulletExterior}
+  //     </span>
+
+  //   // if (callback) {
+  //   //   // return <div key={x+y} onClick={callback} cursor="pointer"> // TODO onClick
+  //   //   return <div>
+  //   //       {bullet}
+  //   //     </div>
+  //   // } else {
+  //   //   // return <div key={x+y}>
+  //   //   return <div>
+  //   //       {bullet}
+  //   //     </div>
+  //   // }
+
+  //   return <div style={style}>
+  //       {bullet}
+  //     </div>
+
+  // },
+
   createBulletItem( bullet ) {        
     return this.drawBullet.apply( this, bullet );
   },
+
+  // createBulletItemInsideSVG( bullet ) {        
+  //   return this.drawBulletInterior.apply( this, bullet );
+  // },
+
+  // createBulletItemOutsideSVG( bullet ) {        
+  //   return this.drawBulletExterior.apply( this, bullet );
+  // },
 
   drawLine( x1, y1, x2, y2 ) {
     return <line key={x1+x2+y1+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
@@ -140,6 +219,9 @@ export default React.createClass({
 
     // array of callbacks or false
     let callbacks = this.props.callbacks || false;
+    
+    // array of icon names or false
+    let icons = this.props.icons || [];
 
     let radius = small ? bulletSizeRadius_Small : bulletSizeRadius_Big;
     let bulletFontSize = small ? bulletFontSize_Small : bulletFontSize_Big;
@@ -188,6 +270,7 @@ export default React.createClass({
       let outerLabel = ( outerLabels && i < outerLabels.length ) ? outerLabels[i] : false; // text or false
       let outerLabelSlot = horizontal ? 'bottom' : 'right';
       let callback = ( callbacks && i < callbacks.length ) ? callbacks[i] : false; // function or false
+      let icon = ( icons && i < icons.length ) ? icons[i] : false; // text or false
       bulletsArray.push( [
         bulletX,
         bulletY,
@@ -200,7 +283,8 @@ export default React.createClass({
         labelFontSize,
         labelHPadding,
         labelVPadding,
-        callback
+        callback,
+        icon
       ] );
 
       // Line if not first bullet (because we need coordinates of bullet N and N+1)
@@ -232,8 +316,12 @@ export default React.createClass({
           {bulletsArray.map( this.createBulletItem, this )}
           
           </svg>
+
+
       </span>
     );
+          // {bulletsArray.map( this.createBulletItemInsideSVG, this )}
+          // {bulletsArray.map( this.createBulletItemOutsideSVG, this )}
   }
 });
 
