@@ -92,8 +92,9 @@ export default React.createClass({
         return {
           iconType: 'navigation',
           label: '',
-          buttonColor: 'white',
-          backButtonColor: 'white'
+          menuIconColor: 'default',
+          contextualIconColor: 'default',
+          backButtonColor: 'start'
         };
         break;
 
@@ -101,17 +102,19 @@ export default React.createClass({
         return {
           iconType: 'upcoming',
           label: '',
-          buttonColor: 'default',
-          backButtonColor: 'green'
+          menuIconColor: 'menu',
+          contextualIconColor: 'menu',
+          backButtonColor: 'default'
         };
         break;
 
       default:
         return {
-          iconType: 'upcoming',
+          iconType: 'navigation',
           label: '',
-          buttonColor: 'default',
-          backButtonColor: 'green'
+          menuIconColor: 'menu',
+          contextualIconColor: 'menu',
+          backButtonColor: 'default'
         };
         break;
 
@@ -272,11 +275,11 @@ export default React.createClass({
       // TODO display the label
       // let menuIconLabel = menuIconData.label;
 
-      let menuIconColor = menuIconData.buttonColor;
+      let menuIconColor = menuIconData.menuIconColor;
 
-      var MainMenuIcon = ( 
+      var MainMenuIcon = (
           <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
-            <Icon type={menuIconType} folder={menuIconFolder} size='small' isNav={false} isActive={true} data={data}/>
+            <Icon type={menuIconType} folder={menuIconFolder} size='small' color={menuIconColor} isActive={!this.state.mainMenuOpened} data={data}/>
           </div>
       );
 
@@ -290,7 +293,9 @@ export default React.createClass({
       let leftButtonData = this.getLeftTopButtonData();
       let rightButtonData = this.getRightTopButtonData();
 
-      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      var contextualIconColor = menuIconData.contextualIconColor;
+
+      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={contextualIconColor} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;

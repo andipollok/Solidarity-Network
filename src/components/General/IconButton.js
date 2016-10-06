@@ -27,7 +27,7 @@ var colors = {
 
   // White
   // buttons on gradient background in start
-  white: {
+  start: {
     iconStroke: color_light,
     iconBackground: color_transparent,
     labelText: color_light,
@@ -36,7 +36,7 @@ var colors = {
   },
   // Green
   // back button
-  green: {
+  default: {
     iconStroke: color2,
     iconBackground: color_transparent,
     labelText: color2,
@@ -45,27 +45,36 @@ var colors = {
   },
   // Purple
   // buttons on all screens in navigation
-  default: {
+  menu: {
     iconStroke: color1,
-    iconBackground: color_transparent,
+    iconBackground: color_light,
+    labelText: color_light,
+    labelBackground: color1,
+    labelStroke: color1
+  },
+
+  menuInactive: {
+    iconStroke: color1,
+    iconBackground: color_light,
     labelText: color1,
-    labelBackground: color_transparent,
-    labelStroke: color1 
-  },
-  active: {
-    iconStroke: color_light,
-    iconBackground: color1,
-    labelText: color_light,
-    labelBackground: color1,
-    labelStroke: color1 
-  },
-  passive: {
-    iconStroke: color_light,
-    iconBackground: color1,
-    labelText: color_light,
-    labelBackground: color1,
-    labelStroke: color1 
+    labelBackground: color_light,
+    labelStroke: color1
   }
+
+  // active: {
+  //   iconStroke: color_light,
+  //   iconBackground: color1,
+  //   labelText: color_light,
+  //   labelBackground: color1,
+  //   labelStroke: color1 
+  // },
+  // passive: {
+  //   iconStroke: color_light,
+  //   iconBackground: color1,
+  //   labelText: color_light,
+  //   labelBackground: color1,
+  //   labelStroke: color1 
+  // }
 }
 
 
@@ -97,34 +106,6 @@ const gradientBgPassiveFramesColor = "transparent";*/
 const defaultStrokeWidth = 2;
 
 export default React.createClass({
-
-  // shouldComponentUpdate: function(nextProps, nextState) {
-  //   return false;
-  // },
-
-  drawLabel( x, y, active, showLabel, label, radius, bulletFontSize, labelFontSize, labelPadding ) {
-  },
-
-  drawIcon( x, y, active, showLabel, label, radius, bulletFontSize, labelFontSize, labelPadding ) {
-
-    // if (showLabel) {
-      
-    //   return <g>
-    //     <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-    //     <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
-    //     <text x={x + radius + labelPadding} y={y} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">Part</text>
-    //   </g>
-
-    // } else {
-      
-    //   return <g>
-    //     <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-    //     <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
-    //   </g>
-
-    // }
-
-  },
 
   render() {
     
@@ -192,14 +173,19 @@ export default React.createClass({
     // Styling
     //
 
-    var colorData = colors[color];
+    var colorData = colors['default'];
+    if (colors[color]) {
+      colorData = colors[color];
+    }
 
     // let currentIconStrokeColor = isActive ? defaultActiveIconStrokeColor : defaultPassiveIconStrokeColor;
     // let currentIconBackground = isActive ? defaultActiveIconBackground : defaultPassiveIconBackground;
     // let currentLabelTextColor = isActive ? defaultActiveLabelTextColor : defaultPassiveLabelTextColor;
     // let currentLabelBackground = isActive ? defaultActiveLabelBackground : defaultPassiveLabelBackground;
     // let currentLabelStroke = isActive ? defaultActiveFramesColor : defaultPassiveFramesColor;
-
+    if (isActive === false && colors[color + 'Inactive']) {
+      colorData = colors[color + 'Inactive'];
+    }
 
     //
     // Rendering
