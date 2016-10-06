@@ -48,8 +48,11 @@ export default React.createClass({
 
   onClickBack() {
     var data = this.props.data;
+    var data = this.props.data;
+    var popup = this.props.popup;
     if (data.status.page === 'start') {
 
+      // in start screen the back button decrements a session variable resulting in the steps going back
       var step = this.props.session.startStep;
       if (step && Number.isInteger(step)) {
         if (step == 1) {
@@ -59,8 +62,28 @@ export default React.createClass({
           this.props.setSessionVar( "startStep", newStep );
         }
       }
+
+    } else if (popup && popup == 'Filters') {
+
+      // if go back is pressed when filters popup is open, then it goes back or closes it
+      var screen = this.props.session.filterPopupScreen;
+      switch ( screen ) {        
+        case 'main':
+        default:
+          // just close it
+          this.props.togglePopup();
+          break;
+        case 'activities':
+          // go back to main
+          this.props.setSessionVar( "filterPopupScreen", 'main' );
+          break;
+      }
+
     } else {
+
+      // in all other cases, just go back in history
       history.goBack();
+
     }
   },
 

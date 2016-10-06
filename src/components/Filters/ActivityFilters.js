@@ -27,16 +27,15 @@ export default React.createClass({
   },
 
   getInitialState() {
+    return {};
+  },
 
-    return {
-      screen: 'main',
-      // screen: 'activities',
-    };
-
+  componentWillMount() {
+    this.props.setSessionVar( "filterPopupScreen", 'main' );
   },
 
   openActivityTypeFilter() {
-    this.setState({ screen: 'activities' });
+    this.props.setSessionVar( "filterPopupScreen", 'activities' );
   },
 
   renderFilter_Activities_CurrentSelection() {
@@ -173,6 +172,8 @@ export default React.createClass({
 
     var data = this.props.data;
 
+    var screen = this.props.session.filterPopupScreen;
+
     var togglePopup = this.props.togglePopup;
 
     var contentRowClass = '';
@@ -183,7 +184,7 @@ export default React.createClass({
 
     var mainTitle = undefined;
 
-    switch ( this.state.screen ) {
+    switch ( screen ) {
       
       case 'main':
         mainTitle = <Col sm={12} className="text-center">
@@ -213,7 +214,7 @@ export default React.createClass({
 
     var mainContent = undefined;
 
-    switch ( this.state.screen ) {
+    switch ( screen ) {
       
       case 'main':
         var filterActivities = this.renderFilter_Activities_CurrentSelection();
@@ -253,7 +254,7 @@ export default React.createClass({
     // button
     //
 
-    // does not depend on this.state.screen
+    // does not depend on screen
     var buttonApply =  <Col sm={12} className="applyFilterButton">
             <p>
               <Button className="next" size="bsLarge" onClick={togglePopup}>
@@ -268,7 +269,7 @@ export default React.createClass({
 
     var topStepBullets = undefined;
 
-    switch ( this.state.screen ) {
+    switch ( screen ) {
       
       case 'main':
       default:
@@ -289,7 +290,7 @@ export default React.createClass({
 
     var sideStepBullets = undefined;
 
-    switch ( this.state.screen ) {
+    switch ( screen ) {
       
       case 'main':
       default:

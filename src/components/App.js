@@ -191,7 +191,7 @@ export default React.createClass({
     if (this.state.popup) {
       switch (this.state.popup) {
         case 'Filters':
-          popupComponent = <ActivityFilters togglePopup={this.togglePopup} />;
+          popupComponent = <ActivityFilters setSessionVar={this.setSessionVar} session={this.state.session} togglePopup={this.togglePopup} />;
           break;
       }
     }
@@ -203,7 +203,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} togglePopup={this.togglePopup} />
+            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} popup={this.state.popup} togglePopup={this.togglePopup} />
           </div>
 
           {error}
