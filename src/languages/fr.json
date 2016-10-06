@@ -121,6 +121,9 @@
   "activity_description_label": "Description",
   "activity_description_default": "Description de l'activité.",
 
+  "activity_related_next": "activity_related_next",
+  "activity_related_past": "activity_related_past",
+
   "activities_upcoming": "Horizon",
   "activities_on": "Activités du",
   "stories_latest": "Derniers récits",

@@ -121,6 +121,9 @@
   // "activity_street_default": "Activity name",
   "activity_description_label": "Description",
   "activity_description_default": "Activity description",
+  
+  "activity_related_next": "The next event will take place on:",
+  "activity_related_past": "Past events were held on:",
 
   "activities_upcoming": "Upcoming activities",
   "activities_on": "Activities on",
