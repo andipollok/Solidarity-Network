@@ -7,7 +7,6 @@ import React from 'react';
 //
 // <StepBullets small={false} amount={3} numbered={true} active={[false, false, true]} height={100} width={40} horizontal={false} linked={false} labels={["Step 1", "Step 2", "Step 3"]} callbalcks={[this.resetFilter, this.resetFilter, this.resetFilter]} />
 
-import classNames from 'classnames';
 
 // A component used to represent steps or linked elements
 // Properties:
@@ -20,7 +19,7 @@ import classNames from 'classnames';
 // - which are active
 
 const bulletSizeRadius_Small = 3;
-const bulletSizeRadius_Big = 5.2;
+const bulletSizeRadius_Big = 7;
 const bulletFontSize_Small = 3;
 const bulletFontSize_Big = 5;
 const labelHPadding_Small = 2;
@@ -235,11 +234,10 @@ export default React.createClass({
           // <rect x="0" y="0" width="40" height="200" fill={componentBackgroundColor}></rect>
 
     return (
-      <span>
-        <svg preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium" viewBox={svgDimensions}>
-          <title>alo_service</title>
-          
-          
+      <span className="stepBullets">
+
+        <svg preserveAspectRatio="xMidYMid meet" name="stepbullets" viewBox={svgDimensions}>
+                    
           {linesArray.map( this.createLineItem, this )}
 
           {bulletsArray.map( this.createBulletItem, this )}
