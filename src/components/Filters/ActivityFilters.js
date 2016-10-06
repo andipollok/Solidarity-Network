@@ -47,7 +47,7 @@ export default React.createClass({
 
     var activityItem = function(activityName) {
       var activity = StatusStore.data.filters.activityType[activityName];
-      return ( <div className="activityType" onClick={this.openActivityTypeFilter}>
+      return ( <div key={activity.id} className="activityType" onClick={this.openActivityTypeFilter}>
           <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={true}/>
           <br />
           <span className="text">{activityName}</span>
@@ -100,7 +100,7 @@ export default React.createClass({
       } else {
         callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity);
       }
-      return ( <div className="activityType" onClick={callback}>
+      return ( <div key={activity.id} className="activityType" onClick={callback}>
           <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
           <br />
           <span className="text">{activity.name}</span>
@@ -334,24 +334,6 @@ export default React.createClass({
 
       </div>
     );
-        // <TypeSelectorButton data={data}/>
 
-        // <div className="calendar">
-        //   <Row className="calendar-row">
-        //     <Col className="calendar-xs-1 text-center">
-        //       <h3 onClick={this.onClickPrevMonth}>&lt;</h3>
-        //     </Col>
-        //     <Col className="calendar-xs-5 text-center">
-        //       <h2>{Helpers.capitalizeFirstLetter(this.state.month.format('MMMM YYYY'))}</h2>
-        //     </Col>
-        //     <Col className="calendar-xs-1 text-center">
-        //       <h3 onClick={this.onClickNextMonth}>&gt;</h3>
-        //     </Col>
-        //   </Row>
-        //   <Row className="calendar-row hidden-xs">
-        //     {weekdays.map(dayHeader, this)}
-        //   </Row>
-        //     {weeks.map(weekItem, this)}
-        // </div>
   }
 });
