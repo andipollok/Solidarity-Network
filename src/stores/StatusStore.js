@@ -27,7 +27,9 @@ export default Reflux.createStore({
   init: function() {
     
     this.data = {
-      filters: {},
+      filters: {
+        activityType: {}
+      },
       join: undefined,
       area: undefined,
       page: '',
@@ -91,19 +93,19 @@ export default Reflux.createStore({
     DataActions.onFilterChange();
   },
 
-  addToFilterActivityType: function(typeId) {
+  addToFilterActivityType: function(typeName) {
     // late initialization
     if (!this.data.filters.activityType) {
       this.data.filters.activityType = {};
     }
     // assign value
-    this.data.filters.activityType[typeId] = true;
+    this.data.filters.activityType[typeName] = true;
     DataActions.onFilterChange();
   },
 
-  removeFromFilterActivityType: function(typeId) {
-    if (this.data.filters.activityType[typeId]) {
-      delete this.data.filters.activityType[typeId];
+  removeFromFilterActivityType: function(typeName) {
+    if (this.data.filters.activityType[typeName]) {
+      delete this.data.filters.activityType[typeName];
     }
     DataActions.onFilterChange();
   },

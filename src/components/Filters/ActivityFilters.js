@@ -131,20 +131,22 @@ export default React.createClass({
 
     var currentFilter = null;
     if (StatusStore.data.filters.activityType) {
-      Object.keys(StatusStore.data.filters.activityType);
+      currentFilter = Object.keys(StatusStore.data.filters.activityType);
     }
 
-    console.log("CUR FIL");
-    console.log(currentFilter);
+    // console.log("CUR FIL");
+    // console.log(currentFilter);
+    // console.log("StatusStore.data.filters.activityType");
+    // console.log(StatusStore.data.filters.activityType);
 
     var activityItem = function(activity) {
       // key={activity.id} className="activity" onClick={this.onClickArea.bind(this, activity)}>
       var callback = undefined;
-      var active = currentFilter && currentFilter.indexOf(activity.id) >= 0;
+      var active = currentFilter && currentFilter.indexOf(activity.name) >= 0;
       if (active) {
-        callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activity.id);
+        callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activity.name);
       } else {
-        callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity.id);
+        callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity.name);
       }
       return ( <div className="activityType" onClick={callback}>
           <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
