@@ -29,61 +29,59 @@ export default React.createClass({
   getInitialState() {
 
     return {
-      // screen: 'main',
-      screen: 'activities',
+      screen: 'main',
+      // screen: 'activities',
     };
 
   },
 
+  openActivityTypeFilter() {
+    this.setState({ screen: 'activities' });
+  },
+
   renderFilter_Activities_CurrentSelection() {
 
-    // var currentFilter = null;
-    // if (StatusStore.data.filters.activityType) {
-    //   currentFilter = Object.keys(StatusStore.data.filters.activityType);
-    // }
+    var currentFilter = null;
+    if (StatusStore.data.filters.activityType) {
+      currentFilter = Object.keys(StatusStore.data.filters.activityType);
+    }
 
-    // var activityItem = function(activityName) {
-    //   var callback = undefined;
-    //   var active = currentFilter && currentFilter.indexOf(activityName) >= 0;
-    //   if (active) {
-    //     callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activityName);
-    //   } else {
-    //     callback = StatusStore.addToFilterActivityType.bind(StatusStore, activityName);
-    //   }
-    //   return ( <div className="activityType" onClick={callback}>
-    //       <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
-    //       <br />
-    //       <span className="text">{activityName}</span>
-    //     </div> );
-    // }.bind(this);
+    var activityItem = function(activityName) {
+      var activity = StatusStore.data.filters.activityType[activityName];
+      return ( <div className="activityType" onClick={this.openActivityTypeFilter}>
+          <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={true}/>
+          <br />
+          <span className="text">{activityName}</span>
+        </div> );
+    }.bind(this);
 
 
-    // let currentFilterIsOverAll = !currentFilter || currentFilter.length == 0;
+    let currentFilterIsOverAll = !currentFilter || currentFilter.length == 0;
 
-    // if (currentFilterIsOverAll) {
+    if (currentFilterIsOverAll) {
 
-    //   // only render the "overall" item
+      // only render the "overall" item
 
-    //   let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
-    //   let overAllItem = <div className="activityType" onClick={StatusStore.resetFilterActivityType.bind(StatusStore)}>
-    //         <Icon type='overall' folder='service' size='small' isNav={false} isActive={overAllItemActive}/>
-    //         <br />
-    //         <span className="text">{overAllItemName}</span>
-    //       </div>;
+      let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
+      let overAllItem = <div className="activityType" onClick={this.openActivityTypeFilter}>
+            <Icon type='overall' folder='service' size='small' isNav={false} isActive={true}/>
+            <br />
+            <span className="text">{overAllItemName}</span>
+          </div>;
 
-    //   return <div className="activityTypes">
-    //       {overAllItem}
-    //     </div>;
+      return <div className="activityTypes">
+          {overAllItem}
+        </div>;
 
-    // } else {
+    } else {
 
-    //   // render all the icons
+      // render all the icons
 
-    //   return <div className="activityTypes">
-    //       {currentFilter.map(activityItem, this)}
-    //     </div>;
+      return <div className="activityTypes">
+          {currentFilter.map(activityItem, this)}
+        </div>;
 
-    // }
+    }
 
 
   },
@@ -222,15 +220,15 @@ export default React.createClass({
         var filterFees = this.renderFilter_Fees();
         var filterStatus = this.renderFilter_Status();
         mainContent = <Col sm={10} className="text-center">
-          <p>
+          <div>
             {filterActivities}
-          </p>
-          <p>
+          </div>
+          <div>
             {filterFees}
-          </p>
-          <p>
+          </div>
+          <div>
             {filterStatus}
-          </p>
+          </div>
         </Col>;
         break;
 
@@ -238,9 +236,9 @@ export default React.createClass({
         contentRowClass = 'activities';
         var filterActivities = this.renderFilter_Activities_AvailableOptions();
         mainContent = <Col sm={12} className="text-center">
-          <p>
+          <div>
             {filterActivities}
-          </p>
+          </div>
           <span class="clear"></span>
         </Col>;
         break;
