@@ -31,6 +31,8 @@ export default Reflux.createStore({
 
   data: {},
 
+  tmp: {},
+
   listenables: [Actions],
 
   init: function() {
@@ -440,6 +442,7 @@ export default Reflux.createStore({
               dateEnd: record.get('Date End'),
               communityId: record.get('Community') ? record.get('Community')[0] : undefined,
               activityGroup: record.get('Activity Group'),
+              activityGroupName: record.get('Activity Group rendered'),
               ownersId: record.get('Owners'),
               // frequency: record.get('Frequency'),
               // frequencyCustomValue: record.get('Frequency Custom Value'),
@@ -483,10 +486,126 @@ export default Reflux.createStore({
 
       // console.log("found " + Object.keys(data.activities).length + " activities in " + data.areaName);
       // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
-      console.log("found " + Object.keys(that.data.activities).length + " activities");
+      console.log("found " + that.data.activities.length + " activities");
+      // console.log("found " + Object.keys(that.data.activities).length + " activities");
       // console.log("activity names ", data.activities.map(function(a) { return a.name; }).join(', '));
       // console.log("activity dates ", data.activities.map(function(a) { return moment(a.date).format("MMM Do YY"); }).join(', '));
+
       that.forceTrigger();
+
+      if (error) {
+        that.throwError(error);
+      }
+    });
+  },
+
+  getRelatedActivities( activity, onCompleteCallback ) {
+    var that = this;
+
+    var queryIdentifier =  "relatedActivitiesQuery" + (new Date().getTime());
+
+    this.tmp[queryIdentifier] = {
+      results: []
+    };
+
+    // NOPE
+    // // IMPORTANT: to refresh the data we must delete this. Think of it as a cache.
+    // this.data.activities=  [];
+    // this.data.loaded.activities = false;
+
+    // NOPE
+    // // TODO clarify if filters are a session var or a StatusStore var
+    // var currentUserFilters = StatusStore.data.filters || {};
+
+    var airtableFilters = [];
+    airtableFilters.push( `{Area} = "${StatusStore.data.areaName}"` );
+
+    airtableFilters.push( `{Activity Group} = "${activity.activityGroupName}"` );
+
+    // NOPE
+    // for (var key of Object.keys(currentUserFilters)) {
+    //   var value = currentUserFilters[key];
+    //   if (value !== undefined) {
+    //     let filterElement = this.convertFilterToAirtable( 'activities', key, value );
+    //     if (filterElement) {
+    //       airtableFilters.push( filterElement );
+    //     }
+    //   }
+    // }
+
+    var airtableFormula = 'AND( ' + airtableFilters.join(', ') + ' )';
+
+    console.log("airtableFormula", airtableFormula);
+
+    base('Activities').select({
+      maxRecords: maxRecords.activities || maxRecords.default,
+      pageSize: pageSize.activities || pageSize.default,
+      view: "Main View",
+      sort: [{field: "Date Begin", direction: "asc"}],
+      filterByFormula: airtableFormula
+    }).eachPage(function page(records, fetchNextPage) {
+      records.forEach(function(record) {
+          //console.log( record );
+          if (record.get('Name')) {
+
+            // Common values of all occurrences
+            var activity = {
+              id: record.getId(),
+              name: record.get('Name'),
+              date: record.get('Date Begin'),
+              dateEnd: record.get('Date End'),
+              // communityId: record.get('Community') ? record.get('Community')[0] : undefined,
+              // activityGroup: record.get('Activity Group'),
+              // activityGroupName: record.get('Activity Group rendered'),
+              // ownersId: record.get('Owners'),
+              // // frequency: record.get('Frequency'),
+              // // frequencyCustomValue: record.get('Frequency Custom Value'),
+              // // frequencyCustomdimension: record.get('Frequency Custom Dimension'),
+              // typeId: record.get('Type') ? record.get('Type')[0] : undefined,
+              description: record.get('Description'),
+              location: record.get('Location'),
+              // photoIds: record.get('Photos') || [],
+              // min: record.get('Min'),
+              // max: record.get('Max'),
+              // interested: record.get('Interested') || 0,
+              // attended: record.get('Attended') || 0,
+              // // whatsnew: record.get('Whatsnew'),
+              // cancelled: record.get('Cancelled') || 0,
+              // storyIds: record.get('Stories'),
+              // paid: record.get('Paid'),
+              // price: record.get('Price'),
+              // currency: record.get('Price Currency')
+              // // occurrences: record.get('ActivitiesOccurrences')
+            };
+
+            that.tmp[queryIdentifier].results.push( activity );
+
+          }
+      });
+      fetchNextPage();
+
+    }, function done(error) {
+
+      // NOPE
+      // that.data.loaded.activities = true;
+
+      // MAYBE LATER
+      // let dat = Object.keys(that.data.known.activities);
+      // let str = JSON.stringify(dat);
+      // // console.log("DATA STR");
+      // // console.log(str);
+      // StatusStore.saveCookie( 'knownActivities', dat );
+
+      let results = that.tmp[queryIdentifier].results;
+
+      delete that.tmp[queryIdentifier];
+
+      console.log("found " + results.length + " activities");
+
+      onCompleteCallback( results );
+
+      // MAYBE
+      // that.forceTrigger();
 
       if (error) {
         that.throwError(error);

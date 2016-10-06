@@ -7,6 +7,8 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
+import DataStore from '../../stores/DataStore';
+
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
@@ -17,6 +19,11 @@ import Avatar from '../General/Avatar';
 export default React.createClass({
 
   componentWillMount() {
+
+    var data = this.props.data;
+    var activity = Helpers.getActivityById(this.props.params.id, data);
+    DataStore.getRelatedActivities( activity, this.onReceivedRelatedActivitiesResults );
+
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='activity' />);
@@ -24,6 +31,10 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
+  onReceivedRelatedActivitiesResults( results ) {
+    console.log("RELATED");
+    console.log(results);
+  },
 
   onClickSelectPhoto(id) {
     window.location.assign(`#/photo/${id}/zoom`);
