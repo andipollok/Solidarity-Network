@@ -16,7 +16,7 @@ import Helpers from './Helpers';
 var cookieNameArea = "area";
 
 const maxRecords = {
-  activities: 50,
+  activities: 999,
   default: 999
 };
 
@@ -44,6 +44,10 @@ export default Reflux.createStore({
       photos:         [],
       people:         [],
       stories:        [],
+
+      known: {
+        activities:   {} // just IDs
+      },
 
       loaded: {
         whatsnew:     false,
@@ -107,8 +111,8 @@ export default Reflux.createStore({
 
   reloadActivities() {
 
-    this.data.activities=  [];
-    this.data.loaded.activities = false;
+    // this.data.activities=  [];
+    // this.data.loaded.activities = false;
 
     this.getFilteredActivities();
 
@@ -348,16 +352,54 @@ export default Reflux.createStore({
 //     window.location.assign('#/activities');
 //   },
 
-  convertFilterToAirtable( key, value ) {
-    switch (key) {
-      case 'paid':
-        return `{Paid} = ` + value;
-        break;
+  convertFilterToAirtable( domain, key, value ) {
+    if (domain == 'activities') {
+
+      switch (key) {
+        case 'activityPaid':
+          return `{Paid} = ` + value;
+          break;
+        case 'activityStatus':
+          if (value == 'new') {
+            // asking for new activities implies we don't want cancelled activities
+            return `{Cancelled} = 0`;
+          } else if (value == 'cancelled') {
+            return `{Cancelled} = 1`;
+          } else {
+            // nothing
+          }
+          break;
+        case 'activityType':
+          console.log("FILTER BY TYPE");
+          console.log(value);
+          // if (value == 'new') {
+          //   // asking for new activities implies we don't want cancelled activities
+          //   return `{Cancelled} = 0`;
+          // } else if (value == 'cancelled') {
+          //   return `{Cancelled} = 1`;
+          // } else {
+          //   // nothing
+          // }
+          break;
+      }
+
+    } else if (domain == 'stories') {
+
+      // TODO
+
     }
+
+    // empty filter by default
+    return undefined;
+
   },
 
   getFilteredActivities() {
     var that = this;
+
+    // IMPORTANT: to refresh the data we must delete this. Think of it as a cache.
+    this.data.activities=  [];
+    this.data.loaded.activities = false;
 
     // TODO clarify if filters are a session var or a StatusStore var
     var currentUserFilters = StatusStore.data.filters || {};
@@ -368,7 +410,10 @@ export default Reflux.createStore({
     for (var key of Object.keys(currentUserFilters)) {
       var value = currentUserFilters[key];
       if (value !== undefined) {
-        airtableFilters.push( this.convertFilterToAirtable( key, value ) );
+        let filterElement = this.convertFilterToAirtable( 'activities', key, value );
+        if (filterElement) {
+          airtableFilters.push( filterElement );
+        }
       }
     }
 
@@ -420,6 +465,8 @@ export default Reflux.createStore({
 
             that.data.activities.push( activity );
 
+            that.data.known.activities[activity.id] = true;
+
             // TODO use the Whatsnew field
             
           }
@@ -456,6 +503,13 @@ export default Reflux.createStore({
     }, function done(error) {
 
       that.data.loaded.activities = true;
+
+      let dat = Object.keys(that.data.known.activities);
+      let str = JSON.stringify(dat);
+      // console.log("DATA STR");
+      // console.log(str);
+      StatusStore.saveCookie( 'knownActivities', dat );
+
       // console.log("found " + Object.keys(data.activities).length + " activities in " + data.areaName);
       // console.log("found the following " + Object.keys(data.activities).length + " activities", data.activities);
       console.log("found " + Object.keys(that.data.activities).length + " activities");

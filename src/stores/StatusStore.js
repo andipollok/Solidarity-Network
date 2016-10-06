@@ -87,39 +87,62 @@ export default Reflux.createStore({
 
 
   resetFilterActivityType: function() {
-    this.data.filters.activityType = [];
-    // this.trigger(data);
+    this.data.filters.activityType = {};
+    DataActions.onFilterChange();
   },
 
   addToFilterActivityType: function(typeId) {
-
+    // late initialization
+    if (!this.data.filters.activityType) {
+      this.data.filters.activityType = {};
+    }
+    // assign value
+    this.data.filters.activityType[typeId] = true;
+    DataActions.onFilterChange();
   },
 
   removeFromFilterActivityType: function(typeId) {
-
-  },
-
-
-  resetFilterPaid: function() {
-    this.data.filters.paid = undefined;
-    DataActions.onFilterChange();
-  },
-
-  setFilterPaid: function(value) {
-    this.data.filters.paid = value;
+    if (this.data.filters.activityType[typeId]) {
+      delete this.data.filters.activityType[typeId];
+    }
     DataActions.onFilterChange();
   },
 
 
-  resetFilterStatus: function() {
-    this.data.filters.status = undefined;
-    // this.trigger(data);
+  resetFilterActivityPaid: function() {
+    this.data.filters.activityPaid = undefined;
+    DataActions.onFilterChange();
   },
 
-  setFilterStatus: function(value) {
-    this.data.filters.status = value;
-    // this.trigger(data);
+  setFilterActivityPaid: function(value) {
+    this.data.filters.activityPaid = value;
+    DataActions.onFilterChange();
   },
+
+
+  resetFilterActivityStatus: function() {
+    this.data.filters.activityStatus = undefined;
+    DataActions.onFilterChange();
+  },
+
+  setFilterActivityStatus: function(value) {
+    this.data.filters.activityStatus = value;
+    DataActions.onFilterChange();
+  },
+
+
+  // unsetClientSideFilterStatusIsNew: function() {
+  //   this.data.clientSideFilters.statusNew = undefined;
+  //   // this.trigger(data);
+  //   // // DataActions.onFilterChange();
+  // },
+
+  // setClientSideFilterStatusIsNew: function() {
+  //   this.data.clientSideFilters.statusNew = true;
+  //   // this.trigger(data);
+  //   // // DataActions.onFilterChange();
+  // },
+
 
   setPage: function(pagename) {
     this.data.page = pagename;

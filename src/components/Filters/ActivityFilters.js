@@ -8,6 +8,8 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
+import DataStore from '../../stores/DataStore';
+
 import StepBullets from '../General/StepBullets';
 import Icon from '../General/Icon';
 
@@ -51,8 +53,8 @@ export default React.createClass({
   getInitialState() {
 
     return {
-      screen: 'main',
-      // screen: 'activities',
+      // screen: 'main',
+      screen: 'activities',
     };
 
     // var date = moment();
@@ -86,15 +88,107 @@ export default React.createClass({
 
   renderFilter_Activities_CurrentSelection() {
 
-    var data = this.props.data;
+    // var data = this.props.data;
 
-    let option1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
-    let option2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
-    let option3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
+    // let currentTypes = StatusStore.data.filters.activityTypes;
 
-    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} />;
+    // let labels = [];
+    // let actives = [];
+    // let callbacks = [];
+
+    // if (!currentTypes) {
+    //   // default icon representing "All"
+
+    // } else {
+    //   // display the icons representing the currently selected activitiy types
+      
+    //   // get the activity type translation...
+    //   // TODO // this.context.intl.formatMessage({ id: 'filterPaidAny' });
+
+    // }
+
+    // // let w = 100;
+    // // let h = 100;
+    // // var bullets = <StepBullets small={false} amount={labels.length} horizontal={true} linked={false} active={actives} height={h} width={w} labels={labels} />;
     
-    return bullets;
+    // var bullets = <StepBullets small={false} amount={labels.length} horizontal={true} linked={false} active={actives} labels={labels} callbacks={callbacks} />;
+    
+    // return bullets;
+
+    return "";
+
+  },
+
+  renderFilter_Activities_AvailableOptions() {
+
+/*
+      var active = this.props.session.startStep > 2 && this.state.currentlySelectedArea && this.state.currentlySelectedArea.id && this.state.currentlySelectedArea.id == area.id;
+      return ( <div key={area.id} className="area" onClick={this.onClickArea.bind(this, area)}>
+          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={active} data={data}/>
+          <br />
+          <span className="text">{area.fields.Name}</span>
+*/
+
+    var currentFilter = null;
+    if (StatusStore.data.filters.activityType) {
+      Object.keys(StatusStore.data.filters.activityType);
+    }
+
+    console.log("CUR FIL");
+    console.log(currentFilter);
+
+    var activityItem = function(activity) {
+      // key={activity.id} className="activity" onClick={this.onClickArea.bind(this, activity)}>
+      var callback = undefined;
+      var active = currentFilter && currentFilter.indexOf(activity.id) >= 0;
+      if (active) {
+        callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activity.id);
+      } else {
+        callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity.id);
+      }
+      return ( <div className="activityType" onClick={callback}>
+          <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
+          <br />
+          <span className="text">{activity.name}</span>
+        </div> );
+    }.bind(this);
+
+    let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
+    let overAllItemActive = !currentFilter || currentFilter.length == 0;
+    let overAllItem = <div className="activityType" onClick={StatusStore.resetFilterActivityType.bind(StatusStore)}>
+          <Icon type='overall' folder='service' size='small' isNav={false} isActive={overAllItemActive}/>
+          <br />
+          <span className="text">{overAllItemName}</span>
+        </div>
+
+    return <div className="activityTypes">
+        {overAllItem}
+        {DataStore.data.activitytypes.map(activityItem, this)}
+      </div>;
+
+    // var bullets = "";
+
+    // let labels = [];
+    // let actives = [];
+    // let callbacks = [];    
+
+    // // PAR PAQUETS DE 4
+    // console.log(DataStore.data.activitytypes);
+    // // icon
+    // // id
+    // // name
+
+    // // bullets += <StepBullets small={false} amount={labels.length} horizontal={true} linked={false} active={actives} height={40} width={160} labels={labels} callbacks={callbacks} />; 
+
+    // // var data = this.props.data;
+
+    // // let label1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
+    // // let label2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
+    // // let label3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
+
+    // // var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ label1, label2, label3 ]} />;
+    
+    // return bullets;
 
   },
 
@@ -102,11 +196,21 @@ export default React.createClass({
 
     var data = this.props.data;
 
-    let option1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
-    let option2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
-    let option3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
+    let label1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
+    let label2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
+    let label3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
 
-    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} callbacks={[ StatusStore.resetFilterPaid.bind(StatusStore), StatusStore.setFilterPaid.bind(StatusStore, 0), StatusStore.setFilterPaid.bind(StatusStore, 1) ]} />;
+    let active1 = StatusStore.data.filters.activityPaid === undefined;
+    let active2 = StatusStore.data.filters.activityPaid === 0;
+    let active3 = StatusStore.data.filters.activityPaid === 1;
+
+    let callback1 = StatusStore.resetFilterActivityPaid.bind(StatusStore);
+    let callback2 = StatusStore.setFilterActivityPaid.bind(StatusStore, 0);
+    let callback3 = StatusStore.setFilterActivityPaid.bind(StatusStore, 1);
+
+    // StatusStore.data.filters
+
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ active1, active2, active3 ]} height={40} width={160} labels={[ label1, label2, label3 ]} callbacks={[ callback1, callback2, callback3 ]} />;
     
     return bullets;
 
@@ -120,7 +224,15 @@ export default React.createClass({
     let option2 = this.context.intl.formatMessage({ id: 'filterStatusNew' });
     let option3 = this.context.intl.formatMessage({ id: 'filterStatusCancelled' });
 
-    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ option1, option2, option3 ]} />;
+    let active1 = StatusStore.data.filters.activityStatus === undefined;
+    let active2 = StatusStore.data.filters.activityStatus === 'new';
+    let active3 = StatusStore.data.filters.activityStatus === 'cancelled';
+
+    let callback1 = StatusStore.resetFilterActivityStatus.bind(StatusStore);
+    let callback2 = StatusStore.setFilterActivityStatus.bind(StatusStore, 'new');
+    let callback3 = StatusStore.setFilterActivityStatus.bind(StatusStore, 'cancelled');
+
+    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ active1, active2, active3 ]} height={40} width={160} labels={[ option1, option2, option3 ]} callbacks={[ callback1, callback2, callback3 ]} />;
     
     return bullets;
 
@@ -129,6 +241,8 @@ export default React.createClass({
   render() {
 
     var data = this.props.data;
+
+    var contentRowClass = '';
 
     // var days = [], weeks = [];
     // var i=0;
@@ -261,7 +375,7 @@ export default React.createClass({
     switch ( this.state.screen ) {
       
       case 'main':
-        var filterActivities = this.renderFilter_Fees();
+        var filterActivities = this.renderFilter_Activities_CurrentSelection();
         var filterFees = this.renderFilter_Fees();
         var filterStatus = this.renderFilter_Status();
         mainContent = <Col sm={10} className="text-center">
@@ -278,10 +392,13 @@ export default React.createClass({
         break;
 
       case 'activities':
-        mainTitle = <Col sm={12} className="text-center">
+        contentRowClass = 'activities';
+        var filterActivities = this.renderFilter_Activities_AvailableOptions();
+        mainContent = <Col sm={12} className="text-center">
           <p>
-            <FormattedMessage id='filtersTitleActivities'/>
+            {filterActivities}
           </p>
+          <span class="clear"></span>
         </Col>;
         break;
 
@@ -366,7 +483,7 @@ export default React.createClass({
         break;
 
       case 'activities':
-        topStepBullets = <StepBullets small={false} amount={1} active={[ false ]} height={40} />;
+        topStepBullets = null; // <StepBullets small={false} amount={1} active={[ false ]} height={40} />;
         break;
 
     }
@@ -378,7 +495,7 @@ export default React.createClass({
       
       case 'main':
       default:
-        sideStepBullets = <StepBullets small={false} amount={3} linked={false} active={[ false, false, false ]} height={240} />;
+        sideStepBullets = <StepBullets small={false} amount={3} linked={false} active={[ false, false, false ]} height={240} labels={[ 'Part', 'Part', 'Part' ]} />;
         break;
 
       case 'activities':
@@ -397,7 +514,7 @@ export default React.createClass({
               {topStepBullets}
               {mainTitle}
             </Row>
-            <Row>
+            <Row className={contentRowClass}>
               <Col sm={2} className="text-center">
                 {sideStepBullets}
               </Col>

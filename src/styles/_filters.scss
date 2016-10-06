@@ -11,6 +11,29 @@
     height: calc(100% - 50px);
     border-radius: 20px;
     color: white;
+    overflow: hidden;
+  }
+
+  div.row.activities {
+      overflow: scroll;
+      height: 85%;
+  }
+
+  .activities {
+
+    .activityType {
+      
+      float: left;
+      width: 25%;
+      /* margin-bottom: 15px; */
+      min-height: 110px;
+      font-size: 17px;
+
+      .icon {
+        margin-bottom: 5px;
+      }
+
+    }
   }
   
 }
