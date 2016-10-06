@@ -37,65 +37,71 @@ export default React.createClass({
 
   renderFilter_Activities_CurrentSelection() {
 
-    // var data = this.props.data;
+    // var currentFilter = null;
+    // if (StatusStore.data.filters.activityType) {
+    //   currentFilter = Object.keys(StatusStore.data.filters.activityType);
+    // }
 
-    // let currentTypes = StatusStore.data.filters.activityTypes;
+    // var activityItem = function(activityName) {
+    //   var callback = undefined;
+    //   var active = currentFilter && currentFilter.indexOf(activityName) >= 0;
+    //   if (active) {
+    //     callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activityName);
+    //   } else {
+    //     callback = StatusStore.addToFilterActivityType.bind(StatusStore, activityName);
+    //   }
+    //   return ( <div className="activityType" onClick={callback}>
+    //       <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
+    //       <br />
+    //       <span className="text">{activityName}</span>
+    //     </div> );
+    // }.bind(this);
 
-    // let labels = [];
-    // let actives = [];
-    // let callbacks = [];
 
-    // if (!currentTypes) {
-    //   // default icon representing "All"
+    // let currentFilterIsOverAll = !currentFilter || currentFilter.length == 0;
+
+    // if (currentFilterIsOverAll) {
+
+    //   // only render the "overall" item
+
+    //   let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
+    //   let overAllItem = <div className="activityType" onClick={StatusStore.resetFilterActivityType.bind(StatusStore)}>
+    //         <Icon type='overall' folder='service' size='small' isNav={false} isActive={overAllItemActive}/>
+    //         <br />
+    //         <span className="text">{overAllItemName}</span>
+    //       </div>;
+
+    //   return <div className="activityTypes">
+    //       {overAllItem}
+    //     </div>;
 
     // } else {
-    //   // display the icons representing the currently selected activitiy types
-      
-    //   // get the activity type translation...
-    //   // TODO // this.context.intl.formatMessage({ id: 'filterPaidAny' });
+
+    //   // render all the icons
+
+    //   return <div className="activityTypes">
+    //       {currentFilter.map(activityItem, this)}
+    //     </div>;
 
     // }
 
-    // // let w = 100;
-    // // let h = 100;
-    // // var bullets = <StepBullets small={false} amount={labels.length} horizontal={true} linked={false} active={actives} height={h} width={w} labels={labels} />;
-    
-    // var bullets = <StepBullets small={false} amount={labels.length} horizontal={true} linked={false} active={actives} labels={labels} callbacks={callbacks} />;
-    
-    // return bullets;
-
-    return "";
 
   },
 
   renderFilter_Activities_AvailableOptions() {
-
-/*
-      var active = this.props.session.startStep > 2 && this.state.currentlySelectedArea && this.state.currentlySelectedArea.id && this.state.currentlySelectedArea.id == area.id;
-      return ( <div key={area.id} className="area" onClick={this.onClickArea.bind(this, area)}>
-          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={active} data={data}/>
-          <br />
-          <span className="text">{area.fields.Name}</span>
-*/
 
     var currentFilter = null;
     if (StatusStore.data.filters.activityType) {
       currentFilter = Object.keys(StatusStore.data.filters.activityType);
     }
 
-    // console.log("CUR FIL");
-    // console.log(currentFilter);
-    // console.log("StatusStore.data.filters.activityType");
-    // console.log(StatusStore.data.filters.activityType);
-
     var activityItem = function(activity) {
-      // key={activity.id} className="activity" onClick={this.onClickArea.bind(this, activity)}>
       var callback = undefined;
       var active = currentFilter && currentFilter.indexOf(activity.name) >= 0;
       if (active) {
-        callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activity.name);
+        callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activity);
       } else {
-        callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity.name);
+        callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity);
       }
       return ( <div className="activityType" onClick={callback}>
           <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
@@ -110,36 +116,12 @@ export default React.createClass({
           <Icon type='overall' folder='service' size='small' isNav={false} isActive={overAllItemActive}/>
           <br />
           <span className="text">{overAllItemName}</span>
-        </div>
+        </div>;
 
     return <div className="activityTypes">
         {overAllItem}
         {DataStore.data.activitytypes.map(activityItem, this)}
       </div>;
-
-    // var bullets = "";
-
-    // let labels = [];
-    // let actives = [];
-    // let callbacks = [];    
-
-    // // PAR PAQUETS DE 4
-    // console.log(DataStore.data.activitytypes);
-    // // icon
-    // // id
-    // // name
-
-    // // bullets += <StepBullets small={false} amount={labels.length} horizontal={true} linked={false} active={actives} height={40} width={160} labels={labels} callbacks={callbacks} />; 
-
-    // // var data = this.props.data;
-
-    // // let label1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
-    // // let label2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
-    // // let label3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
-
-    // // var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ true, false, false ]} height={40} width={160} labels={[ label1, label2, label3 ]} />;
-    
-    // return bullets;
 
   },
 

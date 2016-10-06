@@ -373,8 +373,8 @@ export default Reflux.createStore({
           break;
         case 'activityType':
           let filterElements = [];
-          for (var activityTypeID of Object.keys(value)) {
-            filterElements.push( `{Type} = '` + activityTypeID + `'` );
+          for (var activityTypeName of Object.keys(value)) {
+            filterElements.push( `{Type} = '` + activityTypeName + `'` );
           }
           if (filterElements.length > 0) {
             return 'OR( ' + filterElements.join(', ') + ' )';
