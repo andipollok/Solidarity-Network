@@ -34,13 +34,13 @@ export default React.createClass({
             <p>
               <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
             </p>
-            <p>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="actionButton text-center">
               <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
-
                 <FormattedMessage id='getstarted'/>
-
               </Button>
-            </p>
           </Col>
         </Row>
       </div>
