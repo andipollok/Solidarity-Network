@@ -61,6 +61,8 @@ export default React.createClass({
   render() {
     
     var data = this.props.data;
+
+    var noHTML = this.props.noHTML || false;
     
     // select background color and iconColor based on area (whatsnew, agenda or photos)
     var colorPalette = colors['default'];
@@ -95,11 +97,20 @@ export default React.createClass({
       };
     }
 
-    return (
-      <span className={divClass} style={divStyle}>
-        <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>      
-      </span>
-    );
+    if (noHTML) {
+
+      return ( <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/> );
+
+    } else {
+      
+      return (
+        <span className={divClass} style={divStyle}>
+          <SvgIcon name={`${folder}/${size}/${name}`} color={iconColor}/>
+        </span>
+      );
+
+    }
+
   }
 });
 
