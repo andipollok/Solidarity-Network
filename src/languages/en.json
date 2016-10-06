@@ -73,6 +73,9 @@
   "organisedby": "Organised by {name}",
 
   "filterOptionOverall": "Overall",
+  "filtersTitleMain": "In here, you can refine your search!",
+  "filtersTitleActivities": "Choose one or more Activities that fits your interests!",
+  "filtersButtonApply": "Apply Selected Filters",
 
   "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",
   "noactivities": "Sorry, there are no activities planned in {areaName}.",

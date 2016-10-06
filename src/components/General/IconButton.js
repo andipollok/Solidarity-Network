@@ -9,6 +9,14 @@ import classNames from 'classnames';
 // - isActive = true / false
 // - label = [string]
 
+// 
+// Buttons can have four states:
+//  - enabled and not selected ( = clickable ),
+//  - enabled and selected ( = clickable & highlighted ),
+//  - disabled but visible ( = grayed, not clickable ),
+//  - invisible ( = not displayed at all )
+//
+
 const iconFrameCircleRadius = 20;
 
 const labelWidth = 150;

@@ -92,7 +92,7 @@ export default React.createClass({
     };
   },
 
-  toggleFiltersPopup() {
+  togglePopup() {
     if (this.state.popup) {
       document.getElementById('popup').style.display = 'none';
       this.setState({ popup: null});
@@ -191,7 +191,7 @@ export default React.createClass({
     if (this.state.popup) {
       switch (this.state.popup) {
         case 'Filters':
-          popupComponent = <ActivityFilters />;
+          popupComponent = <ActivityFilters setSessionVar={this.setSessionVar} session={this.state.session} togglePopup={this.togglePopup} />;
           break;
       }
     }
@@ -203,7 +203,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} toggleFiltersPopup={this.toggleFiltersPopup} />
+            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} popup={this.state.popup} togglePopup={this.togglePopup} />
           </div>
 
           {error}
@@ -216,7 +216,7 @@ export default React.createClass({
 
           <div className="main-container scrollable">
 
-            <div id="popup">
+            <div id="popup" >
                 {popupComponent}
             </div>
 

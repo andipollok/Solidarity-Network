@@ -93,19 +93,19 @@ export default Reflux.createStore({
     DataActions.onFilterChange();
   },
 
-  addToFilterActivityType: function(typeName) {
+  addToFilterActivityType: function(activityType) {
     // late initialization
     if (!this.data.filters.activityType) {
       this.data.filters.activityType = {};
     }
     // assign value
-    this.data.filters.activityType[typeName] = true;
+    this.data.filters.activityType[activityType.name] = activityType;
     DataActions.onFilterChange();
   },
 
-  removeFromFilterActivityType: function(typeName) {
-    if (this.data.filters.activityType[typeName]) {
-      delete this.data.filters.activityType[typeName];
+  removeFromFilterActivityType: function(activityType) {
+    if (this.data.filters.activityType[activityType.name]) {
+      delete this.data.filters.activityType[activityType.name];
     }
     DataActions.onFilterChange();
   },

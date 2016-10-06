@@ -373,8 +373,8 @@ export default Reflux.createStore({
           break;
         case 'activityType':
           let filterElements = [];
-          for (var activityTypeID of Object.keys(value)) {
-            filterElements.push( `{Type} = '` + activityTypeID + `'` );
+          for (var activityTypeName of Object.keys(value)) {
+            filterElements.push( `{Type} = '` + activityTypeName + `'` );
           }
           if (filterElements.length > 0) {
             return 'OR( ' + filterElements.join(', ') + ' )';
@@ -495,6 +495,11 @@ export default Reflux.createStore({
   },
 
   loadActivityTypes() {
+
+    // IMPORTANT: to refresh the data we must delete this. Think of it as a cache.
+    this.data.activitytypes = [];
+    this.data.loaded.activitytypes = false; // to experiment: try to leave this to true during refreshes
+
     var that = this;
     base('Activity Types').select({
       view: "Main View",
