@@ -3,119 +3,58 @@
   .top-bar {
 
     height:70px;
-    font-weight:400;
-
-
-    button {
-      &.btn {
-
-        background-color: transparent;
-        color: $color_grey1;
-        margin-top: 3px;
-        margin-left: 3px;
-
-        line-height: 1;
-        height: 51px;
-        box-sizing: border-box;
-        border: 1px solid transparent;
-
-        &.backButton {
-          height: 40px;
-        }
-
-        &.settingsButton,
-        &.loginButton {
-          width:10px;
-          position:relative;
-          top: -10px;
-          left: 10px;
-        }
-
-        &:hover  {
-          // background-color: $color2;
-          // color: $color2_font;
-        }
-        &:focus  {
-        
-        }
-        &:active {
-
-        }
-
-        &.active, &.active:focus {
-          background-color: $color_background;
-          border: 1px solid color($color_background l(-10));
-          border-bottom: 1px solid transparent;
-          color: $color_dark;
-        }
-        &.active:hover {
-
-        }
-      }
-    }
-
-    &.secondary {
-      height:53px;
-      
-      &.news {
-        //background-color: $color1_light;        
-      }
-      &.activities {
-        //background-color: $color2_light;
-      }
-      &.stories {
-        //background-color: $color3_light;        
-      }
-
-    }
+    padding: 10px;
 
     .top-flex {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       flex-flow: space-between;
+
       &>div {
         flex: 1;
+        flex-basis: auto; // to make min-width work
+
+        &.top-flex-left {
+          min-width:150px;
+        }
         &.top-flex-middle {
+          min-width:400px;
           flex: 4;
+        }
+        &.top-flex-right {
+          min-width:150px;
+        }
+      }
+    }
+    .topNavWidget {
+
+      width:0;
+      margin: auto;
+      position:relative;
+
+      #mainMenuIcon {
+        position:absolute;
+        left:-30px;
+        &.active {
+          
         }
       }
 
-    }
-    &.activities {
-      h4 {
-       // color: $color2;
+      #leftContextualTopIcon {
+        position:absolute;
+        left:-150px;
+        top:3px;
       }
-    }
-    &.stories {
-      h4 {
-        //color: $color3;
+      #rightContextualTopIcon {
+        position:absolute;
+        right:-140px;
+        top:3px;
       }
+
     }
-    h4 {
-      font-weight:300;
-      color: $color_dark;
-      margin:0px;
-      line-height:63px;
-    }
-    .top-flex-left {
-      button {
-        margin-top: 10px;
-        margin-left: 10px;
-      }
-    }
-    .top-flex-right {
-      button {
-        margin-top: 10px;
-        margin-right: 10px;
-      }
-    }
+
 
   }
-}
-
-.top2-container {
-  position: fixed;
-  z-index:999;
 }
 

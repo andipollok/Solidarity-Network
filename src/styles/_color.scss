@@ -6,24 +6,24 @@ $color_grey2: color(white l(70));
 $color_grey1: color(white l(50));
 $color_dark: color(white l(20));
 
-$color1: #1d3faf;
-$color2: #1d3faf;
-$color3: #1d3faf;
+$color1: #823FC2;
+$color2: #5CDAC3;
+$color3: #D3D3D3;
 
 $color1_font: #FFF;
 $color2_font: #FFF;
 $color3_font: #FFF;
 
-$color1_light: color($color1 l(+10));
-$color2_light: color($color2 l(+10));
-$color3_light: color($color3 l(+10));
+$color1_light: #FAF7FD; /* not needed */
+$color2_light: #F7FDFC;
+$color3_light: color($color3 l(+10)); /* not needed */
 
 $color1_dark: color($color1 l(-10));
 $color2_dark: color($color2 l(-10));
 $color3_dark: color($color3 l(-10));
 
-$color_activity: #5CDAC3;
-$color_activity_font: $color_light;
+$color_activity: $color2;
+$color_activity_font: $color2_font;
 $color_activity_dark: color($color_activity l(-10));
 
-$color_background: color($color_activity l(+35));
+$color_background: #FFF;

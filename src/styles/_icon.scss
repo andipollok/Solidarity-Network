@@ -1,4 +1,4 @@
-$iconSize: 100px;
+$iconSize: 80px;
 $iconSizeMedium: 50px;
 $iconSizeSmall: 50px;
 
@@ -12,27 +12,34 @@ $iconSizeSmall: 50px;
     width: $iconSize;
     height: $iconSize;
 
+    position: relative;
+
+    border-radius:50%; /* so that backgroundcolor is a circle */
+
     svg {
 
       display: inline-block;
       vertical-align: middle;
-      
+     
+      position:relative;
+      top:0;
+      left:0;
+
       width: $iconSize;
       height: $iconSize;
+
     }
 
     &.medium {
       width: $iconSizeMedium;
       height: $iconSizeMedium;
       
-      position: relative;
       top: calc(-$iconSizeMedium / 2);
       margin-bottom: calc(-$iconSizeMedium);
 
       svg {
         width: $iconSizeMedium;
         height: $iconSizeMedium;
-        position:relative;
         top: calc(-$iconSizeMedium / 2 );
         left: calc(-$iconSizeMedium / 2);
       }
@@ -41,21 +48,12 @@ $iconSizeSmall: 50px;
     &.small {
       width: $iconSizeSmall;
       height: $iconSizeSmall;
-
-      position: relative;
-      top: calc(-$iconSizeSmall / 2);
-      margin-bottom: calc(-$iconSizeSmall);
       
       svg {
         width: $iconSizeSmall;
         height: $iconSizeSmall;
-        position:relative;
-        top: calc(-$iconSizeSmall / 2 - 4 );
-        left: calc(-$iconSizeSmall / 2);
       }
     }
-
-
     
   }
 

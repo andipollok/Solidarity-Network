@@ -6,8 +6,6 @@ import { Col, Row } from 'react-bootstrap';
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
-import SessionActions from '../../stores/SessionActions';
-import SessionStore from '../../stores/SessionStore';
 import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
@@ -89,37 +87,6 @@ export default React.createClass({
         function(activity) {
 
           // ----------------------------
-          // User filtering (implicit)
-          // ----------------------------
-
-          if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
-          	
-          	// Filter by type if user value is defined
-          	// TODO: support multiple types
-          	if (SessionStore.currentFilters.activity.typeId) {
-          		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
-          			return false;
-          		}
-          	}
-
-          	// Filter by price if user value is defined
-          	if (SessionStore.currentFilters.activity.paid) {
-          		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
-          			return false;
-          		}
-          	}
-
-          	// Filter by status if user value is defined
-          	// TODO: define what "New" means (cf. design) and add it to this filter
-          	if (SessionStore.currentFilters.activity.cancelled) {
-          		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
-          			return false;
-          		}
-          	}
-
-          }
-
-          // ----------------------------
           // Component filtering
           // ----------------------------
 
@@ -132,7 +99,9 @@ export default React.createClass({
           if(moment(activity.date).isSame(date, 'day')) {
             return true;
           }
-        }.bind(this));
+        }.bind(this)
+      );
+
       days.push({
         number: i,
         id: date.format(),

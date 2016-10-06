@@ -1,7 +1,11 @@
 var Reflux = require('reflux');
 
 module.exports = Reflux.createActions([
+  
   "init",
-  "createActivity",
+  "onFilterChange",
+  "onAreaIsSet",
+  // "createActivity",
   "forceTrigger"
+  
 ]);

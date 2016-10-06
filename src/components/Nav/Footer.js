@@ -52,7 +52,7 @@ export default React.createClass({
 
     let helpButtonData = this.getHelpButtonData();
 
-	let helpIcon = <IconButton type={helpButtonData.icon} folder={helpIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='left' label="Need help" />;
+	let helpIcon = <IconButton type={helpButtonData.icon} folder={helpIconFolder} color='default' size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label="Need help" />;
       
     if (helpButtonData.icon === null) {
       helpIcon = undefined;

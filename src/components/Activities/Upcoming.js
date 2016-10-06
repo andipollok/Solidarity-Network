@@ -9,9 +9,9 @@ import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
-import SessionActions from '../../stores/SessionActions';
-import SessionStore from '../../stores/SessionStore';
 import Helpers from '../../stores/Helpers.js';
+
+import DataStore from '../../stores/DataStore';
 
 import UpcomingItem from './UpcomingItem';
 import TypeSelectorButton from '../General/TypeSelectorButton';
@@ -24,7 +24,7 @@ export default React.createClass({
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
     StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
-    StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
+    //StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
     StatusActions.forceTrigger();
   },
 
@@ -39,7 +39,7 @@ export default React.createClass({
     var data = this.props.data;
 
     var activities = [];
-    var area = Helpers.getAreaById(data.status.area, data);
+    var area = Helpers.getAreaById(data.status.areaId, data);
 
     var nowDate = new Date();
     
@@ -90,6 +90,23 @@ export default React.createClass({
       { id : "after"      , label : "Plus tard"             , before : date_endOfTime },
     ];
 
+    // Prepare the list of new activities in case we need them
+    var diff_newActivities;
+    if (  StatusStore.data.filters &&
+          StatusStore.data.filters.activityStatus &&
+          StatusStore.data.filters.activityStatus == 'new'
+    ) {
+      let knownPreviously = data.nonNewActivities; // keys already extracted
+      // console.log("knownPreviously");
+      // console.log(knownPreviously);
+      let allCurrent = Object.keys( DataStore.data.known.activities );
+      // console.log("allCurrent");
+      // console.log(allCurrent);
+      diff_newActivities = allCurrent.filter( x => knownPreviously.indexOf(x) < 0 );
+      // console.log("diff_newActivities");
+      // console.log(diff_newActivities);
+    }
+
     // Reinit grouping status
     data.activities.forEach( function ( a ) { a.inAGroup = false; });
 
@@ -98,40 +115,19 @@ export default React.createClass({
 
       var group = o;
 
-
       group.activities = data.activities.filter(
 
         function(activity) {
-          console.log(moment(activity.date));
 
-          // ----------------------------
-          // User filtering (implicit)
-          // ----------------------------
+          // --------------------------------------------------
+          // User filtering (for stuff not in Airtable)
+          // --------------------------------------------------
 
-          if (SessionStore.currentFilters && SessionStore.currentFilters.activity) {
-          	
-          	// Filter by type if user value is defined
-          	// TODO: support multiple types
-          	if (SessionStore.currentFilters.activity.typeId) {
-          		if (activity.typeId !== SessionStore.currentFilters.activity.typeId) {
-          			return false;
-          		}
-          	}
-
-          	// Filter by price if user value is defined
-          	if (SessionStore.currentFilters.activity.paid) {
-          		if (activity.paid !== SessionStore.currentFilters.activity.paid) {
-          			return false;
-          		}
-          	}
-
-          	// Filter by status if user value is defined
-          	// TODO: define what "New" means (cf. design) and add it to this filter
-          	if (SessionStore.currentFilters.activity.cancelled) {
-          		if (activity.cancelled !== SessionStore.currentFilters.activity.cancelled) {
-          			return false;
-          		}
-          	}
+          if (StatusStore.data.filters) {
+            // Filter by status 'new' if client-side filter is defined
+            if (StatusStore.data.filters.activityStatus && StatusStore.data.filters.activityStatus == 'new') {
+              return diff_newActivities.indexOf(activity.id) >= 0;
+            }
 
           }
 
@@ -158,6 +154,7 @@ export default React.createClass({
           if (activity.inAGroup) {
             return false;
           }
+
           activity.inAGroup = true;
 
           return true;
@@ -168,6 +165,8 @@ export default React.createClass({
 
       // debugging groups
       // console.log(group);
+
+      groupsResults.push( group );
 
     });
 
@@ -182,8 +181,8 @@ export default React.createClass({
                 onClickHandler={this.onClickActivity} /> );
     }.bind(this);
 
-    var groupItem = function(group) {
-      if (groupsQueries.activities.length === 0) {
+    var groupItem = function( group ) {
+      if (group.activities.length === 0) {
         // in case of no events we simply don't render the block
 
         // if you want you can render the block title and say there is no event inside
@@ -197,13 +196,14 @@ export default React.createClass({
         */
 
       } else {
-        return ( <Row key={group.id}>
+
+        return (<Row key={group.id}>
                   <div>
                     {group.label}
                   </div>
-                  {group.activities.map(activityItem, this)}
-                 </Row>
-        );
+                    {group.activities.map(activityItem, this)}
+                </Row>);
+
       }
     }.bind(this);
   
@@ -212,11 +212,15 @@ export default React.createClass({
       var NotFound = <Col className="container text-center box white half"><h2><FormattedMessage id='noactivities' values={{areaName: area.name}}/></h2></Col>;
     }
 
+    // DEBUG
+    // console.log("layout:" + session.preferredLayout);
+    
+        // <TypeSelectorButton data={data}/>
+
     return (
 
       <div className="container activities">
 
-        <TypeSelectorButton data={data}/>
 
         {groupsResults.map(groupItem, this)}
 

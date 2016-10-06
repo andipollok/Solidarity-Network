@@ -1,7 +1,7 @@
 @import '_color.scss';
 @import '_fonts.scss';
+@import '_filters.scss';
 @import '_button.scss';
-@import '_nav.scss';
 @import '_start.scss';
 @import '_splash.scss';
 @import '_photo.scss';
@@ -17,6 +17,11 @@
 @import '_typeselector.scss';
 @import '_footer.scss';
 @import '_transitions.scss';
+@import '_mainmenu.scss';
+@import '_help.scss';
+@import '_listitem.scss';
+@import '_popup.scss';
+@import '_pleasewait.scss';
 
 /* Main SCSS Definitions
 */
@@ -46,7 +51,6 @@ body {
   font-weight:400;
   overflow:hidden;
   background-color: $color_background;
-
 }
 
 .scrollable {
@@ -57,148 +61,18 @@ body {
   -webkit-overflow-scrolling:touch;
 }
 
+.actionButton {
+  position:absolute;
+  bottom:60px;
+  width:100%;
+}
+
 a:hover {
   text-decoration: none !important;
 }
 
-
-
-#pleasewait {
-  display: none;
-  z-index: 99;
-  background: #eefbf9;
-  width: 100%;
-  height: calc(100% - 225px);
-}
-
-
-
-.topNavWidget {
-  margin: 0 auto;
-  width: 500px;
-}
-
-.top-bar {
-  padding-top: 15px
-}
-
-
-
-.contextualTopIcon {
-}
-
-#leftContextualTopIcon {
-  display: inline-block;
-  float: left;
-  width: 250px;
-}
-
-#rightContextualTopIcon {
-  display: inline-block;
-  float: right;
-  width: 250px;
-}
-
-#leftContextualTopIcon svg {
-  display: block;
-  float: right;
-}
-
-#rightContextualTopIcon svg {
-  display: block;
-  float: left;
-}
-
-
-
-#mainMenuIcon {
-  width: 60px;
-  height: 60px;
-  display: block;
-  position: relative;
-  top: -5px; /* ( 70px (height of navbar) - 60px (height of this icon's circular frame) ) / 2  */
-  left: calc( 250 - 60/2 )px;
-}
-
-.mainMenuIcon svg {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-}
-
-#mainmenu.opened {
-  display: block;
-}
-
-#mainmenu {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background: rgba(255,255,255,0.4);
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
-
-#mainmenu #menu {
-  display: block;
-  background: white;
-  /*z-index: 99999;*/
-  width: 200px;
-  /*height: 600px;*/
-  margin: 200px auto 60px;
-  padding: 60px 0;
-  border-radius: 200px;
-}
-
-/* Default main menu icon colors */
-#mainmenu #menu button.btn-default {
-  background-color: transparent;
-  color: #823FC2; /* Solidarity Purple */
-  margin: 0 0 20px 0;
-}
-
-#mainmenu #menu button span.icon {
-  margin-bottom: 10px;
-}
-
-#mainmenu #menu button span {
-  display: block;
-  font-weight: 400;
-}
-
-
-
-/* Start screen */
-
-.countries,
-.areas {
-  display: block;
-  clear: both;
-}
-
-.country,
-.area {
-  display: inline-block;
-  float: left;
-  margin: 40px 60px;
-}
-
-
-
-.divLink {
-  
-/*  position: absolute;
-  left: 100px;
-*/
-  cursor: pointer;
-  display: none;
-}
-
-.divLink.active {
-  display: block;
+.hidden {
+  visibility: hidden;
 }
 
 #content {
@@ -233,36 +107,6 @@ a:hover {
   }
 
 }
-
-
-
-
-
-
-
-.listItem {
-  border: 2px solid #5cdac3;
-  color: #1d3faf;
-  background-color: white;
-  border-radius: 14px;
-  padding: 0;
-  margin: 0 0 8px 0;
-}
-
-.listItem h2 {
-  font-size: 24px;
-  text-align: left;
-  margin: 0 0 0 16px;
-}
-
-#content .listItem p {
-  font-size: 16px;
-  margin: 0 0 8px 16px;
-  line-height: normal;
-  text-align: left;
-}
-
-
 
 
 

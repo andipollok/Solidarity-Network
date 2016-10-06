@@ -30,8 +30,9 @@ export default React.createClass({
   // during step 4 we hide the stepbullets
 
   getInitialState() {
+    this.props.setSessionVar( "startStep", 1 );
     return {
-      step: 1,
+      // step: 1,
       aCountryIsSelected: false,
       currentlySelectedCountry: undefined,
       anAreaIsSelected: false,
@@ -48,10 +49,11 @@ export default React.createClass({
   },
 
   onClickCountry( country ) {
+    this.props.setSessionVar( "startStep", 2 );
     this.setState({
       aCountryIsSelected: true,
       currentlySelectedCountry: country,
-      step: 2
+      // step: 2
     });
   },
 
@@ -61,22 +63,24 @@ export default React.createClass({
     //console.log(area.fields.Name);
     //console.log(area.id);
 
+    this.props.setSessionVar( "startStep", 3 );
+
     this.setState({
       anAreaIsSelected: true,
       currentlySelectedArea: area,
-      step: 3
+      // step: 3
     });
 
     StatusActions.setArea(area.id);
     StatusActions.forceTrigger();
-    DataActions.init();
 
   },
 
   onClickButtonNext() {
-    this.setState({
-      step: 4
-    });
+    this.props.setSessionVar( "startStep", 4 );
+    // this.setState({
+    //   step: 4
+    // });
   },
 
   // onClickActivities() {
@@ -93,23 +97,28 @@ export default React.createClass({
     var data = this.props.data;
     var countries = data.countries;
 
-    var areasOfSelectedCountry = this.state.aCountryIsSelected ? this.state.currentlySelectedCountry.areas : [];
+    var step = this.props.session.startStep;
+
+    var areasOfSelectedCountry = step > 1 && this.state.aCountryIsSelected ? this.state.currentlySelectedCountry.areas : [];
+    // var areasOfSelectedCountry = this.props.session.startCountryIsSelected ? this.props.session.startCurrentlySelectedCountry.areas : [];
 
     var buttonNextClasses = {
 
     };
 
     var countryItem = function(country) {
-      return ( <div className="country" onClick={this.onClickCountry.bind(this, country)}>
-          <Icon type={country.iconName} folder='countries' size='large' isNav={true} isActive={false}/>
+      var active = this.props.session.startStep > 1 && this.state.currentlySelectedCountry && this.state.currentlySelectedCountry.id && this.state.currentlySelectedCountry.id == country.id;
+      return ( <div key={country.id} className="country" onClick={this.onClickCountry.bind(this, country)}>
+          <Icon type={country.iconName} folder='countries' color='default' size='large' isActive={active} data={data}/>
           <br />
           <span className="text">{country.name}</span>
         </div> );
     }.bind(this);
     
     var areaItem = function(area) {
-      return ( <div className="area" onClick={this.onClickArea.bind(this, area)}>
-          <Icon type={area.fields["Icon Name"]} folder='areas' size='small' isNav={true} isActive={false}/>
+      var active = this.props.session.startStep > 2 && this.state.currentlySelectedArea && this.state.currentlySelectedArea.id && this.state.currentlySelectedArea.id == area.id;
+      return ( <div key={area.id} className="area" onClick={this.onClickArea.bind(this, area)}>
+          <Icon type={area.fields["Icon Name"]} folder='areas' color='default' size='small' isActive={active} data={data}/>
           <br />
           <span className="text">{area.fields.Name}</span>
         </div> );
@@ -117,55 +126,63 @@ export default React.createClass({
 
     var mainTitle = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
       
       case 1:
       case 2:
       case 3:
         mainTitle = <Col sm={12} className="text-center">
-          <p>
+          <h4>
             <FormattedMessage id='chooseAreaTitle'/>
-          </p>
+          </h4>
         </Col>;
         break;
 
       case 4:
         mainTitle = <Col sm={12} className="text-center">
-          <p>
-            <FormattedMessage id='chooseSectionTitle'/>
-          </p>
+
+          <div className="arrowUp">
+            <SvgIcon name='app/arrow_up' color='#FFFFFF'/>
+          </div>
+          <h4>
+              <FormattedMessage id='chooseSectionTitle'/>
+          </h4>
         </Col>;
         break;
 
     }
 
-    var mainContent = undefined;
+    var chooseAreaAndCountry = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
 
       case 1:
       case 2:
       case 3:
 
-        mainContent = <Col sm={8} className="text-center">
-          <div>
-            <FormattedMessage id='chooseAreaSubtitle'/>
-            <div className="countries">
-              {countries.map(countryItem, this)}
+        chooseAreaAndCountry = (
+          <div className="text-center">
+            <div>
+              <h4>
+                <FormattedMessage id='chooseAreaSubtitle'/>
+              </h4>
+              <div className="countries">
+                {countries.map(countryItem, this)}
+              </div>
+            </div>
+            <div>
+              <div className="areas">
+                {areasOfSelectedCountry.map(areaItem, this)}
+              </div>
             </div>
           </div>
-          <div>
-            <div className="areas">
-              {areasOfSelectedCountry.map(areaItem, this)}
-            </div>
-          </div>
-        </Col>;
+        );
 
         break;
 
       case 4:
         
-        mainContent = <Col sm={8} className="text-center"></Col>;
+        chooseAreaAndCountry = <div></div>;
         
         break;
 
@@ -173,7 +190,7 @@ export default React.createClass({
 
     var buttonNext = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
       
       case 1:
       case 2:
@@ -205,12 +222,12 @@ export default React.createClass({
 
     var stepBullets = undefined;
 
-    switch ( this.state.step ) {
+    switch ( step ) {
       
       case 1:
       case 2:
       case 3:
-        stepBullets = <StepBullets small={false} amount={2} active={[ (this.state.step == 1), (this.state.step == 2 || this.state.step == 3) ]} height={160} />;
+        stepBullets = <StepBullets small={false} amount={2} active={[ (step == 1), (step == 2 || step == 3) ]} height={180} />;
         break;
 
       case 4:
@@ -223,18 +240,25 @@ export default React.createClass({
     return (
       <div className="container-fluid start">
         <Row>
-          {mainTitle}
+          <Col>
+            {mainTitle}
+          </Col>
         </Row>
         <Row>
-          <Col sm={2} className="text-center">
+  
+          <Col className="selections">
+
             {stepBullets}
+
+            {chooseAreaAndCountry}
+
           </Col>
-          {mainContent}
-          <Col sm={2} className="text-center">
-          </Col>
+
         </Row>
         <Row>
-          {buttonNext}
+          <Col className="actionButton">
+            {buttonNext}
+          </Col>
         </Row>
       </div>
     );
