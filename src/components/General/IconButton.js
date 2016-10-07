@@ -42,51 +42,39 @@ const color_transparent = "transparent";
 var colors = {
 
   start: {
-    iconStroke: color_light,
-    iconBackground: color_transparent,
     labelText: color_light,
-    labelBackground: color_transparent,
-    labelStroke: color_light 
+    labelStroke: color_light,
+    labelBackground: color_transparent
   },
 
   default: {
-    iconStroke: color2,
-    iconBackground: color_transparent,
     labelText: color2,
-    labelBackground: color_transparent,
-    labelStroke: color2 
+    labelStroke: color2,
+    labelBackground: color_transparent
   },
 
   defaultInactive: {
-    iconStroke: color_grey,
-    iconBackground: color_transparent,
     labelText: color_grey,
-    labelBackground: color_transparent,
-    labelStroke: color_grey
-  },
-
-  menu: {
-    iconStroke: color1,
-    iconBackground: color_light,
-    labelText: color_light,
-    labelBackground: color1,
-    labelStroke: color1
-  },
-
-  menuInactive: {
-    iconStroke: color1,
-    iconBackground: color_light,
-    labelText: color1,
-    labelBackground: color_light,
-    labelStroke: color1
+    labelStroke: color_grey,
+    labelBackground: color_transparent
   },
 
   help: {
-    iconStroke: color_help,
-    iconBackground: color_light,
     labelText: color_help,
-    labelBackground: color_light,
-    labelStroke: color_help
+    labelStroke: color_help,
+    labelBackground: color_light
+  },
+
+  submenu: {
+    labelText: color_light,
+    labelStroke: color1,
+    labelBackground: color1
+  },
+
+  submenuInactive: {
+    labelText: color1,
+    labelStroke: color1,
+    labelBackground: color_light
   }
 
 }

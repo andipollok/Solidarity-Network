@@ -119,9 +119,10 @@ export default React.createClass({
         return {
           iconType: 'navigation',
           label: '',
-          menuIconColor: 'default',
-          contextualIconColor: 'default',
-          backButtonColor: 'start'
+          menuIconColor: 'filled',
+          contextualIconColor: 'start',
+          backButtonColor: 'start',
+          filterButtonColor: 'start'
         };
         break;
 
@@ -130,8 +131,9 @@ export default React.createClass({
           iconType: 'upcoming',
           label: '',
           menuIconColor: 'menu',
-          contextualIconColor: 'menu',
-          backButtonColor: 'default'
+          contextualIconColor: 'submenu',
+          backButtonColor: 'default',
+          filterButtonColor: 'default'
         };
         break;
 
@@ -140,8 +142,9 @@ export default React.createClass({
           iconType: 'navigation',
           label: '',
           menuIconColor: 'menu',
-          contextualIconColor: 'menu',
-          backButtonColor: 'default'
+          contextualIconColor: 'submenu',
+          backButtonColor: 'default',
+          filterButtonColor: 'default'
         };
         break;
 
@@ -362,7 +365,18 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersIcon = <IconButton type='filters' folder='service' color={menuIconColor} size='small' isActive={false} labelAlignment='right' iconPosition='right' label="Filters" />;
+      let filtersButtonLabel = this.context.intl.formatMessage({ id: 'filters' });
+
+      let filtersIcon = (
+        <IconButton
+          type='filters'
+          folder='service'
+          color={menuIconData.filterButtonColor}
+          size='small'
+          isActive={false}
+          labelAlignment='right'
+          iconPosition='right'
+          label={filtersButtonLabel} />);
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;

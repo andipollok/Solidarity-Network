@@ -2,54 +2,89 @@ import React from 'react';
 import SvgIcon from 'react-svg-icons';
 import classNames from 'classnames';
 
+const color1 = "#823FC2";
+const color2 = "#5CDAC3";
+const color_light = "#FFF";
+const color_grey = "#A6A6A6";
+const color_help = "#B744B8";
+const color_transparent = "transparent"; 
+
 var colors = {
+
+  start: {
+    inactiveIconColor: color_light,
+    inactiveBackgroundColor: '',
+
+    iconColor: color_light,
+    backgroundColor: '',
+  },
 
   default: {
 
-    inactiveIconColor: '#FFF',
+    inactiveIconColor: color_grey,
     inactiveBackgroundColor: '',
 
-    iconColor: '#823FC2',
-    backgroundColor: '#FFF',
-
-  },
-
-  menu: {
-
-    inactiveIconColor: '#823FC2',
-    inactiveBackgroundColor: '#FFF',
-
-    iconColor: '#FFF',
-    backgroundColor: '#823FC2',
+    iconColor: color2,
+    backgroundColor: color_light,
 
   },
 
   help: {
 
-    inactiveIconColor: '#B744B8',
-    inactiveBackgroundColor: '#FFF',
+    inactiveIconColor: color_help,
+    inactiveBackgroundColor: color_light,
 
-    iconColor: '#B744B8',
-    backgroundColor: '#FFF',
+    iconColor: color_help,
+    backgroundColor: color_light,
+
+  },
+
+  menu: {
+
+    inactiveIconColor: color1,
+    inactiveBackgroundColor: color_light,
+
+    iconColor: color_light,
+    backgroundColor: color1,
+
+  },
+
+  submenu: {
+
+    inactiveIconColor: color1,
+    inactiveBackgroundColor: color_light,
+
+    iconColor: color1,
+    backgroundColor: color_light,
+
+  },
+
+  filled: {
+
+    inactiveIconColor: color_light,
+    inactiveBackgroundColor: '',
+
+    iconColor: color1,
+    backgroundColor: color_light,
 
   },
 
   menuitem: {
 
-    inactiveIconColor: '#b3b3b3',
+    inactiveIconColor: color_grey,
     inactiveBackgroundColor: '',
 
-    iconColor: '#823FC2',
+    iconColor: color1,
     backgroundColor: '',
 
   },
 
   menuitemstart: {
 
-    inactiveIconColor: '#FFF',
+    inactiveIconColor: color_light,
     inactiveBackgroundColor: '',
 
-    iconColor: '#FFF',
+    iconColor: color_light,
     backgroundColor: '',
 
   }
