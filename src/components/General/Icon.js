@@ -70,12 +70,12 @@ export default React.createClass({
       colorPalette = colors[this.props.color];
     }
 
-    var iconColor = colorPalette.iconColor;
-    var backgroundColor = colorPalette.backgroundColor;
+    var iconColor = colorPalette.inactiveIconColor;
+    var backgroundColor = colorPalette.inactiveBackgroundColor;
 
-    if (this.props.isActive === false) {
-      iconColor = colorPalette.inactiveIconColor;
-      backgroundColor = colorPalette.inactiveBackgroundColor;
+    if (this.props.isActive === true) {
+      iconColor = colorPalette.iconColor;
+      backgroundColor = colorPalette.backgroundColor;
     }
 
     var divClass = classNames('icon', {
