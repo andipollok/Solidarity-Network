@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
+import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+
 import {Link}  from 'react-router';
 
 import classNames from'classnames';
@@ -40,6 +42,8 @@ export default React.createClass({
 
   render() {
 
+    // const {formatMessage} = this.props.intl;
+    // console.log(formatMessage); 
     var settings = <p><Link to="/settings">Settings</Link></p>
 
     // Help button
@@ -52,8 +56,14 @@ export default React.createClass({
 
     let helpButtonData = this.getHelpButtonData();
 
-	let helpIcon = <IconButton type={helpButtonData.icon} folder={helpIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='left' label="Need help" />;
-      
+  	let helpIcon = (
+      <IconButton type={helpButtonData.icon} folder={helpIconFolder}
+        color='help' size='medium' isActive={false} labelAlignment='left' iconPosition='left'
+        label={'test'} />
+    );
+    
+    console.log("here");
+
     if (helpButtonData.icon === null) {
       helpIcon = undefined;
     }
@@ -68,6 +78,7 @@ export default React.createClass({
 
         <div className="bottom-flex-left text-left">
           {HelpIconComponent}
+          <FormattedMessage id="needhelp"/>
         </div>
 
       </footer>
