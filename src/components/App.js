@@ -82,13 +82,17 @@ export default React.createClass({
     return {
   //      loggedIn: LoginStore.isLoggedIn(this)
       session: {
-        preferredLayout: "cards"
+        preferredLayout: "cards",
+        nonNewActivitiesLoaded: false,
+        nonNewActivities: undefined
+        // ,
+        // allActivities: undefined
       },
       popup: null,
     };
   },
 
-  toggleFiltersPopup() {
+  togglePopup() {
     if (this.state.popup) {
       document.getElementById('popup').style.display = 'none';
       this.setState({ popup: null});
@@ -124,6 +128,20 @@ export default React.createClass({
 
     });
 */
+
+    // Data is loaded now
+    if (!this.state.nonNewActivitiesLoaded) {
+      // We do this only the first time, because then the cookie is overwritten with new activities
+      var arrayInCookie = StatusStore.loadCookie( 'knownActivities', '' );
+      // console.log("arrayInCookie");
+      // console.log(arrayInCookie);
+      // // var str = JSON.parse( arrayInCookie); // no need to
+      // // console.log("STR");
+      // // console.log(str);
+      this.setState({ nonNewActivities: arrayInCookie, nonNewActivitiesLoaded: true });
+    }
+
+
   },
 
   render: function() {
@@ -159,7 +177,9 @@ export default React.createClass({
     var data = this.state.data;
     data.language = this.state.language;
     data.status = this.state.status;
-    data.area = Helpers.getAreaFromStatus(data);
+    data.nonNewActivities = this.state.nonNewActivities;
+    // data.allActivities = this.state.allActivities;
+    // data.area = Helpers.getAreaFromStatus(data);
 
     var flexContainerClasses = classNames( 'flex-container', {
       'backgroundGradient' : data.status.page === 'start'
@@ -171,7 +191,7 @@ export default React.createClass({
     if (this.state.popup) {
       switch (this.state.popup) {
         case 'Filters':
-          popupComponent = <ActivityFilters />;
+          popupComponent = <ActivityFilters setSessionVar={this.setSessionVar} session={this.state.session} togglePopup={this.togglePopup} />;
           break;
       }
     }
@@ -183,7 +203,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} toggleFiltersPopup={this.toggleFiltersPopup} />
+            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} popup={this.state.popup} togglePopup={this.togglePopup} />
           </div>
 
           {error}
@@ -196,7 +216,7 @@ export default React.createClass({
 
           <div className="main-container scrollable">
 
-            <div id="popup">
+            <div id="popup" >
                 {popupComponent}
             </div>
 

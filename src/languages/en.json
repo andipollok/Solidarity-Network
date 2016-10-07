@@ -72,6 +72,11 @@
 
   "organisedby": "Organised by {name}",
 
+  "filterOptionOverall": "Overall",
+  "filtersTitleMain": "In here, you can refine your search!",
+  "filtersTitleActivities": "Choose one or more Activities that fits your interests!",
+  "filtersButtonApply": "Apply Selected Filters",
+
   "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",
   "noactivities": "Sorry, there are no activities planned in {areaName}.",
   "noactivitiesfiltered": "Sorry, there are no {activityTypes} activities planned in {areaName}.",
@@ -116,6 +121,9 @@
   // "activity_street_default": "Activity name",
   "activity_description_label": "Description",
   "activity_description_default": "Activity description",
+  
+  "activity_related_next": "The next event will take place on:",
+  "activity_related_past": "Past events were held on:",
 
   "activities_upcoming": "Upcoming activities",
   "activities_on": "Activities on",

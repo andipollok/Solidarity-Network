@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {Link}  from 'react-router';
 import classNames from 'classnames';
 
@@ -6,6 +7,8 @@ import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
+
+import DataStore from '../../stores/DataStore';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
@@ -16,7 +19,19 @@ import Avatar from '../General/Avatar';
 
 export default React.createClass({
 
+  getInitialState() {
+    return {
+      relatedActivities: []
+    };
+  },
+
   componentWillMount() {
+
+    // retrieving the related activities
+    var data = this.props.data;
+    var activity = Helpers.getActivityById(this.props.params.id, data);
+    DataStore.getRelatedActivities( activity, this.onReceivedRelatedActivitiesResults );
+
     StatusActions.setPage('activities');
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='activity' />);
@@ -24,12 +39,26 @@ export default React.createClass({
     StatusActions.forceTrigger();
   },
 
+  onReceivedRelatedActivitiesResults( results ) {
+    // console.log("RELATED");
+    // console.log(results);
+    this.setState({ relatedActivities: results });
+  },
 
   onClickSelectPhoto(id) {
     window.location.assign(`#/photo/${id}/zoom`);
   },
 
+  // // for related events
+  // onClickActivity(id) {
+  //   window.location.assign("#/activity/" + id);
+  // },
+
   render() {
+
+    //
+    // Currently opened activity
+    //
 
     var data = this.props.data;
 
@@ -163,6 +192,65 @@ export default React.createClass({
                     </h3>
 
 
+    //
+    // Related activities
+    //
+    
+    var relatedActivitiesRendered = "";
+    var related = this.state.relatedActivities;
+
+    // NB related events are already sorted by ASC date, thank you Airtable
+
+    if (related && related.length > 0) {
+
+      var nowDate = new Date();
+
+      var renderRelatedEvent = function(event) {
+        console.log(event.date);
+        console.log(event.name);
+        return <div>
+            {event.date}
+            {event.name}
+          </div>;
+      }.bind(this);
+
+      var futureEvents = "";
+      var pastEvents = "";
+
+      for (var event of related) {
+
+        // Yes but No
+        // if (moment(event.date) > moment(activity.date)) { // NAH I think we should always compare to the user's date, not the displayed activity
+        //   // future to the activity
+        // } else {
+        //   // past to the activity
+        // }
+
+        if (moment(event.date) > moment(nowDate)) {
+          // future to the user
+          futureEvents += renderRelatedEvent( event );
+        } else {
+          // past to the user
+          pastEvents += renderRelatedEvent( event );
+        }
+
+      }
+
+      relatedActivitiesRendered = <div>
+          FUTURE
+          {futureEvents}
+          <br/>
+          PAST
+          {pastEvents}
+        </div>;
+
+    }
+
+
+    //
+    // Rendering of the component
+    //
+
     return (
       <div className="container activities activity">
 
@@ -199,6 +287,10 @@ export default React.createClass({
 
         <Row>
           {componentStory}
+        </Row>
+
+        <Row>
+          {relatedActivitiesRendered}
         </Row>
 
       </div>

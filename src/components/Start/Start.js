@@ -29,8 +29,11 @@ export default React.createClass({
   // Second stepbullet is for steps 2 and 3
   // during step 4 we hide the stepbullets
 
+  // shouldComponentUpdate( nextProps, nextState ) {
+  //   return nextProps.session.startStep > 1;
+  // },
+
   getInitialState() {
-    this.props.setSessionVar( "startStep", 1 );
     return {
       // step: 1,
       aCountryIsSelected: false,
@@ -41,6 +44,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
+    this.props.setSessionVar( "startStep", 1 );
     StatusActions.setPage('start');
     StatusActions.setTitle(null);
     StatusActions.showPrimaryNav(true);

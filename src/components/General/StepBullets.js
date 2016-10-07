@@ -47,8 +47,6 @@ export default React.createClass({
     console.log("Hello");
   },
 
-  // drawBulletInterior( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
-
   // with inner label
   drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
 
@@ -127,56 +125,9 @@ export default React.createClass({
 
   },
 
-  // // with inner icon
-  // drawBulletExterior( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
-
-  //   var bullet = null;
-
-  //   var bulletExterior = "";
-  //   if (true) {
-  //     bulletExterior = <Icon type='upcoming' folder='service' size='small' isActive={false} />;
-  //   }
-
-  //   let position = {
-  //     position: "absolute",
-  //     left: x + "px",
-  //     top: y + "px"
-  //   };
-  //   let style = position;
-    
-  //   bullet = <span>
-  //       {bulletExterior}
-  //     </span>
-
-  //   // if (callback) {
-  //   //   // return <div key={x+y} onClick={callback} cursor="pointer"> // TODO onClick
-  //   //   return <div>
-  //   //       {bullet}
-  //   //     </div>
-  //   // } else {
-  //   //   // return <div key={x+y}>
-  //   //   return <div>
-  //   //       {bullet}
-  //   //     </div>
-  //   // }
-
-  //   return <div style={style}>
-  //       {bullet}
-  //     </div>
-
-  // },
-
   createBulletItem( bullet ) {        
     return this.drawBullet.apply( this, bullet );
   },
-
-  // createBulletItemInsideSVG( bullet ) {        
-  //   return this.drawBulletInterior.apply( this, bullet );
-  // },
-
-  // createBulletItemOutsideSVG( bullet ) {        
-  //   return this.drawBulletExterior.apply( this, bullet );
-  // },
 
   drawLine( x1, y1, x2, y2 ) {
     return <line key={x1+x2+y1+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
@@ -315,11 +266,9 @@ export default React.createClass({
           
           </svg>
 
-
       </span>
     );
-          // {bulletsArray.map( this.createBulletItemInsideSVG, this )}
-          // {bulletsArray.map( this.createBulletItemOutsideSVG, this )}
+    
   }
 });
 

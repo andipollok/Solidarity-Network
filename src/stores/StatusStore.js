@@ -27,7 +27,9 @@ export default Reflux.createStore({
   init: function() {
     
     this.data = {
-      filters: {},
+      filters: {
+        activityType: {}
+      },
       join: undefined,
       area: undefined,
       page: '',
@@ -87,39 +89,62 @@ export default Reflux.createStore({
 
 
   resetFilterActivityType: function() {
-    this.data.filters.activityType = [];
-    // this.trigger(data);
-  },
-
-  addToFilterActivityType: function(typeId) {
-
-  },
-
-  removeFromFilterActivityType: function(typeId) {
-
-  },
-
-
-  resetFilterPaid: function() {
-    this.data.filters.paid = undefined;
+    this.data.filters.activityType = {};
     DataActions.onFilterChange();
   },
 
-  setFilterPaid: function(value) {
-    this.data.filters.paid = value;
+  addToFilterActivityType: function(activityType) {
+    // late initialization
+    if (!this.data.filters.activityType) {
+      this.data.filters.activityType = {};
+    }
+    // assign value
+    this.data.filters.activityType[activityType.name] = activityType;
+    DataActions.onFilterChange();
+  },
+
+  removeFromFilterActivityType: function(activityType) {
+    if (this.data.filters.activityType[activityType.name]) {
+      delete this.data.filters.activityType[activityType.name];
+    }
     DataActions.onFilterChange();
   },
 
 
-  resetFilterStatus: function() {
-    this.data.filters.status = undefined;
-    // this.trigger(data);
+  resetFilterActivityPaid: function() {
+    this.data.filters.activityPaid = undefined;
+    DataActions.onFilterChange();
   },
 
-  setFilterStatus: function(value) {
-    this.data.filters.status = value;
-    // this.trigger(data);
+  setFilterActivityPaid: function(value) {
+    this.data.filters.activityPaid = value;
+    DataActions.onFilterChange();
   },
+
+
+  resetFilterActivityStatus: function() {
+    this.data.filters.activityStatus = undefined;
+    DataActions.onFilterChange();
+  },
+
+  setFilterActivityStatus: function(value) {
+    this.data.filters.activityStatus = value;
+    DataActions.onFilterChange();
+  },
+
+
+  // unsetClientSideFilterStatusIsNew: function() {
+  //   this.data.clientSideFilters.statusNew = undefined;
+  //   // this.trigger(data);
+  //   // // DataActions.onFilterChange();
+  // },
+
+  // setClientSideFilterStatusIsNew: function() {
+  //   this.data.clientSideFilters.statusNew = true;
+  //   // this.trigger(data);
+  //   // // DataActions.onFilterChange();
+  // },
+
 
   setPage: function(pagename) {
     this.data.page = pagename;

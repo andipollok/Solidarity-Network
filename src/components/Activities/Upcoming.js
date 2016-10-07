@@ -11,6 +11,8 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
+import DataStore from '../../stores/DataStore';
+
 import UpcomingItem from './UpcomingItem';
 import TypeSelectorButton from '../General/TypeSelectorButton';
 
@@ -88,6 +90,23 @@ export default React.createClass({
       { id : "after"      , label : "Plus tard"             , before : date_endOfTime },
     ];
 
+    // Prepare the list of new activities in case we need them
+    var diff_newActivities;
+    if (  StatusStore.data.filters &&
+          StatusStore.data.filters.activityStatus &&
+          StatusStore.data.filters.activityStatus == 'new'
+    ) {
+      let knownPreviously = data.nonNewActivities; // keys already extracted
+      // console.log("knownPreviously");
+      // console.log(knownPreviously);
+      let allCurrent = Object.keys( DataStore.data.known.activities );
+      // console.log("allCurrent");
+      // console.log(allCurrent);
+      diff_newActivities = allCurrent.filter( x => knownPreviously.indexOf(x) < 0 );
+      // console.log("diff_newActivities");
+      // console.log(diff_newActivities);
+    }
+
     // Reinit grouping status
     data.activities.forEach( function ( a ) { a.inAGroup = false; });
 
@@ -99,6 +118,18 @@ export default React.createClass({
       group.activities = data.activities.filter(
 
         function(activity) {
+
+          // --------------------------------------------------
+          // User filtering (for stuff not in Airtable)
+          // --------------------------------------------------
+
+          if (StatusStore.data.filters) {
+            // Filter by status 'new' if client-side filter is defined
+            if (StatusStore.data.filters.activityStatus && StatusStore.data.filters.activityStatus == 'new') {
+              return diff_newActivities.indexOf(activity.id) >= 0;
+            }
+
+          }
 
           // ----------------------------
           // Component filtering
