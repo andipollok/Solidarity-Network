@@ -286,9 +286,9 @@ export default React.createClass({
 
       let backIcon = (
         <IconButton
-          type='' folder='service'
+          type='arrow' folder='service'
           color={menuIconData.backButtonColor}
-          size='small' isActive={true}
+          size='small' isActive={false}
           labelAlignment='left' iconPosition='left'
           label={backButtonLabel} /> );
       
