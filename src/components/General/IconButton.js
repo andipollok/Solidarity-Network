@@ -28,7 +28,9 @@ const textHorizMargin = 10;
 
 const color1 = "#823FC2";
 const color2 = "#5CDAC3";
-const color_light = "#FFFFFF"; 
+const color_light = "#FFFFFF";
+const color_grey = "#A6A6A6";
+const color_help = "#B744B8";
 const color_transparent = "transparent"; 
 
 var colors = {
@@ -51,6 +53,14 @@ var colors = {
     labelBackground: color_transparent,
     labelStroke: color2 
   },
+
+  defaultInactive: {
+    iconStroke: color_grey,
+    iconBackground: color_transparent,
+    labelText: color_grey,
+    labelBackground: color_transparent,
+    labelStroke: color_grey
+  },
   // Purple
   // buttons on all screens in navigation
   menu: {
@@ -67,6 +77,14 @@ var colors = {
     labelText: color1,
     labelBackground: color_light,
     labelStroke: color1
+  },
+
+  help: {
+    iconStroke: color_help,
+    iconBackground: color_light,
+    labelText: color_help,
+    labelBackground: color_light,
+    labelStroke: color_help
   }
 
   // active: {

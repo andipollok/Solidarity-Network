@@ -1,5 +1,4 @@
-import React, {Component, PropTypes} from 'react';
-import {formatMessage, FormattedMessage} from 'react-intl';
+import React from 'react';
 
 import {Link}  from 'react-router';
 
@@ -8,9 +7,11 @@ import classNames from'classnames';
 import IconButton from '../General/IconButton';
 import Icon from '../General/Icon';
 
+import {formatMessage, FormattedMessage} from 'react-intl';
+
 const noButton = {
   icon: null,
-  label: null,
+  iconColor: undefined,
   callback: undefined,
 };
 
@@ -25,7 +26,7 @@ export default React.createClass({
     var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
-
+    console.log(data.status.page);
     switch (data.status.page) {
 
       case '':
@@ -33,9 +34,18 @@ export default React.createClass({
         return noButton;
         break;
 
+      case 'start':
+        return {
+          icon: 'help',
+          iconColor: 'start',
+          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+        };
+        break;
+
       default:
         return {
           icon: 'help',
+          iconColor: 'help',
           callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
         };
         break;
@@ -64,7 +74,7 @@ export default React.createClass({
 
   	let helpIcon = (
       <IconButton type={helpButtonData.icon} folder={helpIconFolder}
-        color='help' size='medium' isActive={false} labelAlignment='left' iconPosition='left'
+        color={helpButtonData.iconColor} size='medium' isActive={false} labelAlignment='left' iconPosition='left'
         label={label} />
     );
     

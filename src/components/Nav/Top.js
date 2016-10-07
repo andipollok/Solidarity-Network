@@ -8,7 +8,7 @@ import MainMenu from './MainMenu';
 import IconButton from '../General/IconButton';
 import Icon from '../General/Icon';
 
-import { FormattedMessage } from 'react-intl';
+import {formatMessage, FormattedMessage} from 'react-intl';
 
 const noButton = {
   icon: null,
@@ -19,6 +19,10 @@ const noButton = {
 const history = createHashHistory();
 
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   getInitialState() {
     return {
@@ -261,12 +265,9 @@ export default React.createClass({
     </div>);
 
 
-
     //
     // Primary navigation
     //
-
-    // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
 
       let menuIconData = this.getButtonData();
@@ -277,16 +278,19 @@ export default React.createClass({
       // Back button (top left corner)
       //
 
-      // var BackButton = <Button className="backButton" onClick={this.onClickBack}>
-      //   &lt;&nbsp;
-      //   <FormattedMessage id='back' />
-      // </Button>;
-
       let backIconClasses = classNames( 'backIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
       });
 
-      let backIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconData.backButtonColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='left' label="Go Back" />;
+      let backButtonLabel = this.context.intl.formatMessage({ id: 'goback' });
+
+      let backIcon = (
+        <IconButton
+          type={menuIconType} folder={menuIconFolder}
+          color={menuIconData.backButtonColor}
+          size='medium' isActive={true}
+          labelAlignment='left' iconPosition='left'
+          label={backButtonLabel} /> );
       
       var BackComponent = ( <div className={backIconClasses} id="backIcon" onClick={this.onClickBack}>
         {backIcon}
