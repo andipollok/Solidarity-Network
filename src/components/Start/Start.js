@@ -143,7 +143,7 @@ export default React.createClass({
         break;
 
       case 4:
-        mainTitle = <Col sm={12} className="text-center">
+        mainTitle = <Col sm={12} className="text-center" id="hideOnMenuOpen">
 
           <div className="arrowUp">
             <SvgIcon name='app/arrow_up' color='#FFFFFF'/>
