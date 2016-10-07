@@ -35,8 +35,6 @@ const color_transparent = "transparent";
 
 var colors = {
 
-  // White
-  // buttons on gradient background in start
   start: {
     iconStroke: color_light,
     iconBackground: color_transparent,
@@ -44,8 +42,7 @@ var colors = {
     labelBackground: color_transparent,
     labelStroke: color_light 
   },
-  // Green
-  // back button
+
   default: {
     iconStroke: color2,
     iconBackground: color_transparent,
@@ -61,8 +58,7 @@ var colors = {
     labelBackground: color_transparent,
     labelStroke: color_grey
   },
-  // Purple
-  // buttons on all screens in navigation
+
   menu: {
     iconStroke: color1,
     iconBackground: color_light,
@@ -87,47 +83,7 @@ var colors = {
     labelStroke: color_help
   }
 
-  // active: {
-  //   iconStroke: color_light,
-  //   iconBackground: color1,
-  //   labelText: color_light,
-  //   labelBackground: color1,
-  //   labelStroke: color1 
-  // },
-  // passive: {
-  //   iconStroke: color_light,
-  //   iconBackground: color1,
-  //   labelText: color_light,
-  //   labelBackground: color1,
-  //   labelStroke: color1 
-  // }
 }
-
-
-/*const defaultPassiveIconStrokeColor = solidarityPurple;
-const defaultPassiveIconBackground = "transparent";
-const defaultPassiveLabelTextColor = solidarityPurple;
-const defaultPassiveLabelBackground = "transparent";
-const defaultPassiveFramesColor = solidarityPurple;
-
-const defaultActiveIconStrokeColor = solidarityPurple;
-const defaultActiveIconBackground = "white";
-const defaultActiveLabelTextColor = "white";
-const defaultActiveLabelBackground = solidarityPurple;
-const defaultActiveFramesColor = solidarityPurple;
-
-
-const gradientBgActiveIconStrokeColor = "white";
-const gradientBgActiveIconBackground = "transparent";
-const gradientBgActiveLabelTextColor = "white";
-const gradientBgActiveLabelBackground = "transparent";
-const gradientBgActiveFramesColor = "transparent";
-
-const gradientBgPassiveIconStrokeColor = "#A6A6A6";
-const gradientBgPassiveIconBackground = "transparent";
-const gradientBgPassiveLabelTextColor = "#A6A6A6";
-const gradientBgPassiveLabelBackground = "transparent";
-const gradientBgPassiveFramesColor = "transparent";*/
 
 const defaultStrokeWidth = 2;
 
@@ -204,11 +160,6 @@ export default React.createClass({
       colorData = colors[color];
     }
 
-    // let currentIconStrokeColor = isActive ? defaultActiveIconStrokeColor : defaultPassiveIconStrokeColor;
-    // let currentIconBackground = isActive ? defaultActiveIconBackground : defaultPassiveIconBackground;
-    // let currentLabelTextColor = isActive ? defaultActiveLabelTextColor : defaultPassiveLabelTextColor;
-    // let currentLabelBackground = isActive ? defaultActiveLabelBackground : defaultPassiveLabelBackground;
-    // let currentLabelStroke = isActive ? defaultActiveFramesColor : defaultPassiveFramesColor;
     if (isActive === false && colors[color + 'Inactive']) {
       colorData = colors[color + 'Inactive'];
     }
