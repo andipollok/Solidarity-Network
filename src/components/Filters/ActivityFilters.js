@@ -240,7 +240,7 @@ export default React.createClass({
           <div>
             {filterActivities}
           </div>
-          <span class="clear"></span>
+          <span className="clear"></span>
         </Col>;
         break;
 
