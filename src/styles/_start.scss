@@ -34,6 +34,10 @@
   .area {
     display: inline-block;
     margin: 40px 60px;
+    .text {
+      padding-top: 20px;
+      display: inline-block;
+    }
   }
 
   .arrowUp {
