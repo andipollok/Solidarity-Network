@@ -5,51 +5,49 @@
     height:70px;
     padding: 10px;
 
-    .top-flex {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      flex-flow: space-between;
-
-      &>div {
-        flex: 1;
-        flex-basis: auto; // to make min-width work
-
-        &.top-flex-left {
-          min-width:150px;
-        }
-        &.top-flex-middle {
-          min-width:400px;
-          flex: 4;
-        }
-        &.top-flex-right {
-          min-width:150px;
-        }
-      }
+    .top-left {
+      float:left;
+      width:170px;
     }
+    .top-middle {
+
+      // flex: 4;
+    }
+    .top-right {
+      float:right;
+      width:170px;
+    }
+
     .topNavWidget {
 
       width:0;
       margin: auto;
-      position:relative;
 
       #mainMenuIcon {
-        position:absolute;
-        left:-30px;
-        &.active {
-          
-        }
-      }
 
-      #leftContextualTopIcon {
-        position:absolute;
-        left:-150px;
-        top:3px;
+        position:relative;
+        left:-20px;
+        top:2px;
+        &.active {
+
+        }
+        z-index:9999;
+
       }
-      #rightContextualTopIcon {
-        position:absolute;
-        right:-140px;
-        top:3px;
+      .topNavWidgetIcons{
+
+        position:relative;
+/*        top:-28px; */
+
+        #leftContextualTopIcon {
+          position:absolute;
+          left:-150px;
+
+        }
+        #rightContextualTopIcon {
+          position:absolute;
+          right:-150px;
+        }
       }
 
     }

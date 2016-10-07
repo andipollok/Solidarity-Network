@@ -130,7 +130,7 @@ export default React.createClass({
     var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
-
+    
     switch (data.status.page) {
 
       case 'start':
@@ -306,7 +306,7 @@ export default React.createClass({
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
       }
-
+      console.log(leftButtonData.callback);
       var ContextualIconLeftComponent = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
@@ -339,11 +339,16 @@ export default React.createClass({
       var primary = (
         <Row className={barClasses}>
           <Col className="box no-padding">
-            <div className="top-flex">
-              <div className="top-flex-left text-left">
-                {BackComponent} 
+
+              <div className="top-left text-left">
+                {BackComponent}
               </div>
-              <div className="top-flex-middle text-center">
+
+              <div className="top-right text-right">
+                {FiltersIconComponent}
+              </div>
+
+              <div className="top-middle text-center">
                 <div className="topNavWidget">
                   <div className="topNavWidgetIcons">
                     {ContextualIconLeftComponent}
@@ -352,10 +357,7 @@ export default React.createClass({
                   {MainMenuIcon}
                 </div>
               </div>
-              <div className="top-flex-right text-right">
-                {FiltersIconComponent}
-              </div>
-            </div>
+
           </Col>
         </Row>
       );
