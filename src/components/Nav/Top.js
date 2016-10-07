@@ -166,7 +166,7 @@ export default React.createClass({
 
       case 'activities':
         return {
-          icon: '',
+          icon: 'cards',
           label: 'Cards',
           callback: setSessionVar.bind(null, "preferredLayout", "cards"),
         };
@@ -197,7 +197,7 @@ export default React.createClass({
 
       case 'activities':
         return {
-          icon: '',
+          icon: 'list',
           label: 'List',
           callback: setSessionVar.bind(null, "preferredLayout", "list"),
         };
@@ -286,9 +286,9 @@ export default React.createClass({
 
       let backIcon = (
         <IconButton
-          type={menuIconType} folder={menuIconFolder}
+          type='' folder='service'
           color={menuIconData.backButtonColor}
-          size='medium' isActive={true}
+          size='small' isActive={true}
           labelAlignment='left' iconPosition='left'
           label={backButtonLabel} /> );
       
@@ -332,18 +332,18 @@ export default React.createClass({
 
       var contextualIconColor = menuIconData.contextualIconColor;
 
-      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={contextualIconColor} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      let leftIcon = <IconButton type={leftButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = <IconButton type={rightButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
       }
-      console.log(leftButtonData.callback);
+
       var ContextualIconLeftComponent = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
@@ -362,7 +362,7 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
+      let filtersIcon = <IconButton type='filters' folder='service' color={menuIconColor} size='small' isActive={false} labelAlignment='right' iconPosition='right' label="Filters" />;
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;

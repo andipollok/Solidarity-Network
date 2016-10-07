@@ -1,0 +1,18 @@
+#content {
+
+		.iconButton {
+
+		position:relative;
+
+		.icon {
+			position:absolute;
+			top:-22px;
+			left:-1px;
+		}
+
+		svg {
+			overflow:visible; /* so that rest of stroke outside is visible */
+		}
+
+	}
+}

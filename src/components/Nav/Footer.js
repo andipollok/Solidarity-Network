@@ -26,7 +26,7 @@ export default React.createClass({
     var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
-    console.log(data.status.page);
+
     switch (data.status.page) {
 
       case '':
@@ -56,13 +56,9 @@ export default React.createClass({
 
   render() {
 
-    // const {formatMessage} = this.props.intl;
-    // console.log(formatMessage); 
     var settings = <p><Link to="/settings">Settings</Link></p>
 
     // Help button
-
-    let helpIconFolder = 'service';
 
     let helpIconClasses = classNames( 'helpIcon', 'divLink', {
       'active': true // TODO clarify whether that means highlighted or enabled
@@ -73,8 +69,11 @@ export default React.createClass({
     let label = this.context.intl.formatMessage({ id: 'needhelp' });
 
   	let helpIcon = (
-      <IconButton type={helpButtonData.icon} folder={helpIconFolder}
-        color={helpButtonData.iconColor} size='medium' isActive={false} labelAlignment='left' iconPosition='left'
+      <IconButton
+        type={helpButtonData.icon}
+        folder='service'
+        size='small'
+        color={helpButtonData.iconColor} isActive={false} labelAlignment='left' iconPosition='left'
         label={label} />
     );
     

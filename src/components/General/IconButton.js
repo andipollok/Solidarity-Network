@@ -2,6 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
+import Icon from '../General/Icon';
+
 // A component used to represent buttons with an icon
 // Properties:
 // - labelAlignment = left / center / right
@@ -17,14 +19,18 @@ import classNames from 'classnames';
 //  - invisible ( = not displayed at all )
 //
 
-const iconFrameCircleRadius = 20;
+
 
 const labelWidth = 150;
-const labelHeight = 40;
-const labelFrameCornerRadius = 20;
+const labelHeight = 38.5;
+const labelFrameCornerRadius = labelHeight / 2;
+
+const iconFrameCircleRadius = labelHeight/2;
 
 const labelFontSize = 16;
 const textHorizMargin = 10;
+
+const defaultStrokeWidth = 1.5;
 
 const color1 = "#823FC2";
 const color2 = "#5CDAC3";
@@ -85,8 +91,6 @@ var colors = {
 
 }
 
-const defaultStrokeWidth = 2;
-
 export default React.createClass({
 
   render() {
@@ -105,7 +109,8 @@ export default React.createClass({
     // Starting the math
     //
 
-    let svgPadding = defaultStrokeWidth / 2;
+    // let svgPadding = defaultStrokeWidth / 2;
+    let svgPadding = 0;
     let svgWidth = labelWidth + defaultStrokeWidth;
     let svgHeight = Math.max( labelHeight, 2 * iconFrameCircleRadius ) + defaultStrokeWidth;
     let svgWidthWithPadding = svgWidth + 2 * svgPadding;
@@ -164,12 +169,15 @@ export default React.createClass({
       colorData = colors[color + 'Inactive'];
     }
 
+    // var Icon = <span></span>
+
+
     //
     // Rendering
     //
 
     return (
-      <span>
+      <span className="iconButton">
         <svg preserveAspectRatio="xMidYMid meet" name="button" viewBox={svgDimensions} width={svgWidthWithPadding} height={svgHeightWithPadding}>
 
           <title>button</title>
@@ -178,9 +186,17 @@ export default React.createClass({
           
           <text x={textX} y={textY} textAnchor={labelTextAnchor} fill={colorData.labelText} fontSize={labelFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
 
-          <circle cx={iconX} cy={iconY} r={iconFrameCircleRadius} stroke={colorData.iconStroke} strokeWidth={defaultStrokeWidth} fill={colorData.iconBackground} />
+  
 
         </svg>
+
+        <Icon
+          type={this.props.type}
+          folder={this.props.folder}
+          size={this.props.size}
+          color={this.props.color}
+          isActive={this.props.isActive} />
+
       </span>
     );
   }
