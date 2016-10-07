@@ -122,7 +122,7 @@ export default React.createClass({
           menuIconColor: 'filled',
           contextualIconColor: 'start',
           backButtonColor: 'start',
-          filterButtonColor: 'start'
+          filterButtonColor: ''
         };
         break;
 
@@ -133,7 +133,7 @@ export default React.createClass({
           menuIconColor: 'menu',
           contextualIconColor: 'submenu',
           backButtonColor: 'default',
-          filterButtonColor: 'default'
+          filterButtonColor: 'submenu'
         };
         break;
 
@@ -144,7 +144,7 @@ export default React.createClass({
           menuIconColor: 'menu',
           contextualIconColor: 'submenu',
           backButtonColor: 'default',
-          filterButtonColor: 'default'
+          filterButtonColor: 'submenu'
         };
         break;
 
@@ -291,7 +291,8 @@ export default React.createClass({
         <IconButton
           type='arrow' folder='service'
           color={menuIconData.backButtonColor}
-          size='small' isActive={false}
+          size='small'
+          isActive={true}
           labelAlignment='left' iconPosition='left'
           label={backButtonLabel} /> );
       
