@@ -41,6 +41,17 @@
   "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
   "startNextChooseSection" : "Choose a Section",
 
+  "filtersTitleMain" : "In here, you can refine your search!",
+  "filtersTitleActivities" : "Choose one or more Activities that fits your interests!",
+
+  "filterPaidAny": "Any",
+  "filterPaidFree": "Free",
+  "filterPaidExpenses": "Expenses",
+
+  "filterStatusAny": "Any",
+  "filterStatusNew": "New",
+  "filterStatusCancelled": "Cancelled",
+
   "welcome": "Welcome",
   "welcome_in": "Welcome in {areaName}",
   "whatsnew_in": "What's new in {areaName}",
@@ -61,6 +72,11 @@
   "goto_activity": "Go to activity",
 
   "organisedby": "Organised by {name}",
+
+  "filterOptionOverall": "Overall",
+  "filtersTitleMain": "In here, you can refine your search!",
+  "filtersTitleActivities": "Choose one or more Activities that fits your interests!",
+  "filtersButtonApply": "Apply Selected Filters",
 
   "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",
   "noactivities": "Sorry, there are no activities planned in {areaName}.",
@@ -106,6 +122,9 @@
   // "activity_street_default": "Activity name",
   "activity_description_label": "Description",
   "activity_description_default": "Activity description",
+  
+  "activity_related_next": "The next event will take place on:",
+  "activity_related_past": "Past events were held on:",
 
   "activities_upcoming": "Upcoming activities",
   "activities_on": "Activities on",

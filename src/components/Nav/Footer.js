@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import {formatMessage, FormattedMessage} from 'react-intl';
 
 import {Link}  from 'react-router';
 
@@ -16,6 +16,10 @@ const noButton = {
 
 export default React.createClass({
 
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
+
   getHelpButtonData() {
 
     var setSessionVar = this.props.setSessionVar;
@@ -25,7 +29,7 @@ export default React.createClass({
     switch (data.status.page) {
 
       case '':
-      case 'start':
+      case 'splash':
         return noButton;
         break;
 
@@ -56,14 +60,14 @@ export default React.createClass({
 
     let helpButtonData = this.getHelpButtonData();
 
+    let label = this.context.intl.formatMessage({ id: 'needhelp' });
+
   	let helpIcon = (
       <IconButton type={helpButtonData.icon} folder={helpIconFolder}
         color='help' size='medium' isActive={false} labelAlignment='left' iconPosition='left'
-        label={'test'} />
+        label={label} />
     );
     
-    console.log("here");
-
     if (helpButtonData.icon === null) {
       helpIcon = undefined;
     }
@@ -72,13 +76,11 @@ export default React.createClass({
       {helpIcon}
     </div> );
 
-
     return (
       <footer>
 
         <div className="bottom-flex-left text-left">
           {HelpIconComponent}
-          <FormattedMessage id="needhelp"/>
         </div>
 
       </footer>

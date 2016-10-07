@@ -3,119 +3,57 @@
   .top-bar {
 
     height:70px;
-    font-weight:400;
+    padding: 12px;
+    padding-top:15px;
 
+    .top-left {
+      float:left;
+      width:170px;
+    }
+    .top-middle {
 
-    button {
-      &.btn {
-
-        background-color: transparent;
-        color: $color_grey1;
-        margin-top: 3px;
-        margin-left: 3px;
-
-        line-height: 1;
-        height: 51px;
-        box-sizing: border-box;
-        border: 1px solid transparent;
-
-        &.backButton {
-          height: 40px;
-        }
-
-        &.settingsButton,
-        &.loginButton {
-          width:10px;
-          position:relative;
-          top: -10px;
-          left: 10px;
-        }
-
-        &:hover  {
-          // background-color: $color2;
-          // color: $color2_font;
-        }
-        &:focus  {
-        
-        }
-        &:active {
-
-        }
-
-        &.active, &.active:focus {
-          background-color: $color_background;
-          border: 1px solid color($color_background l(-10));
-          border-bottom: 1px solid transparent;
-          color: $color_dark;
-        }
-        &.active:hover {
-
-        }
-      }
+      // flex: 4;
+    }
+    .top-right {
+      float:right;
+      width:170px;
     }
 
-    &.secondary {
-      height:53px;
-      
-      &.news {
-        //background-color: $color1_light;        
-      }
-      &.activities {
-        //background-color: $color2_light;
-      }
-      &.stories {
-        //background-color: $color3_light;        
-      }
+    .topNavWidget {
 
-    }
+      width:0;
+      margin: auto;
 
-    .top-flex {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      flex-flow: space-between;
-      &>div {
-        flex: 1;
-        &.top-flex-middle {
-          flex: 4;
+      #mainMenuIcon {
+
+        position:relative;
+        left:-20px;
+        top:2px;
+        &.active {
+
+        }
+        z-index:9999;
+
+      }
+      .topNavWidgetIcons{
+
+        position:relative;
+/*        top:-28px; */
+
+        #leftContextualTopIcon {
+          position:absolute;
+          left:-150px;
+
+        }
+        #rightContextualTopIcon {
+          position:absolute;
+          right:-150px;
         }
       }
 
     }
-    &.activities {
-      h4 {
-       // color: $color2;
-      }
-    }
-    &.stories {
-      h4 {
-        //color: $color3;
-      }
-    }
-    h4 {
-      font-weight:300;
-      color: $color_dark;
-      margin:0px;
-      line-height:63px;
-    }
-    .top-flex-left {
-      button {
-        margin-top: 10px;
-        margin-left: 10px;
-      }
-    }
-    .top-flex-right {
-      button {
-        margin-top: 10px;
-        margin-right: 10px;
-      }
-    }
+
 
   }
-}
-
-.top2-container {
-  position: fixed;
-  z-index:999;
 }
 

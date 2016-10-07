@@ -4,11 +4,15 @@ button {
     padding-left: 30px;
   }
   &.btn {
-    border:none;
+    border:2px solid $color_light;
+    color:$color_light;
+    border-radius: 9999px;
     font-weight:300 !important;
     white-space:normal !important;
     word-wrap:break-word;
     box-shadow: none;
+
+    background-color: transparent;
 
     &:hover, &:active {
       background-color: $color_dark;

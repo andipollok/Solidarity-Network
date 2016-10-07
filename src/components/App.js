@@ -18,8 +18,6 @@ import LanguageStore from '../stores/LanguageStore';
 import Helpers from '../stores/Helpers';
 import LoginActions from '../stores/LoginActions';
 import LoginStore from '../stores/LoginStore';
-import SessionActions from '../stores/SessionActions';
-import SessionStore from '../stores/SessionStore';
 
 import { addLocaleData, IntlProvider } from 'react-intl';
 import enLocaleData from 'react-intl/locale-data/en';
@@ -30,6 +28,8 @@ import moment_locale_en from 'moment/locale/en-gb.js';
 import moment_locale_fr from 'moment/locale/fr.js';
 import moment_locale_de from 'moment/locale/de.js';
 import ErrorMessage from './General/ErrorMessage';
+
+import ActivityFilters from './Filters/ActivityFilters'
 
 import iNoBounce from 'inobounce';
 
@@ -82,13 +82,28 @@ export default React.createClass({
     return {
   //      loggedIn: LoginStore.isLoggedIn(this)
       session: {
-        preferredLayout: "cards"
-      }
+        preferredLayout: "cards",
+        nonNewActivitiesLoaded: false,
+        nonNewActivities: undefined
+        // ,
+        // allActivities: undefined
+      },
+      popup: null,
     };
   },
 
+  togglePopup() {
+    if (this.state.popup) {
+      document.getElementById('popup').style.display = 'none';
+      this.setState({ popup: null});
+    } else {
+      document.getElementById('popup').style.display = 'block';
+      this.setState({ popup: 'Filters'});
+    }
+  },
+
   setSessionVar( variable, value) {
-    let modifiedState = { session: {} };
+    let modifiedState = { session: this.state.session };
     modifiedState.session[variable] = value;
     this.setState(modifiedState);
   },
@@ -113,6 +128,20 @@ export default React.createClass({
 
     });
 */
+
+    // Data is loaded now
+    if (!this.state.nonNewActivitiesLoaded) {
+      // We do this only the first time, because then the cookie is overwritten with new activities
+      var arrayInCookie = StatusStore.loadCookie( 'knownActivities', '' );
+      // console.log("arrayInCookie");
+      // console.log(arrayInCookie);
+      // // var str = JSON.parse( arrayInCookie); // no need to
+      // // console.log("STR");
+      // // console.log(str);
+      this.setState({ nonNewActivities: arrayInCookie, nonNewActivitiesLoaded: true });
+    }
+
+
   },
 
   render: function() {
@@ -148,12 +177,24 @@ export default React.createClass({
     var data = this.state.data;
     data.language = this.state.language;
     data.status = this.state.status;
-    data.area = Helpers.getAreaFromStatus(data);
+    data.nonNewActivities = this.state.nonNewActivities;
+    // data.allActivities = this.state.allActivities;
+    // data.area = Helpers.getAreaFromStatus(data);
 
     var flexContainerClasses = classNames( 'flex-container', {
-      'colorBg' : data.status.page === 'start'
+      'backgroundGradient' : data.status.page === 'start'
     } );
     
+    // POPUP
+
+    var popupComponent = '';
+    if (this.state.popup) {
+      switch (this.state.popup) {
+        case 'Filters':
+          popupComponent = <ActivityFilters setSessionVar={this.setSessionVar} session={this.state.session} togglePopup={this.togglePopup} />;
+          break;
+      }
+    }
 
     return (
 
@@ -162,7 +203,7 @@ export default React.createClass({
         <div className={flexContainerClasses}>
     
           <div className="top-container">
-            <Top data={data} setSessionVar={this.setSessionVar} />
+            <Top data={data} setSessionVar={this.setSessionVar} session={this.state.session} popup={this.state.popup} togglePopup={this.togglePopup} />
           </div>
 
           {error}
@@ -174,6 +215,10 @@ export default React.createClass({
           </div>
 
           <div className="main-container scrollable">
+
+            <div id="popup" >
+                {popupComponent}
+            </div>
 
             { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), setSessionVar: this.setSessionVar, session: this.state.session } ) }
   

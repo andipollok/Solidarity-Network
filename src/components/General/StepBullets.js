@@ -1,9 +1,14 @@
 import React from 'react';
 
-// Example
-// <StepBullets small={false} amount={4} active={[false, true, true, false]} height={100} />
+import Icon from '../General/Icon';
 
-import classNames from 'classnames';
+// Example
+// <StepBullets small={true} amount={4} numbered={false} active={[false, true, true, false]} height={20} width={300} horizontal={true} linked={false} />
+//
+// <StepBullets small={false} amount={3} numbered={true} active={[false, false, true]} height={100} width={40} horizontal={false} linked={false} labels={["Step 1", "Step 2", "Step 3"]} />
+//
+// <StepBullets small={false} amount={3} numbered={true} active={[false, false, true]} height={100} width={40} horizontal={false} linked={false} labels={["Step 1", "Step 2", "Step 3"]} callbalcks={[this.resetFilter, this.resetFilter, this.resetFilter]} />
+
 
 // A component used to represent steps or linked elements
 // Properties:
@@ -12,13 +17,17 @@ import classNames from 'classnames';
 // - numbered bullets / not
 // - linked bullets / not
 // - with labels / not
+// - which have what icon (NB if icons are provided then "numbered" property is ignored)
+// - which are active
 
 const bulletSizeRadius_Small = 3;
-const bulletSizeRadius_Big = 5.2;
+const bulletSizeRadius_Big = 7;
 const bulletFontSize_Small = 3;
 const bulletFontSize_Big = 5;
-const labelPadding_Small = 2;
-const labelPadding_Big = 4;
+const labelHPadding_Small = 2;
+const labelHPadding_Big = 4;
+const labelVPadding_Small = 3;
+const labelVPadding_Big = 6;
 const labelFontSize_Small = 3;
 const labelFontSize_Big = 4.5;
 const defaultColor = "white";
@@ -34,43 +43,94 @@ export default React.createClass({
   //   return false;
   // },
 
-  drawBullet( x, y, active, showLabel, label, radius, bulletFontSize, labelFontSize, labelPadding ) {
+  logg() {
+    console.log("Hello");
+  },
 
-    if (showLabel) {
+  // with inner label
+  drawBullet( x, y, active, innerLabel, outerLabel, outerLabelSlot, radius, bulletFontSize, labelFontSize, labelHPadding, labelVPadding, callback, icon ) {
+
+    var bullet = null;
+
+    var bulletContent = "";
+
+
+    // // // TODO remove "true" that is here for debugging purposes
+    // if (true || icon) {
+    if (icon) {
+
+
+      let translate = "translate(" + x + ", " + y + ")";
+      // TODO scale the icon
+      let scale = "scale(" + 0.25 + ", " + 0.25 + ")";
+      // TODO either remove the icon's border or do not draw the circle in the StepBullet component
+      bulletContent = <g transform={translate}>
+        <g transform={scale}>
+          <Icon type='upcoming' folder='service' size='small' isActive={false} noHTML={true} />
+        </g>
+      </g>;
+    } else {
+      bulletContent = <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{innerLabel}</text>;
+    }
+
+    if (outerLabel) {
       
-      return <g>
+      // Icon + Exterior label
+
+      let outerLabelX = x;
+      let outerLabelY = y;
+      let outerLabelTextAnchor = 'left';
+      switch (outerLabelSlot) {
+        case 'right':
+        default:
+          outerLabelX = x + radius + labelHPadding;
+          break;
+        case 'bottom':
+          outerLabelY = y + radius + labelVPadding;
+          outerLabelTextAnchor = 'middle';
+          break;
+      }
+
+      // TODO if icon, maybe do not draw the circle (see above if we can draw icons without borders)
+
+      bullet = <g>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
-        <text x={x + radius + labelPadding} y={y} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">Part</text>
+        {bulletContent}
+        <text x={outerLabelX} y={outerLabelY} textAnchor={outerLabelTextAnchor} fill="white" fontSize={labelFontSize} fontWeight="200" dy=".32em" lineHeight="1em">{outerLabel}</text>
       </g>
 
     } else {
+
+      // Icon without exterior label
       
-      return <g>
+      // TODO if icon, maybe do not draw the circle (see above if we can draw icons without borders)
+
+      bullet = <g>
         <circle cx={x} cy={y} r={radius} stroke={defaultColor} strokeWidth={defaultStrokeWidth} fill={active ? defaultColor : "none" } />
-        <text x={x} y={y} textAnchor="middle" fill={ active ? activeColor : defaultColor } fontSize={bulletFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
+        {bulletContent}
       </g>
 
     }
 
+    if (callback) {
+      return <g key={x+y} onClick={callback} cursor="pointer">
+          {bullet}
+        </g>
+    } else {
+      return <g key={x+y}>
+          {bullet}
+        </g>
+    }
+
+
   },
 
   createBulletItem( bullet ) {        
-    return this.drawBullet(
-      bullet[0],
-      bullet[1],
-      bullet[2],
-      bullet[3],
-      bullet[4],
-      bullet[5],
-      bullet[6],
-      bullet[7],
-      bullet[8]
-    );
+    return this.drawBullet.apply( this, bullet );
   },
 
   drawLine( x1, y1, x2, y2 ) {
-    return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
+    return <line key={x1+x2+y1+y2} x1={x1} y1={y1} x2={x2} y2={y2} stroke={defaultColor} strokeWidth={defaultStrokeWidth}></line>
   },
 
   createLineItem( line ) {        
@@ -99,16 +159,24 @@ export default React.createClass({
     let horizontal = this.props.horizontal || false;
     let numbered = this.props.numbered || true;
     let linked = this.props.linked || true;
-    let showLabel = this.props.labels || false;
-
     let numberOfBullets = this.props.amount || 2;
     
     // Format [ true, false, false ] = 3 bullets, the first one is active
     let activeBullets = this.props.active || [];
+    
+    // array of labels or false
+    let outerLabels = this.props.labels || false;
+
+    // array of callbacks or false
+    let callbacks = this.props.callbacks || false;
+    
+    // array of icon names or false
+    let icons = this.props.icons || [];
 
     let radius = small ? bulletSizeRadius_Small : bulletSizeRadius_Big;
     let bulletFontSize = small ? bulletFontSize_Small : bulletFontSize_Big;
-    let labelPadding = small ? labelPadding_Small : labelPadding_Big;
+    let labelHPadding = small ? labelHPadding_Small : labelHPadding_Big;
+    let labelVPadding = small ? labelVPadding_Small : labelVPadding_Big;
     let labelFontSize = small ? labelFontSize_Small : labelFontSize_Big;
 
     //
@@ -133,8 +201,8 @@ export default React.createClass({
     //   let bulletX = bulletX0 + ( horizontal ? ( i * bulletXIncr ) : 0 );
     //   let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
     //   let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
-    //   bullets += this.bullet( bulletX, bulletY, bulletActive, showLabel, radius, bulletFontSize, labelFontSize, labelPadding );
-    //   console.log(bulletX, bulletY, bulletActive, showLabel, radius, bulletFontSize, labelFontSize, labelPadding);
+    //   bullets += this.bullet( bulletX, bulletY, bulletActive, showOuterLabel, radius, bulletFontSize, labelFontSize, labelPadding );
+    //   console.log(bulletX, bulletY, bulletActive, showOuterLabel, radius, bulletFontSize, labelFontSize, labelPadding);
     // }
 
     let bulletsArray = [];
@@ -149,16 +217,24 @@ export default React.createClass({
       let bulletY = bulletY0 + ( horizontal ? 0 : ( i * bulletYIncr ) );
       let bulletActive = ( activeBullets.length >= i+1 && activeBullets[i] );
       let bulletLabel = i + 1;
+      let outerLabel = ( outerLabels && i < outerLabels.length ) ? outerLabels[i] : false; // text or false
+      let outerLabelSlot = horizontal ? 'bottom' : 'right';
+      let callback = ( callbacks && i < callbacks.length ) ? callbacks[i] : false; // function or false
+      let icon = ( icons && i < icons.length ) ? icons[i] : false; // text or false
       bulletsArray.push( [
         bulletX,
         bulletY,
         bulletActive,
-        showLabel,
         bulletLabel,
+        outerLabel,
+        outerLabelSlot,
         radius,
         bulletFontSize,
         labelFontSize,
-        labelPadding
+        labelHPadding,
+        labelVPadding,
+        callback,
+        icon
       ] );
 
       // Line if not first bullet (because we need coordinates of bullet N and N+1)
@@ -176,21 +252,23 @@ export default React.createClass({
       prevBulletY = bulletY;
 
     }
+          
+          // <rect x="0" y="0" width="40" height="200" fill={componentBackgroundColor}></rect>
 
     return (
-      <span>
-        <svg preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium" viewBox={svgDimensions}>
-          <title>alo_service</title>
-          
-          <rect x="0" y="0" width="40" height="200" fill={componentBackgroundColor}></rect>
-          
+      <span className="stepBullets">
+
+        <svg preserveAspectRatio="xMidYMid meet" name="stepbullets" viewBox={svgDimensions}>
+                    
           {linesArray.map( this.createLineItem, this )}
 
           {bulletsArray.map( this.createBulletItem, this )}
           
           </svg>
+
       </span>
     );
+    
   }
 });
 

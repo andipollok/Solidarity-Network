@@ -48,10 +48,42 @@ export default React.createClass({
 
   onClickBack() {
     var data = this.props.data;
+    var data = this.props.data;
+    var popup = this.props.popup;
     if (data.status.page === 'start') {
 
+      // in start screen the back button decrements a session variable resulting in the steps going back
+      var step = this.props.session.startStep;
+      if (step && Number.isInteger(step)) {
+        if (step == 1) {
+          history.goBack();
+        } else {
+          let newStep = step - 1;
+          this.props.setSessionVar( "startStep", newStep );
+        }
+      }
+
+    } else if (popup && popup == 'Filters') {
+
+      // if go back is pressed when filters popup is open, then it goes back or closes it
+      var screen = this.props.session.filterPopupScreen;
+      switch ( screen ) {        
+        case 'main':
+        default:
+          // just close it
+          this.props.togglePopup();
+          break;
+        case 'activities':
+          // go back to main
+          this.props.setSessionVar( "filterPopupScreen", 'main' );
+          break;
+      }
+
     } else {
+
+      // in all other cases, just go back in history
       history.goBack();
+
     }
   },
 
@@ -67,6 +99,52 @@ export default React.createClass({
     window.location.assign("#/login");
   },
 
+  // returns a hash with:
+  //  iconType
+  //  label
+  //  buttonColor: color for IconButton component (white|green|default|active|passive)
+  getButtonData() {
+
+    var setSessionVar = this.props.setSessionVar;
+
+    var data = this.props.data;
+
+    switch (data.status.page) {
+
+      case 'start':
+        return {
+          iconType: 'navigation',
+          label: '',
+          menuIconColor: 'default',
+          contextualIconColor: 'default',
+          backButtonColor: 'start'
+        };
+        break;
+
+      case 'activities':
+        return {
+          iconType: 'upcoming',
+          label: '',
+          menuIconColor: 'menu',
+          contextualIconColor: 'menu',
+          backButtonColor: 'default'
+        };
+        break;
+
+      default:
+        return {
+          iconType: 'navigation',
+          label: '',
+          menuIconColor: 'menu',
+          contextualIconColor: 'menu',
+          backButtonColor: 'default'
+        };
+        break;
+
+    }
+
+  },
+
   // returns a simple array with:
   // [0] : icon path
   // [1] : label
@@ -75,7 +153,7 @@ export default React.createClass({
     var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
-
+    
     switch (data.status.page) {
 
       case 'start':
@@ -134,6 +212,8 @@ export default React.createClass({
 
   getFiltersButtonData() {
 
+    var togglePopup = this.props.togglePopup;
+
     var setSessionVar = this.props.setSessionVar;
 
     var data = this.props.data;
@@ -143,7 +223,7 @@ export default React.createClass({
       case 'activities':
         return {
           icon: 'filters',
-          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+          callback: togglePopup, //.bind(null, "preferredLayout", "list"),
         };
         break;
 
@@ -167,38 +247,77 @@ export default React.createClass({
     }
 
 
+
+    //
+    // Main menu
+    //
+
+    var mainMenuClasses = classNames({
+      'opened': this.state.mainMenuOpened
+    });
+
+    var mainMenu = (<div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
+      <MainMenu ref="mainMenuRef" openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} data={data} />
+    </div>);
+
+
+
+    //
     // Primary navigation
+    //
 
     // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
 
+      let menuIconData = this.getButtonData();
+
       var barClasses = classNames( "top-bar", data.status.page);
 
-      // Back button
+      //
+      // Back button (top left corner)
+      //
 
-      var BackButton = <Button className="backButton" onClick={this.onClickBack}>
-        &lt;&nbsp;
-        <FormattedMessage id='back' />
-      </Button>;
+      // var BackButton = <Button className="backButton" onClick={this.onClickBack}>
+      //   &lt;&nbsp;
+      //   <FormattedMessage id='back' />
+      // </Button>;
 
-      // Main menu icon
-
-      var mainMenuIconClasses = classNames( 'mainMenuIcon', 'divLink', {
-        'active': !this.state.mainMenuOpened
+      let backIconClasses = classNames( 'backIcon', 'divLink', {
+        'active': true // TODO clarify whether that means highlighted or enabled
       });
 
-      let menuIconType = 'upcoming';
-      let menuIconFolder = 'service';
-
-      var MainMenuIcon = ( <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
-        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" name="service/medium/alo_service-activity-medium">
-          <circle cx="50" cy="50" r="46" fill="transparent" stroke="white" strokeWidth="4"></circle>
-        </svg>
-        <Icon type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={true} />
+      let backIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconData.backButtonColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='left' label="Go Back" />;
+      
+      var BackComponent = ( <div className={backIconClasses} id="backIcon" onClick={this.onClickBack}>
+        {backIcon}
       </div> );
 
+      //
+      // Main menu icon
+      //
 
+      var mainMenuIconClasses = classNames( 'mainMenuIcon', 'divLink', {
+        'active': !this.state.mainMenuOpened,
+        'hidden': (data.status.page == 'start') && (this.props.session.startStep < 4)
+      });
+
+      let menuIconType = menuIconData.iconType;
+      let menuIconFolder = 'service';
+
+      // TODO display the label
+      // let menuIconLabel = menuIconData.label;
+
+      let menuIconColor = menuIconData.menuIconColor;
+
+      var MainMenuIcon = (
+          <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
+            <Icon type={menuIconType} folder={menuIconFolder} size='small' color={menuIconColor} isActive={!this.state.mainMenuOpened} data={data}/>
+          </div>
+      );
+
+      //
       // Contextual icons (on top center, left and right from main menu icon)
+      //
 
       let contextualIconClasses = classNames( 'contextualTopIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
@@ -207,18 +326,20 @@ export default React.createClass({
       let leftButtonData = this.getLeftTopButtonData();
       let rightButtonData = this.getRightTopButtonData();
 
-      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      var contextualIconColor = menuIconData.contextualIconColor;
+
+      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={contextualIconColor} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
       }
-
+      console.log(leftButtonData.callback);
       var ContextualIconLeftComponent = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
@@ -227,8 +348,9 @@ export default React.createClass({
         {rightIcon}
       </div> );
 
+      //
       // Filters button (top right corner)
-      // can have four states: enabled and passive (=clickable), enabled and active (=highlighted), disabled but visible (=grayed, not clickable), invisible (=not displayed at all)
+      //
 
       let filtersIconClasses = classNames( 'filtersIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
@@ -236,7 +358,7 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
+      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;
@@ -246,16 +368,23 @@ export default React.createClass({
         {filtersIcon}
       </div> );
 
-      // Rendering the nav
+      //
+      // Rendering of the primary nav
+      //
 
       var primary = (
         <Row className={barClasses}>
           <Col className="box no-padding">
-            <div className="top-flex">
-              <div className="top-flex-left text-left">
-                {BackButton} 
+
+              <div className="top-left text-left">
+                {BackComponent}
               </div>
-              <div className="top-flex-middle text-center">
+
+              <div className="top-right text-right">
+                {FiltersIconComponent}
+              </div>
+
+              <div className="top-middle text-center">
                 <div className="topNavWidget">
                   <div className="topNavWidgetIcons">
                     {ContextualIconLeftComponent}
@@ -264,10 +393,7 @@ export default React.createClass({
                   {MainMenuIcon}
                 </div>
               </div>
-              <div className="top-flex-right text-right">
-                {FiltersIconComponent}
-              </div>
-            </div>
+
           </Col>
         </Row>
       );
@@ -275,12 +401,21 @@ export default React.createClass({
 
     };
 
+
+
+    //
+    // Login button
+    //
+
     // <Button className="loginButton" size="bsLarge" onClick={this.onClickLogin}>
     //   <FormattedMessage id='login' />
     // </Button>
 
 
+
+    //
     // Secondary navigation
+    //
 
     if (data.status.secondaryNav !== null) {
       var barClassesSecondary = classNames( "top-bar secondary text-center", data.status.page);
@@ -292,16 +427,11 @@ export default React.createClass({
 
     };
 
-    // Main menu
 
-    var mainMenuClasses = classNames({
-      'opened': this.state.mainMenuOpened
-    });
 
-    var mainMenu = (<div id="mainmenu" className={mainMenuClasses} onClick={this.onClickOutsideMainMenu}>
-      <MainMenu openMenuCallback={this.openMenu} closeMenuCallback={this.closeMenu} data={data} />
-    </div>);
-
+    // 
+    // Rendering of the whole component
+    //
 
     return (
       <div className="container-fluid">

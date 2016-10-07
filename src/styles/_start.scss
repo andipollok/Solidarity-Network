@@ -1,29 +1,52 @@
-/* This is the start menu with a gradient background, thus this name */
-.colorBg {
+/* Start screen */
 
+/* Gradient to be applied to main div */
+.backgroundGradient {
   background-image: url('../images/app/alo_welcome_background.png');
   background-repeat: repeat;
   background-size: contain; 
   height:100%;
-  width:100%;
+  width:100%;  
+}
 
-  .mainMenuIcon {
+.start {
+
+  color: $color_light;
+
+  .stepBullets {
+    position:absolute;
+    width:140px;
+  }
+
+  .selections {
 
   }
 
-  #mainmenu {
-    background: transparent;
+  .countries {
+    padding-top: 100px;
   }
 
+  .areas {
+    padding-top:40px;
+  }
 
-  #mainmenu #menu {
-    background: transparent;
-    border: 2px solid white;
+  .country,
+  .area {
+    display: inline-block;
+    margin: 40px 60px;
+    .text {
+      padding-top: 20px;
+      display: inline-block;
+    }
   }
-  
-  #mainmenu #menu button.btn-default {
-    background-color: transparent;
-    color: white;
+
+  .arrowUp {
+    width: 22px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    left: -2px; /* to cater for small offset in centering the arrow */
   }
-  
+
 }
