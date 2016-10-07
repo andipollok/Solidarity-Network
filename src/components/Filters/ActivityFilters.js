@@ -15,11 +15,6 @@ import Icon from '../General/Icon';
 
 import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
-// import Listitem from './Calendaritem';
-// import TypeSelectorButton from '../General/TypeSelectorButton';
-// import ViewSelectorButtons from './ViewSelectorButtons';
-
-
 export default React.createClass({
 
   contextTypes: {
