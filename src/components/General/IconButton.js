@@ -190,12 +190,14 @@ export default React.createClass({
 
         </svg>
 
-        <Icon
-          type={this.props.type}
-          folder={this.props.folder}
-          size={this.props.size}
-          color={this.props.color}
-          isActive={this.props.isActive} />
+        <span className={iconPosition}>
+          <Icon 
+            type={this.props.type}
+            folder={this.props.folder}
+            size={this.props.size}
+            color={this.props.color}
+            isActive={this.props.isActive} />
+        </span>
 
       </span>
     );
