@@ -14,7 +14,8 @@ const noButton = {
   icon: null,
   label: null,
   callback: undefined,
-  active: false,
+  active: false, // whether or not the icon is highlighted
+  disabled: false, // whether or not the icon is clickable or grayed (like, under a popup)
 };
 
 const history = createHashHistory();
@@ -183,7 +184,7 @@ export default React.createClass({
           label: label,
           callback: thisIsThePreferredLayoutAlready ? undefined: setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
-          behind: popup, // if any popup is opened this goes behind
+          disabled: popup, // if any popup is opened this goes behind
         };
         break;
 
@@ -224,7 +225,7 @@ export default React.createClass({
           label: label,
           callback: thisIsThePreferredLayoutAlready ? undefined : setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
-          behind: popup, // if any popup is opened this goes behind
+          disabled: popup, // if any popup is opened this goes behind
         };
         break;
 
@@ -257,7 +258,7 @@ export default React.createClass({
           label: null,
           callback: togglePopup, //.bind(null, "preferredLayout", "list"),
           active: ( popup && popup == 'Filters' ),
-          behind: false, // if another popup is opened that Filters, such as Help for instance
+          disabled: false, // if another popup is opened that Filters, such as Help for instance
         };
         break;
 
@@ -364,8 +365,8 @@ export default React.createClass({
 
       var contextualIconColor = menuIconData.contextualIconColor;
 
-      let leftIconColor = leftButtonData.behind ? ( leftButtonData.active ? "behind" : "behindInactive" ) : contextualIconColor;
-      let rightIconColor = rightButtonData.behind ? ( rightButtonData.active ? "behind" : "behindInactive" ) : contextualIconColor;
+      let leftIconColor = leftButtonData.disabled ? ( leftButtonData.active ? "disabled" : "disabledInactive" ) : contextualIconColor;
+      let rightIconColor = rightButtonData.disabled ? ( rightButtonData.active ? "disabled" : "disabledInactive" ) : contextualIconColor;
 
       let leftIcon = (
         <IconButton
