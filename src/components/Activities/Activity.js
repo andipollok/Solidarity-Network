@@ -153,7 +153,7 @@ export default React.createClass({
 
     // format start and end time
     var componentTime = <h3>
-                  <Icon type='time' folder='service' size='small' area='secondaryinfo'/>
+                  <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
                   {startingAt}&nbsp;<FormattedTime
                         value={activity.date}
                         minute="2-digit"
@@ -162,7 +162,7 @@ export default React.createClass({
 
     if (activity.dateEnd) {
       componentTime = <h3>
-                    <Icon type='time' folder='service' size='small' area='secondaryinfo'/>
+                    <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
                     <FormattedMessage id="from" />&nbsp;<FormattedTime
                       value={activity.date}
                       minute="2-digit"
@@ -175,7 +175,7 @@ export default React.createClass({
     }
 
     var componentDate = <h3>
-                    <Icon type='calendar' folder='service' size='small' area='secondaryinfo'/>
+                    <Icon type='calendar' folder='service' size='medium' area='secondaryinfo'/>
                     <FormattedMessage id="on" defaultMessage=" "/>
                         &nbsp;<FormattedDate
                               value={activity.date}
@@ -187,7 +187,7 @@ export default React.createClass({
                     </h3>
 
     var componentLocation = <h3>
-                    <Icon type='location' folder='service' size='small' area='secondaryinfo'/>
+                    <Icon type='location' folder='service' size='medium' area='secondaryinfo'/>
                     {activity.location}
                     </h3>
 

@@ -14,7 +14,11 @@ export default React.createClass({
     }
 
     return (
-      <Icon type={icon} folder='activities' area={this.props.area} isOnSolid={this.props.isOnSolid} size={this.props.size}>
+      <Icon
+        type={icon}
+        folder='activities'
+        color='activity'
+        size={this.props.size}>
       </Icon>
     );
 

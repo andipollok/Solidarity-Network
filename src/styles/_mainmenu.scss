@@ -39,24 +39,22 @@
     }
 
     /* Default main menu icon colors */
-    button {
+    .button {
       
       background-color: transparent;
-      color: $color1; /* Solidarity Purple */
-      margin: 0 0 20px 0;
       border: transparent;
 
-      .icon {
-        background-color: transparent;
+      margin: 0 0 35px 0;
+
+      color: $color1; /* Solidarity Purple */
+      &.inactive {
+        color: $color_grey;
       }
 
-      span {
-        display: block;
-        font-weight: 400;
-        &.icon {
-          margin-bottom: 10px;
-        }
+      .icon {
+        margin-bottom: 10px;
       }
+
     }
   }
 
@@ -74,8 +72,11 @@
 
       background: transparent;
       border: 2px solid $color_light;
-      button {
+      .button {
         color: $color_light;
+        &.inactive {
+          color: $color_light;
+        }
       }
     }
   }

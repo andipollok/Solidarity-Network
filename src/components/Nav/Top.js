@@ -145,7 +145,7 @@ export default React.createClass({
 
       default:
         return {
-          iconType: 'navigation',
+          iconType: 'wheel',
           menuIconColor: 'menu',
           contextualIconColor: 'submenu',
           backButtonColor: 'default',
@@ -343,7 +343,7 @@ export default React.createClass({
             <Icon
               type={menuIconType}
               folder='nav'
-              size='medium'
+              size='bigger'
               color={menuIconColor}
               isActive={this.state.mainMenuOpened}
               withBorder={!this.state.mainMenuOpened}

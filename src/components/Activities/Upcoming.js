@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 
 import classNames from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import {formatMessage, FormattedMessage} from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 import ReactCssTransitionGroup from 'react-addons-css-transition-group';
 
@@ -15,9 +15,16 @@ import DataStore from '../../stores/DataStore';
 
 import UpcomingItem from './UpcomingItem';
 
+import Icon from '../General/Icon';
+import IconButton from '../General/IconButton';
+
 import ViewSelectorButtons from './ViewSelectorButtons';
 
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   componentWillMount() {
     StatusActions.setPage('activities');
@@ -80,13 +87,13 @@ export default React.createClass({
     var groupsResults = [];
 
     var groupsQueries = [
-      { id : "today"      , label : "Aujourd'hui"           , before : date_endOfToday },
-      { id : "tomorrow"   , label : "Demain"                , before : date_endOfTomorrow },
-      { id : "thisweek"   , label : "Cette semaine"         , before : date_endOfThisWeek },
-      { id : "nextweek"   , label : "La semaine prochaine"  , before : date_endOfNextWeek },
-      { id : "thismonth"  , label : "Avant la fin du mois"  , before : date_endOfThisMonth },
-      { id : "nextmonth"  , label : "Le mois prochain"      , before : date_endOfNextMonth },
-      { id : "after"      , label : "Plus tard"             , before : date_endOfTime },
+      { id : "today"      , label : this.context.intl.formatMessage({ id: 'today' }), before : date_endOfToday },
+      { id : "tomorrow"   , label : this.context.intl.formatMessage({ id: 'tomorrow' }), before : date_endOfTomorrow },
+      { id : "thisweek"   , label : this.context.intl.formatMessage({ id: 'thisweek' }), before : date_endOfThisWeek },
+      { id : "nextweek"   , label : this.context.intl.formatMessage({ id: 'nextweek' }), before : date_endOfNextWeek },
+      { id : "thismonth"  , label : this.context.intl.formatMessage({ id: 'thismonth' }), before : date_endOfThisMonth },
+      { id : "nextmonth"  , label : this.context.intl.formatMessage({ id: 'nextmonth' }), before : date_endOfNextMonth },
+      { id : "after"      , label : this.context.intl.formatMessage({ id: 'later' }), before : date_endOfTime },
     ];
 
     // Prepare the list of new activities in case we need them
@@ -96,14 +103,8 @@ export default React.createClass({
           StatusStore.data.filters.activityStatus == 'new'
     ) {
       let knownPreviously = data.nonNewActivities; // keys already extracted
-      // console.log("knownPreviously");
-      // console.log(knownPreviously);
       let allCurrent = Object.keys( DataStore.data.known.activities );
-      // console.log("allCurrent");
-      // console.log(allCurrent);
       diff_newActivities = allCurrent.filter( x => knownPreviously.indexOf(x) < 0 );
-      // console.log("diff_newActivities");
-      // console.log(diff_newActivities);
     }
 
     // Reinit grouping status
@@ -171,13 +172,13 @@ export default React.createClass({
 
     var activityItem = function(activity) {
       return ( <UpcomingItem key={activity.id}
-                activity={activity}
-                data={data}
-                layout={session.preferredLayout}
-                showDate={false}
-                showTime={true}
-                showIcon={true}
-                onClickHandler={this.onClickActivity} /> );
+                  activity={activity}
+                  data={data}
+                  layout={session.preferredLayout}
+                  showDate={false}
+                  showTime={true}
+                  showIcon={true}
+                  onClickHandler={this.onClickActivity} /> );
     }.bind(this);
 
     var groupItem = function( group ) {
@@ -196,12 +197,22 @@ export default React.createClass({
 
       } else {
 
-        return (<Row key={group.id}>
-                  <div>
-                    {group.label}
-                  </div>
-                    {group.activities.map(activityItem, this)}
-                </Row>);
+        return (<span>
+                  <Row key={group.id}>
+                    <Col sm={12} className="groupLabel">
+                      <Icon 
+                      type='calendar'
+                      folder='service'
+                      size='medium'
+                      color='default'
+                      active='false' />
+                      <span className="padded">{group.label}</span>
+                    </Col>
+                  </Row>
+                  <Row>
+                      {group.activities.map(activityItem, this)}
+                  </Row>
+                </span>);
 
       }
     }.bind(this);
@@ -217,7 +228,6 @@ export default React.createClass({
     return (
 
       <div className="container activities">
-
 
         {groupsResults.map(groupItem, this)}
 

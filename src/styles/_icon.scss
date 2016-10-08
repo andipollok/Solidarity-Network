@@ -1,6 +1,7 @@
-$iconSize: 80px;
-$iconSizeMedium: 60px;
-$iconSizeSmall: 40px;
+$iconSizeLarge: 80px;
+$iconSizeBigger: 60px; /* for the main menu icon */
+$iconSizeMedium: 30px; /* this is weird, but it is like the icons are designed */
+$iconSizeSmall: 40px; /* small icons are bigger than medium, because they have outline! */
 
 #content {
 
@@ -9,8 +10,8 @@ $iconSizeSmall: 40px;
     display: inline-block;
     vertical-align: middle;
 
-    width: $iconSize;
-    height: $iconSize;
+    width: $iconSizeLarge;
+    height: $iconSizeLarge;
 
     position: relative;
 
@@ -25,16 +26,30 @@ $iconSizeSmall: 40px;
       top:0;
       left:0;
 
-      width: $iconSize;
-      height: $iconSize;
+      width: $iconSizeLarge;
+      height: $iconSizeLarge;
 
+    }
+
+    &.bigger {
+      width: $iconSizeBigger;
+      height: $iconSizeBigger;
+      
+      top: calc(-$iconSizeBigger / 2);
+      margin-bottom: calc(-$iconSizeBigger);
+
+      svg {
+        width: $iconSizeBigger;
+        height: $iconSizeBigger;
+        }
     }
 
     &.medium {
       width: $iconSizeMedium;
       height: $iconSizeMedium;
       
-      top: calc(-$iconSizeMedium / 2);
+      /* top: calc(-$iconSizeMedium / 2); */
+      top: -20px; /* adjust alignment hard-coded because it fits better to text that follows an icon */
       margin-bottom: calc(-$iconSizeMedium);
 
       svg {

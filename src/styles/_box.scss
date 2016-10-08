@@ -8,7 +8,7 @@
       padding:0;
     }
     &.outline {
-      border: 2px solid $color_grey4;
+      border: 2px solid $color_grey;
     }
     &.outline.rounded {
       border-radius:12px;
@@ -37,8 +37,8 @@
         .grey { color:white; }
       }
       &.stories.solid {
-        background-color:$color3;
-        color:$color3_font;
+        background-color:$color1;
+        color:$color1_font;
       }
     }
     &.selected {
@@ -69,9 +69,9 @@
 }
 .stories {
   .box.outline {
-    border: 2px solid $color3;
+    border: 2px solid $color1;
   }
   .box.solid { 
-    background-color:$color3;
+    background-color:$color1;
   }
 }

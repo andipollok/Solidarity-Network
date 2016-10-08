@@ -67,30 +67,35 @@ export default React.createClass({
               <SvgIcon name='app/line' color={lineColor}/>
             </span>
 
-            <Button className="UpcomingButton" size="bsLarge" onClickCapture={this.onClickUpcoming}>
+            <div className="button active" onClickCapture={this.onClickUpcoming}>
               <Icon type='upcoming' color={menuItemColor} folder='service' size='large' isActive={true} data={data} />
+              <br />
               <FormattedMessage id='upcoming' />
-            </Button>
+            </div>
 
-            <Button className="CalendarButton" size="bsLarge" onClickCapture={this.onClickCalendar}>
-              <Icon type='calendar' color={menuItemColor} folder='service' size='large' isActive={true} data={data} />
+            <div className="button inactive">
+              <Icon type='calendar' color={menuItemColor} folder='service' size='large' isActive={false} data={data} />
+              <br />
               <FormattedMessage id='calendar' />
-            </Button>
+            </div>
 
-            <Button className="JournalButton" size="bsLarge" onClickCapture={this.onClickJournal}>
-              <Icon type='journal' color={menuItemColor} folder='service' size='large' isActive={true} data={data} />
+            <div className="button inactive">
+              <Icon type='journal' color={menuItemColor} folder='service' size='large' isActive={false} data={data} />
+              <br />
               <FormattedMessage id='journal' />
-            </Button>
+            </div>
 
-            <Button className="PhotoButton" size="bsLarge" onClickCapture={this.onClickPhoto}>
-              <Icon type='photo' color={menuItemColor} folder='service' size='large' isActive={true} data={data} />
+            <div className="button inactive">
+              <Icon type='photo' color={menuItemColor} folder='service' size='large' isActive={false} data={data} />
+              <br />
               <FormattedMessage id='photo' />
-            </Button>
+            </div>
 
-            <Button className="SettingsButton" size="bsLarge" onClickCapture={this.onClickSettings}>
+            <div className="button active" onClickCapture={this.onClickSettings}>
               <Icon type='settings' color={menuItemColor} folder='service' size='large' isActive={true} data={data} />
+              <br />
               <FormattedMessage id='settings' />
-            </Button>
+            </div>
 
         </div>
     );

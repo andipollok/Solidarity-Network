@@ -19,7 +19,7 @@ $avatarSizeTiny: 30px;
       align-items:center;
       overflow:hidden;
       border-radius: calc($avatarSize / 2);
-      background-color: $color_grey1;
+      background-color: $color_grey;
 
       &.small {
         width: $avatarSizeSmall;
