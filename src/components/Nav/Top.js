@@ -117,8 +117,7 @@ export default React.createClass({
 
       case 'start':
         return {
-          iconType: 'navigation',
-          label: '',
+          iconType: 'wheel',
           menuIconColor: 'filled',
           contextualIconColor: 'start',
           backButtonColor: 'start',
@@ -129,7 +128,6 @@ export default React.createClass({
       case 'activities':
         return {
           iconType: 'upcoming',
-          label: '',
           menuIconColor: 'menu',
           contextualIconColor: 'submenu',
           backButtonColor: 'default',
@@ -140,7 +138,6 @@ export default React.createClass({
       default:
         return {
           iconType: 'navigation',
-          label: '',
           menuIconColor: 'menu',
           contextualIconColor: 'submenu',
           backButtonColor: 'default',
@@ -310,16 +307,18 @@ export default React.createClass({
       });
 
       let menuIconType = menuIconData.iconType;
-      let menuIconFolder = 'service';
-
-      // TODO display the label
-      // let menuIconLabel = menuIconData.label;
-
       let menuIconColor = menuIconData.menuIconColor;
 
       var MainMenuIcon = (
           <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
-            <Icon type={menuIconType} folder={menuIconFolder} size='small' color={menuIconColor} isActive={!this.state.mainMenuOpened} data={data}/>
+            <Icon
+              type={menuIconType}
+              folder='nav'
+              size='medium'
+              color={menuIconColor}
+              isActive={this.state.mainMenuOpened}
+              withBorder={!this.state.mainMenuOpened}
+              data={data}/>
           </div>
       );
 
@@ -336,13 +335,31 @@ export default React.createClass({
 
       var contextualIconColor = menuIconData.contextualIconColor;
 
-      let leftIcon = <IconButton type={leftButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      let leftIcon = (
+        <IconButton
+          type={leftButtonData.icon}
+          folder='service'
+          color={contextualIconColor}
+          size='small'
+          isActive={true}
+          labelAlignment='left'
+          iconPosition='left'
+          label={leftButtonData.label} />);
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={rightButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = (
+        <IconButton
+          type={rightButtonData.icon}
+          folder='service'
+          color={contextualIconColor}
+          size='small'
+          isActive={false}
+          labelAlignment='right'
+          iconPosition='right'
+          label={rightButtonData.label} />);
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
