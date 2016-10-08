@@ -5,10 +5,14 @@ import classNames from 'classnames';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Icon from '../General/Icon';
+import SvgIcon from 'react-svg-icons';
 
 import { FormattedMessage } from 'react-intl';
 
 const history = createHashHistory();
+
+const color1 = "#823FC2";
+const color_light = "#FFF";
 
 export default React.createClass({
 
@@ -47,13 +51,21 @@ export default React.createClass({
     var data = this.props.data;
 
     var menuItemColor = 'menuitem';
+    var lineColor = color1;
+
     if (data && data.status && data.status.page === 'start') {
       menuItemColor = 'menuitemstart';
+      lineColor = color_light;
     }
 
     return (
 
+
         <div id="menu" onClick={this.onClickMenuFrame}>
+
+            <span className="line">
+              <SvgIcon name='app/line' color={lineColor}/>
+            </span>
 
             <Button className="UpcomingButton" size="bsLarge" onClickCapture={this.onClickUpcoming}>
               <Icon type='upcoming' color={menuItemColor} folder='service' size='large' isActive={true} data={data} />

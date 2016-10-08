@@ -169,9 +169,10 @@ export default React.createClass({
       case 'activities':
         let layoutPreference = "Cards";
         let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
+        let label = this.context.intl.formatMessage({ id: 'cards_layout' });
         return {
-          icon: '',
-          label: layoutPreference,
+          icon: 'cards',
+          label: label,
           callback: thisIsThePreferredLayoutAlready ? undefined: setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
           behind: popup, // if any popup is opened this goes behind
@@ -209,9 +210,10 @@ export default React.createClass({
       case 'activities':
         let layoutPreference = "List";
         let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
+        let label = this.context.intl.formatMessage({ id: 'list_layout' });
         return {
-          icon: '',
-          label: layoutPreference,
+          icon: 'list',
+          label: label,
           callback: thisIsThePreferredLayoutAlready ? undefined : setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
           behind: popup, // if any popup is opened this goes behind
@@ -363,7 +365,7 @@ export default React.createClass({
           folder='service'
           color={leftIconColor}
           size='small'
-          isActive={true}
+          isActive={leftButtonData.active}
           labelAlignment='left'
           iconPosition='left'
           label={leftButtonData.label} />);
@@ -378,7 +380,7 @@ export default React.createClass({
           folder='service'
           color={rightIconColor}
           size='small'
-          isActive={false}
+          isActive={rightButtonData.active}
           labelAlignment='right'
           iconPosition='right'
           label={rightButtonData.label} />);
