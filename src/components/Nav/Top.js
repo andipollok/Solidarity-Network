@@ -104,7 +104,7 @@ export default React.createClass({
   //  iconType
   //  label
   //  buttonColor: color for IconButton component (white|green|default|active|passive)
-  getButtonData() {
+  getMainMenuIconButtonData() {
 
     var setSessionVar = this.props.setSessionVar;
     var data = this.props.data;
@@ -153,6 +153,7 @@ export default React.createClass({
     var setSessionVar = this.props.setSessionVar;
     var data = this.props.data;
     var session = this.props.session;
+    var popup = this.props.popup;
     
     switch (data.status.page) {
 
@@ -169,6 +170,7 @@ export default React.createClass({
           label: layoutPreference,
           callback: thisIsThePreferredLayoutAlready ? undefined: setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
+          behind: popup, // if any popup is opened this goes behind
         };
         break;
 
@@ -191,6 +193,7 @@ export default React.createClass({
     var setSessionVar = this.props.setSessionVar;
     var data = this.props.data;
     var session = this.props.session;
+    var popup = this.props.popup;
 
     switch (data.status.page) {
 
@@ -207,6 +210,7 @@ export default React.createClass({
           label: layoutPreference,
           callback: thisIsThePreferredLayoutAlready ? undefined : setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
+          behind: popup, // if any popup is opened this goes behind
         };
         break;
 
@@ -239,6 +243,7 @@ export default React.createClass({
           label: null,
           callback: togglePopup, //.bind(null, "preferredLayout", "list"),
           active: ( popup && popup == 'Filters' ),
+          behind: false, // if another popup is opened that Filters, such as Help for instance
         };
         break;
 
@@ -283,7 +288,7 @@ export default React.createClass({
     // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
 
-      let menuIconData = this.getButtonData();
+      let menuIconData = this.getMainMenuIconButtonData();
 
       var barClasses = classNames( "top-bar", data.status.page);
 
