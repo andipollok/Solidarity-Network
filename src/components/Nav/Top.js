@@ -338,7 +338,7 @@ export default React.createClass({
 
       var MainMenuIcon = (
           <div className={mainMenuIconClasses} id="mainMenuIcon" onClick={this.onClickMainMenuIcon}>
-            <Icon type={menuIconType} folder={menuIconFolder} size='small' color={menuIconColor} isActive={!this.state.mainMenuOpened} data={data}/>
+            <Icon type={menuIconType} folder={menuIconFolder} size='small' color={menuIconColor} isActive={this.state.mainMenuOpened} data={data}/>
           </div>
       );
 
