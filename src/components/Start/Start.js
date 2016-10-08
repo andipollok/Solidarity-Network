@@ -3,7 +3,7 @@ import React from 'react';
 import SvgIcon from 'react-svg-icons';
 import { Button, Row, Col } from 'react-bootstrap';
 import { Link }  from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import {formatMessage, FormattedMessage} from 'react-intl';
 
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
@@ -15,8 +15,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import StepBullets from '../General/StepBullets';
 import Icon from '../General/Icon';
+import IconButton from '../General/IconButton';
+
 
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   // Step 1: must select country
   // Step 2: country selected & must select area
@@ -193,26 +199,39 @@ export default React.createClass({
     }
 
     var buttonNext = undefined;
+    let label = '';
 
     switch ( step ) {
       
       case 1:
       case 2:
+        label = this.context.intl.formatMessage({ id: 'startNextChooseSection' });
         buttonNext = <Col sm={12} className="text-center">
           <p>
-            <Button className="next" size="bsLarge" onClick={this.onClickButtonNext} disabled>
-              <FormattedMessage id='startNextChooseSection' />
-            </Button>
+              <IconButton
+                  type='arrowright' folder='service'
+                  color='start'
+                  size='wide'
+                  isActive={false}
+                  labelAlignment='center' iconPosition='right'
+                  label={label} />
           </p>
         </Col>;
         break;
 
       case 3:
+        label = this.context.intl.formatMessage({ id: 'startNextChooseSection' });
         buttonNext = <Col sm={12} className="text-center">
           <p>
-            <Button className="next" size="bsLarge" onClick={this.onClickButtonNext}>
-              <FormattedMessage id='startNextChooseSection' />
-            </Button>
+            <div onClick={this.onClickButtonNext}>
+              <IconButton
+                  type='arrowright' folder='service'
+                  color='start'
+                  size='wide'
+                  isActive={true}
+                  labelAlignment='center' iconPosition='right'
+                  label={label} />
+            </div>
           </p>
         </Col>;
         break;

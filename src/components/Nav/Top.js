@@ -307,7 +307,7 @@ export default React.createClass({
 
       let backIcon = (
         <IconButton
-          type='arrow' folder='service'
+          type='arrowleft' folder='service'
           color={menuIconData.backButtonColor}
           size='small'
           isActive={true}

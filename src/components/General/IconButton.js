@@ -20,8 +20,8 @@ import Icon from '../General/Icon';
 //
 
 
+var labelWidth;
 
-const labelWidth = 150;
 const labelHeight = 38.5;
 const labelFrameCornerRadius = labelHeight / 2;
 
@@ -44,6 +44,12 @@ var colors = {
   start: {
     labelText: color_light,
     labelStroke: color_light,
+    labelBackground: color_transparent
+  },
+
+  startInactive: {
+    labelText: color_grey,
+    labelStroke: color_grey,
     labelBackground: color_transparent
   },
 
@@ -95,6 +101,8 @@ export default React.createClass({
 
   render() {
     
+    labelWidth = this.props.size === 'wide' ? 300 : 150;
+
     //
     // Collecting the Props
     //
@@ -168,8 +176,7 @@ export default React.createClass({
     if (isActive === false && colors[color + 'Inactive']) {
       colorData = colors[color + 'Inactive'];
     }
-
-
+    
 
     //
     // Rendering
@@ -185,15 +192,13 @@ export default React.createClass({
           
           <text x={textX} y={textY} textAnchor={labelTextAnchor} fill={colorData.labelText} fontSize={labelFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
 
-  
-
         </svg>
 
         <span className={iconPosition}>
           <Icon 
             type={this.props.type}
             folder={this.props.folder}
-            size={this.props.size}
+            size='small'
             color={this.props.color}
             isActive={this.props.isActive} />
         </span>
