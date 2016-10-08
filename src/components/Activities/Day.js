@@ -10,7 +10,6 @@ import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
 import Listitem from './DayItem';
-import TypeSelectorButton from '../General/TypeSelectorButton';
 
 
 export default React.createClass({
