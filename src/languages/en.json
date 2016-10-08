@@ -8,6 +8,7 @@
 
   "loading": "Just a moment please…",
   "getstarted": "Dive in!",
+  "needhelp": "Need help",
 
   "logmein": "L",
   // "logmein": "Log me in",
@@ -33,6 +34,7 @@
   "next": "Next",
 
   "goback": "Go back",
+  "filters": "Filters",
 
   "chooseAreaTitle" : "Which Area would you like to look for Communities?",
   "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",

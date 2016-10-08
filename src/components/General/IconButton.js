@@ -2,6 +2,8 @@ import React from 'react';
 
 import classNames from 'classnames';
 
+import Icon from '../General/Icon';
+
 // A component used to represent buttons with an icon
 // Properties:
 // - labelAlignment = left / center / right
@@ -17,101 +19,77 @@ import classNames from 'classnames';
 //  - invisible ( = not displayed at all )
 //
 
-const iconFrameCircleRadius = 20;
+
 
 const labelWidth = 150;
-const labelHeight = 40;
-const labelFrameCornerRadius = 20;
+const labelHeight = 38.5;
+const labelFrameCornerRadius = labelHeight / 2;
+
+const iconFrameCircleRadius = labelHeight/2;
 
 const labelFontSize = 16;
 const textHorizMargin = 10;
 
+const defaultStrokeWidth = 1.5;
+
 const color1 = "#823FC2";
 const color2 = "#5CDAC3";
-const color_light = "#FFFFFF"; 
+const color_light = "#FFFFFF";
+const color_grey = "#A6A6A6";
+const color_help = "#B744B8";
 const color_transparent = "transparent"; 
 
 var colors = {
 
-  // White
-  // buttons on gradient background in start
   start: {
-    iconStroke: color_light,
-    iconBackground: color_transparent,
     labelText: color_light,
-    labelBackground: color_transparent,
-    labelStroke: color_light 
-  },
-  // Green
-  // back button
-  default: {
-    iconStroke: color2,
-    iconBackground: color_transparent,
-    labelText: color2,
-    labelBackground: color_transparent,
-    labelStroke: color2 
-  },
-  // Purple
-  // buttons on all screens in navigation
-  menu: {
-    iconStroke: color1,
-    iconBackground: color_light,
-    labelText: color_light,
-    labelBackground: color1,
-    labelStroke: color1
+    labelStroke: color_light,
+    labelBackground: color_transparent
   },
 
-  menuInactive: {
-    iconStroke: color1,
-    iconBackground: color_light,
+  default: {
+    labelText: color2,
+    labelStroke: color2,
+    labelBackground: color_transparent
+  },
+
+  defaultInactive: {
+    labelText: color_grey,
+    labelStroke: color_grey,
+    labelBackground: color_transparent
+  },
+
+  help: {
+    labelText: color_help,
+    labelStroke: color_help,
+    labelBackground: color_light
+  },
+
+  submenu: {
+    labelText: color_light,
+    labelStroke: color1,
+    labelBackground: color1
+  },
+
+  submenuInactive: {
     labelText: color1,
-    labelBackground: color_light,
-    labelStroke: color1
+    labelStroke: color1,
+    labelBackground: color_light
+  },
+
+  behind: {
+    labelText: color_grey,
+    labelStroke: color_grey,
+    labelBackground: color_light
+  },
+
+  behindInactive: {
+    labelText: color_light,
+    labelStroke: color_grey,
+    labelBackground: color_grey
   }
 
-  // active: {
-  //   iconStroke: color_light,
-  //   iconBackground: color1,
-  //   labelText: color_light,
-  //   labelBackground: color1,
-  //   labelStroke: color1 
-  // },
-  // passive: {
-  //   iconStroke: color_light,
-  //   iconBackground: color1,
-  //   labelText: color_light,
-  //   labelBackground: color1,
-  //   labelStroke: color1 
-  // }
 }
-
-
-/*const defaultPassiveIconStrokeColor = solidarityPurple;
-const defaultPassiveIconBackground = "transparent";
-const defaultPassiveLabelTextColor = solidarityPurple;
-const defaultPassiveLabelBackground = "transparent";
-const defaultPassiveFramesColor = solidarityPurple;
-
-const defaultActiveIconStrokeColor = solidarityPurple;
-const defaultActiveIconBackground = "white";
-const defaultActiveLabelTextColor = "white";
-const defaultActiveLabelBackground = solidarityPurple;
-const defaultActiveFramesColor = solidarityPurple;
-
-
-const gradientBgActiveIconStrokeColor = "white";
-const gradientBgActiveIconBackground = "transparent";
-const gradientBgActiveLabelTextColor = "white";
-const gradientBgActiveLabelBackground = "transparent";
-const gradientBgActiveFramesColor = "transparent";
-
-const gradientBgPassiveIconStrokeColor = "#A6A6A6";
-const gradientBgPassiveIconBackground = "transparent";
-const gradientBgPassiveLabelTextColor = "#A6A6A6";
-const gradientBgPassiveLabelBackground = "transparent";
-const gradientBgPassiveFramesColor = "transparent";*/
-
-const defaultStrokeWidth = 2;
 
 export default React.createClass({
 
@@ -132,7 +110,8 @@ export default React.createClass({
     // Starting the math
     //
 
-    let svgPadding = defaultStrokeWidth / 2;
+    // let svgPadding = defaultStrokeWidth / 2;
+    let svgPadding = 0;
     let svgWidth = labelWidth + defaultStrokeWidth;
     let svgHeight = Math.max( labelHeight, 2 * iconFrameCircleRadius ) + defaultStrokeWidth;
     let svgWidthWithPadding = svgWidth + 2 * svgPadding;
@@ -187,11 +166,6 @@ export default React.createClass({
       colorData = colors[color];
     }
 
-    // let currentIconStrokeColor = isActive ? defaultActiveIconStrokeColor : defaultPassiveIconStrokeColor;
-    // let currentIconBackground = isActive ? defaultActiveIconBackground : defaultPassiveIconBackground;
-    // let currentLabelTextColor = isActive ? defaultActiveLabelTextColor : defaultPassiveLabelTextColor;
-    // let currentLabelBackground = isActive ? defaultActiveLabelBackground : defaultPassiveLabelBackground;
-    // let currentLabelStroke = isActive ? defaultActiveFramesColor : defaultPassiveFramesColor;
     if (isActive === false && colors[color + 'Inactive']) {
       colorData = colors[color + 'Inactive'];
     }
@@ -206,12 +180,14 @@ export default React.createClass({
       }
     }
 
+
+
     //
     // Rendering
     //
 
     return (
-      <span>
+      <span className="iconButton">
         <svg preserveAspectRatio="xMidYMid meet" name="button" viewBox={svgDimensions} width={svgWidthWithPadding} height={svgHeightWithPadding}>
 
           <title>button</title>
@@ -220,9 +196,19 @@ export default React.createClass({
           
           <text x={textX} y={textY} textAnchor={labelTextAnchor} fill={colorData.labelText} fontSize={labelFontSize} dy=".32em" dx="-.025em" lineHeight="1em">{label}</text>
 
-          <circle cx={iconX} cy={iconY} r={iconFrameCircleRadius} stroke={colorData.iconStroke} strokeWidth={defaultStrokeWidth} fill={colorData.iconBackground} />
+  
 
         </svg>
+
+        <span className={iconPosition}>
+          <Icon 
+            type={this.props.type}
+            folder={this.props.folder}
+            size={this.props.size}
+            color={this.props.color}
+            isActive={this.props.isActive} />
+        </span>
+
       </span>
     );
   }

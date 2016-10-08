@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Link}  from 'react-router';
 
 import classNames from'classnames';
@@ -6,13 +7,19 @@ import classNames from'classnames';
 import IconButton from '../General/IconButton';
 import Icon from '../General/Icon';
 
+import {formatMessage, FormattedMessage} from 'react-intl';
+
 const noButton = {
   icon: null,
-  label: null,
+  iconColor: undefined,
   callback: undefined,
 };
 
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   getHelpButtonData() {
 
@@ -23,13 +30,22 @@ export default React.createClass({
     switch (data.status.page) {
 
       case '':
-      case 'start':
+      case 'splash':
         return noButton;
+        break;
+
+      case 'start':
+        return {
+          icon: 'help',
+          iconColor: 'start',
+          callback: undefined,
+        };
         break;
 
       default:
         return {
           icon: 'help',
+          iconColor: 'help',
           callback: undefined,
         };
         break;
@@ -44,16 +60,23 @@ export default React.createClass({
 
     // Help button
 
-    let helpIconFolder = 'service';
-
     let helpIconClasses = classNames( 'helpIcon', 'divLink', {
       'active': true // TODO clarify whether that means highlighted or enabled
     });
 
     let helpButtonData = this.getHelpButtonData();
 
-	let helpIcon = <IconButton type={helpButtonData.icon} folder={helpIconFolder} color='default' size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label="Need help" />;
-      
+    let label = this.context.intl.formatMessage({ id: 'needhelp' });
+
+  	let helpIcon = (
+      <IconButton
+        type={helpButtonData.icon}
+        folder='service'
+        size='small'
+        color={helpButtonData.iconColor} isActive={false} labelAlignment='left' iconPosition='left'
+        label={label} />
+    );
+    
     if (helpButtonData.icon === null) {
       helpIcon = undefined;
     }
@@ -61,7 +84,6 @@ export default React.createClass({
     var HelpIconComponent = ( <div className={helpIconClasses} id="helpIcon" onClick={helpButtonData.callback}>
       {helpIcon}
     </div> );
-
 
     return (
       <footer>

@@ -14,7 +14,7 @@ import StepBullets from '../General/StepBullets';
 export default React.createClass({
 
   componentWillMount() {
-    StatusActions.setPage('start');
+    StatusActions.setPage('splash');
     StatusActions.setTitle(null);
     StatusActions.showPrimaryNav(false);
     StatusActions.setSecondaryNav(null);

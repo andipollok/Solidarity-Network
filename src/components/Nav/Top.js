@@ -8,7 +8,7 @@ import MainMenu from './MainMenu';
 import IconButton from '../General/IconButton';
 import Icon from '../General/Icon';
 
-import { FormattedMessage } from 'react-intl';
+import {formatMessage, FormattedMessage} from 'react-intl';
 
 const noButton = {
   icon: null,
@@ -20,6 +20,10 @@ const noButton = {
 const history = createHashHistory();
 
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   getInitialState() {
     return {
@@ -115,9 +119,10 @@ export default React.createClass({
         return {
           iconType: 'navigation',
           label: '',
-          menuIconColor: 'default',
-          contextualIconColor: 'default',
-          backButtonColor: 'start'
+          menuIconColor: 'filled',
+          contextualIconColor: 'start',
+          backButtonColor: 'start',
+          filterButtonColor: ''
         };
         break;
 
@@ -126,8 +131,9 @@ export default React.createClass({
           iconType: 'upcoming',
           label: '',
           menuIconColor: 'menu',
-          contextualIconColor: 'menu',
-          backButtonColor: 'default'
+          contextualIconColor: 'submenu',
+          backButtonColor: 'default',
+          filterButtonColor: 'submenu'
         };
         break;
 
@@ -136,8 +142,9 @@ export default React.createClass({
           iconType: 'navigation',
           label: '',
           menuIconColor: 'menu',
-          contextualIconColor: 'menu',
-          backButtonColor: 'default'
+          contextualIconColor: 'submenu',
+          backButtonColor: 'default',
+          filterButtonColor: 'submenu'
         };
         break;
 
@@ -280,12 +287,9 @@ export default React.createClass({
     </div>);
 
 
-
     //
     // Primary navigation
     //
-
-    // if (data.status.title !== null) {
     if (data.status.showPrimaryNav) {
 
       let menuIconData = this.getMainMenuIconButtonData();
@@ -296,16 +300,20 @@ export default React.createClass({
       // Back button (top left corner)
       //
 
-      // var BackButton = <Button className="backButton" onClick={this.onClickBack}>
-      //   &lt;&nbsp;
-      //   <FormattedMessage id='back' />
-      // </Button>;
-
       let backIconClasses = classNames( 'backIcon', 'divLink', {
         'active': true // TODO clarify whether that means highlighted or enabled
       });
 
-      let backIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconData.backButtonColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='left' label="Go Back" />;
+      let backButtonLabel = this.context.intl.formatMessage({ id: 'goback' });
+
+      let backIcon = (
+        <IconButton
+          type='arrow' folder='service'
+          color={menuIconData.backButtonColor}
+          size='small'
+          isActive={true}
+          labelAlignment='left' iconPosition='left'
+          label={backButtonLabel} /> );
       
       var BackComponent = ( <div className={backIconClasses} id="backIcon" onClick={this.onClickBack}>
         {backIcon}
@@ -347,18 +355,18 @@ export default React.createClass({
 
       var contextualIconColor = menuIconData.contextualIconColor;
 
-      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={contextualIconColor} size='medium' isNav={false} isActive={leftButtonData.active} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      let leftIcon = <IconButton type={leftButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={leftButtonData.active} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={rightButtonData.active} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = <IconButton type={rightButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={rightButtonData.active} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
       }
-      
+
       var ContextualIconLeftComponent = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
@@ -377,7 +385,18 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={filtersButtonData.active} labelAlignment='center' iconPosition='right' label="Filters" />;
+      let filtersButtonLabel = this.context.intl.formatMessage({ id: 'filters' });
+
+      let filtersIcon = (
+        <IconButton
+          type='filters'
+          folder='service'
+          color={menuIconData.filterButtonColor}
+          size='small'
+          isActive={filtersButtonData.active}
+          labelAlignment='right'
+          iconPosition='right'
+          label={filtersButtonLabel} />);
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;

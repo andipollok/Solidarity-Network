@@ -43,7 +43,7 @@ export default React.createClass({
     var activityItem = function(activityName) {
       var activity = StatusStore.data.filters.activityType[activityName];
       return ( <div key={activity.id} className="activityType" onClick={this.openActivityTypeFilter}>
-          <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={true}/>
+          <Icon type={activity.icon} folder='activities' color='filled' size='small' isActive={true}/>
           <br />
           <span className="text">{activityName}</span>
         </div> );
@@ -58,7 +58,7 @@ export default React.createClass({
 
       let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
       let overAllItem = <div className="activityType" onClick={this.openActivityTypeFilter}>
-            <Icon type='overall' folder='service' size='small' isNav={false} isActive={true}/>
+            <Icon type='overall' folder='service' color='filled' size='small' isActive={true}/>
             <br />
             <span className="text">{overAllItemName}</span>
           </div>;
@@ -96,7 +96,7 @@ export default React.createClass({
         callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity);
       }
       return ( <div key={activity.id} className="activityType" onClick={callback}>
-          <Icon type={activity.icon} folder='activities' size='small' isNav={false} isActive={active}/>
+          <Icon type={activity.icon} folder='activities' color='filled' size='small' isActive={active}/>
           <br />
           <span className="text">{activity.name}</span>
         </div> );
@@ -105,7 +105,7 @@ export default React.createClass({
     let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
     let overAllItemActive = !currentFilter || currentFilter.length == 0;
     let overAllItem = <div className="activityType" onClick={StatusStore.resetFilterActivityType.bind(StatusStore)}>
-          <Icon type='overall' folder='service' size='small' isNav={false} isActive={overAllItemActive}/>
+          <Icon type='overall' folder='service' color='filled' size='small' isActive={overAllItemActive}/>
           <br />
           <span className="text">{overAllItemName}</span>
         </div>;
@@ -235,7 +235,7 @@ export default React.createClass({
           <div>
             {filterActivities}
           </div>
-          <span class="clear"></span>
+          <span className="clear"></span>
         </Col>;
         break;
 
