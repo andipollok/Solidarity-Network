@@ -75,6 +75,18 @@ var colors = {
     labelText: color1,
     labelStroke: color1,
     labelBackground: color_light
+  },
+
+  behind: {
+    labelText: color_grey,
+    labelStroke: color_grey,
+    labelBackground: color_light
+  },
+
+  behindInactive: {
+    labelText: color_light,
+    labelStroke: color_grey,
+    labelBackground: color_grey
   }
 
 }

@@ -59,6 +59,16 @@ var colors = {
 
   },
 
+  behind: {
+
+    inactiveIconColor: color_grey,
+    inactiveBackgroundColor: color_light,
+
+    iconColor: color_grey,
+    backgroundColor: color_light,
+
+  },
+
   filled: {
 
     inactiveIconColor: color_light,
