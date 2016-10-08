@@ -13,7 +13,6 @@ import News from './components/News/News';
 import Upcoming from './components/Activities/Upcoming';
 import Calendar from './components/Activities/Calendar';
 import CreateNew from './components/Activities/CreateNew';
-import TypeSelector from './components/General/TypeSelector';
 
 import StoriesLatest from './components/Stories/Latest';
 import StoriesCalendar from './components/Stories/Calendar';
@@ -92,7 +91,6 @@ render(
 
         <Route name="activities-upcoming" path="/activities/upcoming" component={Upcoming}/>
         <Route name="activities-month" path="/activities/month" component={Calendar}/>
-        <Route name="activities-type" path="/activities/type" component={TypeSelector}/>
         <Route name="activities-new" path="/activities/create" component={CreateNew}/>
         <Route name="day" path="/activities/:day/:month/:year" component={Day}/>
         <Route name="activity" path="/activity/:id" component={Activity}/>
@@ -101,7 +99,6 @@ render(
 
         <Route name="stories-latest" path="/stories/latest" component={StoriesLatest}/>
         <Route name="stories-month" path="/stories/month" component={StoriesCalendar}/>
-        <Route name="stories-type" path="/stories/type" component={TypeSelector}/>
         <Route name="day" path="/stories/:day/:month/:year" component={StoriesDay}/>
         <Route name="story" path="/story/:id" component={Story}/>
 
