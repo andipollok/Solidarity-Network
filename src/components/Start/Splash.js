@@ -3,7 +3,7 @@ import React from 'react';
 import SvgIcon from 'react-svg-icons';
 import { Button, Row, Col } from 'react-bootstrap';
 import {Link}  from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import {formatMessage, FormattedMessage} from 'react-intl';
 
 import Reflux from 'reflux';
 import StatusActions from '../../stores/StatusActions';
@@ -11,7 +11,13 @@ import StatusStore from '../../stores/StatusStore';
 
 import StepBullets from '../General/StepBullets';
 
+import IconButton from '../General/IconButton';
+
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   componentWillMount() {
     StatusActions.setPage('splash');
@@ -27,10 +33,12 @@ export default React.createClass({
 
   render() {
 
+  let buttonLabel = this.context.intl.formatMessage({ id: 'getstarted' });
+
   return (
       <div className="container-fluid splash">
         <Row>
-          <Col sm={12} className="text-center">
+          <Col sm={12} className="logo text-center">
             <p>
               <SvgIcon name='app/alo_logo' color='#FFFFFF'/>
             </p>
@@ -38,9 +46,15 @@ export default React.createClass({
         </Row>
         <Row>
           <Col className="actionButton text-center">
-              <Button bsSize="large" className="startButton" onClick={this.onClickStart}>
-                <FormattedMessage id='getstarted'/>
-              </Button>
+              <div onClick={this.onClickStart}>
+                <IconButton
+                  type='ok' folder='service'
+                  color='start'
+                  size='wide'
+                  isActive={true}
+                  labelAlignment='center' iconPosition='right'
+                  label={buttonLabel} />
+              </div>
           </Col>
         </Row>
       </div>

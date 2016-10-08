@@ -18,15 +18,25 @@
   text-align: center;
 
   #menu {
+
     display: block;
+    position: relative;
+
     background: $color1_light;
     /*z-index: 99999;*/
     width: 150px;
     height: 820px;
-    margin: 125px auto 60px;
+    margin: 115px auto 60px;
     padding: 45px 0;
     border-radius: 200px;
     border: 2px solid $color1;
+
+    .line {
+      position:absolute;
+      width:10px; /* because svg is 20px in width, and it's at @2x */
+      top: -52px;
+      left: 66px;
+    }
 
     /* Default main menu icon colors */
     button {

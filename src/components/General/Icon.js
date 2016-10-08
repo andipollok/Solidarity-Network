@@ -12,7 +12,7 @@ const color_transparent = "transparent";
 var colors = {
 
   start: {
-    inactiveIconColor: color_light,
+    inactiveIconColor: color_grey,
     inactiveBackgroundColor: '',
 
     iconColor: color_light,
