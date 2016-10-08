@@ -355,13 +355,16 @@ export default React.createClass({
 
       var contextualIconColor = menuIconData.contextualIconColor;
 
-      let leftIcon = <IconButton type={leftButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={leftButtonData.active} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      let leftIconColor = leftButtonData.behind ? ( leftButtonData.active ? "behind" : "behindInactive" ) : contextualIconColor;
+      let rightIconColor = rightButtonData.behind ? ( rightButtonData.active ? "behind" : "behindInactive" ) : contextualIconColor;
+
+      let leftIcon = <IconButton type={leftButtonData.icon} folder='service' color={leftIconColor} size='small' isActive={leftButtonData.active} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={rightButtonData.icon} folder='service' color={contextualIconColor} size='small' isActive={rightButtonData.active} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = <IconButton type={rightButtonData.icon} folder='service' color={rightIconColor} size='small' isActive={rightButtonData.active} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
@@ -386,6 +389,8 @@ export default React.createClass({
       let filtersButtonData = this.getFiltersButtonData();
 
       let filtersButtonLabel = this.context.intl.formatMessage({ id: 'filters' });
+
+      // TODO: behind style if needed (e.g. when we open Help popup)
 
       let filtersIcon = (
         <IconButton

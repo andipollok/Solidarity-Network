@@ -102,7 +102,6 @@ export default React.createClass({
     let labelAlignment = this.props.labelAlignment || 'left';
     let iconPosition = this.props.iconPosition || 'left';
     let isActive = this.props.isActive || false;
-    let isBehind = this.props.isBehind || false;
     let color = this.props.color || "default";
     let label = this.props.label || "";
 
@@ -168,16 +167,6 @@ export default React.createClass({
 
     if (isActive === false && colors[color + 'Inactive']) {
       colorData = colors[color + 'Inactive'];
-    }
-
-    if (isBehind === true) {
-      if (isActive) {
-        // active but behind
-        colorData = colors[color + 'Inactive'];
-      } else {
-        // non-active and behind
-        colorData = colors[color + 'Inactive'];
-      }
     }
 
 
