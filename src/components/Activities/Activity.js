@@ -17,6 +17,8 @@ import Icon from '../General/Icon';
 import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
 
+import StepBullets from '../General/StepBullets';
+
 export default React.createClass({
 
   getInitialState() {
@@ -68,7 +70,9 @@ export default React.createClass({
 
     var owner = activity.ownerIds && activity.ownerIds.length > 0 ? Helpers.getPersonById(activity.ownerId[0], data) : undefined;
 
+    //
     // load photos
+    //
     activity.photoList = [];
     activity.photoIds.map(function(photoId) {
       var photo = Helpers.getPhotoById(photoId, data);
@@ -113,7 +117,9 @@ export default React.createClass({
           </span>
     }
 
+    //
     // show one story if available
+    //
     activity.stories = data.stories.filter(function(story) {
       if (story && story.activityId && story.activityId === activity.id) {
         return true;
@@ -136,8 +142,9 @@ export default React.createClass({
           </Row>
       }
 
-
-    // check if activity is in the past          
+    //
+    // check if activity is in the past
+    //
     var isInPast = new Date(activity.date) < new Date();
     
     var startingAt, registerToAttend;
@@ -203,21 +210,44 @@ export default React.createClass({
 
     if (related && related.length > 0) {
 
-      // var renderRelatedEvent = function(event, isFuture) {
-      var renderRelatedEvent = function(event) {
-        //console.log("is future", isFuture);
-        var whenIsDateRelativeToNow = "before or after"; //event.date;
-        var date = moment( event.date, "MMMM DD YYYY");
+      var renderRelatedEvent = function(isFuture, event) {
+        
+        // In case you need it to style things differently
+        // console.log("is future", isFuture);
+
+        var whenIsDateRelativeToNow = moment(event.date).fromNow();
+        
+        var date = <FormattedDate
+                      value={event.date}
+                      day="numeric"
+                      month="long"
+                      year="numeric" /> 
+
         var timeInfo = "";
         let endDate = event.dateEnd;
         if (endDate) {
-          timeInfo = moment( event.date, "h:mm" ) + "-" + moment( event.dateEnd, "h:mma" );
+          timeInfo = <span>
+                      <FormattedTime
+                        value={event.date}
+                        minute="2-digit"
+                        hour="numeric" />
+                      &nbsp;-&nbsp;
+                      <FormattedTime
+                        value={event.dateEnd}
+                        minute="2-digit"
+                        hour="numeric" />
+                     </span>;
         } else {
-          timeInfo = moment( event.date, "h:mma" );
+          timeInfo = <FormattedTime
+                      value={event.date}
+                      minute="2-digit"
+                      hour="numeric" />;
         }
-        return <div id="relatedActivityListItem">
+        return <div key={event.id} id="relatedActivityListItem">
             <span id="whenIsDate">{whenIsDateRelativeToNow}</span>
+            &nbsp;---&nbsp;
             <span id="eventDate">{date}</span>
+            &nbsp;---&nbsp;
             <span id="eventTime">{timeInfo}</span>
           </div>;
       }.bind(this);
@@ -234,13 +264,51 @@ export default React.createClass({
       }
 
           // {futureEvents.map( renderRelatedEvent.bind(true), this )}
-      relatedActivitiesRendered = <div>
-          <div>FUTURE</div>
-          {futureEvents.map( renderRelatedEvent, this )}
-          <br/>
-          <div>PAST</div>
-          {pastEvents.map( renderRelatedEvent, this )}
-        </div>;
+      relatedActivitiesRendered = <Row>
+                                    <Row>
+                                      <div>
+                                        <FormattedMessage id="activity_related_next" />
+                                      </div>
+                                    </Row>
+                                    <Row>
+                                      {futureEvents.map( renderRelatedEvent.bind(this, true), this )}
+                                    </Row>
+                                    <Row>
+                                      <div>
+                                        <FormattedMessage id="activity_related_past" />
+                                      </div>
+                                    </Row>
+                                    <Row>
+                                      {pastEvents.map( renderRelatedEvent.bind(this, false), this )}
+                                    </Row>
+                                  </Row>
+
+      // TODO later: with StepBullets
+      /* relatedActivitiesRendered = <Row>
+                                    <Row>
+                                      <div>FUTURE</div>
+                                    </Row>
+                                    <Row>
+                                      <Col xs={1}>
+                                        <StepBullets small={true} amount={futureEvents.length} height={futureEvents.length*10} />;
+                                      </Col>
+                                      <Col xs={11}>
+                                        {futureEvents.map( renderRelatedEvent.bind(this, true), this )}
+                                      </Col>
+                                    </Row>
+                                    <Row>
+                                      <div>PAST</div>
+                                    </Row>
+                                    <Row>
+                                      <Col xs={1}>
+                                        <StepBullets small={true} amount={pastEvents.length} height={pastEvents.length*10} />;
+                                      </Col>
+                                      <Col xs={11}>
+                                        {pastEvents.map( renderRelatedEvent.bind(this, false), this )}
+                                      </Col>
+                                    </Row>
+                                  </Row>;
+      */
 
     }
 
@@ -287,9 +355,7 @@ export default React.createClass({
           {componentStory}
         </Row>
 
-        <Row>
-          {relatedActivitiesRendered}
-        </Row>
+        {relatedActivitiesRendered}
 
       </div>
     );
