@@ -82,8 +82,8 @@ module.exports = {
       return {};
     }
     var activitytype = {};
-    if (data.loaded.activitytypesAll) {
-      activitytype = $.grep(data.activitytypesAll, function(e){ return e.id === id; }.bind(this))[0];
+    if (data.loaded.activitytypes) {
+      activitytype = $.grep(data.activitytypes, function(e){ return e.id === id; }.bind(this))[0];
     }
     else {
       console.error('Could not get Activity type, data not loaded yet.');
