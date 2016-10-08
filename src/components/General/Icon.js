@@ -69,7 +69,7 @@ var colors = {
 
   },
 
-  behind: {
+  disabled: {
 
     inactiveIconColor: color_grey,
     inactiveBackgroundColor: color_light,
