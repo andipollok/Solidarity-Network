@@ -135,6 +135,12 @@ export default React.createClass({
     var iconType = this.props.type || 'hiking';
     name = `alo_${folder}-${iconType}-${size}`;
 
+    // only use the option withBorder if you have the same icon with "-nocircle" in the filename
+    // currently only used in mainmenu button
+    if (this.props.withBorder === false) {
+      name = `alo_${folder}-${iconType}-nocircle-${size}`;
+    }
+
     var divStyle = undefined;
     if (backgroundColor) {
       var divStyle = {

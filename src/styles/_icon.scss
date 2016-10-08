@@ -40,9 +40,7 @@ $iconSizeSmall: 40px;
       svg {
         width: $iconSizeMedium;
         height: $iconSizeMedium;
-        top: calc(-$iconSizeMedium / 2 );
-        left: calc(-$iconSizeMedium / 2);
-      }
+        }
     }
 
     &.small {
