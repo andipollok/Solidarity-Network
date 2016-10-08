@@ -32,7 +32,7 @@ export default React.createClass({
 
     switch (layout) {
 
-      case "list":
+      case "List":
         
         return (
 
@@ -47,7 +47,7 @@ export default React.createClass({
         );
         break;
         
-      case "cards":
+      case "Cards":
       default:
         
         return (

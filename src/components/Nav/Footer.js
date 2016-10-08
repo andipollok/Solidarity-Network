@@ -30,7 +30,7 @@ export default React.createClass({
       default:
         return {
           icon: 'help',
-          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+          callback: undefined,
         };
         break;
 

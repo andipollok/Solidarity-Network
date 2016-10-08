@@ -14,6 +14,7 @@ const noButton = {
   icon: null,
   label: null,
   callback: undefined,
+  active: false,
 };
 
 const history = createHashHistory();
@@ -106,7 +107,6 @@ export default React.createClass({
   getButtonData() {
 
     var setSessionVar = this.props.setSessionVar;
-
     var data = this.props.data;
 
     switch (data.status.page) {
@@ -151,29 +151,36 @@ export default React.createClass({
   getLeftTopButtonData() {
 
     var setSessionVar = this.props.setSessionVar;
-
     var data = this.props.data;
+    var session = this.props.session;
     
     switch (data.status.page) {
 
       case 'start':
+      default:
         return noButton;
         break;
 
       case 'activities':
+        let layoutPreference = "Cards";
+        let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
         return {
           icon: '',
-          label: 'Cards',
-          callback: setSessionVar.bind(null, "preferredLayout", "cards"),
+          label: layoutPreference,
+          callback: thisIsThePreferredLayoutAlready ? undefined: setSessionVar.bind(null, "preferredLayout", layoutPreference),
+          active: thisIsThePreferredLayoutAlready,
         };
         break;
 
-      default:
-        return {
-          icon: '',
-          label: 'LEFT BUTTON',
-        };
-        break;
+      // DEBUG
+      // default:
+      //   return {
+      //     icon: '',
+      //     label: 'LEFT BUTTON',
+      //     callback: undefined,
+      //     active: false,
+      //   };
+      //   break;
 
     }
 
@@ -182,29 +189,36 @@ export default React.createClass({
   getRightTopButtonData() {
 
     var setSessionVar = this.props.setSessionVar;
-
     var data = this.props.data;
+    var session = this.props.session;
 
     switch (data.status.page) {
 
       case 'start':
+      default:
         return noButton;
         break;
 
       case 'activities':
+        let layoutPreference = "List";
+        let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
         return {
           icon: '',
-          label: 'List',
-          callback: setSessionVar.bind(null, "preferredLayout", "list"),
+          label: layoutPreference,
+          callback: thisIsThePreferredLayoutAlready ? undefined : setSessionVar.bind(null, "preferredLayout", layoutPreference),
+          active: thisIsThePreferredLayoutAlready,
         };
         break;
 
-      default:
-        return {
-          icon: '',
-          label: 'RIGHT BUTTON',
-        };
-        break;
+      // DEBUG
+      // default:
+      //   return {
+      //     icon: '',
+      //     label: 'RIGHT BUTTON',
+      //     callback: undefined,
+      //     active: false,
+      //   };
+      //   break;
 
     }
 
@@ -213,17 +227,18 @@ export default React.createClass({
   getFiltersButtonData() {
 
     var togglePopup = this.props.togglePopup;
-
     var setSessionVar = this.props.setSessionVar;
-
     var data = this.props.data;
+    var popup = this.props.popup;
 
     switch (data.status.page) {
 
       case 'activities':
         return {
           icon: 'filters',
+          label: null,
           callback: togglePopup, //.bind(null, "preferredLayout", "list"),
+          active: ( popup && popup == 'Filters' ),
         };
         break;
 
@@ -239,7 +254,6 @@ export default React.createClass({
   render() {
 
     var setSessionVar = this.props.setSessionVar;
-
     var data = this.props.data;
 
     if (data.status.title === '' || data.status.title === undefined) {
@@ -328,18 +342,18 @@ export default React.createClass({
 
       var contextualIconColor = menuIconData.contextualIconColor;
 
-      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={contextualIconColor} size='medium' isNav={false} isActive={false} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
+      let leftIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={contextualIconColor} size='medium' isNav={false} isActive={leftButtonData.active} labelAlignment='left' iconPosition='left' label={leftButtonData.label} />;
       
       if (leftButtonData.icon === null && leftButtonData.label === null) {
         leftIcon = undefined;
       }
 
-      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
+      let rightIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={rightButtonData.active} labelAlignment='right' iconPosition='right' label={rightButtonData.label} />;
       
       if (rightButtonData.icon === null && rightButtonData.label === null) {
         rightIcon = undefined;
       }
-      console.log(leftButtonData.callback);
+      
       var ContextualIconLeftComponent = ( <div className={contextualIconClasses} id="leftContextualTopIcon" onClick={leftButtonData.callback}>
         {leftIcon}
       </div> );
@@ -358,7 +372,7 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={false} labelAlignment='center' iconPosition='right' label="Filters" />;
+      let filtersIcon = <IconButton type={menuIconType} folder={menuIconFolder} color={menuIconColor} size='medium' isNav={false} isActive={filtersButtonData.active} labelAlignment='center' iconPosition='right' label="Filters" />;
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;
