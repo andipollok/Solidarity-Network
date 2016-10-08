@@ -1,9 +1,11 @@
 .card {
 
   padding:20px;
-  border-radius:22px;
-  border:2px solid $color_grey1;
-  background-color: white;
+  padding-top:25px;
+  border-radius:6px 6px 20px 20px;
+  border:2px solid $color2;
+  background-color: $color2_light;
+
   &.half {
     min-height:150px;
   }
@@ -19,6 +21,7 @@
     overflow:hidden;
   }
   h2 {
+    color: $color1;
     margin-bottom:30px;
   }
   .date {
@@ -32,13 +35,13 @@
       .grey { color:white; }
     }
     &.activities.solid {
-      background-color:$color2;
-      color:$color2;
+      background-color:$color1;
+      color:$color1;
       .grey { color:white; }
     }
     &.stories.solid {
-      background-color:$color3;
-      color:$color3_font;
+      background-color:$color1;
+      color:$color1_font;
     }
   }
   &.selected {
@@ -71,9 +74,9 @@
     border:2px solid $color_activity;
     color: $color2 !important;
     &.solid {
-      border:2px solid color($color3 l(-10)) !important;
-      background-color: $color3 !important;
-      color: $color3_font !important;
+      border:2px solid color($color1 l(-10)) !important;
+      background-color: $color1 !important;
+      color: $color1_font !important;
     }
   }
 }
@@ -88,7 +91,7 @@
 .activities {
   .card.outline {
     border:2px solid $color_activity;
-    color: $color2;
+    color: $color_dark;
   }
 }
 .stories {
@@ -114,8 +117,8 @@
 }
 .stories {
   .card.solid {
-    border:2px solid color($color3 l(-10));
-    background-color: $color3;
-    color: $color3_font;
+    border:2px solid color($color1 l(-10));
+    background-color: $color1;
+    color: $color1_font;
   }
 }

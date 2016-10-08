@@ -155,6 +155,11 @@
 
   "today": "Aujourd'hui",
   "tomorrow": "Demain",
+  "thisweek": "Cette semaine",
+  "nextweek": "La semaine prochaine",
+  "thismonth": "Avant la fin du mois",
+  "nextmonth": "Le mois prochain",
+  "later": "Plus tard",
 
   "weekly_view": "Hebdo",
   "monthly_view": "Mensuel",

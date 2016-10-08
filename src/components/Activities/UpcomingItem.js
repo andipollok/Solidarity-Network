@@ -6,6 +6,7 @@ import Helpers from '../../stores/Helpers.js';
 
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
+import Icon from '../General/Icon';
 import IconActivity from '../General/IconActivity';
 
 export default React.createClass({
@@ -55,24 +56,41 @@ export default React.createClass({
       }
 
       // format start and end time
-      var componentTime = <span><FormattedTime
-                          value={activity.date}
-                          minute="2-digit"
-                          hour="numeric" />
+      var componentTime = <span>
+                          <Icon 
+                            type='time'
+                            folder='service'
+                            size='medium'
+                            color='default'
+                            active='false' />
+                            <span className="padded">
+                              <FormattedTime
+                                value={activity.date}
+                                minute="2-digit"
+                                hour="numeric" />
+                            </span>
                           </span>
 
       if (activity.dateEnd) {
         componentTime = <span>
-                          <FormattedTime
-                          value={activity.date}
-                          minute="2-digit"
-                          hour="numeric" />
-                          &nbsp;-&nbsp;
-                          <FormattedTime
-                          value={activity.dateEnd}
-                          minute="2-digit"
-                          hour="numeric" />
+                          <Icon 
+                            type='time'
+                            folder='service'
+                            size='medium'
+                            color='default'
+                            active='false' />
+                          <span className="padded">
+                            <FormattedTime
+                              value={activity.date}
+                              minute="2-digit"
+                              hour="numeric" />
+                            &nbsp;-&nbsp;
+                            <FormattedTime
+                              value={activity.dateEnd}
+                              minute="2-digit"
+                              hour="numeric" />
                           </span>
+                        </span>
       }
     }
 

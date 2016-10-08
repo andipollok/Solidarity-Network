@@ -154,6 +154,11 @@
 
   "today": "Today",
   "tomorrow": "Tomorrow",
+  "thisweek": "This week",
+  "nextweek": "Next week",
+  "thismonth": "This month",
+  "nextmonth": "Next month",
+  "later": "Later",
 
   "monthly_view": "Monthly view",
 

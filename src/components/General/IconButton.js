@@ -83,13 +83,13 @@ var colors = {
     labelBackground: color_light
   },
 
-  behind: {
+  disabled: {
     labelText: color_light,
     labelStroke: color_grey,
     labelBackground: color_grey
   },
 
-  behindInactive: {
+  disabledInactive: {
     labelText: color_grey,
     labelStroke: color_grey,
     labelBackground: color_light

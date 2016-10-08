@@ -67,8 +67,8 @@ button {
 .stories {
   button.btn {
     &:hover, &:active, &:focus, &.active, &.active:focus, &.active:hover {
-      background-color: $color3;
-      color: $color3_font;
+      background-color: $color1;
+      color: $color1_font;
     }
   }
 }

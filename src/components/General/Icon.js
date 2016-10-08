@@ -29,6 +29,16 @@ var colors = {
 
   },
 
+  activity: {
+
+    inactiveIconColor: color1,
+    inactiveBackgroundColor: '',
+
+    iconColor: color1,
+    backgroundColor: '',
+
+  },
+
   help: {
 
     inactiveIconColor: color_help,
@@ -59,7 +69,7 @@ var colors = {
 
   },
 
-  behind: {
+  disabled: {
 
     inactiveIconColor: color_grey,
     inactiveBackgroundColor: color_light,
@@ -109,7 +119,6 @@ export default React.createClass({
 
     var noHTML = this.props.noHTML || false;
     
-    // select background color and iconColor based on area (whatsnew, agenda or photos)
     var colorPalette = colors['default'];
     if (this.props && this.props.color && colors[this.props.color]) {
       colorPalette = colors[this.props.color];
@@ -127,6 +136,7 @@ export default React.createClass({
       tiny: this.props.size === 'tiny',
       small: this.props.size === 'small',
       medium: this.props.size === 'medium',
+      bigger: this.props.size === 'bigger',
       large: this.props.size === 'large'
     });
 

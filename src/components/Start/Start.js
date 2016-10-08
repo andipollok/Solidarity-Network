@@ -206,23 +206,19 @@ export default React.createClass({
       case 1:
       case 2:
         label = this.context.intl.formatMessage({ id: 'startNextChooseSection' });
-        buttonNext = <Col sm={12} className="text-center">
-          <p>
-              <IconButton
-                  type='arrowright' folder='service'
-                  color='start'
-                  size='wide'
-                  isActive={false}
-                  labelAlignment='center' iconPosition='right'
-                  label={label} />
-          </p>
-        </Col>;
+        buttonNext = (
+            <IconButton
+                type='arrowright' folder='service'
+                color='start'
+                size='wide'
+                isActive={false}
+                labelAlignment='center' iconPosition='right'
+                label={label} />);
         break;
 
       case 3:
         label = this.context.intl.formatMessage({ id: 'startNextChooseSection' });
-        buttonNext = <Col sm={12} className="text-center">
-          <p>
+        buttonNext = (
             <div onClick={this.onClickButtonNext}>
               <IconButton
                   type='arrowright' folder='service'
@@ -231,14 +227,11 @@ export default React.createClass({
                   isActive={true}
                   labelAlignment='center' iconPosition='right'
                   label={label} />
-            </div>
-          </p>
-        </Col>;
+            </div>);
         break;
 
       case 4:
-        buttonNext = <Col sm={12} className="text-center">
-        </Col>;
+        buttonNext = <div></div>;
         break;
 
     }
@@ -261,6 +254,7 @@ export default React.createClass({
 
 
     return (
+      <span>
       <div className="container-fluid start">
         <Row>
           <Col>
@@ -278,12 +272,12 @@ export default React.createClass({
           </Col>
 
         </Row>
-        <Row>
-          <Col className="actionButton">
-            {buttonNext}
-          </Col>
-        </Row>
       </div>
+      <div className="actionButton text-center">
+        {buttonNext}
+      </div>
+      </span>
+
     );
 
 

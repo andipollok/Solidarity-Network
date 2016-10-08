@@ -51,7 +51,7 @@ body, html, #content, .scrollable {
 body {
   font-weight:400;
   overflow:hidden;
-  background-color: $color_background;
+  background-color: $color_light;
 }
 
 .scrollable {
@@ -64,7 +64,7 @@ body {
 
 .actionButton {
   position:absolute;
-  bottom:60px;
+  bottom:15px;
   width:100%;
 }
 
@@ -76,12 +76,14 @@ a:hover {
   visibility: hidden;
 }
 
+
+
 #content {
   p {
     line-height:1.8;
   }
   p.grey, span.grey, div.grey {
-    color: $color_grey2;
+    color: $color_grey;
   }
   .height100 {
     height:100%;
@@ -99,6 +101,10 @@ a:hover {
   .padding-left {
     padding-left: 12px;
   }
+  .padded {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
   .cell {
     display: table-cell;
     vertical-align: middle;
@@ -106,7 +112,6 @@ a:hover {
       vertical-align: top;
     }
   }
-
 }
 
 
