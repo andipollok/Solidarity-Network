@@ -32,10 +32,12 @@ export default React.createClass({
   },
 
   openMenu() {
+    document.getElementById('hideOnMenuOpen').style.visibility = 'hidden';
     this.setState({ mainMenuOpened: true });
   },
 
   closeMenu() {
+    document.getElementById('hideOnMenuOpen').style.visibility = 'visible';
     this.setState({ mainMenuOpened: false });
   },
 
