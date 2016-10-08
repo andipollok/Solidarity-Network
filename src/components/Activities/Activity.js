@@ -203,45 +203,43 @@ export default React.createClass({
 
     if (related && related.length > 0) {
 
-      var nowDate = new Date();
-
+      // var renderRelatedEvent = function(event, isFuture) {
       var renderRelatedEvent = function(event) {
-        console.log(event.date);
-        console.log(event.name);
-        return <div>
-            {event.date}
-            {event.name}
+        //console.log("is future", isFuture);
+        var whenIsDateRelativeToNow = "before or after"; //event.date;
+        var date = moment( event.date, "MMMM DD YYYY");
+        var timeInfo = "";
+        let endDate = event.dateEnd;
+        if (endDate) {
+          timeInfo = moment( event.date, "h:mm" ) + "-" + moment( event.dateEnd, "h:mma" );
+        } else {
+          timeInfo = moment( event.date, "h:mma" );
+        }
+        return <div id="relatedActivityListItem">
+            <span id="whenIsDate">{whenIsDateRelativeToNow}</span>
+            <span id="eventDate">{date}</span>
+            <span id="eventTime">{timeInfo}</span>
           </div>;
       }.bind(this);
 
-      var futureEvents = "";
-      var pastEvents = "";
-
+      var nowDate = new Date();
+      var futureEvents = [];
+      var pastEvents = [];
       for (var event of related) {
-
-        // Yes but No
-        // if (moment(event.date) > moment(activity.date)) { // NAH I think we should always compare to the user's date, not the displayed activity
-        //   // future to the activity
-        // } else {
-        //   // past to the activity
-        // }
-
-        if (moment(event.date) > moment(nowDate)) {
-          // future to the user
-          futureEvents += renderRelatedEvent( event );
+        if (moment(event.date) > moment(nowDate)) { // NB we compare to user's date, not to activity.date
+          futureEvents.push( event );
         } else {
-          // past to the user
-          pastEvents += renderRelatedEvent( event );
+          pastEvents.push( event );
         }
-
       }
 
+          // {futureEvents.map( renderRelatedEvent.bind(true), this )}
       relatedActivitiesRendered = <div>
-          FUTURE
-          {futureEvents}
+          <div>FUTURE</div>
+          {futureEvents.map( renderRelatedEvent, this )}
           <br/>
-          PAST
-          {pastEvents}
+          <div>PAST</div>
+          {pastEvents.map( renderRelatedEvent, this )}
         </div>;
 
     }

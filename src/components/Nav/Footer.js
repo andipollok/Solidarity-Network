@@ -38,7 +38,7 @@ export default React.createClass({
         return {
           icon: 'help',
           iconColor: 'start',
-          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+          callback: undefined,
         };
         break;
 
@@ -46,7 +46,7 @@ export default React.createClass({
         return {
           icon: 'help',
           iconColor: 'help',
-          callback: undefined, //setSessionVar.bind(null, "preferredLayout", "list"),
+          callback: undefined,
         };
         break;
 

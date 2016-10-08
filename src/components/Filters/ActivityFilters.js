@@ -15,11 +15,6 @@ import Icon from '../General/Icon';
 
 import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
-// import Listitem from './Calendaritem';
-// import TypeSelectorButton from '../General/TypeSelectorButton';
-// import ViewSelectorButtons from './ViewSelectorButtons';
-
-
 export default React.createClass({
 
   contextTypes: {
@@ -117,7 +112,7 @@ export default React.createClass({
 
     return <div className="activityTypes">
         {overAllItem}
-        {DataStore.data.activitytypes.map(activityItem, this)}
+        {DataStore.data.activitytypesWithEvents.map(activityItem, this)}
       </div>;
 
   },

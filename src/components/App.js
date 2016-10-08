@@ -82,7 +82,7 @@ export default React.createClass({
     return {
   //      loggedIn: LoginStore.isLoggedIn(this)
       session: {
-        preferredLayout: "cards",
+        preferredLayout: "Cards",
         nonNewActivitiesLoaded: false,
         nonNewActivities: undefined
         // ,

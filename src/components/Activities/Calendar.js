@@ -11,7 +11,6 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 import Listitem from './Calendaritem';
-import TypeSelectorButton from '../General/TypeSelectorButton';
 import ViewSelectorButtons from './ViewSelectorButtons';
 
 
@@ -156,8 +155,6 @@ export default React.createClass({
 
     return (
       <div className="container">
-
-        <TypeSelectorButton data={data}/>
 
         <div className="calendar">
           <Row className="calendar-row">

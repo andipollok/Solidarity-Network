@@ -12,7 +12,6 @@ import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
 import Item from './LatestItem';
-import TypeSelectorButton from '../General/TypeSelectorButton';
 
 import ViewSelectorButtons from './ViewSelectorButtons';
 

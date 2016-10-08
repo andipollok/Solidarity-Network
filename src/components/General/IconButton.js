@@ -169,7 +169,6 @@ export default React.createClass({
       colorData = colors[color + 'Inactive'];
     }
 
-    // var Icon = <span></span>
 
 
     //

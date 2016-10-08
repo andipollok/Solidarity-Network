@@ -8,7 +8,6 @@ import StatusActions from '../../stores/StatusActions';
 import StatusStore from '../../stores/StatusStore';
 import Helpers from '../../stores/Helpers.js';
 
-import TypeSelectorButton from '../General/TypeSelectorButton';
 import ViewSelectorButtons from './ViewSelectorButtons';
 
 export default React.createClass({

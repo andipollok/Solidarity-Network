@@ -14,7 +14,6 @@ import Helpers from '../../stores/Helpers.js';
 import DataStore from '../../stores/DataStore';
 
 import UpcomingItem from './UpcomingItem';
-import TypeSelectorButton from '../General/TypeSelectorButton';
 
 import ViewSelectorButtons from './ViewSelectorButtons';
 
@@ -215,8 +214,6 @@ export default React.createClass({
     // DEBUG
     // console.log("layout:" + session.preferredLayout);
     
-        // <TypeSelectorButton data={data}/>
-
     return (
 
       <div className="container activities">

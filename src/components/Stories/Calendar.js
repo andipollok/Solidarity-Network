@@ -11,7 +11,6 @@ import Helpers from '../../stores/Helpers.js';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 import Listitem from './Calendaritem';
-import TypeSelectorButton from '../General/TypeSelectorButton';
 import ViewSelectorButtons from './ViewSelectorButtons';
 
 
