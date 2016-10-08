@@ -7,7 +7,9 @@
   "settings": "Réglages",
 
   "loading": "Un instant s‘il vous plaît…",
-  "getstarted": "Allons-y!",
+  "getstarted": "Allons-y !",
+  "needhelp": "Aide ?",
+  //"needhelp": "Besoin d'aide ?",
 
   "login": "Ouverture",
   // "logmein": "M'identifier",
@@ -34,6 +36,7 @@
   "next": "Suivant",
 
   "goback": "Retour",
+  "filters": "Filtres",
 
   "chooseAreaTitle" : "Dans quelle région souhaiteriez-vous rechercher une communauté?",
   "chooseAreaSubtitle" : "Votre sélection initiale peut être modifiée aisément par après, dans les Réglages.",
