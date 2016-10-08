@@ -112,7 +112,7 @@ export default React.createClass({
 
     return <div className="activityTypes">
         {overAllItem}
-        {DataStore.data.activitytypes.map(activityItem, this)}
+        {DataStore.data.activitytypesWithEvents.map(activityItem, this)}
       </div>;
 
   },

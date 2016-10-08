@@ -38,13 +38,15 @@ export default Reflux.createStore({
   init: function() {
 
     this.data = {
+      
       whatsnew:       [],  
       // areas:          {},
       areas:          [],
       countries:      [],
       communities:    [],
       activities:     [],
-      activitytypes:  [],
+      activitytypesAll:  [],
+      activitytypesWithEvents:  [],
       photos:         [],
       people:         [],
       stories:        [],
@@ -53,19 +55,25 @@ export default Reflux.createStore({
         activities:   {} // just IDs
       },
 
+      count: {
+      	activityTypes: {}
+      },
+
       loaded: {
         whatsnew:     false,
         areas:        false,
         countries:    false, 
         communities:  false,
         activities:   false,
-        activitytypes:false,
+        activitytypesAll:false,
         photos:       false,
         people:       false,
         stories:      false,
         all:          false,
       },
+
       errors: []
+
     };
 
     this.loadCountries();
@@ -401,6 +409,8 @@ export default Reflux.createStore({
     // IMPORTANT: to refresh the data we must delete this. Think of it as a cache.
     this.data.activities=  [];
     this.data.loaded.activities = false;
+	this.data.activitytypesWithEvents = [];
+    this.data.count.activityTypes = {};
 
     // TODO clarify if filters are a session var or a StatusStore var
     var currentUserFilters = StatusStore.data.filters || {};
@@ -464,9 +474,19 @@ export default Reflux.createStore({
               // occurrences: record.get('ActivitiesOccurrences')
             };
 
+            // Adding the activity to the data
             that.data.activities.push( activity );
 
+            // Remembering the activities that showed up during this browsing period
+            // so next time only new ones will be considered as "new" by the filters
             that.data.known.activities[activity.id] = true;
+
+            // Counting how many activities are now listed for each type
+            // this is mainly for type selector filter
+            if (! that.data.count.activityTypes[activity.typeId]) {
+            	that.data.count.activityTypes[activity.typeId] = 0;
+            }
+            that.data.count.activityTypes[activity.typeId]++;
 
             // TODO use the Whatsnew field
             
@@ -477,6 +497,11 @@ export default Reflux.createStore({
     }, function done(error) {
 
       that.data.loaded.activities = true;
+
+      // Refreshing the activity type array with only those who have events in the current dataset
+      that.data.activitytypesWithEvents = that.data.activitytypesAll.filter(function(t) {
+        return that.data.count.activityTypes[t.id] && that.data.count.activityTypes[t.id] > 0
+      });
 
       let dat = Object.keys(that.data.known.activities);
       let str = JSON.stringify(dat);
@@ -616,8 +641,8 @@ export default Reflux.createStore({
   loadActivityTypes() {
 
     // IMPORTANT: to refresh the data we must delete this. Think of it as a cache.
-    this.data.activitytypes = [];
-    this.data.loaded.activitytypes = false; // to experiment: try to leave this to true during refreshes
+    this.data.activitytypesAll = [];
+    this.data.loaded.activitytypesAll = false; // to experiment: try to leave this to true during refreshes
 
     var that = this;
     base('Activity Types').select({
@@ -626,7 +651,7 @@ export default Reflux.createStore({
     }).eachPage(function page(records, fetchNextPage) {
       records.forEach(function(record) {
           if (record.get('Name')) {
-            that.data.activitytypes.push({
+            that.data.activitytypesAll.push({
               id: record.getId(),
               name: record.get('Name'),
               activityIds: record.get('Activities'),
@@ -637,8 +662,8 @@ export default Reflux.createStore({
       fetchNextPage();
 
     }, function done(error) {
-      that.data.loaded.activitytypes = true;
-      // console.log("found the following " + Object.keys(that.data.activitytypes).length + " activity types:", that.data.activitytypes.map(function(a) { return a.name; }).join(', '));
+      that.data.loaded.activitytypesAll = true;
+      // console.log("found the following " + Object.keys(that.data.activitytypesAll).length + " activity types:", that.data.activitytypesAll.map(function(a) { return a.name; }).join(', '));
       that.forceTrigger();
       if (error) {
         that.throwError(error);
@@ -760,7 +785,7 @@ export default Reflux.createStore({
 
   checkData: function() {
     if (!this.data) { return false; }
-    if (this.data.loaded.whatsnew && this.data.loaded.areas && this.data.loaded.communities && this.data.loaded.activities && this.data.loaded.activitytypes && this.data.loaded.photos && this.data.loaded.people && this.data.loaded.stories) {
+    if (this.data.loaded.whatsnew && this.data.loaded.areas && this.data.loaded.communities && this.data.loaded.activities && this.data.loaded.activitytypesAll && this.data.loaded.photos && this.data.loaded.people && this.data.loaded.stories) {
       this.data.loaded.all = true;
       return true;
     }
