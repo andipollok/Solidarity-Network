@@ -168,42 +168,48 @@ export default React.createClass({
     }
 
     // format start and end time
-    var componentTime = <h3>
-                      <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
-                      {startingAt}&nbsp;<FormattedTime
-                            value={activity.date}
-                            minute="2-digit"
-                        hour="numeric" />
-                        </h3>
+    var componentTime = <div className="time">
+                          <span className="padded">
+                            {startingAt}&nbsp;<FormattedTime
+                                value={activity.date}
+                                minute="2-digit"
+                            hour="numeric" />
+                          </span>
+                          <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                        </div>
 
     if (activity.dateEnd) {
-      componentTime = <h3>
+      componentTime = <div className="time">
+                        <span className="padded">
+                          <FormattedTime
+                            value={activity.date}
+                            minute="2-digit"
+                            hour="numeric" />
+                          &nbsp;-&nbsp;
+                          <FormattedTime
+                            value={activity.dateEnd}
+                            minute="2-digit"
+                            hour="numeric" />
+                        </span>
                         <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
-                        <FormattedTime
-                          value={activity.date}
-                          minute="2-digit"
-                          hour="numeric" />
-                        &nbsp;-&nbsp;
-                        <FormattedTime
-                          value={activity.dateEnd}
-                          minute="2-digit"
-                          hour="numeric" />
-                      </h3>
+                      </div>
     }
 
-    var componentDate = <h3>
+    var componentDate = <div className="date">
                           <Icon type='calendar' folder='service' size='medium' area='secondaryinfo'/>
-                          <FormattedDate
-                            value={activity.date}
-                            day="numeric"
-                            month="long"
-                            year="numeric" /> 
-                        </h3>
+                          <span className="padded">
+                            <FormattedDate
+                              value={activity.date}
+                              day="numeric"
+                              month="long"
+                              year="numeric" />
+                          </span>
+                        </div>
 
-    var componentLocation = <h3>
+    var componentLocation = <div className="location">
                     <Icon type='location' folder='service' size='medium' area='secondaryinfo'/>
-                    {activity.location}
-                    </h3>
+                    <span className="padded">{activity.location}</span>
+                    </div>
 
 
 
@@ -409,7 +415,13 @@ export default React.createClass({
       <div className="container activities activity">
 
         <div className="card outline top-buffer">
-        
+
+          {componentDate}
+
+          {componentTime}
+
+          <div className="inside">
+
           <Row>
             <Col xs={12}>
 
@@ -417,13 +429,7 @@ export default React.createClass({
 
                 <IconActivity type={type} area='activities' isOnSolid={false}/>
 
-                <h1>{activity.name}</h1>
-
-                {componentDate}
-
-                {componentTime}
-
-                {componentLocation}
+                <h2>{activity.name}</h2>
 
               </div>
 
@@ -439,6 +445,9 @@ export default React.createClass({
           <Row>
             {componentPhoto}
           </Row>
+
+          </div>
+
         </div>
 
         <Row>
