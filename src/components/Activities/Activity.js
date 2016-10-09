@@ -10,10 +10,11 @@ import Helpers from '../../stores/Helpers.js';
 
 import DataStore from '../../stores/DataStore';
 
-import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Icon from '../General/Icon';
+import IconButton from '../General/IconButton';
 import IconActivity from '../General/IconActivity';
 import Avatar from '../General/Avatar';
 
@@ -21,10 +22,18 @@ import StepBullets from '../General/StepBullets';
 
 export default React.createClass({
 
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
+
   getInitialState() {
     return {
       relatedActivities: []
     };
+  },
+
+  onClickRelatedActivity(id) {
+    window.location.assign("#/activity/" + id);
   },
 
   componentWillMount() {
@@ -34,7 +43,7 @@ export default React.createClass({
     var activity = Helpers.getActivityById(this.props.params.id, data);
     DataStore.getRelatedActivities( activity, this.onReceivedRelatedActivitiesResults );
 
-    StatusActions.setPage('activities');
+    StatusActions.setPage('activity');
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='activity' />);
     StatusActions.setSecondaryNav(null);
@@ -160,43 +169,122 @@ export default React.createClass({
 
     // format start and end time
     var componentTime = <h3>
-                  <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
-                  {startingAt}&nbsp;<FormattedTime
-                        value={activity.date}
-                        minute="2-digit"
+                      <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                      {startingAt}&nbsp;<FormattedTime
+                            value={activity.date}
+                            minute="2-digit"
                         hour="numeric" />
                         </h3>
 
     if (activity.dateEnd) {
       componentTime = <h3>
-                    <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
-                    <FormattedMessage id="from" />&nbsp;<FormattedTime
-                      value={activity.date}
-                      minute="2-digit"
-                      hour="numeric" />
-                      &nbsp;<FormattedMessage id="to" />&nbsp;<FormattedTime
-                      value={activity.dateEnd}
-                      minute="2-digit"
-                      hour="numeric" />
+                        <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                        <FormattedTime
+                          value={activity.date}
+                          minute="2-digit"
+                          hour="numeric" />
+                        &nbsp;-&nbsp;
+                        <FormattedTime
+                          value={activity.dateEnd}
+                          minute="2-digit"
+                          hour="numeric" />
                       </h3>
     }
 
     var componentDate = <h3>
-                    <Icon type='calendar' folder='service' size='medium' area='secondaryinfo'/>
-                    <FormattedMessage id="on" defaultMessage=" "/>
-                        &nbsp;<FormattedDate
-                              value={activity.date}
-                              weekday="long"
-                              day="numeric"
-                              month="long"
-                              year="numeric" /> 
-                        &nbsp;<span className="grey">(<FormattedRelative value={activity.date} />)</span>
-                    </h3>
+                          <Icon type='calendar' folder='service' size='medium' area='secondaryinfo'/>
+                          <FormattedDate
+                            value={activity.date}
+                            day="numeric"
+                            month="long"
+                            year="numeric" /> 
+                        </h3>
 
     var componentLocation = <h3>
                     <Icon type='location' folder='service' size='medium' area='secondaryinfo'/>
                     {activity.location}
                     </h3>
+
+
+
+    //
+    // "More features" buttons (depend on the activity type and available data)
+    //
+
+    var moreFeatureButtonRender = function( feature ) {
+      let icon = feature.icon;
+      let label = feature.label;
+      if (!icon || !label) {
+        return;
+      }
+      let isActive = feature.isActive || false;
+      let color = feature.color || 'default';
+      let callback = feature.callback || undefined;
+      let buttonClasses = classNames( 'divLink', {
+        'active': isActive
+      });
+      let buttonIcon = (
+        <IconButton
+          type={icon} folder='service'
+          color={color}
+          size='wide'
+          isActive={isActive}
+          labelAlignment='center' iconPosition='left'
+          label={label} /> );
+      return <div className={buttonClasses} key={icon} onClick={callback}>
+              {buttonIcon}
+            </div>;
+    }; // .bind(this);
+
+    // let backButtonLabel = this.context.intl.formatMessage({ id: 'goback' });
+
+    var features = [];
+
+    features.push({
+      icon: 'host',
+      label: this.context.intl.formatMessage({ id: 'activity_feature_reach_host' }),
+      isActive: true,
+      // color: 'default',
+      // callback: '',
+    });
+
+    features.push({
+      icon: 'reminder',
+      label: this.context.intl.formatMessage({ id: 'activity_feature_set_24h_reminder' }),
+      isActive: true,
+      // color: 'default',
+      // callback: '',
+    });
+
+    features.push({
+      icon: 'location',
+      label: this.context.intl.formatMessage({ id: 'activity_feature_where_do_we_meet' }),
+      isActive: true,
+      // color: 'default',
+      // callback: '',
+    });
+
+    features.push({
+      icon: 'journal',
+      label: this.context.intl.formatMessage({ id: 'activity_feature_view_journal' }),
+      isActive: true,
+      // color: 'default',
+      // callback: '',
+    });
+
+    // "activity_feature_reach_host"
+    // "activity_feature_view_journal"
+    // "activity_feature_set_24h_reminder"
+    // "activity_feature_24h_reminder_active"
+    // "activity_feature_where_do_we_meet"
+    // "activity_feature_view_scheduled_route"
+    // "activity_feature_back_to_activity_details"
+    // "activity_feature_back_to_location_details"
+    // "activity_feature_view_map"
+
+    var moreFeatures = <div className="moreFeatures">
+                        {features.map(moreFeatureButtonRender, this)}
+                       </div>;
 
 
     //
@@ -243,7 +331,7 @@ export default React.createClass({
                       minute="2-digit"
                       hour="numeric" />;
         }
-        return <div key={event.id} id="relatedActivityListItem">
+        return <div key={event.id} id="relatedActivityListItem" onClick={this.onClickRelatedActivity.bind(this, event.id)}>
             <span id="whenIsDate">{whenIsDateRelativeToNow}</span>
             &nbsp;---&nbsp;
             <span id="eventDate">{date}</span>
@@ -342,6 +430,8 @@ export default React.createClass({
               <p className="content top-buffer">
                {activity.description}
               </p>
+
+              {moreFeatures}
 
             </Col>
           </Row>
