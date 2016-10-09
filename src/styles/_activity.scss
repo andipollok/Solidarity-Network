@@ -47,6 +47,53 @@
 
   }
 
+  .relatedEvents {
+
+    margin: 0 10px 100px 10px;
+
+    .relatedActivityListItem {
+
+      min-height: 40px;
+      padding-top: 7px;
+      margin-bottom: 10px;
+      background: #f7fdfc;
+      margin-right: 100px;
+      position: relative;
+      
+      .icon.medium {
+        top: -5px;
+        margin-bottom: 0;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+
+      .whenIsDate, .eventDate {
+
+      }
+
+      .eventTime {
+
+        .timeInfo, .iconButton {
+          position: absolute;
+          right: 24px;
+          margin-right: -130px
+        }
+
+        .timeInfo {
+          padding-top: 8px;
+          padding-right: 60px;
+          margin-top: -7px;
+        }
+
+        .iconButton {
+          margin-top: -8px;
+        }
+
+      }
+    
+    }
+
+  }
 
 }
 

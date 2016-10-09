@@ -53,6 +53,12 @@ var colors = {
     labelBackground: color_transparent
   },
 
+  timeInfo: {
+    labelText: color_grey,
+    labelStroke: color2,
+    labelBackground: "white"
+  },
+
   default: {
     labelText: color2,
     labelStroke: color2,
@@ -101,7 +107,19 @@ export default React.createClass({
 
   render() {
     
-    labelWidth = this.props.size === 'wide' ? 300 : 150;
+    labelWidth = 150; // 'small'
+    switch (this.props.size) {
+      case 'wide':
+        labelWidth = 300;
+        break;
+      case 'medium':
+        labelWidth = 250;
+        break;
+      case 'small':
+      default:
+        labelWidth = 150;
+        break;
+    };
 
     //
     // Collecting the Props
