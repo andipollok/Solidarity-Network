@@ -11,7 +11,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
   background: rgba(255,255,255,0.7);
   width: 100%;
   height: 100%;
@@ -23,7 +22,6 @@
     position: relative;
 
     background: $color1_light;
-    /*z-index: 99999;*/
     width: 150px;
     height: 820px;
     margin: 115px auto 60px;

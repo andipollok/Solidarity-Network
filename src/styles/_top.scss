@@ -8,14 +8,59 @@
     .top-left {
       float:left;
       width:170px;
+
+      #backIcon {
+        position:relative;
+        z-index: 9997; /* Back button is always on top */
+      }
+
     }
     .top-middle {
 
-      // flex: 4;
+      .topNavWidget {
+
+        width:0;
+        margin: auto;
+
+        #mainMenuIcon {
+
+          position:relative;
+          left:-31px;
+          top:5px;
+          z-index: 9999; /* Menu button is always on top */
+
+          &.active {
+
+          }
+
+        }
+
+        .topNavWidgetIcons{
+
+          position:relative;
+
+          #leftContextualTopIcon {
+            position:absolute;
+            left:-150px;
+          }
+          #rightContextualTopIcon {
+            position:absolute;
+            right:-150px;
+          }
+        }
+
+      }
+
     }
+
     .top-right {
       float:right;
       width:170px;
+      #filtersIcon {
+        position:relative;
+        z-index: 9996; /* Filters button is always on top */
+      }
+
     }
 
     h1 {
@@ -23,41 +68,6 @@
       padding-top: 4px;
       font-size: 17px;
       font-weight: 400;
-    }
-
-    .topNavWidget {
-
-      width:0;
-      margin: auto;
-
-      #mainMenuIcon {
-
-        position:relative;
-        left:-31px;
-        top:5px;
-        &.active {
-
-        }
-        z-index:9999;
-
-      }
-
-      .topNavWidgetIcons{
-
-        position:relative;
-/*        top:-28px; */
-
-        #leftContextualTopIcon {
-          position:absolute;
-          left:-150px;
-
-        }
-        #rightContextualTopIcon {
-          position:absolute;
-          right:-150px;
-        }
-      }
-
     }
 
   }
