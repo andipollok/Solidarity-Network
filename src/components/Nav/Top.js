@@ -35,7 +35,8 @@ export default React.createClass({
   openMenu() {
     var data = this.props.data;
     if (data.status.page === 'start') {
-      document.getElementById('hideOnMenuOpen').style.visibility = 'hidden';
+      // document.getElementsByClassName('hideOnMenuOpen').style.visibility = 'hidden';
+      $('.hideOnMenuOpen').hide();
     }
     this.setState({ mainMenuOpened: true });
   },
@@ -43,7 +44,8 @@ export default React.createClass({
   closeMenu() {
     var data = this.props.data;
     if (data.status.page === 'start') {
-      document.getElementById('hideOnMenuOpen').style.visibility = 'visible';
+      // document.getElementsByClassName('hideOnMenuOpen').style.visibility = 'visible';
+      $('.hideOnMenuOpen').show();
     }
     this.setState({ mainMenuOpened: false });
   },
@@ -475,8 +477,7 @@ console.log(data.status.page);
       //
 
       var primary = (
-        <Row className={barClasses}>
-          <Col className="box no-padding">
+        <div className={barClasses}>
 
               <div className="top-left text-left">
                 {BackComponent}
@@ -488,18 +489,21 @@ console.log(data.status.page);
 
               <div className="top-middle text-center">
                 <div className="topNavWidget">
+
                   <div className="topNavWidgetIcons">
                     {ContextualIconLeftComponent}
                     {ContextualIconRightComponent}
                   </div>
+
                   {MainMenuIcon}
+
+                  <h4>{data.status.title}</h4>
+
                 </div>
               </div>
 
-          </Col>
-        </Row>
+        </div>
       );
-      // <h4>{data.status.title}</h4>
 
     };
 
@@ -514,23 +518,6 @@ console.log(data.status.page);
     // </Button>
 
 
-
-    //
-    // Secondary navigation
-    //
-
-    if (data.status.secondaryNav !== null) {
-      var barClassesSecondary = classNames( "top-bar secondary text-center", data.status.page);
-      var secondary = (
-        <Row className={barClassesSecondary}>
-          {data.status.secondaryNav}
-        </Row>
-      );
-
-    };
-
-
-
     // 
     // Rendering of the whole component
     //
@@ -541,8 +528,6 @@ console.log(data.status.page);
         {mainMenu}
 
         {primary}
-
-        {secondary}
 
       </div>
     );

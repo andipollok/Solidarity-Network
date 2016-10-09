@@ -142,21 +142,27 @@ export default React.createClass({
       case 2:
       case 3:
         mainTitle = <Col sm={12} className="text-center">
-          <h4>
+          <h4 className="narrow">
             <FormattedMessage id='chooseAreaTitle'/>
           </h4>
+          <p className="narrower">
+            <FormattedMessage id='chooseAreaSubtitle'/>
+         </p>
         </Col>;
         break;
 
       case 4:
-        mainTitle = <Col sm={12} className="text-center" id="hideOnMenuOpen">
+        mainTitle = <Col sm={12} className="text-center hideOnMenuOpen">
 
           <div className="arrowUp">
             <SvgIcon name='app/arrow_up' color='#FFFFFF'/>
           </div>
-          <h4>
-              <FormattedMessage id='chooseSectionTitle'/>
+          <h4 className="narrow">
+            <FormattedMessage id='chooseSectionTitle'/>
           </h4>
+          <p className="narrower">
+            <FormattedMessage id='chooseSectionSubtitle'/>
+          </p>
         </Col>;
         break;
 
@@ -173,9 +179,6 @@ export default React.createClass({
         chooseAreaAndCountry = (
           <div className="text-center">
             <div>
-              <h4>
-                <FormattedMessage id='chooseAreaSubtitle'/>
-              </h4>
               <div className="countries">
                 {countries.map(countryItem, this)}
               </div>
@@ -192,7 +195,7 @@ export default React.createClass({
 
       case 4:
         
-        chooseAreaAndCountry = <div></div>;
+        chooseAreaAndCountry = <div />;
         
         break;
 

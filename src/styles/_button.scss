@@ -4,8 +4,8 @@ button {
     padding-left: 30px;
   }
   &.btn {
-    border:2px solid $color_light;
-    color:$color_light;
+    border:2px solid $color1;
+    color:$color1;
     border-radius: 9999px;
     font-weight:300 !important;
     white-space:normal !important;
@@ -15,22 +15,22 @@ button {
     background-color: transparent;
 
     &:hover, &:active {
-      background-color: $color_dark;
-      color:white;
+      background-color: $color1;
+      color:$color1_font;
       box-shadow:none;
     }
     &:focus  {
       outline: none !important;
-      background-color: $color_dark;
+      background-color: $color1;
       color: white;
     }
     &.active, &.active:focus {
-      background-color: $color_dark;
+      background-color: $color1;
       color:white;
       box-shadow: none;
     }
     &.active:hover {
-      background-color: $color_dark;
+      background-color: $color1;
       color:white;
     }
   }

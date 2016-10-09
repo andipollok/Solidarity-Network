@@ -183,7 +183,7 @@ export default React.createClass({
     //
 
     return (
-      <span className="iconButton">
+      <div className="iconButton">
         <svg preserveAspectRatio="xMidYMid meet" name="button" viewBox={svgDimensions} width={svgWidthWithPadding} height={svgHeightWithPadding}>
 
           <title>button</title>
@@ -194,16 +194,16 @@ export default React.createClass({
 
         </svg>
 
-        <span className={iconPosition}>
+        <div className={iconPosition}>
           <Icon 
             type={this.props.type}
             folder={this.props.folder}
             size='small'
             color={this.props.color}
             isActive={this.props.isActive} />
-        </span>
+        </div>
 
-      </span>
+      </div>
     );
   }
 });

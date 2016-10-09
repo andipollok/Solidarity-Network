@@ -21,6 +21,7 @@
   "nav_home": "Start",
   "nav_news": "News",
   "nav_activities": "Activities",
+  "nav_upcoming": "Upcoming",
   "nav_stories": "Stories",
   "nav_settings": "Settings",
 
@@ -40,7 +41,7 @@
   "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",
   "chooseSectionTitle" : "What would you like to discover first?",
   "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
-  "startNextChooseSection" : "Choose a Section",
+  "startNextChooseSection" : "Step 2: Choose a Section",
 
   "filtersTitleMain" : "In here, you can refine your search!",
   "filtersTitleActivities" : "Choose one or more Activities that fits your interests!",
