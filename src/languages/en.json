@@ -128,6 +128,22 @@
   "activity_related_next": "The next event will take place on:",
   "activity_related_past": "Past events were held on:",
 
+  //
+  //
+  "activity_feature_reach_host": "Want to reach Host?",
+  "activity_feature_view_journal": "View Journal entries",
+  "activity_feature_set_24h_reminder": "Set a 24h Reminder",
+  "activity_feature_24h_reminder_active": "24h Reminder Activated",
+  "activity_feature_where_do_we_meet": "Where do we meet?",
+  "activity_feature_view_scheduled_route": "View Scheduled Route",
+  //
+  "activity_feature_back_to_activity_details": "Back to Activity Details",
+  //
+  "activity_feature_back_to_location_details": "Back to Location Details",
+  "activity_feature_view_map": "View Map",
+  //
+  //
+
   "activities_upcoming": "Upcoming activities",
   "activities_on": "Activities on",
   "stories_latest": "Latest stories",

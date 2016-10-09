@@ -128,6 +128,23 @@
   "activity_related_next": "activity_related_next",
   "activity_related_past": "activity_related_past",
 
+  //
+  //
+  "activity_feature_reach_host": "Contacter l'organisateur?",
+  "activity_feature_view_journal": "Voir les récits",
+  "activity_feature_set_24h_reminder": "Me le rappeler la veille",
+  "activity_feature_24h_reminder_active": "Rappel activé",
+  // "activity_feature_where_do_we_meet": "Où se retrouve-t-on ?",
+  "activity_feature_where_do_we_meet": "Point de rendez-vous",
+  "activity_feature_view_scheduled_route": "Voir le parcours",
+  //
+  "activity_feature_back_to_activity_details": "Retour à l'activité",
+  //
+  "activity_feature_back_to_location_details": "Retour au point de rendez-vous",
+  "activity_feature_view_map": "Voir sur une carte",
+  //
+  //
+
   "activities_upcoming": "Horizon",
   "activities_on": "Activités du",
   "stories_latest": "Derniers récits",

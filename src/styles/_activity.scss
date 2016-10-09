@@ -3,6 +3,16 @@
     .content {
       margin-top:80px;
     }
+
+    .moreFeatures {
+      .divLink:nth-child(2n) {
+        margin-left: 70px;
+      }
+      .divLink {
+        float: left;
+      }
+    }
+
   }
 
   .activities {
