@@ -13,8 +13,11 @@ import DataStore from '../../stores/DataStore';
 import StepBullets from '../General/StepBullets';
 import Icon from '../General/Icon';
 import IconButton from '../General/IconButton';
+import SvgIcon from 'react-svg-icons';
 
 import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+
+const color1 = "#823FC2";
 
 export default React.createClass({
 
@@ -361,6 +364,10 @@ export default React.createClass({
 
         <div className="container fixed">
 
+          <span className="line">
+            <SvgIcon name='app/line' color={color1}/>
+          </span>
+
           <div className="filters">
 
             <Row>
@@ -368,9 +375,9 @@ export default React.createClass({
 
                 {topStepBullets}
 
-                <h3>
+                <h4>
                   {mainTitle}
-                </h3>
+                </h4>
 
               </Col>
             </Row>
