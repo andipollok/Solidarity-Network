@@ -177,16 +177,31 @@ export default React.createClass({
     let callback2 = StatusStore.setFilterActivityStatus.bind(StatusStore, 'new');
     let callback3 = StatusStore.setFilterActivityStatus.bind(StatusStore, 'cancelled');
 
+    // WITH "NEW"
+    // return <div className="filterOptions">
+    //         <div className="filterOptionInlineItem" onClick={callback1}>
+    //           <Icon type={icon1} folder='service' color='filled' size='small' isActive={active1}/>
+    //           <br />
+    //           <span className="text">{label1}</span>
+    //         </div>
+    //         <div className="filterOptionInlineItem" onClick={callback2}>
+    //           <Icon type={icon2} folder='service' color='filled' size='small' isActive={active2}/>
+    //           <br />
+    //           <span className="text">{label2}</span>
+    //         </div>
+    //         <div className="filterOptionInlineItem" onClick={callback3}>
+    //           <Icon type={icon3} folder='service' color='filled' size='small' isActive={active3}/>
+    //           <br />
+    //           <span className="text">{label3}</span>
+    //         </div>
+    //       </div>;
+
+    // WITHOUT "NEW"
     return <div className="filterOptions">
             <div className="filterOptionInlineItem" onClick={callback1}>
               <Icon type={icon1} folder='service' color='filled' size='small' isActive={active1}/>
               <br />
               <span className="text">{label1}</span>
-            </div>
-            <div className="filterOptionInlineItem" onClick={callback2}>
-              <Icon type={icon2} folder='service' color='filled' size='small' isActive={active2}/>
-              <br />
-              <span className="text">{label2}</span>
             </div>
             <div className="filterOptionInlineItem" onClick={callback3}>
               <Icon type={icon3} folder='service' color='filled' size='small' isActive={active3}/>
