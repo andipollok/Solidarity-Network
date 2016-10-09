@@ -101,7 +101,7 @@ var colors = {
 
   menuitemstart: {
 
-    inactiveIconColor: color_light,
+    inactiveIconColor: color_grey,
     inactiveBackgroundColor: '',
 
     iconColor: color_light,
