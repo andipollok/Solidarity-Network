@@ -47,6 +47,7 @@ export default React.createClass({
 
     if (this.props.showIcon) {
       var componentIcon = <IconActivity type={type} area='activities' isOnSolid={false} />;
+      var componentIconSmall = <IconActivity type={type} area='activities' isOnSolid={false} size='small' />;
     }
 
     if (this.props.showTime) {
@@ -63,7 +64,7 @@ export default React.createClass({
       }
 
       // format start and end time
-      var componentTime = <span>
+      var componentTimeCard = <span>
                           <Icon 
                             type='time'
                             folder='service'
@@ -79,7 +80,7 @@ export default React.createClass({
                           </span>
 
       if (activity.dateEnd) {
-        componentTime = <span>
+        componentTimeCard = <span className="timeInfo">
                           <Icon 
                             type='time'
                             folder='service'
@@ -99,6 +100,29 @@ export default React.createClass({
                           </span>
                         </span>
       }
+
+      // format start and end time
+      var componentTimeList = <span className="timeInfo">
+                                <FormattedTime
+                                  value={activity.date}
+                                  minute="2-digit"
+                                  hour="numeric" />
+                              </span>
+
+      if (activity.dateEnd) {
+        componentTimeList = <span className="timeInfo">
+                              <FormattedTime
+                                value={activity.date}
+                                minute="2-digit"
+                                hour="numeric" />
+                              &nbsp;-&nbsp;
+                              <FormattedTime
+                                value={activity.dateEnd}
+                                minute="2-digit"
+                                hour="numeric" />
+                            </span>
+      }
+
     }
 
     switch (layout) {
@@ -108,15 +132,22 @@ export default React.createClass({
         // {componentIcon}
         return (
 
-          <div className="listItem outline linked text-center" onClick={this.props.onClickHandler.bind(null, activity.id)}>
+          <div className="listItem outline linked text-center activity" onClick={this.props.onClickHandler.bind(null, activity.id)}>
+
+            {componentIconSmall}
 
             <h2>{activity.name}</h2>
 
-            <p className="date">
-              {componentDate}
-              <br />
-              {componentTime}
-            </p>
+            <span className="eventTime">
+              <IconButton
+                type='time' folder='service'
+                color='timeInfo'
+                size='medium'
+                isActive={true}
+                labelAlignment='center' iconPosition='right'
+                label="" />
+              {componentTimeList}
+            </span>
 
           </div>
 
@@ -144,7 +175,7 @@ export default React.createClass({
                 <p className="date">
                   {componentDate}
                   <br />
-                  {componentTime}
+                  {componentTimeCard}
                 </p>
               </div>
 
