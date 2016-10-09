@@ -12,6 +12,7 @@ import DataStore from '../../stores/DataStore';
 
 import StepBullets from '../General/StepBullets';
 import Icon from '../General/Icon';
+import IconButton from '../General/IconButton';
 
 import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
@@ -220,7 +221,7 @@ export default React.createClass({
 
     var togglePopup = this.props.togglePopup;
 
-    var contentRowClass = '';
+    var contentClass = '';
 
     //
     // title
@@ -264,28 +265,28 @@ export default React.createClass({
         var filterActivities = this.renderFilter_Activities_CurrentSelection();
         var filterFees = this.renderFilter_Fees();
         var filterStatus = this.renderFilter_Status();
-        mainContent = <Col sm={10} className="text-center">
-          <div>
+        mainContent = <div>
+          <div className="filterActivities">
             {filterActivities}
           </div>
-          <div>
+          <div className="filterFees">
             {filterFees}
           </div>
-          <div>
+          <div className="filterStatus">
             {filterStatus}
           </div>
-        </Col>;
+        </div>;
         break;
 
       case 'activities':
-        contentRowClass = 'activities';
+        contentClass = 'activities';
         var filterActivities = this.renderFilter_Activities_AvailableOptions();
-        mainContent = <Col sm={12} className="text-center">
-          <div>
+        mainContent = <div>
+          <div className="filterActivitesList">
             {filterActivities}
           </div>
           <span className="clear"></span>
-        </Col>;
+        </div>;
         break;
 
       default:
@@ -299,13 +300,18 @@ export default React.createClass({
     //
 
     // does not depend on screen
-    var buttonApply =  <Col sm={12} className="applyFilterButton">
-            <p>
-              <Button className="next" size="bsLarge" onClick={togglePopup}>
-                <FormattedMessage id='filtersButtonApply' />
-              </Button>
-            </p>
-          </Col>;
+    let buttonApplyLabel = this.context.intl.formatMessage({ id: 'filtersButtonApply' });
+
+    var buttonApply =  (
+          <div onClick={togglePopup}>
+             <IconButton
+                type='ok' folder='service'
+                color='start'
+                size='wide'
+                isActive={true}
+                labelAlignment='center' iconPosition='left'
+                label={buttonApplyLabel} />
+          </div> );
 
     //
     // top step bullet (decoration)
@@ -352,31 +358,54 @@ export default React.createClass({
     //
 
     return (
-      <div className="container">
 
-        <div className="filtersBackground">
+        <div className="container fixed">
+
+          <div className="filters">
 
             <Row>
-              {topStepBullets}
-              {mainTitle}
-            </Row>
-            <Row className={contentRowClass}>
-              <Col sm={2} className="text-center">
-                {sideStepBullets}
-              </Col>
-              <Col sm={8} className="text-center">
-                {mainContent}
-              </Col>
-              <Col sm={2} className="text-center">
+              <Col sm={12} className="text-center">
+
+                {topStepBullets}
+
+                <h3>
+                  {mainTitle}
+                </h3>
+
               </Col>
             </Row>
+
             <Row>
-              {buttonApply}
+              <Col sm={12}>
+
+                <div className={contentClass}>
+                  
+                  <div className="sideStepBullets">
+                    {sideStepBullets}
+                  </div>
+                  
+                  <div className="content">
+                    {mainContent}
+                  </div>
+
+                </div>
+              </Col>
             </Row>
+
+            <Row>
+
+              <Col className="text-center">
+                <div className="actionButton">
+                  {buttonApply}
+                </div>
+              </Col>
+
+            </Row>
+
+          </div>
 
         </div>
 
-      </div>
     );
 
   }
