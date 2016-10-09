@@ -110,7 +110,7 @@ export default React.createClass({
           <span className="text">{overAllItemName}</span>
         </div>;
 
-    return <div className="activityTypes">
+    return <div className="activityTypes filterOptions">
         {overAllItem}
         {DataStore.data.activitytypes.map(activityItem, this)}
       </div>;
@@ -120,6 +120,10 @@ export default React.createClass({
   renderFilter_Fees() {
 
     var data = this.props.data;
+
+    let icon1 = "overall";
+    let icon2 = "free";
+    let icon3 = "expenses";
 
     let label1 = this.context.intl.formatMessage({ id: 'filterPaidAny' });
     let label2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
@@ -133,11 +137,23 @@ export default React.createClass({
     let callback2 = StatusStore.setFilterActivityPaid.bind(StatusStore, 0);
     let callback3 = StatusStore.setFilterActivityPaid.bind(StatusStore, 1);
 
-    // StatusStore.data.filters
-
-    var bullets = <StepBullets small={false} amount={3} horizontal={true} linked={true} active={[ active1, active2, active3 ]} height={40} width={160} labels={[ label1, label2, label3 ]} callbacks={[ callback1, callback2, callback3 ]} />;
-    
-    return bullets;
+    return <div className="filterOptions">
+            <div className="filterOptionInlineItem" onClick={callback1}>
+              <Icon type={icon1} folder='service' color='filled' size='small' isActive={active1}/>
+              <br />
+              <span className="text">{label1}</span>
+            </div>
+            <div className="filterOptionInlineItem" onClick={callback2}>
+              <Icon type={icon2} folder='service' color='filled' size='small' isActive={active2}/>
+              <br />
+              <span className="text">{label2}</span>
+            </div>
+            <div className="filterOptionInlineItem" onClick={callback3}>
+              <Icon type={icon3} folder='service' color='filled' size='small' isActive={active3}/>
+              <br />
+              <span className="text">{label3}</span>
+            </div>
+          </div>;
 
   },
 
