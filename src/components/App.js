@@ -223,7 +223,7 @@ export default React.createClass({
           <div className="main-container scrollable">
 
             <div id="popup" >
-                {popupComponent}
+              {popupComponent}
             </div>
 
             { React.cloneElement( this.props.children, { data: data, loggedIn: LoginStore.isLoggedIn(this), setSessionVar: this.setSessionVar, session: this.state.session } ) }
