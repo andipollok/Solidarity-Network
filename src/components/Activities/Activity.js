@@ -27,6 +27,10 @@ export default React.createClass({
     };
   },
 
+  onClickRelatedActivity(id) {
+    window.location.assign("#/activity/" + id);
+  },
+
   componentWillMount() {
 
     // retrieving the related activities
@@ -243,7 +247,7 @@ export default React.createClass({
                       minute="2-digit"
                       hour="numeric" />;
         }
-        return <div key={event.id} id="relatedActivityListItem">
+        return <div key={event.id} id="relatedActivityListItem" onClick={this.onClickRelatedActivity.bind(this, event.id)}>
             <span id="whenIsDate">{whenIsDateRelativeToNow}</span>
             &nbsp;---&nbsp;
             <span id="eventDate">{date}</span>
