@@ -36,11 +36,6 @@ export default React.createClass({
     return (
 
       <div className="container text-center">
-    
-        <Row>
-          <h2><FormattedMessage id='wheredoyoulive'/></h2>
-          <ChooseArea data={data}/>
-        </Row>
 
         <Row>
           <h2><FormattedMessage id='whichlanguagedoyouspeak'/></h2>

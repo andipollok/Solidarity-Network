@@ -181,9 +181,13 @@ export default React.createClass({
     // data.allActivities = this.state.allActivities;
     // data.area = Helpers.getAreaFromStatus(data);
 
-    var flexContainerClasses = classNames( 'flex-container', {
-      'backgroundGradient' : data.status.page === 'start'
-    } );
+    var flexContainerClasses = classNames( 
+      'flex-container', 
+      'start-step-' + this.state.session.startStep, 
+      {
+        'backgroundGradient' : data.status.page === 'start',
+      }
+    );
     
     // POPUP
 
@@ -195,6 +199,8 @@ export default React.createClass({
           break;
       }
     }
+
+    console.log("startstep", this.state.session.startStep);
 
     return (
 

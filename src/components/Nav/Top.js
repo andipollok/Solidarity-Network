@@ -35,7 +35,8 @@ export default React.createClass({
   openMenu() {
     var data = this.props.data;
     if (data.status.page === 'start') {
-      document.getElementById('hideOnMenuOpen').style.visibility = 'hidden';
+      // document.getElementsByClassName('hideOnMenuOpen').style.visibility = 'hidden';
+      $('.hideOnMenuOpen').hide();
     }
     this.setState({ mainMenuOpened: true });
   },
@@ -43,7 +44,8 @@ export default React.createClass({
   closeMenu() {
     var data = this.props.data;
     if (data.status.page === 'start') {
-      document.getElementById('hideOnMenuOpen').style.visibility = 'visible';
+      // document.getElementsByClassName('hideOnMenuOpen').style.visibility = 'visible';
+      $('.hideOnMenuOpen').show();
     }
     this.setState({ mainMenuOpened: false });
   },
