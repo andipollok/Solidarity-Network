@@ -1,7 +1,30 @@
 #content {
   .activity {
+
     .content {
-      margin-top:80px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      color: $color1;
+    }
+    
+    .card {
+      padding-top:40px;
+      position:relative;
+    }
+
+    .time {
+      position: absolute;
+      right: 15px;
+      top: 18px;
+    }
+
+    .date {
+      position: absolute;
+      left: 15px;
+      top: 18px;
     }
 
     .moreFeatures {

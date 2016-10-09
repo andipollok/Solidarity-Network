@@ -25,7 +25,7 @@ var colors = {
     inactiveBackgroundColor: '',
 
     iconColor: color2,
-    backgroundColor: color_light,
+    backgroundColor: '',
 
   },
 

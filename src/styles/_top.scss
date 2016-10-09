@@ -18,6 +18,13 @@
       width:170px;
     }
 
+    h1 {
+      color:$color1;
+      padding-top: 4px;
+      font-size: 17px;
+      font-weight: 400;
+    }
+
     .topNavWidget {
 
       width:0;
@@ -34,6 +41,7 @@
         z-index:9999;
 
       }
+
       .topNavWidgetIcons{
 
         position:relative;
@@ -51,7 +59,6 @@
       }
 
     }
-
 
   }
 }
