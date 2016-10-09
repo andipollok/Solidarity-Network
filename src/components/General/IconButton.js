@@ -53,6 +53,12 @@ var colors = {
     labelBackground: color_transparent
   },
 
+  timeInfo: {
+    labelText: color_grey,
+    labelStroke: color2,
+    labelBackground: "white"
+  },
+
   default: {
     labelText: color2,
     labelStroke: color2,
@@ -107,7 +113,7 @@ export default React.createClass({
         labelWidth = 300;
         break;
       case 'medium':
-        labelWidth = 200;
+        labelWidth = 250;
         break;
       case 'small':
       default:

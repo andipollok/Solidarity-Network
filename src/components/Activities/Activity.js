@@ -10,7 +10,7 @@ import Helpers from '../../stores/Helpers.js';
 
 import DataStore from '../../stores/DataStore';
 
-import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { formatDate, formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Button, ButtonGroup, Col, Row } from 'react-bootstrap';
 
 import Icon from '../General/Icon';
@@ -34,6 +34,7 @@ export default React.createClass({
 
   onClickRelatedActivity(id) {
     window.location.assign("#/activity/" + id);
+    document.getElementsByClassName('scrollable')[0].scrollTop = 0;
   },
 
   componentWillMount() {
@@ -236,8 +237,6 @@ export default React.createClass({
             </div>;
     }; // .bind(this);
 
-    // let backButtonLabel = this.context.intl.formatMessage({ id: 'goback' });
-
     var features = [];
 
     features.push({
@@ -314,7 +313,7 @@ export default React.createClass({
         var timeInfo = "";
         let endDate = event.dateEnd;
         if (endDate) {
-          timeInfo = <span>
+          timeInfo = <span className="timeInfo">
                       <FormattedTime
                         value={event.date}
                         minute="2-digit"
@@ -326,17 +325,33 @@ export default React.createClass({
                         hour="numeric" />
                      </span>;
         } else {
-          timeInfo = <FormattedTime
-                      value={event.date}
-                      minute="2-digit"
-                      hour="numeric" />;
+          timeInfo = <span className="timeInfo">
+                      <FormattedTime
+                        value={event.date}
+                        minute="2-digit"
+                        hour="numeric" />
+                     </span>;
         }
-        return <div key={event.id} id="relatedActivityListItem" onClick={this.onClickRelatedActivity.bind(this, event.id)}>
-            <span id="whenIsDate">{whenIsDateRelativeToNow}</span>
-            &nbsp;---&nbsp;
-            <span id="eventDate">{date}</span>
-            &nbsp;---&nbsp;
-            <span id="eventTime">{timeInfo}</span>
+        // if (endDate) {
+        //   timeInfo = this.context.intl.formatDate({ value: {event.date}, minute: '2-digit', hour: 'numeric' }) + " - " + this.context.intl.formatDate({ value: event.dateEnd, minute: '2-digit', hour: 'numeric' });
+        // } else {
+        //   timeInfo = this.context.intl.formatDate({ value: event.date, minute: '2-digit', hour: 'numeric' });
+        // }
+
+        return <div key={event.id} className="relatedActivityListItem" onClick={this.onClickRelatedActivity.bind(this, event.id)}>
+            <Icon type='calendar' folder='service' size='medium'/>
+            <span className="whenIsDate">{whenIsDateRelativeToNow}</span>:&nbsp;
+            <span className="eventDate">{date}</span>
+            <span className="eventTime">
+              <IconButton
+                type='time' folder='service'
+                color='timeInfo'
+                size='medium'
+                isActive={true}
+                labelAlignment='center' iconPosition='right'
+                label="" />
+              {timeInfo}
+            </span>
           </div>;
       }.bind(this);
 
@@ -352,19 +367,19 @@ export default React.createClass({
       }
 
           // {futureEvents.map( renderRelatedEvent.bind(true), this )}
-      relatedActivitiesRendered = <Row>
+      relatedActivitiesRendered = <Row className="relatedEvents">
                                     <Row>
-                                      <div>
+                                      <h4>
                                         <FormattedMessage id="activity_related_next" />
-                                      </div>
+                                      </h4>
                                     </Row>
                                     <Row>
                                       {futureEvents.map( renderRelatedEvent.bind(this, true), this )}
                                     </Row>
                                     <Row>
-                                      <div>
+                                      <h4>
                                         <FormattedMessage id="activity_related_past" />
-                                      </div>
+                                      </h4>
                                     </Row>
                                     <Row>
                                       {pastEvents.map( renderRelatedEvent.bind(this, false), this )}
