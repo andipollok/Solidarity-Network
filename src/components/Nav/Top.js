@@ -446,8 +446,7 @@ export default React.createClass({
       //
 
       var primary = (
-        <Row className={barClasses}>
-          <Col className="box no-padding">
+        <div className={barClasses}>
 
               <div className="top-left text-left">
                 {BackComponent}
@@ -459,18 +458,21 @@ export default React.createClass({
 
               <div className="top-middle text-center">
                 <div className="topNavWidget">
+
                   <div className="topNavWidgetIcons">
                     {ContextualIconLeftComponent}
                     {ContextualIconRightComponent}
                   </div>
+
                   {MainMenuIcon}
+
+                  <h4>{data.status.title}</h4>
+
                 </div>
               </div>
 
-          </Col>
-        </Row>
+        </div>
       );
-      // <h4>{data.status.title}</h4>
 
     };
 
@@ -485,23 +487,6 @@ export default React.createClass({
     // </Button>
 
 
-
-    //
-    // Secondary navigation
-    //
-
-    if (data.status.secondaryNav !== null) {
-      var barClassesSecondary = classNames( "top-bar secondary text-center", data.status.page);
-      var secondary = (
-        <Row className={barClassesSecondary}>
-          {data.status.secondaryNav}
-        </Row>
-      );
-
-    };
-
-
-
     // 
     // Rendering of the whole component
     //
@@ -512,8 +497,6 @@ export default React.createClass({
         {mainMenu}
 
         {primary}
-
-        {secondary}
 
       </div>
     );
