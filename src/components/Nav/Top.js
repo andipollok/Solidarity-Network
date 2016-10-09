@@ -466,9 +466,10 @@ export default React.createClass({
 
                   {MainMenuIcon}
 
-                  <h4>{data.status.title}</h4>
-
                 </div>
+
+                <h1>{data.status.title}</h1>
+              
               </div>
 
         </div>
