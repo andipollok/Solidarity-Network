@@ -4,12 +4,19 @@ import { Col } from 'react-bootstrap';
 
 import Helpers from '../../stores/Helpers.js';
 
-import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { formatMessage, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 
 import Icon from '../General/Icon';
+import IconButton from '../General/IconButton';
+
 import IconActivity from '../General/IconActivity';
 
+
 export default React.createClass({
+
+  contextTypes: {
+    intl: React.PropTypes.object.isRequired,
+  },
 
   render() {
 
@@ -119,27 +126,53 @@ export default React.createClass({
 
       case "Cards":
       default:
-        
+
+        let buttonLabel = this.context.intl.formatMessage({ id: 'seeactivitydetails' });
+
         return (
 
           <Col md={4} sm={6} className="bottom-buffer" onClick={this.props.onClickHandler.bind(null, activity.id)}>
 
-            <div className="card outline fixedheight linked padded text-center">
+            <div className="card outline fixedheight linked text-center">
+              
+              <div className="inside">
 
-              {componentIcon}
+                {componentIcon}
 
-              <h2>{activity.name}</h2>
+                <h2>{activity.name}</h2>
 
-              <p className="date">
-                {componentDate}
-                <br />
-                {componentTime}
-              </p>
+                <p className="date">
+                  {componentDate}
+                  <br />
+                  {componentTime}
+                </p>
+              </div>
+
+              <div className="activityButton">
+                {buttonLabel}
+
+                <Icon 
+                  type='activity'
+                  folder='service'
+                  size='small'
+                  color='default'
+                  isActive={true} />
+              </div>
 
             </div>
           </Col>
         );
         
+/* actually we should put an IconButton there, but the outline of the card is 2px (css - 1.5 is not possible) and the iconbutton only 1.5px (svg)
+
+                <IconButton
+                  type='activity' folder='service'
+                  color='default'
+                  size='wide'
+                  isActive={true}
+                  labelAlignment='center' iconPosition='right'
+                  label={buttonLabel} />
+*/
       break;
 
     }

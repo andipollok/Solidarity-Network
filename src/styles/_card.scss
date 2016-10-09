@@ -1,10 +1,13 @@
 .card {
 
-  padding:20px;
-  padding-top:25px;
   border-radius:6px 6px 20px 20px;
   border:2px solid $color2;
   background-color: $color2_light;
+
+  .inside {
+    padding:20px;
+    padding-top:25px;
+  }
 
   &.half {
     min-height:150px;
@@ -17,7 +20,7 @@
     position:relative;
   }
   &.fixedheight {
-    height:400px;
+    height:350px;
     overflow:hidden;
   }
   h2 {
@@ -79,8 +82,24 @@
       color: $color1_font !important;
     }
   }
+  .activityButton {
+    border:2px solid $color_activity;
+    border-radius:9999px;
+    height:42px;
+    line-height:40px;
+    color:$color_activity;
+    width:101%; /* ugly hack that looks ugly */
+    left:-2px;
+    bottom:-2px;
+    position:absolute;
+    .icon {
+      float:right;
+      position:relative;
+      left:1px;
+      top:-3px;
+    }
+  }
 }
-
 
 .news { 
   .card.outline { 
