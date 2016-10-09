@@ -39,30 +39,32 @@
     margin-bottom: 30px;
   }
 
-  .stepBullets {
-    position:absolute;
-    width:140px;
-  }
+
 
   .selections {
+    position:relative;
 
-  }
+    .stepBullets {
+      position:absolute;
+      width:140px;
+      top:-90px;
+    }
+    .countries {
+      padding-top: 40px;
+    }
 
-  .countries {
-    padding-top: 90px;
-  }
+    .areas {
+      padding-top:20px;
+    }
 
-  .areas {
-    padding-top:20px;
-  }
-
-  .country,
-  .area {
-    display: inline-block;
-    margin: 40px 60px;
-    .text {
-      padding-top: 20px;
+    .country,
+    .area {
       display: inline-block;
+      margin: 40px 60px;
+      .text {
+        padding-top: 20px;
+        display: inline-block;
+      }
     }
   }
 

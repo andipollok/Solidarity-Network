@@ -76,8 +76,6 @@ a:hover {
   visibility: hidden;
 }
 
-
-
 #content {
   p {
     line-height:1.8;
@@ -104,6 +102,10 @@ a:hover {
   .padded {
     padding-left: 10px;
     padding-right: 10px;
+  }
+  .narrow {
+    padding-left:15%;
+    padding-right:15%;
   }
   .cell {
     display: table-cell;
