@@ -101,7 +101,19 @@ export default React.createClass({
 
   render() {
     
-    labelWidth = this.props.size === 'wide' ? 300 : 150;
+    labelWidth = 150; // 'small'
+    switch (this.props.size) {
+      case 'wide':
+        labelWidth = 300;
+        break;
+      case 'medium':
+        labelWidth = 200;
+        break;
+      case 'small':
+      default:
+        labelWidth = 150;
+        break;
+    };
 
     //
     // Collecting the Props
