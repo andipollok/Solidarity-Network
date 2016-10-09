@@ -135,6 +135,7 @@ export default React.createClass({
         break;
 
       case 'activities':
+      case 'activity':
         return {
           iconType: 'upcoming',
           menuIconColor: 'menu',
@@ -168,6 +169,10 @@ export default React.createClass({
     var session = this.props.session;
     var popup = this.props.popup;
     
+    let layoutPreference = "Cards";
+    let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
+    let label = this.context.intl.formatMessage({ id: 'cards_layout' });
+
     switch (data.status.page) {
 
       case 'start':
@@ -176,15 +181,22 @@ export default React.createClass({
         break;
 
       case 'activities':
-        let layoutPreference = "Cards";
-        let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
-        let label = this.context.intl.formatMessage({ id: 'cards_layout' });
         return {
           icon: 'cards',
           label: label,
           callback: thisIsThePreferredLayoutAlready ? undefined: setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
           disabled: popup, // if any popup is opened this goes behind
+        };
+        break;
+
+      case 'activity':
+        return {
+          icon: 'list',
+          label: label,
+          callback: undefined,
+          active: thisIsThePreferredLayoutAlready,
+          disabled: true,
         };
         break;
 
@@ -209,6 +221,10 @@ export default React.createClass({
     var session = this.props.session;
     var popup = this.props.popup;
 
+    let layoutPreference = "List";
+    let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
+    let label = this.context.intl.formatMessage({ id: 'list_layout' });
+
     switch (data.status.page) {
 
       case 'start':
@@ -217,15 +233,22 @@ export default React.createClass({
         break;
 
       case 'activities':
-        let layoutPreference = "List";
-        let thisIsThePreferredLayoutAlready = ( session.preferredLayout == layoutPreference );
-        let label = this.context.intl.formatMessage({ id: 'list_layout' });
         return {
           icon: 'list',
           label: label,
           callback: thisIsThePreferredLayoutAlready ? undefined : setSessionVar.bind(null, "preferredLayout", layoutPreference),
           active: thisIsThePreferredLayoutAlready,
           disabled: popup, // if any popup is opened this goes behind
+        };
+        break;
+
+      case 'activity':
+        return {
+          icon: 'list',
+          label: label,
+          callback: undefined,
+          active: thisIsThePreferredLayoutAlready,
+          disabled: true,
         };
         break;
 
@@ -250,15 +273,27 @@ export default React.createClass({
     var data = this.props.data;
     var popup = this.props.popup;
 
+    let label = this.context.intl.formatMessage({ id: 'filters' });
+
     switch (data.status.page) {
 
       case 'activities':
         return {
           icon: 'filters',
-          label: null,
+          label: label,
           callback: togglePopup, //.bind(null, "preferredLayout", "list"),
           active: ( popup && popup == 'Filters' ),
           disabled: false, // if another popup is opened that Filters, such as Help for instance
+        };
+        break;
+
+      case 'activity':
+        return {
+          icon: 'filters',
+          label: label,
+          callback: undefined,
+          active: false,
+          disabled: true,
         };
         break;
 
@@ -279,7 +314,7 @@ export default React.createClass({
     if (data.status.title === '' || data.status.title === undefined) {
       return <div></div>;
     }
-
+console.log(data.status.page);
 
 
     //
@@ -363,10 +398,8 @@ export default React.createClass({
       let leftButtonData = this.getLeftTopButtonData();
       let rightButtonData = this.getRightTopButtonData();
 
-      var contextualIconColor = menuIconData.contextualIconColor;
-
-      let leftIconColor = leftButtonData.disabled ? ( leftButtonData.active ? "disabled" : "disabledInactive" ) : contextualIconColor;
-      let rightIconColor = rightButtonData.disabled ? ( rightButtonData.active ? "disabled" : "disabledInactive" ) : contextualIconColor;
+      let leftIconColor = leftButtonData.disabled ? ( leftButtonData.active ? "disabled" : "disabledInactive" ) : menuIconData.contextualIconColor;
+      let rightIconColor = rightButtonData.disabled ? ( rightButtonData.active ? "disabled" : "disabledInactive" ) : menuIconData.contextualIconColor;
 
       let leftIcon = (
         <IconButton
@@ -416,20 +449,18 @@ export default React.createClass({
 
       let filtersButtonData = this.getFiltersButtonData();
 
-      let filtersButtonLabel = this.context.intl.formatMessage({ id: 'filters' });
-
-      // TODO: behind style if needed (e.g. when we open Help popup)
+      let filtersIconColor = filtersButtonData.disabled ? ( filtersButtonData.active ? "disabled" : "disabledInactive" ) : menuIconData.filterButtonColor;
 
       let filtersIcon = (
         <IconButton
           type='filters'
           folder='service'
-          color={menuIconData.filterButtonColor}
+          color={filtersIconColor}
           size='small'
           isActive={filtersButtonData.active}
           labelAlignment='right'
           iconPosition='right'
-          label={filtersButtonLabel} />);
+          label={filtersButtonData.label} />);
       
       if (filtersButtonData.icon === null) {
         filtersIcon = undefined;

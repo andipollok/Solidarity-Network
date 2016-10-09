@@ -38,7 +38,7 @@ export default React.createClass({
     var activity = Helpers.getActivityById(this.props.params.id, data);
     DataStore.getRelatedActivities( activity, this.onReceivedRelatedActivitiesResults );
 
-    StatusActions.setPage('activities');
+    StatusActions.setPage('activity');
     StatusActions.showBackButton(true);
     StatusActions.setTitle(<FormattedMessage id='activity' />);
     StatusActions.setSecondaryNav(null);
