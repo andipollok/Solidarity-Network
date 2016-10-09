@@ -29,7 +29,7 @@ export default React.createClass({
   componentWillMount() {
     StatusActions.setPage('activities');
     StatusActions.showBackButton(false);
-    StatusActions.setTitle(<FormattedMessage id='nav_activities' />);
+    StatusActions.setTitle(<FormattedMessage id='nav_upcoming' />);
     //StatusActions.setSecondaryNav(<ViewSelectorButtons data={this.props.data} view='upcoming'/>);
     StatusActions.forceTrigger();
   },
