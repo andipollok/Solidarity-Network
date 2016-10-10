@@ -8,8 +8,7 @@
 
   "loading": "Un instant s‘il vous plaît…",
   "getstarted": "Allons-y !",
-  "needhelp": "Aide ?",
-  //"needhelp": "Besoin d'aide ?",
+  "needhelp": "Aide?",
 
   "login": "Ouverture",
   // "logmein": "M'identifier",
@@ -48,19 +47,19 @@
   "welcome": "Bienvenue!",
   "welcome_in": "Bienvenue à {areaName}!",
   "whatsnew_in": "Quoi de neuf à {areaName}?",
-  "agenda_in": "Agenda de {areaName}.",
-  "photos_in": "Photo de {areaName}.",
-  "stories_in": "Récits de {areaName}.",
-  "articles_in": "Articles de {areaName}.",
+  "agenda_in": "Agenda de {areaName}",
+  "photos_in": "Photo de {areaName}",
+  "stories_in": "Récits de {areaName}",
+  "articles_in": "Articles de {areaName}",
 
   "wheredoyoulive": "Où habitez-vous?",
   "whichlanguagedoyouspeak": "Quelle langue parlez-vous?",
 
-  "seewhatsnew": "Découvrez les nouveautés.",
-  "seeagenda": "Voir toutes les activités de {areaName}.",
-  "seephotos": "Parcourir les photos d'activités de {areaName}.",
-  "seestories": "Parcourir les récits de {areaName}.",
-  "seearticles": "Parcourir les articles de {areaName}.",
+  "seenews": "Découvrez les nouveautés",
+  "seeagenda": "Voir toutes les activités de {areaName}",
+  "seephotos": "Parcourir les photos d'activités de {areaName}",
+  "seestories": "Parcourir les récits de {areaName}",
+  "seearticles": "Parcourir les articles de {areaName}",
   "seeactivitydetails": "Voir les détails",
 
   "read_story": "Lire le récit",
@@ -70,9 +69,17 @@
   "organisedby": "Organisé par {name}",
 
   "filterOptionOverall": "Tout",
-  "filtersTitleMain": "TODO filtersTitleMain",
-  "filtersTitleActivities": "TODO filtersTitleActivities",
-  "filtersButtonApply": "TODO filtersButtonApply",
+  "filtersTitleMain": "Vous pouvez ici raffiner votre recherche!",
+  "filtersTitleActivities": "Choisissez une ou plusieurs activités qui correspondent à vos intérêts!",
+  "filtersButtonApply": "Valider la sélection",
+
+  "filterPaidAny": "Globales",
+  "filterPaidFree": "Gratuites",
+  "filterPaidExpenses": "Payantes",
+
+  "filterStatusAny": "Globales",
+  "filterStatusNew": "Nouvelles",
+  "filterStatusCancelled": "Annulées",
 
   "nowhatsnew": "Désolé, il n'y a pas de nouveautés à {areaName} présentement.",
   "noactivities": "Désolé, il n'y a pas d'activités prévues à {areaName}.",
@@ -126,16 +133,15 @@
   "activity_description_label": "Description",
   "activity_description_default": "Description de l'activité.",
 
-  "activity_related_next": "activity_related_next",
-  "activity_related_past": "activity_related_past",
+  "activity_related_next": "Les prochaines rencontres auront lieu le:",
+  "activity_related_past": "Les rencontres précédentes ont eu lieu le:",
 
   //
   //
   "activity_feature_reach_host": "Contacter l'organisateur?",
   "activity_feature_view_journal": "Voir les récits",
-  "activity_feature_set_24h_reminder": "Me le rappeler la veille",
+  "activity_feature_set_24h_reminder": "Activer un rappel de 24h",
   "activity_feature_24h_reminder_active": "Rappel activé",
-  // "activity_feature_where_do_we_meet": "Où se retrouve-t-on ?",
   "activity_feature_where_do_we_meet": "Point de rendez-vous",
   "activity_feature_view_scheduled_route": "Voir le parcours",
   //
