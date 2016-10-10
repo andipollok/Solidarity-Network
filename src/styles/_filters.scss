@@ -43,6 +43,9 @@
             float: left;
             min-width: 90px;
             margin: 0 30px;
+            .icon {
+              margin-bottom: 12px;
+            }
           }
         }
       }
@@ -73,6 +76,9 @@
           float: left;
           min-width: 90px;
           margin: 0 30px;
+          .icon {
+            margin-bottom: 12px;
+          }
         }
       }
       
@@ -97,7 +103,7 @@
         text-align:center;
 
         .icon {
-          margin-bottom: 5px;
+          margin-bottom: 12px;
         }
 
       }
