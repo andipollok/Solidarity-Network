@@ -398,7 +398,11 @@ export default React.createClass({
     // "activity_feature_back_to_location_details"
     // "activity_feature_view_map"
 
-    var moreFeatures = <div className="moreFeatures">
+    var moreFeaturesClasses = classNames( "moreFeatures", {
+      singleButton: features.length == 1
+    });
+
+    var moreFeatures = <div className={moreFeaturesClasses}>
                         {features.map(moreFeatureButtonRender, this)}
                        </div>;
 
