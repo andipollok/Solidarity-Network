@@ -144,6 +144,7 @@
   "activity_feature_24h_reminder_active": "24h Reminder Activated",
   "activity_feature_where_do_we_meet": "Where do we meet?",
   "activity_feature_view_scheduled_route": "View Scheduled Route",
+  "activity_feature_price_info": "Contribution",
   //
   "activity_feature_back_to_activity_details": "Back to Activity Details",
   //
@@ -151,6 +152,8 @@
   "activity_feature_view_map": "View Map",
   //
   //
+
+  "activity_feature_price_info_not_defined_yet": "To be determined",
 
   "activity_subpage_reachhost_content_name": "The Host of this event is {ownersName} and you can get in touch:",
   "activity_subpage_reachhost_content_phone": "by phone {ownersPhone}",

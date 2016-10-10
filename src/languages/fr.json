@@ -144,6 +144,7 @@
   "activity_feature_24h_reminder_active": "Rappel activé",
   "activity_feature_where_do_we_meet": "Point de rendez-vous",
   "activity_feature_view_scheduled_route": "Voir le parcours",
+  "activity_feature_price_info": "Contribution",
   //
   "activity_feature_back_to_activity_details": "Retour à l'activité",
   //
@@ -151,6 +152,8 @@
   "activity_feature_view_map": "Voir sur une carte",
   //
   //
+
+  "activity_feature_price_info_not_defined_yet": "A définir",
 
   "activity_subpage_reachhost_content_name": "Le responsable de cette activité est {ownersName} et vous pouvez entrer en contact :",
   "activity_subpage_reachhost_content_phone": "par téléphone au {ownersPhone}",

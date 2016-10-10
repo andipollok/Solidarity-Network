@@ -366,7 +366,7 @@ export default React.createClass({
       });
     }
 
-    // Feature: module Reach Host
+    // Feature: module Reminder
     if (session.subPage === null) {
       features.push({
         icon: 'reminder',
@@ -377,7 +377,8 @@ export default React.createClass({
       });
     }
 
-    // Feature: module Reach Host
+
+    // Feature: module Where do we meet
     if (session.subPage === null) {
       features.push({
         icon: 'location',
@@ -388,7 +389,23 @@ export default React.createClass({
       });
     }
 
-    // Feature: module Reach Host
+    // Feature: module Fees
+    if (
+      session.subPage === null
+      && activity.paid
+    ) {
+      let priceInfo = this.context.intl.formatMessage({ id: 'activity_feature_price_info' });
+      priceInfo += activity.price ? ' ' + activity.price + ' ' + activity.currency : this.context.intl.formatMessage({ id: 'activity_feature_price_info_not_defined_yet' });
+      features.push({
+        icon: 'expenses',
+        label: priceInfo,
+        isActive: false,
+        // color: 'disabledInactive',
+        // callback: '',
+      });
+    }
+
+    // Feature: module View journal
     if (session.subPage === null) {
       features.push({
         icon: 'journal',
@@ -420,7 +437,11 @@ export default React.createClass({
     // "activity_feature_back_to_location_details"
     // "activity_feature_view_map"
 
-    var moreFeatures = <div className="moreFeatures">
+    var moreFeaturesClasses = classNames( "moreFeatures", {
+      singleButton: features.length == 1
+    });
+
+    var moreFeatures = <div className={moreFeaturesClasses}>
                         {features.map(moreFeatureButtonRender, this)}
                        </div>;
 
@@ -479,8 +500,8 @@ export default React.createClass({
 
         return <div key={event.id} className="relatedActivityListItem" onClick={this.onClickRelatedActivity.bind(this, event.id)}>
             <Icon type='calendar' folder='service' size='medium'/>
-            <span className="whenIsDate">{whenIsDateRelativeToNow}</span>:&nbsp;
             <span className="eventDate">{date}</span>
+            &nbsp;(<span className="whenIsDate">{whenIsDateRelativeToNow}</span>)
             <span className="eventTime">
               <IconButton
                 type='time' folder='service'
