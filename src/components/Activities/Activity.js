@@ -344,7 +344,7 @@ export default React.createClass({
       });
     }
 
-    // Feature: module Reach Host
+    // Feature: module Reminder
     if (session.subPage === null) {
       features.push({
         icon: 'reminder',
@@ -355,7 +355,8 @@ export default React.createClass({
       });
     }
 
-    // Feature: module Reach Host
+
+    // Feature: module Where do we meet
     if (session.subPage === null) {
       features.push({
         icon: 'location',
@@ -366,7 +367,23 @@ export default React.createClass({
       });
     }
 
-    // Feature: module Reach Host
+    // Feature: module Fees
+    if (
+      session.subPage === null
+      && activity.paid
+    ) {
+      let priceInfo = this.context.intl.formatMessage({ id: 'activity_feature_price_info' });
+      priceInfo += activity.price ? ' ' + activity.price + ' ' + activity.currency : this.context.intl.formatMessage({ id: 'activity_feature_price_info_not_defined_yet' });
+      features.push({
+        icon: 'expenses',
+        label: priceInfo,
+        isActive: false,
+        // color: 'disabledInactive',
+        // callback: '',
+      });
+    }
+
+    // Feature: module View journal
     if (session.subPage === null) {
       features.push({
         icon: 'journal',
