@@ -316,8 +316,6 @@ export default React.createClass({
     if (data.status.title === '' || data.status.title === undefined) {
       return <div></div>;
     }
-console.log(data.status.page);
-
 
     //
     // Main menu
