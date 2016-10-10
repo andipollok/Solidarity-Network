@@ -1,14 +1,14 @@
 {
 
-  "upcoming": "Upcoming",
+  "upcoming": "Upcoming events",
   "calendar": "Calendar",
   "journal": "Journal",
-  "photo": "Photo",
+  "photo": "Photos",
   "settings": "Settings",
 
   "loading": "Just a moment please…",
-  "getstarted": "Dive in!",
-  "needhelp": "Need help",
+  "getstarted": "Let’s go!",
+  "needhelp": "Need help?",
 
   "logmein": "L",
   // "logmein": "Log me in",
@@ -22,7 +22,7 @@
   "nav_home": "Start",
   "nav_news": "News",
   "nav_activities": "Activities",
-  "nav_upcoming": "Upcoming",
+  "nav_upcoming": "Upcoming events",
   "nav_stories": "Stories",
   "nav_settings": "Settings",
 
@@ -38,14 +38,14 @@
   "goback": "Go back",
   "filters": "Filters",
 
-  "chooseAreaTitle" : "Which Area would you like to look for Communities?",
-  "chooseAreaSubtitle" : "Any pick can be easily changed afterwards in the Settings Section.",
-  "chooseSectionTitle" : "What would you like to discover first?",
-  "chooseSectionSubtitle" : "Choose from the Menu above what you wish to explore in the Community!",
-  "startNextChooseSection" : "Step 2: Choose a Section",
+  "chooseAreaTitle" : "Where do you live?",
+  "chooseAreaSubtitle" : "You can change your choice at any time in the Settings Section.",
+  "chooseSectionTitle" : "What would you like to discover in your community?",
+  "chooseSectionSubtitle" : "Touch the ship’s wheel above to see a menu of options. This menu is always available to look at.",
+  "startNextChooseSection" : "Continue on",
 
   "welcome": "Welcome",
-  "welcome_in": "Welcome in {areaName}",
+  "welcome_in": "Welcome to {areaName}",
   "whatsnew_in": "What's new in {areaName}",
   "agenda_in": "Agenda in {areaName}",
   "photos_in": "Photos from {areaName}",
@@ -68,20 +68,20 @@
 
   "organisedby": "Organised by {name}",
 
-  "filterOptionOverall": "Overall",
-  "filtersTitleMain": "In here, you can refine your search!",
-  "filtersTitleActivities": "Choose one or more Activities that fits your interests!",
+  "filterOptionOverall": "All",
+  "filtersTitleMain": "This is where you can can refine your search!",
+  "filtersTitleActivities": "Choose one or more Activities that you are interested in",
   "filtersButtonApply": "Apply Selected Filters",
 
   "filterPaidAny": "Any",
   "filterPaidFree": "Free",
-  "filterPaidExpenses": "Expenses",
+  "filterPaidExpenses": "Paid",
 
   "filterStatusAny": "Any",
   "filterStatusNew": "New",
   "filterStatusCancelled": "Cancelled",
 
-  "nowhatsnew": "Sorry, there are no news in {areaName} at this time.",
+  "nowhatsnew": "Sorry, there is no news in {areaName} at this time.",
   "noactivities": "Sorry, there are no activities planned in {areaName}.",
   "noactivitiesfiltered": "Sorry, there are no {activityTypes} activities planned in {areaName}.",
   "nophotos": "Sorry, there are no photos from activities in {areaName}.",
@@ -138,7 +138,7 @@
 
   //
   //
-  "activity_feature_reach_host": "Want to reach Host?",
+  "activity_feature_reach_host": "Want to reach the Host?",
   "activity_feature_view_journal": "View Journal entries",
   "activity_feature_set_24h_reminder": "Set a 24h Reminder",
   "activity_feature_24h_reminder_active": "24h Reminder Activated",
@@ -193,7 +193,7 @@
   "nextmonth": "Next month",
   "later": "Later",
 
-  "weekly_view": "Weelkly view",
+  "weekly_view": "Weekly view",
   "monthly_view": "Monthly view",
 
   "from": "From",
