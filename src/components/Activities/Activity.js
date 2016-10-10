@@ -87,10 +87,32 @@ export default React.createClass({
     var session = this.props.session;
 
     var activity = Helpers.getActivityById(this.props.params.id, data);
-    var type = Helpers.getActivityTypeById(activity.typeId, data);
+
     var community = Helpers.getCommunityById(activity.communityId, data);
 
     var owner = activity.ownersId && activity.ownersId.length > 0 ? Helpers.getPersonById(activity.ownersId[0], data) : undefined;
+
+    // 
+    // main icon
+    //
+    var iconType = '';
+    var mainIcon = <div />;
+
+    if (session.subPage === null) {
+      iconType = Helpers.getActivityTypeById(activity.typeId, data);
+      mainIcon = <IconActivity type={iconType} area='activities'/>
+    }
+    else {
+      switch (session.subPage) {
+
+        case 'reachHost':
+        iconType = 'host'; // show "activity" icon when on subpage
+        mainIcon = <Icon size='large' type='activity' folder='service' color='filled' isActive={false}/>
+        break;
+
+      }
+
+    }
 
     //
     // load photos
@@ -400,7 +422,7 @@ export default React.createClass({
         icon: 'arrowleft',
         label: this.context.intl.formatMessage({ id: 'activity_feature_back_to_activity_details' }),
         isActive: true,
-        color: 'disabled', // TODO !!!
+        color: 'start',
         callback: this.onClickBackToActivityDetails,
       });
     }
@@ -578,7 +600,7 @@ export default React.createClass({
 
               <div className="text-center">
 
-                <IconActivity type={type} area='activities' isOnSolid={false}/>
+                {mainIcon}
 
                 <h2>{activity.name}</h2>
 

@@ -13,26 +13,34 @@
     .card {
       padding-top:40px;
       position:relative;
-    }
 
-    .time {
-      position: absolute;
-      right: 15px;
-      top: 18px;
-    }
-
-    .date {
-      position: absolute;
-      left: 15px;
-      top: 18px;
-    }
-
-    .moreFeatures {
-      .divLink:nth-child(2n) {
-        margin-left: 70px;
+      &.subpage {
+        background-color: $color2;
+        text-align:center;
+        h2 {
+          color: white;
+        }
       }
-      .divLink {
-        float: left;
+
+      .time {
+        position: absolute;
+        right: 15px;
+        top: 18px;
+      }
+
+      .date {
+        position: absolute;
+        left: 15px;
+        top: 18px;
+      }
+
+      .moreFeatures {
+        .divLink:nth-child(2n) {
+          margin-left: 70px;
+        }
+        .divLink {
+          float: left;
+        }
       }
     }
 
