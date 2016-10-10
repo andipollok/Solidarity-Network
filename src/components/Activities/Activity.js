@@ -213,6 +213,11 @@ export default React.createClass({
       startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
     }
 
+    var smallIconsColor = 'default';
+    if (session.subPage !== null) {
+      smallIconsColor = 'filled';
+    }
+
     // format start and end time
     var componentTime = <div className="time">
                           <span className="padded">
@@ -221,7 +226,7 @@ export default React.createClass({
                                 minute="2-digit"
                             hour="numeric" />
                           </span>
-                          <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                          <Icon type='time' folder='service' size='medium' color={smallIconsColor}/>
                         </div>
 
     if (activity.dateEnd) {
@@ -237,12 +242,12 @@ export default React.createClass({
                             minute="2-digit"
                             hour="numeric" />
                         </span>
-                        <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                        <Icon type='time' folder='service' size='medium' color={smallIconsColor}/>
                       </div>
     }
 
     var componentDate = <div className="date">
-                          <Icon type='calendar' folder='service' size='medium' area='secondaryinfo'/>
+                          <Icon type='calendar' folder='service' size='medium' color={smallIconsColor}/>
                           <span className="padded">
                             <FormattedDate
                               value={activity.date}
@@ -253,7 +258,7 @@ export default React.createClass({
                         </div>
 
     var componentLocation = <div className="location">
-                    <Icon type='location' folder='service' size='medium' area='secondaryinfo'/>
+                    <Icon type='location' folder='service' size='medium' color={smallIconsColor}/>
                     <span className="padded">{activity.location}</span>
                     </div>
 
