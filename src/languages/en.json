@@ -145,6 +145,10 @@
   //
   //
 
+  "activity_subpage_reachhost_content_name": "The Host of this event is {ownersName} and you can get in touch:",
+  "activity_subpage_reachhost_content_phone": "by phone {ownersPhone}",
+  "activity_subpage_reachhost_content_email": "by e-mail at {ownersEmail}",
+
   "activities_upcoming": "Upcoming activities",
   "activities_on": "Activities on",
   "stories_latest": "Latest stories",

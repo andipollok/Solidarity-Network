@@ -101,6 +101,10 @@
   }
 }
 
+.card.subpage {
+  background-color: $color2;
+}
+
 .news { 
   .card.outline { 
     border:2px solid $color_activity;

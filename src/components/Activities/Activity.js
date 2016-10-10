@@ -39,6 +39,8 @@ export default React.createClass({
 
   componentWillMount() {
 
+    this.props.setSessionVar( "subPage", null );
+
     // retrieving the related activities
     var data = this.props.data;
     var activity = Helpers.getActivityById(this.props.params.id, data);
@@ -61,6 +63,14 @@ export default React.createClass({
     window.location.assign(`#/photo/${id}/zoom`);
   },
 
+  onClickReachHost() {
+    this.props.setSessionVar( "subPage", 'reachHost' );
+  },
+
+  onClickBackToActivityDetails() {
+    this.props.setSessionVar( "subPage", null );
+  },
+
   // // for related events
   // onClickActivity(id) {
   //   window.location.assign("#/activity/" + id);
@@ -74,87 +84,101 @@ export default React.createClass({
 
     var data = this.props.data;
 
+    var session = this.props.session;
+
     var activity = Helpers.getActivityById(this.props.params.id, data);
     var type = Helpers.getActivityTypeById(activity.typeId, data);
     var community = Helpers.getCommunityById(activity.communityId, data);
 
-    var owner = activity.ownerIds && activity.ownerIds.length > 0 ? Helpers.getPersonById(activity.ownerId[0], data) : undefined;
+    var owner = activity.ownersId && activity.ownersId.length > 0 ? Helpers.getPersonById(activity.ownersId[0], data) : undefined;
 
     //
     // load photos
     //
-    activity.photoList = [];
-    activity.photoIds.map(function(photoId) {
-      var photo = Helpers.getPhotoById(photoId, data);
-      if (!photo) {
-        // this can happen if the photo exists but is not served by dataStore (e.g. if the field name was not filled out, dataStore ignores it)
-        return false;        
+
+    if (session.subPage === null) {
+
+      activity.photoList = [];
+      activity.photoIds.map(function(photoId) {
+        var photo = Helpers.getPhotoById(photoId, data);
+        if (!photo) {
+          // this can happen if the photo exists but is not served by dataStore (e.g. if the field name was not filled out, dataStore ignores it)
+          return false;        
+        }
+        // each photo contains an image array, as there can also be more than one attachment in Airtable.
+        photo.image.map(function(image) {
+          activity.photoList.push({
+            description: photo.description, // store the description for each photo
+            ownerId: photo.ownerId, // store the owner for each photo
+            url: image.url,
+            id: image.id,
+            type: image.type,
+            size: image.size,
+            thumbnail: image.thumbnails.large.url,
+            thumbnailSmall: image.thumbnails.small.url
+          });
+        }.bind(this))
+      }.bind(this));
+
+      var photoItem = function(photo) {
+        return (
+          <Row key={photo.id} className="bottom-buffer">
+            <div className="photo fullsize-photo">
+              <img src={photo.url} title={photo.description} onClick={this.onClickSelectPhoto.bind(this, photo.id)}/>
+              <br />
+              {photo.description}
+            </div>
+          </Row>
+        );
+      }.bind(this);
+
+      // show photos if available
+      // <p><FormattedMessage id="numberofphotos" values={{num: activity.photoList.length}} /></p>
+      if (activity.photoList.length > 0) {
+        var componentPhoto = <span>
+              <Col xs={12} className="top-buffer">
+                {activity.photoList.map(photoItem,this)}
+              </Col>
+            </span>
       }
-      // each photo contains an image array, as there can also be more than one attachment in Airtable.
-      photo.image.map(function(image) {
-        activity.photoList.push({
-          description: photo.description, // store the description for each photo
-          ownerId: photo.ownerId, // store the owner for each photo
-          url: image.url,
-          id: image.id,
-          type: image.type,
-          size: image.size,
-          thumbnail: image.thumbnails.large.url,
-          thumbnailSmall: image.thumbnails.small.url
-        });
-      }.bind(this))
-    }.bind(this));
 
-    var photoItem = function(photo) {
-      return (
-        <Row key={photo.id} className="bottom-buffer">
-          <div className="photo fullsize-photo">
-            <img src={photo.url} title={photo.description} onClick={this.onClickSelectPhoto.bind(this, photo.id)}/>
-            <br />
-            {photo.description}
-          </div>
-        </Row>
-      );
-    }.bind(this);
-
-    // show photos if available
-    // <p><FormattedMessage id="numberofphotos" values={{num: activity.photoList.length}} /></p>
-    if (activity.photoList.length > 0) {
-      var componentPhoto = <span>
-            <Col xs={12} className="top-buffer">
-              {activity.photoList.map(photoItem,this)}
-            </Col>
-          </span>
     }
 
     //
     // show one story if available
     //
-    activity.stories = data.stories.filter(function(story) {
-      if (story && story.activityId && story.activityId === activity.id) {
-        return true;
+
+    if (session.subPage === null) {
+
+      activity.stories = data.stories.filter(function(story) {
+        if (story && story.activityId && story.activityId === activity.id) {
+          return true;
+        }
+        return false;
+      });
+
+      if (activity.stories.length > 0) {
+       
+        var story = activity.stories[0]; // only take first story for now
+
+        var componentStory = <Row>
+              <Col xs={12} className="text-center buffer">
+
+                <Button bsSize="large" onClick={function() { window.location.assign(`#/story/${story.id}`); }}>
+                  <FormattedMessage id='read_story'/>
+                </Button>
+              
+              </Col>
+            </Row>
+
       }
-      return false;
-    });
 
-    if (activity.stories.length > 0) {
-     
-      var story = activity.stories[0]; // only take first story for now
-
-      var componentStory = <Row>
-            <Col xs={12} className="text-center buffer">
-
-              <Button bsSize="large" onClick={function() { window.location.assign(`#/story/${story.id}`); }}>
-                <FormattedMessage id='read_story'/>
-              </Button>
-            
-            </Col>
-          </Row>
-      }
+    }
 
     //
     // check if activity is in the past
     //
+
     var isInPast = new Date(activity.date) < new Date();
     
     var startingAt, registerToAttend;
@@ -215,7 +239,68 @@ export default React.createClass({
 
 
     //
-    // "More features" buttons (depend on the activity type and available data)
+    // Content
+    //
+
+    // default content
+    var content = <p className="content top-buffer">
+                   {activity.description}
+                  </p>;
+
+    // alternative content
+    if (session.subPage !== null) {
+
+      switch (session.subPage) {
+
+        case 'reachHost':
+
+          // let ownersName = activity.ownersName;
+          // let ownersContact = '';
+          // ownersContact += activity.ownersPhone ? activity.ownersPhone : '';
+          // ownersContact += ( activity.ownersPhone && activity.ownersEmail ) ? '\n' : '';
+          // ownersContact += activity.ownersEmail ? activity.ownersEmail : '';
+          let contactInfo = '';
+          if (activity.ownersEmail) {
+            if (activity.ownersPhone) {
+              // mail, phone
+              contactInfo = <p>
+                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: activity.ownersPhone}}/>
+                              <br/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: activity.ownersEmail}}/>
+                            </p>;
+            } else {
+              // mail, no phone
+              contactInfo = <p>
+                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: activity.ownersEmail}}/>
+                            </p>;
+            }
+          } else {
+            if (activity.ownersPhone) {
+              // no mail, phone
+              contactInfo = <p>
+                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: activity.ownersPhone}}/>
+                            </p>;
+            } else {
+              // no mail, no phone
+              // Should not happen anyway
+            }
+          }
+
+          content = <p className="content top-buffer">
+                      <FormattedMessage id="activity_subpage_reachhost_content_name" values={{ownersName: activity.ownersName}}/>
+                      {contactInfo}
+                    </p>;
+ 
+          break;
+
+      }
+
+    }
+
+
+
+    //
+    // "More features" buttons (can be modules or just nav buttons, and depend on the activity type & available data)
     //
 
     var moreFeatureButtonRender = function( feature ) {
@@ -245,37 +330,63 @@ export default React.createClass({
 
     var features = [];
 
-    features.push({
-      icon: 'host',
-      label: this.context.intl.formatMessage({ id: 'activity_feature_reach_host' }),
-      isActive: true,
-      // color: 'default',
-      // callback: '',
-    });
+    // Feature: module Reach Host
+    if (
+      session.subPage === null
+      && owner && activity.ownersName && ( activity.ownersPhone || activity.ownersEmail ) // only if there is an owner (whose contact info we can display)
+    ) {
+      features.push({
+        icon: 'host',
+        label: this.context.intl.formatMessage({ id: 'activity_feature_reach_host' }),
+        isActive: true,
+        // color: 'default',
+        callback: this.onClickReachHost,
+      });
+    }
 
-    features.push({
-      icon: 'reminder',
-      label: this.context.intl.formatMessage({ id: 'activity_feature_set_24h_reminder' }),
-      isActive: true,
-      // color: 'default',
-      // callback: '',
-    });
+    // Feature: module Reach Host
+    if (session.subPage === null) {
+      features.push({
+        icon: 'reminder',
+        label: this.context.intl.formatMessage({ id: 'activity_feature_set_24h_reminder' }),
+        isActive: true,
+        // color: 'default',
+        // callback: '',
+      });
+    }
 
-    features.push({
-      icon: 'location',
-      label: this.context.intl.formatMessage({ id: 'activity_feature_where_do_we_meet' }),
-      isActive: true,
-      // color: 'default',
-      // callback: '',
-    });
+    // Feature: module Reach Host
+    if (session.subPage === null) {
+      features.push({
+        icon: 'location',
+        label: this.context.intl.formatMessage({ id: 'activity_feature_where_do_we_meet' }),
+        isActive: true,
+        // color: 'default',
+        // callback: '',
+      });
+    }
 
-    features.push({
-      icon: 'journal',
-      label: this.context.intl.formatMessage({ id: 'activity_feature_view_journal' }),
-      isActive: true,
-      // color: 'default',
-      // callback: '',
-    });
+    // Feature: module Reach Host
+    if (session.subPage === null) {
+      features.push({
+        icon: 'journal',
+        label: this.context.intl.formatMessage({ id: 'activity_feature_view_journal' }),
+        isActive: true,
+        // color: 'default',
+        // callback: '',
+      });
+    }
+
+    // Feature: button Back to details
+    if (session.subPage !== null) {
+      features.push({
+        icon: 'arrowleft',
+        label: this.context.intl.formatMessage({ id: 'activity_feature_back_to_activity_details' }),
+        isActive: true,
+        color: 'disabled', // TODO !!!
+        callback: this.onClickBackToActivityDetails,
+      });
+    }
 
     // "activity_feature_reach_host"
     // "activity_feature_view_journal"
@@ -426,10 +537,14 @@ export default React.createClass({
     // Rendering of the component
     //
 
+    let cardClasses = classNames("card outline top-buffer", {
+      'subpage': session.subPage
+    });
+
     return (
       <div className="container activities activity">
 
-        <div className="card outline top-buffer">
+        <div className={cardClasses}>
 
           {componentDate}
 
@@ -448,9 +563,7 @@ export default React.createClass({
 
               </div>
 
-              <p className="content top-buffer">
-               {activity.description}
-              </p>
+              {content}
 
               {moreFeatures}
 
