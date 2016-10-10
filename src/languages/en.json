@@ -194,5 +194,8 @@
   "monthly_view": "Monthly view",
 
   "from": "From",
-  "to": "to"
+  "to": "to",
+
+  "Switzerland": "Switzerland",
+  "England": "England"
 }

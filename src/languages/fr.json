@@ -194,5 +194,8 @@
   "monthly_view": "Mensuel",
 
   "from": "De",
-  "to": "à"
+  "to": "à",
+
+  "Switzerland": "Suisse",
+  "England": "Angleterre"
 }
