@@ -478,8 +478,8 @@ export default React.createClass({
 
         return <div key={event.id} className="relatedActivityListItem" onClick={this.onClickRelatedActivity.bind(this, event.id)}>
             <Icon type='calendar' folder='service' size='medium'/>
-            <span className="whenIsDate">{whenIsDateRelativeToNow}</span>:&nbsp;
             <span className="eventDate">{date}</span>
+            &nbsp;(<span className="whenIsDate">{whenIsDateRelativeToNow}</span>)
             <span className="eventTime">
               <IconButton
                 type='time' folder='service'
