@@ -46,7 +46,7 @@ export default React.createClass({
 
     StatusActions.setPage('activity');
     StatusActions.showBackButton(true);
-    StatusActions.setTitle(<FormattedMessage id='activity' />);
+    StatusActions.setTitle(<FormattedMessage id='upcoming' />);
     StatusActions.setSecondaryNav(null);
     StatusActions.forceTrigger();
   },
