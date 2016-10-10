@@ -146,6 +146,10 @@
   //
   //
 
+  "activity_subpage_reachhost_content_name": "Le responsable de cette activité est {ownersName} et vous pouvez entrer en contact :",
+  "activity_subpage_reachhost_content_phone": "par téléphone au {ownersPhone}",
+  "activity_subpage_reachhost_content_email": "par e-mail à {ownersEmail}",
+
   "activities_upcoming": "Horizon",
   "activities_on": "Activités du",
   "stories_latest": "Derniers récits",
