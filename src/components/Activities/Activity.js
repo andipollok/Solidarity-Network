@@ -106,8 +106,7 @@ export default React.createClass({
       switch (session.subPage) {
 
         case 'reachHost':
-        iconType = 'host'; // show "activity" icon when on subpage
-        mainIcon = <Icon size='large' type='activity' folder='service' color='filled' isActive={false}/>
+        mainIcon = <Icon size='large' type='host' folder='service' color='filled' isActive={false}/>
         break;
 
       }
