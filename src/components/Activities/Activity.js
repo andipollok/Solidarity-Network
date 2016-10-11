@@ -548,7 +548,7 @@ export default React.createClass({
           // {futureEvents.map( renderRelatedEvent.bind(true), this )}
       relatedActivitiesRendered = <Row className="relatedEvents">
                                     <Row>
-                                      <h4>
+                                      <h4 className="text-center">
                                         <FormattedMessage id="activity_related_next" />
                                       </h4>
                                     </Row>
@@ -556,7 +556,7 @@ export default React.createClass({
                                       {futureEvents.map( renderRelatedEvent.bind(this, true), this )}
                                     </Row>
                                     <Row>
-                                      <h4>
+                                      <h4 className="text-center">
                                         <FormattedMessage id="activity_related_past" />
                                       </h4>
                                     </Row>
