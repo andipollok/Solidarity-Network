@@ -76,6 +76,16 @@ export default React.createClass({
   //   window.location.assign("#/activity/" + id);
   // },
 
+  // function to concatenate names like "a, b, c and d" or "a, b, c or d"
+  readableList(array, stringBetweenLastPair) {
+    var stringTranslated = this.context.intl.formatMessage({ id: 'and' });
+    if (stringBetweenLastPair === 'or') {
+      stringTranslated = this.context.intl.formatMessage({ id: 'or' });
+    }
+    var stringFormatted = array.length > 1 ? array.slice(0,-1).join(', ') + ` ${stringTranslated} ` + array[array.length -1] : array[0];
+    return stringFormatted;
+  },
+
   render() {
 
     //
@@ -289,22 +299,26 @@ export default React.createClass({
           if (activity.ownersEmail) {
             if (activity.ownersPhone) {
               // mail, phone
+              var ownersPhone = this.readableList(activity.ownersPhone, 'or');
+              var ownersEmail = this.readableList(activity.ownersEmail);
               contactInfo = <p>
-                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: activity.ownersPhone}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: ownersPhone}}/>
                               <br/>
-                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: activity.ownersEmail}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: ownersEmail}}/>
                             </p>;
             } else {
               // mail, no phone
+              var ownersEmail = this.readableList(activity.ownersEmail);
               contactInfo = <p>
-                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: activity.ownersEmail}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: ownersEmail}}/>
                             </p>;
             }
           } else {
             if (activity.ownersPhone) {
               // no mail, phone
+              var ownersPhone = this.readableList(activity.ownersPhone, 'or');
               contactInfo = <p>
-                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: activity.ownersPhone}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: ownersPhone}}/>
                             </p>;
             } else {
               // no mail, no phone
@@ -312,8 +326,9 @@ export default React.createClass({
             }
           }
 
+          var ownersName = this.readableList(activity.ownersName);
           content = <p className="content top-buffer">
-                      <FormattedMessage id="activity_subpage_reachhost_content_name" values={{ownersName: activity.ownersName}}/>
+                      <FormattedMessage id="activity_subpage_reachhost_content_name" values={{ownersName: ownersName}}/>
                       {contactInfo}
                     </p>;
  
