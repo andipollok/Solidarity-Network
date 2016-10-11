@@ -68,16 +68,16 @@
 
   "organisedby": "Organised by {name}",
 
-  "filterOptionOverall": "All",
+  "filterOptionOverall": "All activity types",
   "filtersTitleMain": "This is where you can can refine your search!",
   "filtersTitleActivities": "Choose one or more Activities that you are interested in",
-  "filtersButtonApply": "Apply Selected Filters",
+  "filtersButtonApply": "Apply my choices",
 
-  "filterPaidAny": "Any",
+  "filterPaidAny": "All",
   "filterPaidFree": "Free",
   "filterPaidExpenses": "Paid",
 
-  "filterStatusAny": "Any",
+  "filterStatusAny": "All",
   "filterStatusNew": "New",
   "filterStatusCancelled": "Cancelled",
 
