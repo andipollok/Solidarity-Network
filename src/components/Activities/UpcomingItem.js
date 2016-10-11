@@ -47,7 +47,7 @@ export default React.createClass({
 
     if (this.props.showIcon) {
       var componentIcon = <IconActivity type={type} area='activities' isOnSolid={false} />;
-      var componentIconSmall = <IconActivity type={type} area='activities' isOnSolid={false} size='small' />;
+      var componentIconSmall = <IconActivity type={type} area='activities' isOnSolid={false} size='medium' />;
     }
 
     if (this.props.showTime) {
