@@ -525,7 +525,9 @@ export default React.createClass({
         }
       }
 
-          // {futureEvents.map( renderRelatedEvent.bind(true), this )}
+      // Ordering past events so oldest appear last
+      pastEvents.reverse();
+      
       relatedActivitiesRendered = <Row className="relatedEvents">
                                     <Row>
                                       <h4>
