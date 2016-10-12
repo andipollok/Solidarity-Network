@@ -34,9 +34,6 @@ $iconSizeSmall: 40px; /* small icons are bigger than medium, because they have o
     &.bigger {
       width: $iconSizeBigger;
       height: $iconSizeBigger;
-      
-      top: calc(-$iconSizeBigger / 2);
-      margin-bottom: calc(-$iconSizeBigger);
 
       svg {
         width: $iconSizeBigger;
@@ -47,10 +44,6 @@ $iconSizeSmall: 40px; /* small icons are bigger than medium, because they have o
     &.medium {
       width: $iconSizeMedium;
       height: $iconSizeMedium;
-      
-      /* top: calc(-$iconSizeMedium / 2); */
-      top: -20px; /* adjust alignment hard-coded because it fits better to text that follows an icon */
-      margin-bottom: calc(-$iconSizeMedium);
 
       svg {
         width: $iconSizeMedium;

@@ -200,8 +200,6 @@ export default React.createClass({
       }
     }
 
-    console.log("startstep", this.state.session.startStep);
-
     return (
 
       <IntlProvider {...intldata}>

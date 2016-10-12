@@ -120,6 +120,11 @@ a:hover {
   }
 }
 
+/* hiding error messages when loading SVGs that don't exist or still load by react-svg-icons renderFallback */
+div[style="color:#c1272a;"]
+{
+  display:none;
+}
 
 
 /* Extra small devices (phones, below @screen-sm-min 768px) */

@@ -122,7 +122,7 @@ export default React.createClass({
       return ( <div key={country.id} className="country" onClick={this.onClickCountry.bind(this, country)}>
           <Icon type={country.iconName} folder='countries' color='filled' size='large' isActive={active} data={data}/>
           <br />
-          <FormattedMessage id={country.name}/>
+          <span className="text"><FormattedMessage id={country.name}/></span>
         </div> );
     }.bind(this);
     

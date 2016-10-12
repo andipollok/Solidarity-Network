@@ -85,13 +85,14 @@
   .activityButton {
     border:2px solid $color_activity;
     border-radius:9999px;
-    height:42px;
+    height:40px;
     line-height:40px;
     color:$color_activity;
-    width:101%; /* ugly hack that looks ugly */
-    left:-2px;
-    bottom:-2px;
-    position:absolute;
+    width: calc(100% + 4px);
+    left: -2px;
+    bottom: -2px;
+    position: absolute;
+
     .icon {
       float:right;
       position:relative;

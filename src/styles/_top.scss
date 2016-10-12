@@ -3,7 +3,9 @@
   .top-bar {
 
     height: 110px;
-    padding: 25px;
+    padding-top: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
 
     .top-left {
       float:left;
@@ -26,7 +28,7 @@
 
           position:relative;
           left:-31px;
-          top:5px;
+          top:-10px;
           z-index: 9999; /* Menu button is always on top */
 
           &.active {
@@ -65,7 +67,7 @@
 
     h1 {
       color:$color1;
-      padding-top: 4px;
+      margin-top: -2px;
       font-size: 17px;
       font-weight: 400;
     }

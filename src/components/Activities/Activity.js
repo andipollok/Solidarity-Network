@@ -76,6 +76,16 @@ export default React.createClass({
   //   window.location.assign("#/activity/" + id);
   // },
 
+  // function to concatenate names like "a, b, c and d" or "a, b, c or d"
+  readableList(array, stringBetweenLastPair) {
+    var stringTranslated = this.context.intl.formatMessage({ id: 'and' });
+    if (stringBetweenLastPair === 'or') {
+      stringTranslated = this.context.intl.formatMessage({ id: 'or' });
+    }
+    var stringFormatted = array.length > 1 ? array.slice(0,-1).join(', ') + ` ${stringTranslated} ` + array[array.length -1] : array[0];
+    return stringFormatted;
+  },
+
   render() {
 
     //
@@ -215,6 +225,11 @@ export default React.createClass({
       startingAt = <FormattedMessage id="startedat" defaultMessage=" "/>
     }
 
+    var smallIconsColor = 'default';
+    if (session.subPage !== null) {
+      smallIconsColor = 'filled';
+    }
+
     // format start and end time
     var componentTime = <div className="time">
                           <span className="padded">
@@ -223,7 +238,7 @@ export default React.createClass({
                                 minute="2-digit"
                             hour="numeric" />
                           </span>
-                          <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                          <Icon type='time' folder='service' size='medium' color={smallIconsColor}/>
                         </div>
 
     if (activity.dateEnd) {
@@ -239,12 +254,12 @@ export default React.createClass({
                             minute="2-digit"
                             hour="numeric" />
                         </span>
-                        <Icon type='time' folder='service' size='medium' area='secondaryinfo'/>
+                        <Icon type='time' folder='service' size='medium' color={smallIconsColor}/>
                       </div>
     }
 
     var componentDate = <div className="date">
-                          <Icon type='calendar' folder='service' size='medium' area='secondaryinfo'/>
+                          <Icon type='calendar' folder='service' size='medium' color={smallIconsColor}/>
                           <span className="padded">
                             <FormattedDate
                               value={activity.date}
@@ -255,7 +270,7 @@ export default React.createClass({
                         </div>
 
     var componentLocation = <div className="location">
-                    <Icon type='location' folder='service' size='medium' area='secondaryinfo'/>
+                    <Icon type='location' folder='service' size='medium' color={smallIconsColor}/>
                     <span className="padded">{activity.location}</span>
                     </div>
 
@@ -286,22 +301,26 @@ export default React.createClass({
           if (activity.ownersEmail) {
             if (activity.ownersPhone) {
               // mail, phone
+              var ownersPhone = this.readableList(activity.ownersPhone, 'or');
+              var ownersEmail = this.readableList(activity.ownersEmail);
               contactInfo = <p>
-                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: activity.ownersPhone}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: ownersPhone}}/>
                               <br/>
-                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: activity.ownersEmail}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: ownersEmail}}/>
                             </p>;
             } else {
               // mail, no phone
+              var ownersEmail = this.readableList(activity.ownersEmail);
               contactInfo = <p>
-                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: activity.ownersEmail}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_email" values={{ownersEmail: ownersEmail}}/>
                             </p>;
             }
           } else {
             if (activity.ownersPhone) {
               // no mail, phone
+              var ownersPhone = this.readableList(activity.ownersPhone, 'or');
               contactInfo = <p>
-                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: activity.ownersPhone}}/>
+                              <FormattedMessage id="activity_subpage_reachhost_content_phone" values={{ownersPhone: ownersPhone}}/>
                             </p>;
             } else {
               // no mail, no phone
@@ -309,8 +328,9 @@ export default React.createClass({
             }
           }
 
+          var ownersName = this.readableList(activity.ownersName);
           content = <p className="content top-buffer">
-                      <FormattedMessage id="activity_subpage_reachhost_content_name" values={{ownersName: activity.ownersName}}/>
+                      <FormattedMessage id="activity_subpage_reachhost_content_name" values={{ownersName: ownersName}}/>
                       {contactInfo}
                     </p>;
  
@@ -534,7 +554,7 @@ export default React.createClass({
       
       relatedActivitiesRendered = <Row className="relatedEvents">
                                     <Row>
-                                      <h4>
+                                      <h4 className="text-center">
                                         <FormattedMessage id="activity_related_next" />
                                       </h4>
                                     </Row>
@@ -542,7 +562,7 @@ export default React.createClass({
                                       {futureEvents.map( renderRelatedEvent.bind(this, true), this )}
                                     </Row>
                                     <Row>
-                                      <h4>
+                                      <h4 className="text-center">
                                         <FormattedMessage id="activity_related_past" />
                                       </h4>
                                     </Row>
