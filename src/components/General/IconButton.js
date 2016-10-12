@@ -56,7 +56,7 @@ var colors = {
   timeInfo: {
     labelText: color_grey,
     labelStroke: color2,
-    labelBackground: "white"
+    labelBackground: color_light
   },
 
   default: {
