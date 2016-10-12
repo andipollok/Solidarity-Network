@@ -646,10 +646,6 @@ export default React.createClass({
 
         </div>
 
-        <Row>
-          {componentStory}
-        </Row>
-
         {relatedActivitiesRendered}
 
       </div>
