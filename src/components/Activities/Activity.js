@@ -181,28 +181,30 @@ export default React.createClass({
 
     if (session.subPage === null) {
 
-      activity.stories = data.stories.filter(function(story) {
-        if (story && story.activityId && story.activityId === activity.id) {
-          return true;
-        }
-        return false;
-      });
+      // TODO: use a "More features" button instead - see below
 
-      if (activity.stories.length > 0) {
+      // activity.stories = data.stories.filter(function(story) {
+      //   if (story && story.activityId && story.activityId === activity.id) {
+      //     return true;
+      //   }
+      //   return false;
+      // });
+
+      // if (activity.stories.length > 0) {
        
-        var story = activity.stories[0]; // only take first story for now
+      //   var story = activity.stories[0]; // only take first story for now
 
-        var componentStory = <Row>
-              <Col xs={12} className="text-center buffer">
+      //   var componentStory = <Row>
+      //         <Col xs={12} className="text-center buffer">
 
-                <Button bsSize="large" onClick={function() { window.location.assign(`#/story/${story.id}`); }}>
-                  <FormattedMessage id='read_story'/>
-                </Button>
+      //           <Button bsSize="large" onClick={function() { window.location.assign(`#/story/${story.id}`); }}>
+      //             <FormattedMessage id='read_story'/>
+      //           </Button>
               
-              </Col>
-            </Row>
+      //         </Col>
+      //       </Row>
 
-      }
+      // }
 
     }
 
@@ -538,14 +540,18 @@ export default React.createClass({
       var futureEvents = [];
       var pastEvents = [];
       for (var event of related) {
-        if (moment(event.date) > moment(nowDate)) { // NB we compare to user's date, not to activity.date
-          futureEvents.push( event );
-        } else {
-          pastEvents.push( event );
+        if (!moment(event.date).isSame( moment(activity.date) )) {
+          if (moment(event.date).isAfter( moment(nowDate) )) { // NB we compare to user's date, not to activity.date
+            futureEvents.push( event );
+          } else {
+            pastEvents.push( event );
+          }
         }
       }
 
-          // {futureEvents.map( renderRelatedEvent.bind(true), this )}
+      // Ordering past events so oldest appear last
+      pastEvents.reverse();
+      
       relatedActivitiesRendered = <Row className="relatedEvents">
                                     <Row>
                                       <h4 className="text-center">
