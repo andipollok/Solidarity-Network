@@ -50,6 +50,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
+    StatusStore.resetAllActivityFilters();
     this.props.setSessionVar( "startStep", 1 );
     StatusActions.setPage('start');
     StatusActions.setTitle(null);

@@ -88,6 +88,13 @@ export default Reflux.createStore({
   },
 
 
+  resetAllActivityFilters: function() {
+    this.data.filters.activityType = {};
+    this.data.filters.activityPaid = undefined;
+    this.data.filters.activityStatus = undefined;
+    // DataActions.onFilterChange(); // ?
+  },
+
   resetFilterActivityType: function() {
     this.data.filters.activityType = {};
     DataActions.onFilterChange();
