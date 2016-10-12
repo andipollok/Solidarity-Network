@@ -518,10 +518,12 @@ export default React.createClass({
       var futureEvents = [];
       var pastEvents = [];
       for (var event of related) {
-        if (moment(event.date) > moment(nowDate)) { // NB we compare to user's date, not to activity.date
-          futureEvents.push( event );
-        } else {
-          pastEvents.push( event );
+        if (!moment(event.date).isSame( moment(activity.date) )) {
+          if (moment(event.date).isAfter( moment(nowDate) )) { // NB we compare to user's date, not to activity.date
+            futureEvents.push( event );
+          } else {
+            pastEvents.push( event );
+          }
         }
       }
 
