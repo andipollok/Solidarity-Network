@@ -417,7 +417,7 @@ export default Reflux.createStore({
 
     // IMPORTANT: to refresh the data we must delete this. Think of it as a cache.
     this.data.activities=  [];
-    this.data.loaded.activities = false;
+    // this.data.loaded.activities = false; // Let's not set it to false on reloads
 
     // Nah. That was stupid
     // this.data.activitytypesWithEvents = [];

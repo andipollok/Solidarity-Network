@@ -26,7 +26,10 @@ export default React.createClass({
   },
 
   getInitialState() {
-    return {};
+    return {
+      activityPaid: StatusStore.data.filters.activityPaid,
+      activityStatus: StatusStore.data.filters.activityStatus
+    };
   },
 
   componentWillMount() {
@@ -121,6 +124,16 @@ export default React.createClass({
 
   },
 
+  resetFilterActivityPaid() {
+    this.setState({ activityPaid: undefined });
+    StatusStore.resetFilterActivityPaid();
+  },
+
+  setFilterActivityPaid(value) {
+    this.setState({ activityPaid: value });
+    StatusStore.setFilterActivityPaid(value);
+  },
+
   renderFilter_Fees() {
 
     var data = this.props.data;
@@ -133,13 +146,14 @@ export default React.createClass({
     let label2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
     let label3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
 
-    let active1 = StatusStore.data.filters.activityPaid === undefined;
-    let active2 = StatusStore.data.filters.activityPaid === 0;
-    let active3 = StatusStore.data.filters.activityPaid === 1;
+    let active1 = this.state.activityPaid === undefined;
+    let active2 = this.state.activityPaid === 0;
+    let active3 = this.state.activityPaid === 1;
 
-    let callback1 = StatusStore.resetFilterActivityPaid.bind(StatusStore);
-    let callback2 = StatusStore.setFilterActivityPaid.bind(StatusStore, 0);
-    let callback3 = StatusStore.setFilterActivityPaid.bind(StatusStore, 1);
+    let callback1 = this.resetFilterActivityPaid;
+    let callback2 = this.setFilterActivityPaid.bind(this, 0);
+    let callback3 = this.setFilterActivityPaid.bind(this, 1);
+
 
     return <div className="filterOptions">
             <div className="filterOptionInlineItem" onClick={callback1}>
@@ -161,6 +175,16 @@ export default React.createClass({
 
   },
 
+  resetFilterActivityStatus() {
+    this.setState({ activityStatus: undefined });
+    StatusStore.resetFilterActivityStatus();
+  },
+
+  setFilterActivityStatus(value) {
+    this.setState({ activityStatus: value });
+    StatusStore.setFilterActivityStatus(value);
+  },
+
   renderFilter_Status() {
 
     var data = this.props.data;
@@ -173,13 +197,13 @@ export default React.createClass({
     let label2 = this.context.intl.formatMessage({ id: 'filterStatusNew' });
     let label3 = this.context.intl.formatMessage({ id: 'filterStatusCancelled' });
 
-    let active1 = StatusStore.data.filters.activityStatus === undefined;
-    let active2 = StatusStore.data.filters.activityStatus === 'new';
-    let active3 = StatusStore.data.filters.activityStatus === 'cancelled';
+    let active1 = this.state.activityStatus === undefined;
+    let active2 = this.state.activityStatus === 'new';
+    let active3 = this.state.activityStatus === 'cancelled';
 
-    let callback1 = StatusStore.resetFilterActivityStatus.bind(StatusStore);
-    let callback2 = StatusStore.setFilterActivityStatus.bind(StatusStore, 'new');
-    let callback3 = StatusStore.setFilterActivityStatus.bind(StatusStore, 'cancelled');
+    let callback1 = this.resetFilterActivityStatus;
+    let callback2 = this.setFilterActivityStatus.bind(this, 'new');
+    let callback3 = this.setFilterActivityStatus.bind(this, 'cancelled');
 
     // WITH "NEW"
     // return <div className="filterOptions">
