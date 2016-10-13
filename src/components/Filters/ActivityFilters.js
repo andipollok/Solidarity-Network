@@ -27,8 +27,9 @@ export default React.createClass({
 
   getInitialState() {
     return {
-      activityPaid: StatusStore.data.filters.activityPaid,
-      activityStatus: StatusStore.data.filters.activityStatus
+      filter_activityPaid: StatusStore.data.filters.activityPaid,
+      filter_activityStatus: StatusStore.data.filters.activityStatus,
+      filter_activityType: StatusStore.data.filters.activityType || {}
     };
   },
 
@@ -87,20 +88,50 @@ export default React.createClass({
 
   },
 
+  resetFilterActivityType() {
+    // component state
+    this.setState({ filter_activityType: {} });
+    // status store
+    StatusStore.resetFilterActivityType();
+  },
+
+  removeFromFilterActivityType(activityTypeValue) {
+    // component state
+    let filter = this.state.filter_activityType;
+    if (filter[activityTypeValue.name]) {
+      delete filter[activityTypeValue.name];
+    }
+    this.setState({ filter_activityType: filter });
+    // status store
+    StatusStore.removeFromFilterActivityType(activityTypeValue);
+  },
+
+  addToFilterActivityType(activityTypeValue) {
+    // component state
+    if (!this.state.filter_activityType) {
+      this.setState({ filter_activityType: {} });
+    }
+    let filter = this.state.filter_activityType;
+    filter[activityTypeValue.name] = activityTypeValue;
+    this.setState({ filter_activityType: filter });
+    // status store
+    StatusStore.addToFilterActivityType(activityTypeValue);
+  },
+
   renderFilter_Activities_AvailableOptions() {
 
     var currentFilter = null;
-    if (StatusStore.data.filters.activityType) {
-      currentFilter = Object.keys(StatusStore.data.filters.activityType);
+    if (this.state.filter_activityType) {
+      currentFilter = Object.keys(this.state.filter_activityType);
     }
 
     var activityItem = function(activity) {
       var callback = undefined;
       var active = currentFilter && currentFilter.indexOf(activity.name) >= 0;
       if (active) {
-        callback = StatusStore.removeFromFilterActivityType.bind(StatusStore, activity);
+        callback = this.removeFromFilterActivityType.bind(this, activity);
       } else {
-        callback = StatusStore.addToFilterActivityType.bind(StatusStore, activity);
+        callback = this.addToFilterActivityType.bind(this, activity);
       }
       return ( <div key={activity.id} className="activityType" onClick={callback}>
           <Icon type={activity.icon} folder='activities' color='filled' size='small' isActive={active}/>
@@ -111,11 +142,14 @@ export default React.createClass({
 
     let overAllItemName = this.context.intl.formatMessage({ id: 'filterOptionOverall' });;
     let overAllItemActive = !currentFilter || currentFilter.length == 0;
-    let overAllItem = <div className="activityType" onClick={StatusStore.resetFilterActivityType.bind(StatusStore)}>
+    let overAllItem = <div className="activityType" onClick={this.resetFilterActivityType}>
           <Icon type='overall' folder='service' color='filled' size='small' isActive={overAllItemActive}/>
           <br />
           <span className="text">{overAllItemName}</span>
         </div>;
+
+    console.log(currentFilter);
+    console.log(DataStore.data.activitytypes);
 
     return <div className="activityTypes filterOptions">
         {overAllItem}
@@ -125,12 +159,16 @@ export default React.createClass({
   },
 
   resetFilterActivityPaid() {
-    this.setState({ activityPaid: undefined });
+    // component state
+    this.setState({ filter_activityPaid: undefined });
+    // status store
     StatusStore.resetFilterActivityPaid();
   },
 
   setFilterActivityPaid(value) {
-    this.setState({ activityPaid: value });
+    // component state
+    this.setState({ filter_activityPaid: value });
+    // status store
     StatusStore.setFilterActivityPaid(value);
   },
 
@@ -146,9 +184,9 @@ export default React.createClass({
     let label2 = this.context.intl.formatMessage({ id: 'filterPaidFree' });
     let label3 = this.context.intl.formatMessage({ id: 'filterPaidExpenses' });
 
-    let active1 = this.state.activityPaid === undefined;
-    let active2 = this.state.activityPaid === 0;
-    let active3 = this.state.activityPaid === 1;
+    let active1 = this.state.filter_activityPaid === undefined;
+    let active2 = this.state.filter_activityPaid === 0;
+    let active3 = this.state.filter_activityPaid === 1;
 
     let callback1 = this.resetFilterActivityPaid;
     let callback2 = this.setFilterActivityPaid.bind(this, 0);
@@ -176,12 +214,16 @@ export default React.createClass({
   },
 
   resetFilterActivityStatus() {
-    this.setState({ activityStatus: undefined });
+    // component state
+    this.setState({ filter_activityStatus: undefined });
+    // status store
     StatusStore.resetFilterActivityStatus();
   },
 
   setFilterActivityStatus(value) {
-    this.setState({ activityStatus: value });
+    // component state
+    this.setState({ filter_activityStatus: value });
+    // status store
     StatusStore.setFilterActivityStatus(value);
   },
 
@@ -197,9 +239,9 @@ export default React.createClass({
     let label2 = this.context.intl.formatMessage({ id: 'filterStatusNew' });
     let label3 = this.context.intl.formatMessage({ id: 'filterStatusCancelled' });
 
-    let active1 = this.state.activityStatus === undefined;
-    let active2 = this.state.activityStatus === 'new';
-    let active3 = this.state.activityStatus === 'cancelled';
+    let active1 = this.state.filter_activityStatus === undefined;
+    let active2 = this.state.filter_activityStatus === 'new';
+    let active3 = this.state.filter_activityStatus === 'cancelled';
 
     let callback1 = this.resetFilterActivityStatus;
     let callback2 = this.setFilterActivityStatus.bind(this, 'new');
