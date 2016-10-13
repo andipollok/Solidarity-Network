@@ -46,8 +46,8 @@ export default React.createClass({
     }
 
     if (this.props.showIcon) {
-      var componentIcon = <IconActivity type={type} area='activities' isOnSolid={false} />;
-      var componentIconSmall = <IconActivity type={type} area='activities' isOnSolid={false} size='medium' />;
+      var componentIcon = <IconActivity type={type} area='activities' />;
+      var componentIconSmall = <IconActivity type={type} area='activities' size='medium' />;
     }
 
     if (this.props.showTime) {
@@ -92,7 +92,7 @@ export default React.createClass({
                               value={activity.date}
                               minute="2-digit"
                               hour="numeric" />
-                            &nbsp;-&nbsp;
+                            &ndash;
                             <FormattedTime
                               value={activity.dateEnd}
                               minute="2-digit"
@@ -103,6 +103,10 @@ export default React.createClass({
 
       // format start and end time
       var componentTimeList = <span className="timeInfo">
+                                <Icon
+                                  type='time' folder='service'
+                                  color='default'
+                                  size='medium' />
                                 <FormattedTime
                                   value={activity.date}
                                   minute="2-digit"
@@ -111,11 +115,15 @@ export default React.createClass({
 
       if (activity.dateEnd) {
         componentTimeList = <span className="timeInfo">
+                                <Icon
+                                  type='time' folder='service'
+                                  color='default'
+                                  size='medium' />
                               <FormattedTime
                                 value={activity.date}
                                 minute="2-digit"
                                 hour="numeric" />
-                              &nbsp;-&nbsp;
+                              &ndash;
                               <FormattedTime
                                 value={activity.dateEnd}
                                 minute="2-digit"
@@ -140,12 +148,12 @@ export default React.createClass({
 
             <span className="eventTime">
               <IconButton
-                type='time' folder='service'
+                type='activity' folder='service'
                 color='timeInfo'
                 size='medium'
                 isActive={true}
                 labelAlignment='center' iconPosition='right'
-                label="" />
+                label='' />
               {componentTimeList}
             </span>
 

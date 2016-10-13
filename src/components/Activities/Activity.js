@@ -549,26 +549,40 @@ export default React.createClass({
         }
       }
 
+      var activity_related_futureHeading = <span />;
+      if (futureEvents.length > 0) {
+        activity_related_futureHeading = (
+          <Col sm={12}>
+            <h4 className="text-center">
+              <FormattedMessage id="activity_related_next" />
+            </h4>
+          </Col>);
+      }
+      var activity_related_pastHeading = <span />;
+      if (pastEvents.length > 0) {
+        activity_related_pastHeading =  (
+          <Col sm={12}>
+            <h4 className="text-center">
+              <FormattedMessage id="activity_related_past" />
+            </h4>
+          </Col>);
+      }
+
       // Ordering past events so oldest appear last
       pastEvents.reverse();
       
       relatedActivitiesRendered = <Row className="relatedEvents">
-                                    <Row>
-                                      <h4 className="text-center">
-                                        <FormattedMessage id="activity_related_next" />
-                                      </h4>
-                                    </Row>
-                                    <Row>
+                                    
+                                    {activity_related_futureHeading}
+                                    <Col sm={12}>
                                       {futureEvents.map( renderRelatedEvent.bind(this, true), this )}
-                                    </Row>
-                                    <Row>
-                                      <h4 className="text-center">
-                                        <FormattedMessage id="activity_related_past" />
-                                      </h4>
-                                    </Row>
-                                    <Row>
+                                    </Col>
+                                    
+                                    {activity_related_pastHeading}
+                                    <Col sm={12}>
                                       {pastEvents.map( renderRelatedEvent.bind(this, false), this )}
-                                    </Row>
+                                    </Col>
+
                                   </Row>
 
       // TODO later: with StepBullets
