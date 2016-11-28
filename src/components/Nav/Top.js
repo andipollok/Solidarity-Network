@@ -194,7 +194,7 @@ export default React.createClass({
 
       case 'activity':
         return {
-          icon: 'list',
+          icon: 'cards',
           label: label,
           callback: undefined,
           active: thisIsThePreferredLayoutAlready,
